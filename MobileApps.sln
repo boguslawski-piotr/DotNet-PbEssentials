@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SafeNotebooks.iOS", "SafeNo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SafeNotebooks.Droid", "SafeNotebooks\Droid\SafeNotebooks.Droid.csproj", "{E91DD25D-EE76-4F97-8689-DF007B20A6C7}"
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "pbXForms", "pbXForms\pbXForms.shproj", "{2EC89D71-92C3-4121-801C-2975C54C7135}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|iPhoneSimulator = Debug|iPhoneSimulator
