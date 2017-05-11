@@ -11,5 +11,6 @@
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)FlatButton.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Metrics.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SearchBar.cs" />
   </ItemGroup>
 </Project>
