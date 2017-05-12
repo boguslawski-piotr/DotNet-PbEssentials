@@ -10,6 +10,15 @@ namespace pbXForms
 #endif
 	{
 #if !__IOS__
+
+		// TODO: public Button+ButtonContentLayout ContentLayout { get; set; }
+		// TODO: public ICommand Command { get; set; }
+		// TODO: public Object CommandParameter { get; set; }
+
+		// TODO: get...
+
+		// TODO: bindable?
+
 		private Label _Label
 		{
 			get
@@ -86,6 +95,8 @@ namespace pbXForms
 			VerticalOptions = LayoutOptions.Center;
 
 			Margin = new Thickness(0);
+
+			//BackgroundColor = Color.Red;
 
 #if !__IOS__
 

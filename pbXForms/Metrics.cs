@@ -4,23 +4,24 @@ namespace pbXForms
 	public class Metrics
 	{
 #if __IOS__
-		public static int StatusBarHeight = 20;
+		public static double StatusBarHeight = 20;
 #endif
 #if __ANDROID__
-		public static int StatusBarHeight = 24;
+		public static double StatusBarHeight = 24;
 #endif
-		public static int ScreenEdgeMargin = 16;
+		public static double ScreenEdgeMargin = 16;
 
-		public static int AppBarHeightPortrait = 56;
-		public static int AppBarHeightLandscape = 48;
+		public static double AppBarHeightPortrait = 56;
+		public static double AppBarHeightLandscape = 48;
 
-		public static int ToolBarHeightPortrait = 48;
-		public static int ToolBarHeightLandscape = 48;
-		public static int ToolBarItemsSpacing = 24;
+		public static double ToolBarHeight = 48;
 
-		public static int TouchTargetHeight = 48;
-		public static int IconHeight = 24;
+		public static double ToolBarItemsSpacing = 2;
+		public static double ToolBarItemsWideSpacing = 16;
 
-		public static int ButtonItemsSpacing = 8;
+		public static double ButtonItemsSpacing = 8;
+
+		public static double TouchTargetHeight = 48;
+		public static double IconHeight = 24;
 	}
 }
