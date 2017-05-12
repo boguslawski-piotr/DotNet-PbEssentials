@@ -14,7 +14,6 @@ namespace pbXForms
 		public static double AppBarHeightPortrait = 56;
 		public static double AppBarHeightLandscape = 48;
 
-		public static double ToolBarHeight = 48;
 		public static double ToolBarHeightPortrait = 48;
 		public static double ToolBarHeightLandscape = 48;
 
