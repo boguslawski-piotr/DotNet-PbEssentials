@@ -13,5 +13,13 @@
     <Compile Include="$(MSBuildThisFileDirectory)Metrics.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SearchBar.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Tools.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ContentPageEx.xaml.cs">
+      <DependentUpon>ContentPageEx.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)ContentPageEx.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>
