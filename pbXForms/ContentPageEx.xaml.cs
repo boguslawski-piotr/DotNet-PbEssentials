@@ -14,7 +14,13 @@ namespace pbXForms
 
 		//
 
-		protected bool AppBarCoversStatusBar = false;
+		protected bool PageCoversStatusBar =
+#if __IOS__
+			true;
+#endif
+#if __ANDROID__ || WINDOWS_UWP
+			false;
+#endif
 
 		public Layout<View> AppBarRow
 		{
@@ -54,20 +60,17 @@ namespace pbXForms
 				this._osa_width = width;
 				this._osa_height = height;
 		
-				bool IsLandscape = (Tools.DeviceOrientation == DeviceOrientations.Landscape);
+				bool IsLandscape = (DeviceEx.Orientation == DeviceOrientations.Landscape);
 
-#if __IOS__
-				bool StatusBarVisible = !IsLandscape || Device.Idiom == TargetIdiom.Tablet;
-#endif
-#if __ANDROID__
-				bool StatusBarVisible = AppBarCoversStatusBar;
-#endif
+				bool StatusBarVisible = DeviceEx.StatusBarVisible;
 
-				Grid.RowDefinitions[0].Height = (IsLandscape ? Metrics.AppBarHeightLandscape : Metrics.AppBarHeightPortrait) + (StatusBarVisible ? Metrics.StatusBarHeight : 0);
+				Grid.RowDefinitions[0].Height = 
+					(IsLandscape ? Metrics.AppBarHeightLandscape : Metrics.AppBarHeightPortrait) 
+					+ ((StatusBarVisible && PageCoversStatusBar) ? Metrics.StatusBarHeight : 0);
 
 				_AppBarRow.Padding = new Thickness(
 					0,
-					StatusBarVisible ? Metrics.StatusBarHeight : 0,
+					(StatusBarVisible && PageCoversStatusBar) ? Metrics.StatusBarHeight : 0,
 					0,
 					0);
 
