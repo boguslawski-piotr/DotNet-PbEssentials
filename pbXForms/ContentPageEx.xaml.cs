@@ -55,17 +55,17 @@ namespace pbXForms
 		protected override void OnSizeAllocated(double width, double height)
 		{
 			base.OnSizeAllocated(width, height);
-		    if (this._osa_width != width || this._osa_height != height)
+			if (this._osa_width != width || this._osa_height != height)
 			{
 				this._osa_width = width;
 				this._osa_height = height;
-		
+
 				bool IsLandscape = (DeviceEx.Orientation == DeviceOrientations.Landscape);
 
 				bool StatusBarVisible = DeviceEx.StatusBarVisible;
 
-				Grid.RowDefinitions[0].Height = 
-					(IsLandscape ? Metrics.AppBarHeightLandscape : Metrics.AppBarHeightPortrait) 
+				Grid.RowDefinitions[0].Height =
+					(IsLandscape ? Metrics.AppBarHeightLandscape : Metrics.AppBarHeightPortrait)
 					+ ((StatusBarVisible && PageCoversStatusBar) ? Metrics.StatusBarHeight : 0);
 
 				_AppBarRow.Padding = new Thickness(

@@ -57,7 +57,7 @@ namespace pbXForms
 			get
 			{
 #if __IOS__
-				return 
+				return
 					DeviceEx.Orientation != DeviceOrientations.Landscape
 					|| Device.Idiom == TargetIdiom.Tablet;
 #endif
