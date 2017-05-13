@@ -33,7 +33,12 @@ namespace pbXForms
 			get { return _AppBarRow.Children; }
 		}
 
-		public IList<View> ContentEx
+		public Layout<View> ContentRow
+		{
+			get { return _ContentRow; }
+		}
+
+        public IList<View> ContentEx
 		{
 			get { return _ContentRow.Children; }
 		}
