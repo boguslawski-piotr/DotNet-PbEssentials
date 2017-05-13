@@ -13,19 +13,19 @@ using Xamarin.Forms;
 
 namespace pbXForms
 {
-	public enum DeviceOrientations
-	{
-		Undefined,
-		Landscape,
-		Portrait
-	}
+    public enum DeviceOrientations
+    {
+        Undefined,
+        Landscape,
+        Portrait
+    }
 
-	static public class DeviceEx
-	{
-		static public DeviceOrientations Orientation
-		{
-			get
-			{
+    static public class DeviceEx
+    {
+        static public DeviceOrientations Orientation
+        {
+            get
+            {
 #if __IOS__
 				var currentOrientation = UIApplication.SharedApplication.StatusBarOrientation;
 
@@ -34,7 +34,7 @@ namespace pbXForms
 					|| currentOrientation == UIInterfaceOrientation.PortraitUpsideDown;
 
 				return isPortrait ? DeviceOrientations.Portrait : DeviceOrientations.Landscape;
-#endif
+#else
 #if __ANDROID__
 				IWindowManager windowManager = Android.App.Application.Context.GetSystemService(Context.WindowService).JavaCast<IWindowManager>();
 
@@ -42,20 +42,25 @@ namespace pbXForms
 				bool isLandscape = rotation == SurfaceOrientation.Rotation90 || rotation == SurfaceOrientation.Rotation270;
 
 				return isLandscape ? DeviceOrientations.Landscape : DeviceOrientations.Portrait;
-#endif
+#else
 #if WINDOWS_UWP
 				var orientation = Windows.UI.ViewManagement.ApplicationView.GetForCurrentView().Orientation;
 	            if (orientation == Windows.UI.ViewManagement.ApplicationViewOrientation.Landscape)
 					return DeviceOrientations.Landscape;
                 return DeviceOrientations.Portrait;
+#else
+                // macOS
+                return DeviceOrientations.Landscape;
 #endif
-			}
-		}
+#endif
+#endif
+            }
+        }
 
-		static public bool StatusBarVisible
-		{
-			get
-			{
+        static public bool StatusBarVisible
+        {
+            get
+            {
 #if __IOS__
 				return
 					DeviceEx.Orientation != DeviceOrientations.Landscape
@@ -63,9 +68,12 @@ namespace pbXForms
 #endif
 #if __ANDROID__ || WINDOWS_UWP
 				return true;
+#else
+                // macOS
+                return false;
 #endif
-			}
-		}
+            }
+        }
 
-	}
+    }
 }

@@ -19,12 +19,11 @@ namespace pbXForms
 		protected bool PageCoversStatusBar =
 #if __IOS__
 			true;
-#endif
-#if __ANDROID__ || WINDOWS_UWP
-			false;
+#else
+            false;
 #endif
 
-		public Layout<View> AppBarRow
+        public Layout<View> AppBarRow
 		{
 			get { return _AppBarRow; }
 		}

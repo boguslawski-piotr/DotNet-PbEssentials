@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SafeNotebooks.Droid", "Safe
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "pbXForms", "pbXForms\pbXForms.shproj", "{2EC89D71-92C3-4121-801C-2975C54C7135}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SafeNotebooks.Mac", "SafeNotebooks\Mac\SafeNotebooks.Mac.csproj", "{7F4FAECE-5E0E-488D-9F5B-3C85B34C9B69}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|iPhoneSimulator = Debug|iPhoneSimulator
@@ -43,5 +45,17 @@ Global
 		{E91DD25D-EE76-4F97-8689-DF007B20A6C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E91DD25D-EE76-4F97-8689-DF007B20A6C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E91DD25D-EE76-4F97-8689-DF007B20A6C7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F4FAECE-5E0E-488D-9F5B-3C85B34C9B69}.Debug|iPhoneSimulator.ActiveCfg = Debug|iPhoneSimulator
+		{7F4FAECE-5E0E-488D-9F5B-3C85B34C9B69}.Debug|iPhoneSimulator.Build.0 = Debug|iPhoneSimulator
+		{7F4FAECE-5E0E-488D-9F5B-3C85B34C9B69}.Release|iPhone.ActiveCfg = Release|iPhoneSimulator
+		{7F4FAECE-5E0E-488D-9F5B-3C85B34C9B69}.Release|iPhone.Build.0 = Release|iPhoneSimulator
+		{7F4FAECE-5E0E-488D-9F5B-3C85B34C9B69}.Release|iPhoneSimulator.ActiveCfg = Release|iPhoneSimulator
+		{7F4FAECE-5E0E-488D-9F5B-3C85B34C9B69}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
+		{7F4FAECE-5E0E-488D-9F5B-3C85B34C9B69}.Debug|iPhone.ActiveCfg = Debug|iPhoneSimulator
+		{7F4FAECE-5E0E-488D-9F5B-3C85B34C9B69}.Debug|iPhone.Build.0 = Debug|iPhoneSimulator
+		{7F4FAECE-5E0E-488D-9F5B-3C85B34C9B69}.Debug|Any CPU.ActiveCfg = Debug|iPhoneSimulator
+		{7F4FAECE-5E0E-488D-9F5B-3C85B34C9B69}.Debug|Any CPU.Build.0 = Debug|iPhoneSimulator
+		{7F4FAECE-5E0E-488D-9F5B-3C85B34C9B69}.Release|Any CPU.ActiveCfg = Release|iPhoneSimulator
+		{7F4FAECE-5E0E-488D-9F5B-3C85B34C9B69}.Release|Any CPU.Build.0 = Release|iPhoneSimulator
 	EndGlobalSection
 EndGlobal

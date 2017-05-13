@@ -5,11 +5,14 @@ namespace pbXForms
 	{
 #if __IOS__
 		public static double StatusBarHeight = 20;
-#endif
+#else
 #if __ANDROID__
 		public static double StatusBarHeight = 24;
+#else
+		public static double StatusBarHeight = 0;
 #endif
-		public static double ScreenEdgeMargin = 16;
+#endif
+        public static double ScreenEdgeMargin = 16;
 
 		public static double AppBarHeightPortrait = 56;
 		public static double AppBarHeightLandscape = 48;
