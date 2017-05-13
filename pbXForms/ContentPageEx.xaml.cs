@@ -76,8 +76,14 @@ namespace pbXForms
 
 				if (ToolBar.Count > 0)
 					Grid.RowDefinitions[2].Height = (IsLandscape ? Metrics.ToolBarHeightLandscape : Metrics.ToolBarHeightPortrait);
+
+				OnLayoutFixed();
 			}
 
+		}
+
+		protected virtual void OnLayoutFixed()
+		{
 		}
 
 	}
