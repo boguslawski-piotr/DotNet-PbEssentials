@@ -3,9 +3,9 @@ using Xamarin.Forms;
 
 namespace pbXForms
 {
-	public class SearchBar : Xamarin.Forms.SearchBar
+	public class SearchBarEx : Xamarin.Forms.SearchBar
 	{
-		public SearchBar()
+		public SearchBarEx()
 		{
 			//Margin = new Thickness(0);
 		}

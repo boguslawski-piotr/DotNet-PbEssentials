@@ -6,7 +6,7 @@ using Xamarin.Forms.Xaml;
 
 namespace pbXForms
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
+	//[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class ContentPageEx : ContentPage
 	{
 		public ContentPageEx()
