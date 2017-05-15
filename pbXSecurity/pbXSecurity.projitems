@@ -9,6 +9,14 @@
     <Import_RootNamespace>pbXSecurity</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)MyClass.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CredentialsManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)iOSmacOS\CredentialsManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Droid\CredentialsManager.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)iOSmacOS\" />
+    <Folder Include="$(MSBuildThisFileDirectory)iOS\" />
+    <Folder Include="$(MSBuildThisFileDirectory)macOS\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Droid\" />
   </ItemGroup>
 </Project>
