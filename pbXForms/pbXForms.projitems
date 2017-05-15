@@ -12,7 +12,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)FlatButton.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Metrics.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SearchBarEx.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Tools.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ContentPageEx.xaml.cs">
       <DependentUpon>ContentPageEx.xaml</DependentUpon>
     </Compile>

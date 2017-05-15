@@ -1,71 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ContentPage 
-	xmlns="http://xamarin.com/schemas/2014/forms" 
-	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:pbXForms="clr-namespace:pbXForms"
-	x:Class="pbXForms.ContentPageEx"
->
+    x:Class="pbXForms.ContentPageEx">
 
-	<ContentPage.Content>
-		
-	<Grid
-		x:Name="Grid"
-		Padding="0"
-		Margin="0"
-		ColumnSpacing="0"
-		RowSpacing="0"
-	>
-		<Grid.RowDefinitions>
-			<RowDefinition Height="0" />
-			<RowDefinition Height="*" />
-			<RowDefinition Height="0" />
-		</Grid.RowDefinitions>
-		<Grid.ColumnDefinitions>
-			<ColumnDefinition Width="*" />
-		</Grid.ColumnDefinitions>
+    <pbXForms:ContentPageExGrid
+        x:Name="_Grid">
 
-		<StackLayout
-			Grid.Row="0"
-			Grid.Column="0"
-			x:Name="_AppBarRow"
-			Orientation="Horizontal"
-			VerticalOptions="FillAndExpand"
-			HorizontalOptions="FillAndExpand"
-			Padding="0"
-			Margin="0"
-			Spacing="{x:Static pbXForms:Metrics.ToolBarItemsSpacing}"
-			BackgroundColor="{StaticResource AppBarBackgroundColor}"
-		>
-		</StackLayout>
-			
-		<StackLayout
-			Grid.Row="1"
-			Grid.Column="0"
-			x:Name="_ContentRow"
-			Orientation="Vertical"
-			VerticalOptions="FillAndExpand"
-			HorizontalOptions="FillAndExpand"
-			Padding="0"
-			Margin="0"
-			Spacing="0"
-		>
-		</StackLayout>
+        <pbXForms:ContentPageExToolBar
+            Grid.Row="0"
+            Grid.Column="0"
+            x:Name="_AppBarRow"
+            BackgroundColor="{StaticResource AppBarBackgroundColor}">
 
-		<StackLayout
-			Grid.Row="2"
-			Grid.Column="0"
-			x:Name="_ToolBarRow"
-			Orientation="Horizontal"
-			VerticalOptions="FillAndExpand"
-			HorizontalOptions="FillAndExpand"
-			Padding="0"
-			Margin="0"
-			BackgroundColor="{StaticResource ToolBarBackgroundColor}"
-		>
-		</StackLayout>
-			
-	</Grid>
+        </pbXForms:ContentPageExToolBar>
 
-	</ContentPage.Content>
-	
+        <pbXForms:ContentPageExContent
+            Grid.Row="1"
+            Grid.Column="0"
+            x:Name="_ContentRow">
+
+        </pbXForms:ContentPageExContent>
+
+        <pbXForms:ContentPageExToolBar
+            Grid.Row="2"
+            Grid.Column="0"
+            x:Name="_ToolBarRow"
+            BackgroundColor="{StaticResource ToolBarBackgroundColor}">
+
+        </pbXForms:ContentPageExToolBar>
+
+    </pbXForms:ContentPageExGrid>
+
 </ContentPage>
