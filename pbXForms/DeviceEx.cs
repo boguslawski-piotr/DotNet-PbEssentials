@@ -27,7 +27,10 @@ namespace pbXForms
             get
             {
 #if __IOS__
-				var currentOrientation = UIApplication.SharedApplication.StatusBarOrientation;
+                // TODO: dziala dopiero jak glowne okno jest w pelni zbudowane :( -> poprawic aby dzialalo zawsze
+                // TODO: sprawdzic to samo na Android i UWP
+
+                var currentOrientation = UIApplication.SharedApplication.StatusBarOrientation;
 
 				bool isPortrait =
 					currentOrientation == UIInterfaceOrientation.Portrait
