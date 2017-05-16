@@ -69,74 +69,17 @@ namespace pbXForms
     //[XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ContentPageEx : ContentPage
     {
+        protected ContentPageExView _Content => (ContentPageExView)Content;
+
+        public IList<View> AppBarContent => _Content.AppBarContent;
+
+        public IList<View> ContentEx => _Content.ContentEx;
+
+        public IList<View> ToolBarContent => _Content.ToolBarContent;
+
         public ContentPageEx()
         {
             InitializeComponent();
         }
-
-        //
-
-        ContentPageExView _Content => (ContentPageExView)Content;
-        Grid _View => _Content._View;
-
-        //public IList<View> AppBarContent => _AppBarRow.Children;
-        Layout<View> _AppBarRow => _Content.AppBarRow;
-        public IList<View> AppBarContent => _Content.AppBarContent;
-
-        //public IList<View> ContentEx => _ContentRow.Children;
-        public IList<View> ContentEx => _Content.ContentEx;
-
-        //public IList<View> ToolBarContent => _ToolBarRow.Children;
-        Layout<View> _ToolBarRow => _Content.ToolBarRow;
-        public IList<View> ToolBarContent => _Content.ToolBarContent;
-
-        //
-
-        public static void LayoutAppBarAndToolBar(double width, double height, Grid Grid, Layout<View> AppBarRow, Layout<View> ToolBarRow)
-        {
-            bool IsLandscape = (DeviceEx.Orientation == DeviceOrientations.Landscape);
-
-            bool PageCoversStatusBar =
-#if __IOS__
-                true;
-#else
-                false;
-#endif
-
-            if (AppBarRow.Children?.Count > 0)
-            {
-                Grid.RowDefinitions[0].Height =
-                (IsLandscape ? Metrics.AppBarHeightLandscape : Metrics.AppBarHeightPortrait)
-                + ((PageCoversStatusBar) ? Metrics.StatusBarHeight : 0);
-
-                AppBarRow.Padding = new Thickness(
-                    0,
-                    (PageCoversStatusBar ? Metrics.StatusBarHeight : 0),
-                    0,
-                    0);
-            }
-
-            if (ToolBarRow.Children?.Count > 0)
-                Grid.RowDefinitions[2].Height = (IsLandscape ? Metrics.ToolBarHeightLandscape : Metrics.ToolBarHeightPortrait);
-        }
-
-        Size _osa;
-
-        protected override void OnSizeAllocated(double width, double height)
-        {
-            base.OnSizeAllocated(width, height);
-
-            if (!Tools.IsDifferent(new Size(width, height), ref _osa))
-                return;
-
-            LayoutAppBarAndToolBar(width, height, _View, _AppBarRow, _ToolBarRow);
-
-            OnLayoutFixed();
-        }
-
-        protected virtual void OnLayoutFixed()
-        {
-        }
-
     }
 }

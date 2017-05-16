@@ -18,7 +18,7 @@ namespace pbXForms
             InitializeComponent();
         }
 
-        public bool IsSplitView
+        public virtual bool IsSplitView
         {
             //get { return !(Device.Idiom == TargetIdiom.Phone || (DeviceEx.Orientation == DeviceOrientations.Portrait)); }
             get { return DeviceEx.Orientation != DeviceOrientations.Portrait || Device.Idiom != TargetIdiom.Phone; }

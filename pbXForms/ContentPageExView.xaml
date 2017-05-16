@@ -6,7 +6,7 @@
     x:Class="pbXForms.ContentPageExView">
 
     <pbXForms:ContentPageExGrid
-        x:Name="__View">
+        x:Name="__Grid">
 
         <pbXForms:ContentPageExAppBar
             Grid.Row="0"
