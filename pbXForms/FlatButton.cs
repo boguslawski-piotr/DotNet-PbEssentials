@@ -106,6 +106,8 @@ namespace pbXForms
 
 			Margin = new Thickness(0);
 
+			WidthRequest = Metrics.TouchTargetHeight;
+
 			//BackgroundColor = Color.Red;
 
 #if !__IOS__
@@ -186,8 +188,10 @@ namespace pbXForms
 			Command?.Execute(CommandParameter);
 			Clicked?.Invoke(this, EventArgs.Empty);
 
-			this.FadeTo(opacity, 150);
-		}
+#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
+            this.FadeTo(opacity, 150);
+#pragma warning restore CS4014
+        }
 #endif
 	}
 }

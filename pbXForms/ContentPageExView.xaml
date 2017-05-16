@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentView
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:pbXForms="clr-namespace:pbXForms"
+    x:Class="pbXForms.ContentPageExView">
+
+    <pbXForms:ContentPageExGrid
+        x:Name="__View">
+
+        <pbXForms:ContentPageExAppBar
+            Grid.Row="0"
+            Grid.Column="0"
+            x:Name="_AppBarRow"
+            BackgroundColor="{StaticResource AppBarBackgroundColor}">
+
+        </pbXForms:ContentPageExAppBar>
+
+        <pbXForms:ContentPageExContent
+            Grid.Row="1"
+            Grid.Column="0"
+            x:Name="_ContentRow">
+
+        </pbXForms:ContentPageExContent>
+
+        <pbXForms:ContentPageExToolBar
+            Grid.Row="2"
+            Grid.Column="0"
+            x:Name="_ToolBarRow"
+            BackgroundColor="{StaticResource ToolBarBackgroundColor}">
+
+        </pbXForms:ContentPageExToolBar>
+
+    </pbXForms:ContentPageExGrid>
+	
+</ContentView>

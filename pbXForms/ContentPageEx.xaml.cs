@@ -37,9 +37,9 @@ namespace pbXForms
         }
     }
 
-    public class ContentPageExToolBar : StackLayout
+    public class ContentPageExAppBar : StackLayout
     {
-        public ContentPageExToolBar()
+        public ContentPageExAppBar()
         {
             Orientation = StackOrientation.Horizontal;
             VerticalOptions = LayoutOptions.FillAndExpand;
@@ -49,6 +49,9 @@ namespace pbXForms
             Spacing = Metrics.ToolBarItemsSpacing;
         }
     }
+
+    public class ContentPageExToolBar : ContentPageExAppBar
+    { }
 
     public class ContentPageExContent : StackLayout
     {
@@ -60,8 +63,6 @@ namespace pbXForms
             Padding = new Thickness(0);
             Margin = new Thickness(0);
             Spacing = 0;
-
-
         }
     }
 
@@ -75,35 +76,19 @@ namespace pbXForms
 
         //
 
-        public Layout<View> AppBarRow
-        {
-            get { return _AppBarRow; }
-        }
+        ContentPageExView _Content => (ContentPageExView)Content;
+        Grid _View => _Content._View;
 
-        public IList<View> AppBar
-        {
-            get { return _AppBarRow.Children; }
-        }
+        //public IList<View> AppBarContent => _AppBarRow.Children;
+        Layout<View> _AppBarRow => _Content.AppBarRow;
+        public IList<View> AppBarContent => _Content.AppBarContent;
 
-        public Layout<View> ContentRow
-        {
-            get { return _ContentRow; }
-        }
-		
-        public IList<View> ContentEx
-		{
-			get { return _ContentRow.Children; }
-		}
+        //public IList<View> ContentEx => _ContentRow.Children;
+        public IList<View> ContentEx => _Content.ContentEx;
 
-        public Layout<View> ToolBarRow
-        {
-            get { return _ToolBarRow; }
-        }
-		
-        public IList<View> ToolBar
-		{
-			get { return _ToolBarRow.Children; }
-		}
+        //public IList<View> ToolBarContent => _ToolBarRow.Children;
+        Layout<View> _ToolBarRow => _Content.ToolBarRow;
+        public IList<View> ToolBarContent => _Content.ToolBarContent;
 
         //
 
@@ -111,17 +96,25 @@ namespace pbXForms
         {
             bool IsLandscape = (DeviceEx.Orientation == DeviceOrientations.Landscape);
 
-            bool StatusBarVisible = DeviceEx.StatusBarVisible;
+            bool PageCoversStatusBar =
+#if __IOS__
+                true;
+#else
+                false;
+#endif
 
-            Grid.RowDefinitions[0].Height =
+            if (AppBarRow.Children?.Count > 0)
+            {
+                Grid.RowDefinitions[0].Height =
                 (IsLandscape ? Metrics.AppBarHeightLandscape : Metrics.AppBarHeightPortrait)
-                + ((StatusBarVisible) ? Metrics.StatusBarHeight : 0);
+                + ((PageCoversStatusBar) ? Metrics.StatusBarHeight : 0);
 
-            AppBarRow.Padding = new Thickness(
-                0,
-                (StatusBarVisible ? Metrics.StatusBarHeight : 0),
-                0,
-                0);
+                AppBarRow.Padding = new Thickness(
+                    0,
+                    (PageCoversStatusBar ? Metrics.StatusBarHeight : 0),
+                    0,
+                    0);
+            }
 
             if (ToolBarRow.Children?.Count > 0)
                 Grid.RowDefinitions[2].Height = (IsLandscape ? Metrics.ToolBarHeightLandscape : Metrics.ToolBarHeightPortrait);
@@ -136,7 +129,8 @@ namespace pbXForms
             if (!Tools.IsDifferent(new Size(width, height), ref _osa))
                 return;
 
-            LayoutAppBarAndToolBar(width, height, _Grid, _AppBarRow, _ToolBarRow);
+            LayoutAppBarAndToolBar(width, height, _View, _AppBarRow, _ToolBarRow);
+
             OnLayoutFixed();
         }
 
