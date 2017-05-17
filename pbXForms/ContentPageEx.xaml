@@ -5,6 +5,6 @@
 	xmlns:pbXForms="clr-namespace:pbXForms"
 	x:Class="pbXForms.ContentPageEx">
 
-	<pbXForms:ContentPageExView />
+	<pbXForms:ContentViewEx />
 
 </ContentPage>

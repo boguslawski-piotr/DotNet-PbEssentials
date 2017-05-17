@@ -10,5 +10,18 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Tools.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Compressor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DeviceFileSystem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ICompressor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IFileSystem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ConvertEx.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)iOSmacOSDroid\" />
+    <Folder Include="$(MSBuildThisFileDirectory)UWP\" />
+    <Folder Include="$(MSBuildThisFileDirectory)iOSmacOS\" />
+    <Folder Include="$(MSBuildThisFileDirectory)macOS\" />
+    <Folder Include="$(MSBuildThisFileDirectory)iOS\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Droid\" />
   </ItemGroup>
 </Project>

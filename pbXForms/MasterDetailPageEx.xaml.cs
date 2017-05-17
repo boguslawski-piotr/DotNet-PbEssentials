@@ -1,13 +1,26 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using pbXNet;
 using Xamarin.Forms;
 
 namespace pbXForms
 {
+    public class MasterDetailPageExViewsLayout : StackLayout
+    {
+        public MasterDetailPageExViewsLayout()
+        {
+            Orientation = StackOrientation.Horizontal;
+            VerticalOptions = LayoutOptions.FillAndExpand;
+            HorizontalOptions = LayoutOptions.FillAndExpand;
+            Padding = new Thickness(0);
+            Margin = new Thickness(0);
+            Spacing = 0;
+        }
+    }
+
     public partial class MasterDetailPageEx : ContentPage
     {
-        public IList<View> Views => _Views.Children;
+        public IList<View> Views => _Views?.Children;
 
         protected View _MasterView { get { return Views?.Count > 0 ? Views[0] : null; } }
 
@@ -23,7 +36,7 @@ namespace pbXForms
         public virtual bool IsSplitView
         {
             //get { return !(Device.Idiom == TargetIdiom.Phone || (DeviceEx.Orientation == DeviceOrientations.Portrait)); }
-            get { return DeviceEx.Orientation != DeviceOrientations.Portrait || Device.Idiom != TargetIdiom.Phone; }
+            get { return DeviceEx.Orientation != DeviceOrientation.Portrait || Device.Idiom != TargetIdiom.Phone; }
         }
 
 

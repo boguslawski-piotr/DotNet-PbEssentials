@@ -13,7 +13,7 @@ using Xamarin.Forms;
 
 namespace pbXForms
 {
-    public enum DeviceOrientations
+    public enum DeviceOrientation
     {
         Undefined,
         Landscape,
@@ -22,7 +22,7 @@ namespace pbXForms
 
     static public class DeviceEx
     {
-        static public DeviceOrientations Orientation
+        static public DeviceOrientation Orientation
         {
             get
             {
@@ -36,7 +36,7 @@ namespace pbXForms
 					currentOrientation == UIInterfaceOrientation.Portrait
 					|| currentOrientation == UIInterfaceOrientation.PortraitUpsideDown;
 
-				return isPortrait ? DeviceOrientations.Portrait : DeviceOrientations.Landscape;
+				return isPortrait ? DeviceOrientation.Portrait : DeviceOrientation.Landscape;
 #else
 #if __ANDROID__
 				IWindowManager windowManager = Android.App.Application.Context.GetSystemService(Context.WindowService).JavaCast<IWindowManager>();
@@ -44,16 +44,16 @@ namespace pbXForms
 				var rotation = windowManager.DefaultDisplay.Rotation;
 				bool isLandscape = rotation == SurfaceOrientation.Rotation90 || rotation == SurfaceOrientation.Rotation270;
 
-				return isLandscape ? DeviceOrientations.Landscape : DeviceOrientations.Portrait;
+				return isLandscape ? DeviceOrientation.Landscape : DeviceOrientation.Portrait;
 #else
 #if WINDOWS_UWP
 				var orientation = Windows.UI.ViewManagement.ApplicationView.GetForCurrentView().Orientation;
 	            if (orientation == Windows.UI.ViewManagement.ApplicationViewOrientation.Landscape)
-					return DeviceOrientations.Landscape;
-                return DeviceOrientations.Portrait;
+					return DeviceOrientation.Landscape;
+                return DeviceOrientation.Portrait;
 #else
                 // macOS
-                return DeviceOrientations.Landscape;
+                return DeviceOrientation.Landscape;
 #endif
 #endif
 #endif
@@ -66,7 +66,7 @@ namespace pbXForms
             {
 #if __IOS__
 				return
-					DeviceEx.Orientation != DeviceOrientations.Landscape
+					DeviceEx.Orientation != DeviceOrientation.Landscape
 					|| Device.Idiom == TargetIdiom.Tablet;
 #endif
 #if __ANDROID__ || WINDOWS_UWP

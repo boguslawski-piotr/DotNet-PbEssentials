@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Diagnostics;
 
 #if __UNIFIED__
@@ -12,7 +12,7 @@ namespace pbXSecurity
 {
 #if __UNIFIED__
 
-    public partial class CredentialsManager
+    public partial class SecretsManager : ISecretsManager
     {
 		public bool DeviceOwnerAuthenticationAvailable
 		{

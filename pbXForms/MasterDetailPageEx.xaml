@@ -6,10 +6,10 @@
     xmlns:local="clr-namespace:SafeNotebooks"
     x:Class="pbXForms.MasterDetailPageEx">
 
-    <pbXForms:ContentPageExToolBar
+    <pbXForms:MasterDetailPageExViewsLayout
 		x:Name="_Views"
         Spacing="0">
 
-    </pbXForms:ContentPageExToolBar>
+    </pbXForms:MasterDetailPageExViewsLayout>
 
 </ContentPage>

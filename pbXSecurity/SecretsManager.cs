@@ -3,7 +3,7 @@ using System;
 
 namespace pbXSecurity
 {
-    public interface ICredentialsManager {
+    public interface ISecretsManager {
 		
         // Basic device owner authentication (pin, passkey, biometrics, etc.)
 
@@ -12,9 +12,9 @@ namespace pbXSecurity
         bool AuthenticateDeviceOwner(string Msg, Action Succes, Action<string> Error);
 	}
 
-    public partial class CredentialsManager : ICredentialsManager
+    public partial class SecretsManager : ISecretsManager
     {
-        public CredentialsManager()
+        public SecretsManager()
         {
         }
 	}

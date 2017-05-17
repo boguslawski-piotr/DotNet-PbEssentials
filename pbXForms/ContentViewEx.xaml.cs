@@ -1,13 +1,57 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using pbXNet;
 using Xamarin.Forms;
 
 namespace pbXForms
 {
-    public partial class ContentPageExView : ContentView
+
+    public class ContentViewExLayout : Grid
     {
-        public ContentPageExAppBar AppBar => _AppBarRow;
+        public ContentViewExLayout()
+        {
+            Padding = new Thickness(0);
+            Margin = new Thickness(0);
+            ColumnSpacing = 0;
+            RowSpacing = 0;
+
+            ColumnDefinitions = new ColumnDefinitionCollection() {
+                    new ColumnDefinition() {
+                        Width = GridLength.Star,
+                    },
+                };
+
+            RowDefinitions = new RowDefinitionCollection() {
+                    new RowDefinition() {
+                        Height = new GridLength(0)
+                    },
+                    new RowDefinition() {
+                        Height = GridLength.Star
+                    },
+                    new RowDefinition() {
+                        Height = new GridLength(0)
+                    },
+                };
+        }
+    }
+
+    public class ContentViewExContentLayout : StackLayout
+    {
+        public ContentViewExContentLayout()
+        {
+            Orientation = StackOrientation.Vertical;
+            VerticalOptions = LayoutOptions.FillAndExpand;
+            HorizontalOptions = LayoutOptions.FillAndExpand;
+            Padding = new Thickness(0);
+            Margin = new Thickness(0);
+            Spacing = 0;
+        }
+    }
+
+
+    public partial class ContentViewEx : ContentView
+    {
+        public AppBarLayout AppBar => _AppBarRow;
         public IList<View> AppBarContent => _AppBarRow.Children;
         public Color AppBarBackgroundColor
         {
@@ -15,10 +59,10 @@ namespace pbXForms
             set { AppBar.BackgroundColor = value; }
         }
 
-        //protected Layout<View> _ContentRow => __ContentRow;
+        //protected ContentViewExContentLayout View => __ContentRow;
         public IList<View> ViewContent => _ContentRow.Children;
 
-        public ContentPageExToolBar ToolBar => _ToolBarRow;
+        public ToolBarLayout ToolBar => _ToolBarRow;
         public IList<View> ToolBarContent => _ToolBarRow.Children;
         public Color ToolBarBackgroundColor
         {
@@ -39,7 +83,7 @@ namespace pbXForms
         }
 
 
-        public ContentPageExView()
+        public ContentViewEx()
         {
             InitializeComponent();
         }
@@ -67,9 +111,12 @@ namespace pbXForms
 
         protected virtual void LayoutAppBarAndToolBar(double width, double height)
         {
-            bool IsLandscape = (DeviceEx.Orientation == DeviceOrientations.Landscape);
+            if (_Grid == null)
+                return;
 
-            if (_AppBarRow.Children?.Count > 0)
+            bool IsLandscape = (DeviceEx.Orientation == DeviceOrientation.Landscape);
+
+            if (_AppBarRow?.Children?.Count > 0)
             {
                 _Grid.RowDefinitions[0].Height =
                     (IsLandscape ? Metrics.AppBarHeightLandscape : Metrics.AppBarHeightPortrait)
@@ -82,7 +129,7 @@ namespace pbXForms
                     0);
             }
 
-            if (_ToolBarRow.Children?.Count > 0)
+            if (_ToolBarRow?.Children?.Count > 0)
                 _Grid.RowDefinitions[2].Height = (IsLandscape ? Metrics.ToolBarHeightLandscape : Metrics.ToolBarHeightPortrait);
         }
 

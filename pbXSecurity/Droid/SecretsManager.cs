@@ -1,10 +1,10 @@
-﻿using System;
+using System;
 
 namespace pbXSecurity
 {
 #if __ANDROID__
 
-	public partial class CredentialsManager
+	public partial class SecretsManager : ISecretsManager
 	{
 
 		public bool DeviceOwnerAuthenticationAvailable
