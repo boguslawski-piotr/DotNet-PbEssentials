@@ -71,10 +71,12 @@ namespace pbXForms
     {
         protected ContentPageExView _Content => (ContentPageExView)Content;
 
+        public ContentPageExAppBar AppBar => _Content.AppBar;
         public IList<View> AppBarContent => _Content.AppBarContent;
 
-        public IList<View> ContentEx => _Content.ContentEx;
+        public IList<View> PageContent => _Content.ViewContent;
 
+        public ContentPageExToolBar ToolBar => _Content.ToolBar;
         public IList<View> ToolBarContent => _Content.ToolBarContent;
 
         public ContentPageEx()
