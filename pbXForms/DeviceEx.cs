@@ -28,7 +28,7 @@ namespace pbXForms
             {
 #if __IOS__
                 // TODO: dziala dopiero jak glowne okno jest w pelni zbudowane :( -> poprawic aby dzialalo zawsze
-                // TODO: sprawdzic to samo na Android i UWP
+                // sprawdzic to samo na Android i UWP
 
                 var currentOrientation = UIApplication.SharedApplication.StatusBarOrientation;
 
