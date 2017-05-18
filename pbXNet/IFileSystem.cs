@@ -13,34 +13,24 @@ namespace pbXNet
     public enum FileSystemType
     {
         Local,
-        Roaming,
         Remote,
     }
 
     /// <summary>
-    /// IMPLEMENTATION TIPS: It is not required for newly created objects to set correct 'CurrentDirectory'. The same applies to calls to 'SetType'.
     /// </summary>
     public interface IFileSystem : IDisposable
     {
-        string Name { get; }
-        string Desc { get; }
-
-        IList<FileSystemType> SupportedTypes();
-
-        /// <summary>
-        /// Should be super fast!
-        /// </summary>
-        void SetType(FileSystemType type);
+        FileSystemType Type { get; }
 
         /// <summary>
         /// Should be super, super fast!
         /// </summary>
-        Task<IFileSystem> MakeCopy();
+        Task<IFileSystem> MakeCopyAsync();
 
         /// <summary>
         /// Should handle: null == root, .. == one level back.
         /// </summary>
-        Task SetCurrentDirectory(string dirname);
+        Task SetCurrentDirectoryAsync(string dirname);
 
         // All below should work in current directory.
 
@@ -55,10 +45,10 @@ namespace pbXNet
         /// </summary>
         Task CreateDirectoryAsync(string dirname);
 
-        Task WriteTextAsync(string filename, string text);
-        Task<string> ReadTextAsync(string filename);
-
         Task DeleteDirectoryAsync(string dirname);
         Task DeleteFileAsync(string filename);
-    }
+	
+        Task WriteTextAsync(string filename, string text);
+		Task<string> ReadTextAsync(string filename);
+	}
 }
