@@ -27,10 +27,10 @@ namespace pbXNet
         /// </summary>
         Task<IFileSystem> MakeCopyAsync();
 
-        /// <summary>
-        /// Should handle: null == root, .. == one level back.
-        /// </summary>
-        Task SetCurrentDirectoryAsync(string dirname);
+		/// <summary>
+		/// Should handle: null == root, .. == one level back.
+		/// </summary>
+		Task SetCurrentDirectoryAsync(string dirname);
 
         // All below should work in current directory.
 
