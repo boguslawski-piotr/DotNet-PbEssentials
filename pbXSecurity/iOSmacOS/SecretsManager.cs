@@ -1,17 +1,13 @@
+#if __UNIFIED__
+
 using System;
 using System.Diagnostics;
-
-#if __UNIFIED__
 
 using LocalAuthentication;
 using Foundation;
 
-#endif
-
 namespace pbXSecurity
 {
-#if __UNIFIED__
-
     public partial class SecretsManager : ISecretsManager
     {
 		public bool DeviceOwnerAuthenticationAvailable
@@ -85,6 +81,6 @@ namespace pbXSecurity
 			//    return _AuthenticateDeviceOwner(context, LAPolicy.DeviceOwnerAuthenticationWithBiometrics, Msg, Success, Error);
 		}
 	}
+}
 
 #endif
-}

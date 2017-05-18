@@ -1,8 +1,9 @@
+#if __ANDROID__
+
 using System;
 
 namespace pbXSecurity
 {
-#if __ANDROID__
 
 	public partial class SecretsManager : ISecretsManager
 	{
@@ -23,5 +24,6 @@ namespace pbXSecurity
 		}
 	}
 
-#endif
 }
+
+#endif
