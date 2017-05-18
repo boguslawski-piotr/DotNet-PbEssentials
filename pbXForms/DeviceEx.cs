@@ -62,18 +62,18 @@ namespace pbXForms
 
         static public bool StatusBarVisible
         {
-            get
-            {
+            get {
 #if __IOS__
-				return
-					DeviceEx.Orientation != DeviceOrientation.Landscape
-					|| Device.Idiom == TargetIdiom.Tablet;
-#endif
+                return
+                    DeviceEx.Orientation != DeviceOrientation.Landscape
+                    || Device.Idiom == TargetIdiom.Tablet;
+#else
 #if __ANDROID__ || WINDOWS_UWP
 				return true;
 #else
                 // macOS
                 return false;
+#endif
 #endif
             }
         }

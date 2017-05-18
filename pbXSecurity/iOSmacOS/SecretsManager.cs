@@ -32,10 +32,6 @@ namespace pbXSecurity
 
 		bool _AuthenticateDeviceOwner(LAContext context, LAPolicy policy, string Msg, Action Success, Action<string> Error)
         {
-            //byte[] cc = new byte[] { (byte)'a', (byte)'l', (byte)'a' };
-            //NSData c = new NSData(Convert.ToBase64String(cc), NSDataBase64DecodingOptions.None);
-            //context.SetCredentialType(c, LACredentialType.ApplicationPassword);
-
             NSError error;
 			if (context.CanEvaluatePolicy(policy, out error))
 			{

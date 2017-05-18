@@ -23,8 +23,7 @@
       <DependentUpon>ContentViewEx.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)AppBarToolBar.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Locale.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Translator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MarkupExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)ContentPageEx.xaml">

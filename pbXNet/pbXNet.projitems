@@ -15,6 +15,11 @@
     <Compile Include="$(MSBuildThisFileDirectory)ICompressor.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IFileSystem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ConvertEx.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Locale.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UWP\Locale.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)iOSmacOS\Locale.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Droid\Locale.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LocalizationManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)iOSmacOSDroid\" />
@@ -23,5 +28,8 @@
     <Folder Include="$(MSBuildThisFileDirectory)macOS\" />
     <Folder Include="$(MSBuildThisFileDirectory)iOS\" />
     <Folder Include="$(MSBuildThisFileDirectory)Droid\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)License.md" />
   </ItemGroup>
 </Project>
