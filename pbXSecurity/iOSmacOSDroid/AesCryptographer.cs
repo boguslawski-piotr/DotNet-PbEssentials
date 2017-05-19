@@ -1,9 +1,10 @@
 ﻿#if __UNIFIED__ || __IOS__ || __ANDROID__
 
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Security.Cryptography;
-
+using System.Text;
 using pbXNet;
 
 namespace pbXSecurity
@@ -12,43 +13,43 @@ namespace pbXSecurity
     {
         public byte[] GenerateKey(byte[] pwd, byte[] salt, int length = 32)
         {
-            const int iterations = 10000;
-
-            using (Rfc2898DeriveBytes d = new Rfc2898DeriveBytes(pwd, salt, iterations))
+            PasswordDeriveBytes pdb = new PasswordDeriveBytes(pwd, salt)
             {
-                return d.GetBytes(length);
-            }
+                IterationCount = 10000
+            };
+            return pdb.GetBytes(length);
         }
 
         public byte[] GenerateIV(int length = 16)
         {
-            AesManaged /*RijndaelManaged*/ objAlg = new AesManaged() /*RijndaelManaged()*/;
+            AesManaged objAlg = new AesManaged();
             objAlg.GenerateIV();
             return objAlg.IV;
         }
 
-        //
-
         public byte[] Encrypt(byte[] msg, byte[] key, byte[] iv)
         {
             // algoritm
-            AesManaged /*RijndaelManaged*/ objAlg = new AesManaged() /*RijndaelManaged()*/;
+            AesManaged objAlg = new AesManaged();
 
             // prepare
-            ICryptoTransform encryptor = objAlg.CreateEncryptor(key, iv);
+            objAlg.Key = key;
+            objAlg.IV = iv;
 
             // encrypt using streams
             using (MemoryStream sMsgEncrypted = new MemoryStream())
             {
-                using (CryptoStream csEncrypt = new CryptoStream(sMsgEncrypted, encryptor, CryptoStreamMode.Write))
+                CryptoStream csEncrypt = new CryptoStream(sMsgEncrypted, objAlg.CreateEncryptor(), CryptoStreamMode.Write);
+                try
                 {
-                    using (MemoryStream sMsg = new MemoryStream(msg))
-                    {
-                        sMsg.CopyTo(csEncrypt);
-                    }
-
-                    byte[] msgEncrypted = sMsgEncrypted.ToArray();
-                    return msgEncrypted;
+                    csEncrypt.Write(msg, 0, msg.Length);
+                    csEncrypt.Close();
+                    return sMsgEncrypted.ToArray();
+                }
+                catch (Exception e)
+                {
+                    Debug.WriteLine($"AesCryptographer: Encrypt: error: {e.Message}");
+                    return new byte[0];
                 }
             }
         }
@@ -56,22 +57,26 @@ namespace pbXSecurity
         public byte[] Decrypt(byte[] msg, byte[] key, byte[] iv)
         {
             // algoritm
-            AesManaged /*RijndaelManaged*/ objAlg = new AesManaged() /*RijndaelManaged()*/;
+            AesManaged objAlg = new AesManaged();
 
             // prepare
-            ICryptoTransform decryptor = objAlg.CreateDecryptor(key, iv);
+            objAlg.Key = key;
+            objAlg.IV = iv;
 
             // decrypt using streams
-            using (MemoryStream sMsg = new MemoryStream(msg))
+            using (MemoryStream sMsgDecrypted = new MemoryStream())
             {
-                using (CryptoStream csDecrypt = new CryptoStream(sMsg, decryptor, CryptoStreamMode.Read))
+                CryptoStream csDecrypt = new CryptoStream(sMsgDecrypted, objAlg.CreateDecryptor(), CryptoStreamMode.Write);
+                try
                 {
-                    using (MemoryStream sMsgDecrypted = new MemoryStream())
-                    {
-                        csDecrypt.CopyTo(sMsgDecrypted);
-                        byte[] msgDecrypted = sMsgDecrypted.ToArray();
-                        return msgDecrypted;
-                    }
+                    csDecrypt.Write(msg, 0, msg.Length);
+                    csDecrypt.Close();
+                    return sMsgDecrypted.ToArray();
+                }
+                catch (Exception e)
+                {
+                    Debug.WriteLine($"AesCryptographer: Decrypt: error: {e.Message}");
+                    return new byte[0];
                 }
             }
         }

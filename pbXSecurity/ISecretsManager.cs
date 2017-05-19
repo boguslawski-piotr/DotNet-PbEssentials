@@ -16,6 +16,7 @@ namespace pbXSecurity
 
 		Task<bool> PasswordExistsAsync(string id);
 		Task AddOrUpdatePasswordAsync(string id, string passwd);
+		Task DeletePasswordAsync(string id);
 		Task<bool> ComparePasswordAsync(string id, string passwd);
 	}
 }

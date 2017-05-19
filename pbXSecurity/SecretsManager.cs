@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Security;
@@ -56,7 +57,7 @@ namespace pbXSecurity
         protected class Password
         {
             public byte[] iv;
-            public string data;
+            public byte[] data;
         };
 
         protected IDictionary<string, Password> _passwords = new Dictionary<string, Password>();
@@ -64,7 +65,7 @@ namespace pbXSecurity
         // TODO: Exceptions/Erros handling
         // TODO: save data to Plugin.Settings instead of DFS
 
-        const string _PasswordsFileName = "p";
+        const string _PasswordsFileName = "12B77038-229D-4F8F-941B-8465CB132C03";
 
         protected virtual async Task<IFileSystem> PasswordsFs()
         {
@@ -96,10 +97,7 @@ namespace pbXSecurity
 
         protected virtual async Task SavePasswordsAsync()
         {
-            if (_passwords.Count <= 0)
-                return;
-
-            using (MemoryStream s = new MemoryStream(128))
+            using (MemoryStream s = new MemoryStream(1024))
             {
                 new BinaryFormatter().Serialize(s, _passwords);
 
@@ -112,18 +110,7 @@ namespace pbXSecurity
         }
 
         const string _phrase = "Life is short. Smile while you still have teeth :)";
-
-        async Task<string> EncryptPhraseAsync(string passwd, byte[] aiv)
-        {
-            byte[] apasswd = Encoding.UTF8.GetBytes(passwd);
-            byte[] asalt = new byte[] { 1, 2, 3, 4, 5, 6, 7, 8 };
-
-            byte[] bkey = _cryptographer.GenerateKey(apasswd, asalt);
-            byte[] bphrase = Encoding.UTF8.GetBytes(_phrase);
-
-            byte[] e = await _cryptographer.EncryptAsync(bphrase, bkey, aiv);
-            return Convert.ToBase64String(e);
-        }
+		readonly byte[] _salt = new byte[] { 0x43, 0x87, 0x23, 0x72, 0x45, 0x56, 0x68, 0x14, 0x62, 0x84 };
 
         public async Task<bool> PasswordExistsAsync(string id)
         {
@@ -144,29 +131,40 @@ namespace pbXSecurity
                 };
             }
 
-            _password.data = await EncryptPhraseAsync(passwd, _password.iv);
+			byte[] key = _cryptographer.GenerateKey(Encoding.UTF8.GetBytes(passwd), _salt);
+            _password.data = _cryptographer.Encrypt(Encoding.UTF8.GetBytes(_phrase), key, _password.iv);
 
             _passwords[id] = _password;
 
             await SavePasswordsAsync();
         }
 
-        public async Task<bool> ComparePasswordAsync(string id, string passwd)
+        public async Task DeletePasswordAsync(string id)
         {
+            if (await PasswordExistsAsync(id))
+            {
+                _passwords.Remove(id);
+                await SavePasswordsAsync();
+            }
+		}
+
+		public async Task<bool> ComparePasswordAsync(string id, string passwd)
+		{
             await LoadPasswordsAsync();
 
             Password _password;
             if (!_passwords.TryGetValue(id, out _password))
                 return false;
 
-            string data = await EncryptPhraseAsync(passwd, _password.iv);
-            return data == _password.data;
+			byte[] key = _cryptographer.GenerateKey(Encoding.UTF8.GetBytes(passwd), _salt);
+            byte[] ddata = _cryptographer.Decrypt(_password.data, key, _password.iv);
+
+            return ddata.SequenceEqual(Encoding.UTF8.GetBytes(_phrase));
         }
 
+		//
 
-        //
-
-        public async Task AddOrUpdatePasswordAsync(string id, SecureString passwd)
+		public async Task AddOrUpdatePasswordAsync(string id, SecureString passwd)
         {
             throw new NotImplementedException();
         }
