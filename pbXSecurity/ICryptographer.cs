@@ -8,16 +8,6 @@ namespace pbXSecurity
 {
     public interface ICryptographer
     {
-        //
-
-        string Obfuscate(string d);
-        Task<string> ObfuscateAsync(string d);
-
-        string DeObfuscate(string d);
-        Task<string> DeObfuscateAsync(string d);
-
-        //
-
         byte[] GenerateKey(byte[] pwd, byte[] salt, int length = 32);
 
         byte[] GenerateIV(int length = 16);

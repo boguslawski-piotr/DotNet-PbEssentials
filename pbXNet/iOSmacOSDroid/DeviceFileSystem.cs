@@ -94,6 +94,7 @@ namespace pbXNet
         {
             string dirpath = GetFilePath(dirname);
             DirectoryInfo dir = Directory.CreateDirectory(GetFilePath(dirpath));
+            _previous.Push(_current);
             _current = dirpath;
 			return Task.FromResult(true);
 		}

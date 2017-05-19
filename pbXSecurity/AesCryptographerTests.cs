@@ -8,12 +8,12 @@ using System.Text;
 namespace pbXSecurity
 {
     //[TestFixture]
-    public class CryptographerTests /*: BaseTestFixture*/
+    public class AesCryptographerTests /*: BaseTestFixture*/
     {
         //[Test]
         public void BasicEncryptDecrypt()
         {
-            Cryptographer C = new Cryptographer();
+            AesCryptographer C = new AesCryptographer();
 
             string spwd = "ala ma kota";
             byte[] pwd = Encoding.UTF8.GetBytes(spwd);

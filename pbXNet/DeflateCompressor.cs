@@ -1,9 +1,10 @@
 ﻿using System.IO;
 using System.IO.Compression;
+using System.Threading.Tasks;
 
 namespace pbXNet
 {
-    public class Compressor : ICompressor
+    public class DeflateCompressor : ICompressor
     {
         public MemoryStream Compress(Stream from)
         {
@@ -16,6 +17,9 @@ namespace pbXNet
             return to;
         }
 
+        public async Task<MemoryStream> CompressAsync(Stream from)
+            => await Task.Run(() => Compress(from));
+
         public MemoryStream Decompress(Stream from)
         {
             MemoryStream to = new MemoryStream((int)from.Length * 2);
@@ -26,6 +30,9 @@ namespace pbXNet
             }
             return to;
         }
+
+        public async Task<MemoryStream> DecompressAsync(Stream from) 
+            => await Task.Run(() => Decompress(from));
 
         public string Compress(string d)
         {
@@ -41,6 +48,9 @@ namespace pbXNet
             d = ConvertEx.ToHexString(dca);
             return d;
         }
+
+        public async Task<string> CompressAsync(string d) 
+            => await Task.Run(() => Compress(d));
 
         public string Decompress(string d)
         {
@@ -59,18 +69,10 @@ namespace pbXNet
 
             return d;
         }
+
+        public async Task<string> DecompressAsync(string d) 
+            => await Task.Run(() => Decompress(d));
+
     }
 }
-
-// String extension
-
-//public static Stream ToStream(this string str)
-//{
-//    MemoryStream stream = new MemoryStream();
-//    StreamWriter writer = new StreamWriter(stream);
-//    writer.Write(str);
-//    writer.Flush();
-//    stream.Position = 0;
-//    return stream;
-//}
 

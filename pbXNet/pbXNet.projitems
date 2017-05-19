@@ -10,7 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Tools.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Compressor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DeflateCompressor.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DeviceFileSystem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ICompressor.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IFileSystem.cs" />

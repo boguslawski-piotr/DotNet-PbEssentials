@@ -34,12 +34,9 @@ namespace pbXNet
             }
         }
 
-        static global::System.Globalization.CultureInfo _Culture;
+        static CultureInfo _Culture;
 
-        /// <summary>
-        /// Overrides the current thread's CurrentUICulture property for all resource lookups.
-        /// </summary>
-        public static global::System.Globalization.CultureInfo Culture
+        public static CultureInfo Culture
         {
             get {
                 if (_Culture == null)
@@ -51,17 +48,14 @@ namespace pbXNet
             }
         }
 
-        static global::System.Resources.ResourceManager _ResourceManager;
+        static ResourceManager _ResourceManager;
 
-        /// <summary>
-		/// Returns the cached ResourceManager instance used by this class.
-		/// </summary>
-		public static global::System.Resources.ResourceManager ResourceManager
+		public static ResourceManager ResourceManager
         {
             get {
                 if (object.ReferenceEquals(_ResourceManager, null))
                 {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager(_BaseName, _Assembly);
+                    ResourceManager temp = new ResourceManager(_BaseName, _Assembly);
                     _ResourceManager = temp;
                 }
                 return _ResourceManager;
@@ -88,7 +82,6 @@ namespace pbXNet
             return value;
         }
     }
-
 
     /// <summary>
     /// An auxiliary class used to the intuitive use of localized text in the code.

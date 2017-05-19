@@ -5,12 +5,8 @@ using System.Text;
 
 namespace pbXNet
 {
-    public class ConvertEx
+    public static class ConvertEx
     {
-        public ConvertEx()
-        {
-        }
-
         public static string ToHexString(byte[] d)
         {
             string s = "";
@@ -34,9 +30,27 @@ namespace pbXNet
             return Encoding.UTF8.GetString(src.ToArray(), 0, (int)src.Length);
         }
 
+        public static byte[] ToByteArray(string src)
+        {
+            return Encoding.UTF8.GetBytes(src);
+        }
+
         public static MemoryStream ToMemoryStream(string src)
         {
             return new MemoryStream(Encoding.UTF8.GetBytes(src));
+        }
+    }
+
+    public static class StringExtensions
+    {
+        public static byte[] ToByteArray(this string src)
+        {
+            return Encoding.UTF8.GetBytes(src);
+        }
+
+        public static byte[] FromHexString(this string src)
+        {
+            return ConvertEx.FromHexString(src);
         }
     }
 }

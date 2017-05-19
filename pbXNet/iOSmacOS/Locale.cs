@@ -1,4 +1,4 @@
-﻿#if __UNIFIED__
+﻿#if __UNIFIED__ || __IOS__
 
 using System;
 using System.Globalization;

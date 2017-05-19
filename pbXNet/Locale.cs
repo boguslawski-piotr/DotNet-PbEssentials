@@ -9,13 +9,13 @@ namespace pbXNet
         void SetLocale(CultureInfo ci);
     }
 
-    public class PlatformCulture
+    internal class PlatformCulture
     {
         public PlatformCulture(string platformCultureString)
         {
             if (String.IsNullOrEmpty(platformCultureString))
             {
-                throw new ArgumentException("Expected culture identifier", nameof(platformCultureString)); // in C# 6 use nameof(platformCultureString)
+                throw new ArgumentException("Expected culture identifier", nameof(platformCultureString));
             }
 
             PlatformString = platformCultureString.Replace("_", "-"); // .NET expects dash, not underscore

@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 
 //
 // Based on book Creating Mobile Apps with Xamarin.Forms by Charles Petzold
-//
 
 namespace pbXNet
 {
