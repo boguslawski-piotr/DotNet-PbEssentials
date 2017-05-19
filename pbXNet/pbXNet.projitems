@@ -22,6 +22,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)LocalizationManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UWP\DeviceFileSystem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)iOSmacOSDroid\DeviceFileSystem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IStorage.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)iOSmacOSDroid\" />

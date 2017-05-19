@@ -30,19 +30,19 @@ namespace pbXSecurity
 
         }
 
-        protected IFileSystem _fs;
-        public IFileSystem Fs
-        {
-            get {
-                return _fs;
-            }
-        }
+		protected IStorage<string> _storage;
+		public IStorage<string> Storage
+		{
+			get {
+				return _storage;
+			}
+		}
 
-        public SecretsManager(string id, ICryptographer cryptographer = null, IFileSystem fs = null)
+        public SecretsManager(string id, ICryptographer cryptographer = null, IStorage<string> storage = null)
         {
             _id = id;
             _cryptographer = cryptographer ?? new AesCryptographer();
-            _fs = fs ?? new DeviceFileSystem(DeviceFileSystemRoot.Config);
+            _storage = storage;
         }
 
 
@@ -62,31 +62,21 @@ namespace pbXSecurity
 
         protected IDictionary<string, Password> _passwords = new Dictionary<string, Password>();
 
-        // TODO: Exceptions/Erros handling
-        // TODO: save data to Plugin.Settings instead of DFS
+        // TODO: Exceptions/Errors handling
 
-        const string _PasswordsFileName = "12B77038-229D-4F8F-941B-8465CB132C03";
-
-        protected virtual async Task<IFileSystem> PasswordsFs()
-        {
-            await _fs.SetCurrentDirectoryAsync(null);
-            await _fs.CreateDirectoryAsync(_id);
-            return _fs;
-        }
+        const string _PasswordsDataId = "12B77038-229D-4F8F-941B-8465CB132C03";
 
         protected virtual async Task LoadPasswordsAsync()
         {
-            if (_passwords.Count > 0)
+            if (_passwords.Count > 0 || _storage == null)
                 return;
 
-            IFileSystem fs = await PasswordsFs();
-
-            if (await fs.FileExistsAsync(_PasswordsFileName))
+            if (await _storage.ExistsAsync(_PasswordsDataId))
             {
-                string d = await fs.ReadTextAsync(_PasswordsFileName);
+                string d = await _storage.GetACopyAsync(_PasswordsDataId);
                 if (!string.IsNullOrEmpty(d))
                 {
-                    d = await Tools.DeObfuscateAsync(d);
+                    d = Tools.DeObfuscate(d);
                     using (MemoryStream s = new MemoryStream(ConvertEx.FromHexString(d)))
                     {
                         _passwords = (Dictionary<string, Password>)new BinaryFormatter().Deserialize(s);
@@ -97,15 +87,17 @@ namespace pbXSecurity
 
         protected virtual async Task SavePasswordsAsync()
         {
-            using (MemoryStream s = new MemoryStream(1024))
+			if (_storage == null)
+				return;
+            
+			using (MemoryStream s = new MemoryStream(1024))
             {
                 new BinaryFormatter().Serialize(s, _passwords);
 
                 string d = ConvertEx.ToHexString(s.ToArray());
-                d = await Tools.ObfuscateAsync(d);
+                d = Tools.Obfuscate(d);
 
-                IFileSystem fs = await PasswordsFs();
-                await fs.WriteTextAsync(_PasswordsFileName, d);
+                await _storage.StoreAsync(_PasswordsDataId, d);
             }
         }
 
