@@ -52,5 +52,10 @@ namespace pbXNet
         {
             return ConvertEx.FromHexString(src);
         }
-    }
+	
+        public static MemoryStream ToMemoryStream(this string src)
+		{
+            return ConvertEx.ToMemoryStream(src);
+		}
+	}
 }

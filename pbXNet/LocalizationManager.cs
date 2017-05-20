@@ -17,10 +17,10 @@ namespace pbXNet
 
         static Assembly _Assembly { get; set; }
 
-        public static void AddResources(string BaseName, Assembly Assembly)
+        public static void AddResources(string baseName, Assembly assembly)
         {
-            _BaseName = BaseName;
-            _Assembly = Assembly;
+            _BaseName = baseName;
+            _Assembly = assembly;
         }
 
         static Locale _Locale = new Locale();

@@ -19,6 +19,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)ISecretsManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UWP\AesCryptographer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)iOSmacOSDroid\AesCryptographer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UWP\SecretsManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)iOSmacOS\" />

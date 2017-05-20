@@ -1,4 +1,4 @@
-#if __ANDROID__
+#if WINDOWS_UWP
 
 using System;
 

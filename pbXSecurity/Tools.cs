@@ -11,7 +11,7 @@ namespace pbXSecurity
         {
             ICompressor compressor = new DeflateCompressor();
             d = compressor.Compress(d);
-            using (MemoryStream s = ConvertEx.ToMemoryStream(d))
+            using (MemoryStream s = d.ToMemoryStream())
             {
                 byte[] a = s.ToArray();
                 return Convert.ToBase64String(a);

@@ -25,6 +25,8 @@ namespace pbXNet
 
         public DeviceFileSystemRoot Root { get; }
 
+        public string Id { get => Tools.CreateGuid(); }
+		
         public string Name
         {
             get {

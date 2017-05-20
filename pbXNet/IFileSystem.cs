@@ -22,6 +22,8 @@ namespace pbXNet
     {
         FileSystemType Type { get; }
 
+		string Id { get; }
+		
         string Name { get; }
 
         /// <summary>

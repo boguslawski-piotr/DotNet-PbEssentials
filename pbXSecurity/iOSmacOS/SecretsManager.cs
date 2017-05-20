@@ -27,7 +27,7 @@ namespace pbXSecurity
             }
         }
 
-        bool _AuthenticateDeviceOwner(LAContext context, LAPolicy policy, string Msg, Action Success, Action<string> Error)
+        bool _AuthenticateDeviceOwner(LAContext context, LAPolicy policy, string msg, Action Success, Action<string> Error)
         {
             NSError error;
             if (context.CanEvaluatePolicy(policy, out error))
@@ -49,7 +49,7 @@ namespace pbXSecurity
                             if (_error.Code == Convert.ToInt32(LAStatus.UserFallback)
                                 && policy == LAPolicy.DeviceOwnerAuthenticationWithBiometrics)
                             {
-                                _AuthenticateDeviceOwner(context, LAPolicy.DeviceOwnerAuthentication, Msg, Success, Error);
+                                _AuthenticateDeviceOwner(context, LAPolicy.DeviceOwnerAuthentication, msg, Success, Error);
                             }
                             else
                                 Error(_error.ToString());
@@ -58,7 +58,7 @@ namespace pbXSecurity
 
                 });
 
-                context.EvaluatePolicy(policy, new NSString(Msg), replyHandler);
+                context.EvaluatePolicy(policy, new NSString(msg), replyHandler);
 
                 return true;
             }
@@ -70,16 +70,16 @@ namespace pbXSecurity
             return false;
         }
 
-        public bool AuthenticateDeviceOwner(string Msg, Action Success, Action<string> Error)
+        public bool AuthenticateDeviceOwner(string msg, Action Success, Action<string> Error)
         {
 			// It seems that the call with parameter LAPolicy.DeviceOwnerAuthentication automatically uses biometrics authentication when it is set in the system settings.
 			// TODO: check AuthenticateDeviceOwner on a real device(s)
 
 			var context = new LAContext();
             //if (!context.CanEvaluatePolicy(LAPolicy.DeviceOwnerAuthenticationWithBiometrics, out NSError error))
-            return _AuthenticateDeviceOwner(context, LAPolicy.DeviceOwnerAuthentication, Msg, Success, Error);
+            return _AuthenticateDeviceOwner(context, LAPolicy.DeviceOwnerAuthentication, msg, Success, Error);
             //else
-            //    return _AuthenticateDeviceOwner(context, LAPolicy.DeviceOwnerAuthenticationWithBiometrics, Msg, Success, Error);
+            //    return _AuthenticateDeviceOwner(context, LAPolicy.DeviceOwnerAuthenticationWithBiometrics, msg, Success, Error);
         }
     }
 }

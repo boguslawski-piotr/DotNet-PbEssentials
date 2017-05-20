@@ -13,29 +13,20 @@ namespace pbXSecurity
 {
     public partial class SecretsManager : ISecretsManager
     {
-        protected readonly string _id;
-        public string Id
-        {
-            get => _id;
-        }
+        public ISecretsManagerUI UI { get; set; }
 
-        protected ICryptographer _cryptographer;
-        public ICryptographer Cryptographer
-        {
-            get => _cryptographer;
-        }
+        public string Id { get; }
 
-        protected IStorage<string> _storage;
-        public IStorage<string> Storage
-        {
-            get => _storage;
-        }
+        protected ICryptographer Cryptographer { get; }
 
-        public SecretsManager(string id, ICryptographer cryptographer = null, IStorage<string> storage = null)
+        protected IStorage<string> Storage { get; }
+
+        public SecretsManager(string id = null, ICryptographer cryptographer = null, IStorage<string> storage = null, ISecretsManagerUI ui = null)
         {
-            _id = id;
-            _cryptographer = cryptographer ?? new AesCryptographer();
-            _storage = storage;
+            Id = id ?? pbXNet.Tools.CreateGuid();
+            Cryptographer = cryptographer ?? new AesCryptographer();
+            Storage = storage;
+            UI = ui;
         }
 
 
@@ -54,26 +45,26 @@ namespace pbXSecurity
             //[NonSerialized] private bool flag;
         };
 
-        protected IDictionary<string, Password> _passwords = new Dictionary<string, Password>();
+        protected IDictionary<string, Password> Passwords = new Dictionary<string, Password>();
 
         // TODO: Exceptions/Errors handling
 
-        const string _PasswordsDataId = "12B77038-229D-4F8F-941B-8465CB132C03";
+        const string _PasswordsDataId = "12b77038229d4f8f941b8465cb132c03";
 
         protected virtual async Task LoadPasswordsAsync()
         {
-            if (_passwords.Count > 0 || _storage == null)
+            if (Passwords.Count > 0 || Storage == null)
                 return;
 
-            if (await _storage.ExistsAsync(_PasswordsDataId))
+            if (await Storage.ExistsAsync(_PasswordsDataId))
             {
-                string d = await _storage.GetACopyAsync(_PasswordsDataId);
+                string d = await Storage.GetACopyAsync(_PasswordsDataId);
                 if (!string.IsNullOrEmpty(d))
                 {
                     d = Tools.DeObfuscate(d);
                     using (MemoryStream s = new MemoryStream(ConvertEx.FromHexString(d)))
                     {
-                        _passwords = (Dictionary<string, Password>)new BinaryFormatter().Deserialize(s);
+                        Passwords = (Dictionary<string, Password>)new BinaryFormatter().Deserialize(s);
                     }
                 }
             }
@@ -81,17 +72,17 @@ namespace pbXSecurity
 
         protected virtual async Task SavePasswordsAsync()
         {
-            if (_storage == null)
+            if (Storage == null)
                 return;
 
             using (MemoryStream s = new MemoryStream(1024))
             {
-                new BinaryFormatter().Serialize(s, _passwords);
+                new BinaryFormatter().Serialize(s, Passwords);
 
                 string d = ConvertEx.ToHexString(s.ToArray());
                 d = Tools.Obfuscate(d);
 
-                await _storage.StoreAsync(_PasswordsDataId, d);
+                await Storage.StoreAsync(_PasswordsDataId, d);
             }
         }
 
@@ -101,7 +92,7 @@ namespace pbXSecurity
         public async Task<bool> PasswordExistsAsync(string id)
         {
             await LoadPasswordsAsync();
-            return _passwords.ContainsKey(id);
+            return Passwords.ContainsKey(id);
         }
 
         public async Task AddOrUpdatePasswordAsync(string id, string passwd)
@@ -109,18 +100,18 @@ namespace pbXSecurity
             await LoadPasswordsAsync();
 
             Password _password;
-            if (!_passwords.TryGetValue(id, out _password))
+            if (!Passwords.TryGetValue(id, out _password))
             {
                 _password = new Password()
                 {
-                    iv = _cryptographer.GenerateIV()
+                    iv = Cryptographer.GenerateIV()
                 };
             }
 
-            byte[] key = _cryptographer.GenerateKey(Encoding.UTF8.GetBytes(passwd), _salt);
-            _password.data = _cryptographer.Encrypt(Encoding.UTF8.GetBytes(_phrase), key, _password.iv);
+            byte[] key = Cryptographer.GenerateKey(Encoding.UTF8.GetBytes(passwd), _salt);
+            _password.data = Cryptographer.Encrypt(Encoding.UTF8.GetBytes(_phrase), key, _password.iv);
 
-            _passwords[id] = _password;
+            Passwords[id] = _password;
 
             SavePasswordsAsync();
         }
@@ -129,7 +120,7 @@ namespace pbXSecurity
         {
             if (await PasswordExistsAsync(id))
             {
-                _passwords.Remove(id);
+                Passwords.Remove(id);
                 SavePasswordsAsync();
             }
         }
@@ -139,11 +130,11 @@ namespace pbXSecurity
             await LoadPasswordsAsync();
 
             Password _password;
-            if (!_passwords.TryGetValue(id, out _password))
+            if (!Passwords.TryGetValue(id, out _password))
                 return false;
 
-            byte[] key = _cryptographer.GenerateKey(Encoding.UTF8.GetBytes(passwd), _salt);
-            byte[] ddata = _cryptographer.Decrypt(_password.data, key, _password.iv);
+            byte[] key = Cryptographer.GenerateKey(Encoding.UTF8.GetBytes(passwd), _salt);
+            byte[] ddata = Cryptographer.Decrypt(_password.data, key, _password.iv);
 
             return ddata.SequenceEqual(Encoding.UTF8.GetBytes(_phrase));
         }

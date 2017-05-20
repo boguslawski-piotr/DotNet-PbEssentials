@@ -1,10 +1,7 @@
-﻿﻿using System;
+﻿using System;
 using System.Collections.Concurrent;
 using System.ComponentModel;
-using System.Globalization;
-using System.IO;
 using System.Runtime.CompilerServices;
-using System.Text;
 
 namespace pbXNet
 {
@@ -16,6 +13,11 @@ namespace pbXNet
                 return false;
             b = a;
             return true;
+        }
+
+        public static string CreateGuid()
+        {
+            return System.Guid.NewGuid().ToString("N");
         }
     }
 

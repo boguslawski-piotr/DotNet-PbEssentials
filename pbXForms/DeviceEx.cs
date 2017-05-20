@@ -24,8 +24,7 @@ namespace pbXForms
     {
         static public DeviceOrientation Orientation
         {
-            get
-            {
+            get {
 #if __IOS__
                 // TODO: dziala dopiero jak glowne okno jest w pelni zbudowane :( -> poprawic aby dzialalo zawsze
                 // sprawdzic to samo na Android i UWP
