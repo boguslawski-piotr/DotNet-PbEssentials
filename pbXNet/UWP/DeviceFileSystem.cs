@@ -9,8 +9,14 @@ namespace pbXNet
 {
 	public partial class DeviceFileSystem : IFileSystem, IDisposable
 	{
-        protected void Initialize(string dirname, DeviceFileSystemRoot root = DeviceFileSystemRoot.Documents)
+        public readonly IEnumerable<DeviceFileSystemRoot> AvailableRootsForEndUser = new List<DeviceFileSystemRoot>() 
+        { 
+            DeviceFileSystemRoot.Personal,
+        };
+
+        protected void Initialize(string dirname)
         {
+            // TODO: UWP DeviceFileSystem obsluzyc wiecej typow DeviceFileSystemRoot Root
             _root = ApplicationData.Current.LocalFolder;
             SetCurrentDirectory(dirname);
         }

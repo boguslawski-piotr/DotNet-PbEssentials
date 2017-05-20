@@ -22,6 +22,8 @@ namespace pbXNet
     {
         FileSystemType Type { get; }
 
+        string Name { get; }
+
         /// <summary>
         /// Should be super, super fast!
         /// </summary>

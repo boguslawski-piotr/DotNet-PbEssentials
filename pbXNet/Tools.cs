@@ -23,7 +23,7 @@ namespace pbXNet
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
-		protected void Set<T>(ref T storage, T value, [CallerMemberName]string propertyName = null)
+        protected void Set<T>(ref T storage, T value, [CallerMemberName]string name = null)
 		{
 			if (Equals(storage, value))
 			{
@@ -31,11 +31,11 @@ namespace pbXNet
 			}
 
 			storage = value;
-			OnPropertyChanged(propertyName);
+			OnPropertyChanged(name);
 		}
 
-		virtual protected void OnPropertyChanged(string propertyName) 
-            => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        protected virtual void OnPropertyChanged(string name) 
+            => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
 	}
 
 	internal static class Singleton<T> where T : new()

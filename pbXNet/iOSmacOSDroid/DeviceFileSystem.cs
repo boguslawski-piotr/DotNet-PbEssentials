@@ -11,16 +11,46 @@ namespace pbXNet
 {
     public partial class DeviceFileSystem : IFileSystem, IDisposable
     {
-        string _root;
+        public static readonly IEnumerable<DeviceFileSystemRoot> AvailableRootsForEndUser = new List<DeviceFileSystemRoot>() {
+            DeviceFileSystemRoot.Personal,
+#if DEBUG
+            DeviceFileSystemRoot.Config, // only for testing
+#endif
+#if __UNIFIED__ && !__IOS__
+            // macOS
+            DeviceFileSystemRoot.Desktop,
+            DeviceFileSystemRoot.Shared
+#endif
+#if __ANDROID__
+#endif
+		};
+
+		string _root;
         string _current;
         Stack<string> _previous = new Stack<string>();
 
-        protected void Initialize(string dirname = null, DeviceFileSystemRoot root = DeviceFileSystemRoot.Documents)
+        protected void Initialize(string dirname = null)
         {
-            if (root == DeviceFileSystemRoot.Documents)
-                _root = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            else
-                _root = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            switch (Root)
+            {
+                case DeviceFileSystemRoot.Personal:
+                    _root = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+                    break;
+                case DeviceFileSystemRoot.Desktop:
+                    _root = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+                    break;
+                case DeviceFileSystemRoot.Shared:
+                    _root = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+                    break;
+                case DeviceFileSystemRoot.Config:
+                    _root = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+                    break;
+                default:
+                    // TODO: Obsluzyc reszte (o ile!?) typow Root w DeviceFileSystem
+                    _root = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+                    break;
+            }
+
             SetCurrentDirectoryAsync(dirname);
         }
 
@@ -32,7 +62,7 @@ namespace pbXNet
 
         public Task<IFileSystem> MakeCopyAsync()
         {
-            DeviceFileSystem fs = new DeviceFileSystem()
+            DeviceFileSystem fs = new DeviceFileSystem(this.Root)
             {
                 _root = this._root,
                 _current = this._current,
@@ -47,7 +77,7 @@ namespace pbXNet
             {
                 _current = _root;
                 _previous.Clear();
-			}
+            }
             else if (dirname == "..")
             {
                 _current = _previous.Count > 0 ? _previous.Pop() : _root;
@@ -96,20 +126,20 @@ namespace pbXNet
             DirectoryInfo dir = Directory.CreateDirectory(GetFilePath(dirpath));
             _previous.Push(_current);
             _current = dirpath;
-			return Task.FromResult(true);
-		}
+            return Task.FromResult(true);
+        }
 
         public Task DeleteDirectoryAsync(string dirname)
         {
             Directory.Delete(GetFilePath(dirname));
-			return Task.FromResult(true);
-		}
+            return Task.FromResult(true);
+        }
 
         public Task DeleteFileAsync(string filename)
         {
-			File.Delete(GetFilePath(filename));
-			return Task.FromResult(true);
-		}
+            File.Delete(GetFilePath(filename));
+            return Task.FromResult(true);
+        }
 
 
         public async Task WriteTextAsync(string filename, string text)

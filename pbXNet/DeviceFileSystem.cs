@@ -7,30 +7,45 @@ using System.Threading.Tasks;
 
 namespace pbXNet
 {
-	public enum DeviceFileSystemRoot
-	{
-		Documents,
+    public enum DeviceFileSystemRoot
+    {
+        Personal,
+        Desktop,
+        Shared,
         Config,
+        Roaming,
         External, // SDCard, USB drive, etc.
-	}
+    }
 
-	// TODO: implement support for DeviceFileSystemRoot.External 
-	
+    // TODO: implement support for DeviceFileSystemRoot.External 
+
     public partial class DeviceFileSystem : IFileSystem, IDisposable
     {
         public FileSystemType Type { get; } = FileSystemType.Local;
-		
-        public DeviceFileSystem(DeviceFileSystemRoot root = DeviceFileSystemRoot.Documents)
+
+        public DeviceFileSystemRoot Root { get; }
+
+        public string Name
         {
-            Initialize(null, root);
+            get {
+                // TODO: DeviceFileSystem.Name: jak to rozwiazac aby nie uzywac lokalizowanych tekstow?
+                return $"{Root.ToString()} folder";
+            }
         }
 
-        public DeviceFileSystem(string dirname, DeviceFileSystemRoot root = DeviceFileSystemRoot.Documents)
-		{
-            Initialize(dirname, root);
-		}
+        public DeviceFileSystem(DeviceFileSystemRoot root = DeviceFileSystemRoot.Personal)
+        {
+            Root = root;
+            Initialize(null);
+        }
 
-		// You will find the rest of implementation in the platform directories...
+        public DeviceFileSystem(string dirname, DeviceFileSystemRoot root = DeviceFileSystemRoot.Personal)
+        {
+			Root = root;
+			Initialize(dirname);
+        }
 
-	}
+        // You will find the rest of implementation in the platform directories...
+
+    }
 }
