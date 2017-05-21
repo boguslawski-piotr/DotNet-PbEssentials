@@ -56,7 +56,7 @@ namespace pbXSecurity
             string d = await Storage.GetACopyAsync(_PasswordsDataId);
             if (!string.IsNullOrEmpty(d))
             {
-                d = Tools.DeObfuscate(d);
+                d = Obfuscator.DeObfuscate(d);
                 Passwords = JsonConvert.DeserializeObject<Dictionary<string, Password>>(d);
             }
         }
@@ -67,7 +67,7 @@ namespace pbXSecurity
                 return;
 
             string d = JsonConvert.SerializeObject(Passwords);
-            d = Tools.Obfuscate(d);
+            d = Obfuscator.Obfuscate(d);
 
             await Storage.StoreAsync(_PasswordsDataId, d);
         }
@@ -147,7 +147,7 @@ namespace pbXSecurity
 			string d = await Storage.GetACopyAsync(_CKeysDataId);
 			if (!string.IsNullOrEmpty(d))
 			{
-				d = Tools.DeObfuscate(d);
+				d = Obfuscator.DeObfuscate(d);
 				CKeys = JsonConvert.DeserializeObject<IDictionary<string, byte[]>>(d);
 			}
 		}
@@ -158,7 +158,7 @@ namespace pbXSecurity
 				return;
 
 			string d = JsonConvert.SerializeObject(CKeys);
-			d = Tools.Obfuscate(d);
+			d = Obfuscator.Obfuscate(d);
             // TODO: dodac szyfrowanie; haslem powinno byc cos co mozn pobrac z systemu, jest niezmienne i nie da sie wyczytac z kodu programu bez doglebnego debugowania
 
             await Storage.StoreAsync(_CKeysDataId, d);

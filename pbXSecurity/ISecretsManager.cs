@@ -3,19 +3,29 @@ using System.Threading.Tasks;
 
 namespace pbXSecurity
 {
+	/// <summary>
+    /// Cryptographic keys life time definitions 
+    /// used in ISecretsManager.CreateCKeyAsync.
+	/// WARNING: Do not change constants values order.
+	/// If needed add new value(s) at the end.
+	/// </summary>
 	public enum CKeyLifeTime
 	{
-		Undefined,
+        Undefined,
 		Infinite,
 		WhileAppRunning,
         WhileAppIsOnTop
 	};
 
-	public interface ISecretsManager
+	/// <summary>
+    /// Secrets manager.
+    /// </summary>
+    public interface ISecretsManager
     {
         //
 
         string Id { get; }
+
 
 		// Basic device owner authentication (pin, passkey, biometrics, etc.)
 

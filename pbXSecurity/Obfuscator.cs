@@ -5,7 +5,7 @@ using pbXNet;
 
 namespace pbXSecurity
 {
-    public static class Tools
+    public static class Obfuscator
     {
         public static string Obfuscate(string d)
         {
