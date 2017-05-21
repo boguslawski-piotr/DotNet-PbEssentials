@@ -2,9 +2,13 @@
 using System.Collections.Concurrent;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 
 namespace pbXNet
 {
+    /// <summary>
+    /// Tools.
+    /// </summary>
     public static class Tools
     {
         public static bool IsDifferent<T>(T a, ref T b)
@@ -21,7 +25,11 @@ namespace pbXNet
         }
     }
 
-	public class Observable : INotifyPropertyChanged
+
+	/// <summary>
+    /// ObservableAsync.
+    /// </summary>
+    public class ObservableAsync : INotifyPropertyChanged
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -36,10 +44,16 @@ namespace pbXNet
 			OnPropertyChanged(name);
 		}
 
-        protected virtual void OnPropertyChanged(string name) 
-            => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        protected virtual async Task OnPropertyChanged(string name)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
 	}
 
+
+    /// <summary>
+    /// Singleton.
+    /// </summary>
 	internal static class Singleton<T> where T : new()
 	{
         static readonly ConcurrentDictionary<Type, T> _instances = new ConcurrentDictionary<Type, T>();
