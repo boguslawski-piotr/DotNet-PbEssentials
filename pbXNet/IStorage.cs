@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace pbXNet
 {
     public interface IStorage<T>
     {
+		string Id { get; }
+		
         string Name { get; }
 
         /// <summary>
@@ -37,6 +40,7 @@ namespace pbXNet
 
     public interface ISearchableStorage<T> : IStorage<T>
     {
+        Task<IEnumerable<string>> FindIdsAsync(string pattern);
     }
 
 }
