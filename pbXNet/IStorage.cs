@@ -5,7 +5,9 @@ namespace pbXNet
 {
     public interface IStorage<T>
     {
-		/// <summary>
+        string Name { get; }
+
+        /// <summary>
 		/// Adds or update data identified by id in the storage
 		/// </summary>
 		Task StoreAsync(string id, T data);

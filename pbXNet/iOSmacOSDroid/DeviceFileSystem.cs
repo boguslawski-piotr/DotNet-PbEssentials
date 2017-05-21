@@ -14,7 +14,7 @@ namespace pbXNet
         public static readonly IEnumerable<DeviceFileSystemRoot> AvailableRootsForEndUser = new List<DeviceFileSystemRoot>() {
             DeviceFileSystemRoot.Personal,
 #if DEBUG
-            DeviceFileSystemRoot.Config, // only for testing
+            //DeviceFileSystemRoot.Config, // only for testing
 #endif
 #if __UNIFIED__ && !__IOS__
             // macOS
