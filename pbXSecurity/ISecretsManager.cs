@@ -3,12 +3,18 @@ using System.Threading.Tasks;
 
 namespace pbXSecurity
 {
-    public interface ISecretsManager
+	public enum CKeyLifeTime
+	{
+		Undefined,
+		Infinite,
+		WhileAppRunning,
+        WhileAppIsOnTop
+	};
+
+	public interface ISecretsManager
     {
         //
 
-        ISecretsManagerUI UI { get; set; }
-		
         string Id { get; }
 
 		// Basic device owner authentication (pin, passkey, biometrics, etc.)
@@ -17,6 +23,7 @@ namespace pbXSecurity
         bool DeviceOwnerAuthenticationWithBiometricsAvailable { get; }
         bool AuthenticateDeviceOwner(string msg, Action Succes, Action<string> Error);
 
+
         // Basic authentication based on passwords
         // Implementation should never store any password anywhere in any form
 
@@ -24,10 +31,14 @@ namespace pbXSecurity
         Task AddOrUpdatePasswordAsync(string id, string passwd);
         Task DeletePasswordAsync(string id);
         Task<bool> ComparePasswordAsync(string id, string passwd);
-    }
 
-    public interface ISecretsManagerUI
-	{
 
+        // Cryptographic keys, encryption and decryption
+
+        Task<byte[]> CreateCKeyAsync(string id, CKeyLifeTime lifeTime, string passwd);
+        Task<byte[]> GetCKeyAsync(string id);
+        Task<string> EncryptAsync(string data, byte[] ckey, byte[] iv);
+		Task<string> DecryptAsync(string data, byte[] ckey, byte[] iv);
+		byte[] GenerateIV();
 	}
 }
