@@ -3,13 +3,30 @@ using System.Collections.Concurrent;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace pbXNet
 {
     /// <summary>
-    /// Tools.
+    /// Settings.
     /// </summary>
-    public static class Tools
+    static class Settings
+    {
+        internal static readonly JsonSerializerSettings JsonSerializer = new JsonSerializerSettings()
+        {
+            DateTimeZoneHandling = DateTimeZoneHandling.Utc,
+            NullValueHandling = NullValueHandling.Ignore,
+#if DEBUG
+            Formatting = Formatting.Indented,
+#endif
+        };
+	}
+	
+
+    /// <summary>
+	/// Tools.
+	/// </summary>
+	public static class Tools
     {
         public static bool IsDifferent<T>(T a, ref T b)
         {
