@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace pbXNet
@@ -25,7 +26,7 @@ namespace pbXNet
 #endif
 		};
 
-		string _root;
+        string _root;
         string _current;
         Stack<string> _previous = new Stack<string>();
 
@@ -104,19 +105,23 @@ namespace pbXNet
             return Task.FromResult(exists);
         }
 
-        public Task<IEnumerable<string>> GetDirectoriesAsync()
+        public Task<IEnumerable<string>> GetDirectoriesAsync(string pattern = "")
         {
             IEnumerable<string> dirnames =
-                from filepath in Directory.EnumerateDirectories(_current)
-                select Path.GetFileName(filepath);
+                from dirpath in Directory.EnumerateDirectories(_current)
+                let dirname = Path.GetFileName(dirpath)
+                where Regex.IsMatch(dirname, pattern)
+                select dirname;
             return Task.FromResult(dirnames);
         }
 
-        public Task<IEnumerable<string>> GetFilesAsync()
+        public Task<IEnumerable<string>> GetFilesAsync(string pattern = "")
         {
             IEnumerable<string> filenames =
                 from filepath in Directory.EnumerateFiles(_current)
-                select Path.GetFileName(filepath);
+                let filename = Path.GetFileName(filepath)
+                where Regex.IsMatch(filename, pattern)
+                select filename;
             return Task.FromResult(filenames);
         }
 

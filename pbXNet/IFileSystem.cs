@@ -41,8 +41,8 @@ namespace pbXNet
         Task<bool> DirectoryExistsAsync(string dirname);
         Task<bool> FileExistsAsync(string filename);
 
-        Task<IEnumerable<string>> GetDirectoriesAsync();
-        Task<IEnumerable<string>> GetFilesAsync();
+        Task<IEnumerable<string>> GetDirectoriesAsync(string pattern = "");
+        Task<IEnumerable<string>> GetFilesAsync(string pattern = "");
 
         /// <summary>
         /// Should set current directory to one created.

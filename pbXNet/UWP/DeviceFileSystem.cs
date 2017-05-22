@@ -69,18 +69,20 @@ namespace pbXNet
             return await _current.TryGetItemAsync(filename) != null;
         }
 
-        async public Task<IEnumerable<string>> GetDirectoriesAsync()
+        async public Task<IEnumerable<string>> GetDirectoriesAsync(string pattern = "")
         {
-            IEnumerable<string> filenames =
-                from storageFile in await _current.GetFoldersAsync()
-                select storageFile.Name;
-            return filenames;
+            IEnumerable<string> dirnames =
+                from storageDir in await _current.GetFoldersAsync()
+                where Regex.IsMatch(storageDir.Name, pattern)                
+                select storageDir.Name;
+            return dirnames;
         }
 
-        async public Task<IEnumerable<string>> GetFilesAsync()
+        async public Task<IEnumerable<string>> GetFilesAsync(string pattern = "")
         {
             IEnumerable<string> filenames =
                 from storageFile in await _current.GetFilesAsync()
+                where Regex.IsMatch(storageFile.Name, pattern)                
                 select storageFile.Name;
             return filenames;
         }
