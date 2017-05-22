@@ -171,6 +171,9 @@ namespace pbXSecurity
 
         public async Task<byte[]> CreateCKeyAsync(string id, CKeyLifeTime lifeTime, string passwd)
         {
+            if (id == null)
+                return null;
+            
             byte[] ckey = Cryptographer.GenerateKey(Encoding.UTF8.GetBytes(passwd), _salt);
 
             if (lifeTime == CKeyLifeTime.Infinite)
