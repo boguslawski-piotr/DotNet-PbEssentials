@@ -29,7 +29,7 @@ namespace pbXNet
 	/// <summary>
     /// ObservableAsync.
     /// </summary>
-    public class ObservableAsync : INotifyPropertyChanged
+    public class Observable : INotifyPropertyChanged
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -44,7 +44,7 @@ namespace pbXNet
 			OnPropertyChanged(name);
 		}
 
-        protected virtual async Task OnPropertyChanged(string name)
+        protected virtual void OnPropertyChanged(string name)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
