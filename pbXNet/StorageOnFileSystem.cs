@@ -9,7 +9,7 @@ namespace pbXNet
     {
         public string Id { get; private set; }
 
-        public string Name => Fs.Name;
+        public virtual string Name => Fs.Name;
 
         protected IFileSystem Fs;
 
@@ -28,18 +28,18 @@ namespace pbXNet
 		/// <code>IStorage s = await new StorageOnFileSystem().Initialize();</code>
 		/// </example>
 		/// </summary>
-		public async Task InitializeAsync()
+		public virtual async Task InitializeAsync()
         {
             await Fs.SetCurrentDirectoryAsync(null);
             await Fs.CreateDirectoryAsync(Id);
         }
 
-        public Task<IEnumerable<string>> FindIdsAsync(string pattern)
+        public virtual Task<IEnumerable<string>> FindIdsAsync(string pattern)
         {
             return Fs.GetFilesAsync(pattern);
         }
 
-        public async Task StoreAsync(string id, T data)
+        public virtual async Task StoreAsync(string id, T data)
         {
             string d;
             if (typeof(T).Equals(typeof(string)))
@@ -50,7 +50,7 @@ namespace pbXNet
 			await Fs.WriteTextAsync(id, d);
 		}
 
-		public async Task<T> GetACopyAsync(string id)
+		public virtual async Task<T> GetACopyAsync(string id)
 		{
             object d = await Fs.ReadTextAsync(id);
             if (typeof(T).Equals(typeof(string)))
@@ -59,19 +59,19 @@ namespace pbXNet
                 return JsonConvert.DeserializeObject<T>((string)d, pbXNet.Settings.JsonSerializer);
 		}
 		
-        public Task<bool> ExistsAsync(string id)
+        public virtual Task<bool> ExistsAsync(string id)
         {
             return Fs.FileExistsAsync(id);
         }
 
-        public async Task<T> RetrieveAsync(string id)
+        public virtual async Task<T> RetrieveAsync(string id)
         {
 			T data = await GetACopyAsync(id);
 			await DiscardAsync(id);
 			return data;
 		}
 
-        public async Task DiscardAsync(string id)
+        public virtual async Task DiscardAsync(string id)
         {
             await Fs.DeleteFileAsync(id);
         }
