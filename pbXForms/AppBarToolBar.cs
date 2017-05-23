@@ -12,8 +12,9 @@ namespace pbXForms
             HorizontalOptions = LayoutOptions.FillAndExpand;
             Padding = new Thickness(0);
             Margin = new Thickness(0);
-            Spacing = Metrics.ToolBarItemsSpacing;
-        }
+            //Spacing = Metrics.ToolBarItemsSpacing;
+			Spacing = 0;
+		}
     }
 
     public class ToolBarLayout : AppBarLayout

@@ -36,6 +36,8 @@ namespace pbXForms
 
         public static double TouchTargetHeight = 48;
         public static double IconHeight = 24;
+		public static double ListItemHeight = 56;
+        public static Int32 ListItemHeightInt32 = (Int32)ListItemHeight;
 
     }
 }
