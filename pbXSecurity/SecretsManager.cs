@@ -137,43 +137,38 @@ namespace pbXSecurity
         protected IDictionary<string, byte[]> CKeys = new Dictionary<string, byte[]>();
         protected IDictionary<string, TemporaryCKey> TemporaryCKeys = new Dictionary<string, TemporaryCKey>();
 
-		const string _CKeysDataId = "d46ee950276f4665aefa06cb2ee6b35e";
-		
+        const string _CKeysDataId = "d46ee950276f4665aefa06cb2ee6b35e";
+
         protected virtual async Task LoadCKeysAsync()
         {
-			if (CKeys.Count > 0 || Storage == null)
-				return;
+            if (CKeys.Count > 0 || Storage == null)
+                return;
 
-			string d = await Storage.GetACopyAsync(_CKeysDataId);
-			if (!string.IsNullOrEmpty(d))
-			{
-				d = Obfuscator.DeObfuscate(d);
-				CKeys = JsonConvert.DeserializeObject<IDictionary<string, byte[]>>(d);
-			}
-		}
+            string d = await Storage.GetACopyAsync(_CKeysDataId);
+            if (!string.IsNullOrEmpty(d))
+            {
+                d = Obfuscator.DeObfuscate(d);
+                CKeys = JsonConvert.DeserializeObject<IDictionary<string, byte[]>>(d);
+            }
+        }
 
         protected virtual async Task SaveCKeysAsync()
         {
-			if (Storage == null)
-				return;
+            if (Storage == null)
+                return;
 
-			string d = JsonConvert.SerializeObject(CKeys);
-			d = Obfuscator.Obfuscate(d);
+            string d = JsonConvert.SerializeObject(CKeys);
+            d = Obfuscator.Obfuscate(d);
             // TODO: dodac szyfrowanie; haslem powinno byc cos co mozn pobrac z systemu, jest niezmienne i nie da sie wyczytac z kodu programu bez doglebnego debugowania
 
             await Storage.StoreAsync(_CKeysDataId, d);
-		}
-
-        public byte[] GenerateIV()
-        {
-            return Cryptographer.GenerateIV();
         }
 
         public async Task<byte[]> CreateCKeyAsync(string id, CKeyLifeTime lifeTime, string passwd)
         {
             if (id == null)
                 return null;
-            
+
             byte[] ckey = Cryptographer.GenerateKey(Encoding.UTF8.GetBytes(passwd), _salt);
 
             if (lifeTime == CKeyLifeTime.Infinite)
@@ -197,12 +192,26 @@ namespace pbXSecurity
 
             await LoadCKeysAsync();
 
-			ckey = new TemporaryCKey();
+            ckey = new TemporaryCKey();
             if (CKeys.TryGetValue(id, out ckey.ckey))
                 return ckey.ckey;
 
             return null;
         }
+
+        public async Task DeleteCKeyAsync(string id)
+        {
+            if (TemporaryCKeys.ContainsKey(id))
+                TemporaryCKeys.Remove(id);
+
+            await LoadCKeysAsync();
+
+            if (CKeys.ContainsKey(id))
+            {
+                CKeys.Remove(id);
+                await SaveCKeysAsync();
+            }
+		}
 
         public async Task<string> EncryptAsync(string data, byte[] ckey, byte[] iv)
         {
@@ -215,6 +224,10 @@ namespace pbXSecurity
             byte[] ddata = Cryptographer.Decrypt(data.FromHexString(), ckey, iv);
             return Encoding.UTF8.GetString(ddata, 0, ddata.Length);
         }
-
-    }
+	
+        public byte[] GenerateIV()
+		{
+			return Cryptographer.GenerateIV();
+		}
+	}
 }

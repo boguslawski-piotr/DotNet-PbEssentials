@@ -47,6 +47,8 @@ namespace pbXSecurity
 
         Task<byte[]> CreateCKeyAsync(string id, CKeyLifeTime lifeTime, string passwd);
         Task<byte[]> GetCKeyAsync(string id);
+        Task DeleteCKeyAsync(string id);
+
         Task<string> EncryptAsync(string data, byte[] ckey, byte[] iv);
 		Task<string> DecryptAsync(string data, byte[] ckey, byte[] iv);
 		byte[] GenerateIV();
