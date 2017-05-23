@@ -24,13 +24,14 @@
     <Compile Include="$(MSBuildThisFileDirectory)iOSmacOSDroid\DeviceFileSystem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IStorage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)StorageOnFileSystem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Observable.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Singleton.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)iOSmacOSDroid\" />
     <Folder Include="$(MSBuildThisFileDirectory)UWP\" />
     <Folder Include="$(MSBuildThisFileDirectory)iOSmacOS\" />
-    <Folder Include="$(MSBuildThisFileDirectory)macOS\" />
-    <Folder Include="$(MSBuildThisFileDirectory)iOS\" />
     <Folder Include="$(MSBuildThisFileDirectory)Droid\" />
   </ItemGroup>
   <ItemGroup>

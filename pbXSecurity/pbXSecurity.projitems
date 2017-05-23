@@ -23,8 +23,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)iOSmacOS\" />
-    <Folder Include="$(MSBuildThisFileDirectory)iOS\" />
-    <Folder Include="$(MSBuildThisFileDirectory)macOS\" />
     <Folder Include="$(MSBuildThisFileDirectory)Droid\" />
     <Folder Include="$(MSBuildThisFileDirectory)UWP\" />
     <Folder Include="$(MSBuildThisFileDirectory)iOSmacOSDroid\" />

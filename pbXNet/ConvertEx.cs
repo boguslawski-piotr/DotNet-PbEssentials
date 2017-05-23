@@ -41,21 +41,4 @@ namespace pbXNet
         }
     }
 
-    public static class StringExtensions
-    {
-        public static byte[] ToByteArray(this string src)
-        {
-            return Encoding.UTF8.GetBytes(src);
-        }
-
-        public static byte[] FromHexString(this string src)
-        {
-            return ConvertEx.FromHexString(src);
-        }
-	
-        public static MemoryStream ToMemoryStream(this string src)
-		{
-            return ConvertEx.ToMemoryStream(src);
-		}
-	}
 }

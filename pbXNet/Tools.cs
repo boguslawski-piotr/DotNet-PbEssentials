@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Concurrent;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace pbXNet
 {
@@ -12,6 +7,9 @@ namespace pbXNet
     /// </summary>
     static class Settings
     {
+        /// <summary>
+        /// Settings to use with JsonConvert.Serialize i Deserialize methods.
+        /// </summary>
         internal static readonly JsonSerializerSettings JsonSerializer = new JsonSerializerSettings()
         {
             DateTimeZoneHandling = DateTimeZoneHandling.Utc,
@@ -20,15 +18,19 @@ namespace pbXNet
             Formatting = Formatting.Indented,
 #endif
         };
-	}
-	
+    }
 
-    /// <summary>
-	/// Tools.
+
+	/// <summary>
+	/// Various useful functions.
 	/// </summary>
 	public static class Tools
     {
-        public static bool IsDifferent<T>(T a, ref T b)
+		/// <summary>
+		/// Compares a with b and if they are identical then it returns false doing nothing. 
+        /// When a and b are different then b becomes equal to a and the function returns true.
+		/// </summary>
+		public static bool IsDifferent<T>(T a, ref T b)
         {
             if (Equals(a, b))
                 return false;
@@ -36,52 +38,12 @@ namespace pbXNet
             return true;
         }
 
-        public static string CreateGuid()
+		/// <summary>
+        /// Creates the GUID in the most compact form.
+		/// </summary>
+		public static string CreateGuid()
         {
             return System.Guid.NewGuid().ToString("N");
         }
     }
-
-
-	/// <summary>
-    /// ObservableAsync.
-    /// </summary>
-    public class Observable : INotifyPropertyChanged
-	{
-		public event PropertyChangedEventHandler PropertyChanged;
-
-        protected void Set<T>(ref T storage, T value, [CallerMemberName]string name = null)
-		{
-			if (Equals(storage, value))
-			{
-				return;
-			}
-
-			storage = value;
-			OnPropertyChanged(name);
-		}
-
-        protected virtual void OnPropertyChanged(string name)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-        }
-	}
-
-
-    /// <summary>
-    /// Singleton.
-    /// </summary>
-	internal static class Singleton<T> where T : new()
-	{
-        static readonly ConcurrentDictionary<Type, T> _instances = new ConcurrentDictionary<Type, T>();
-
-        public static T Instance
-		{
-			get
-			{
-				return _instances.GetOrAdd(typeof(T), (t) => new T());
-			}
-		}
-	}
-
 }
