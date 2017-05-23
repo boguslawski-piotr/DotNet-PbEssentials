@@ -34,6 +34,8 @@ namespace pbXSecurity
 
         public byte[] Encrypt(byte[] msg, byte[] key, byte[] iv)
         {
+            try
+            {
             // algoritm
             SymmetricKeyAlgorithmProvider objAlg = SymmetricKeyAlgorithmProvider.OpenAlgorithm(SymmetricAlgorithmNames.AesCbcPkcs7);
 
@@ -46,10 +48,18 @@ namespace pbXSecurity
             // encrypt
             IBuffer buffMsgEncrypted = CryptographicEngine.Encrypt(ckey, buffMsg, buffIv);
             return IBufferToByteArray(buffMsgEncrypted);
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine($"AesCryptographer: Encrypt: error: {e.Message}");
+                return new byte[0];
+            }
         }
 
         public byte[] Decrypt(byte[] msg, byte[] key, byte[] iv)
         {
+            try
+            {
             // algoritm
             SymmetricKeyAlgorithmProvider objAlg = SymmetricKeyAlgorithmProvider.OpenAlgorithm(SymmetricAlgorithmNames.AesCbcPkcs7);
 
@@ -62,6 +72,12 @@ namespace pbXSecurity
             // decrypt
             IBuffer buffMsgDecrypted = CryptographicEngine.Decrypt(ckey, buffMsg, buffIv);
             return IBufferToByteArray(buffMsgDecrypted);
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine($"AesCryptographer: Decrypt: error: {e.Message}");
+                return new byte[0];
+            }
         }
 
 

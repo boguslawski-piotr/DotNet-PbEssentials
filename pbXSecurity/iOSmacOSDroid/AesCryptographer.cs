@@ -46,9 +46,9 @@ namespace pbXSecurity
                     csEncrypt.Close();
                     return sMsgEncrypted.ToArray();
                 }
-                catch (Exception e)
+                catch (Exception ex)
                 {
-                    Debug.WriteLine($"AesCryptographer: Encrypt: error: {e.Message}");
+                    Debug.WriteLine($"AesCryptographer: Encrypt: error: {ex.Message}");
                     return new byte[0];
                 }
             }
@@ -73,9 +73,9 @@ namespace pbXSecurity
                     csDecrypt.Close();
                     return sMsgDecrypted.ToArray();
                 }
-                catch (Exception e)
+                catch (Exception ex)
                 {
-                    Debug.WriteLine($"AesCryptographer: Decrypt: error: {e.Message}");
+                    Debug.WriteLine($"AesCryptographer: Decrypt: error: {ex.Message}");
                     return new byte[0];
                 }
             }

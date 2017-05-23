@@ -1,4 +1,5 @@
 ﻿using System;
+using Xamarin.Forms;
 
 namespace pbXForms
 {
@@ -19,8 +20,10 @@ namespace pbXForms
 #endif
 #endif
         public static double ScreenEdgeMargin = 16;
+		public static Thickness ScreenEdgeLeftRightPadding = new Thickness(ScreenEdgeMargin, 0);
+		public static Thickness ScreenEdgeTopBottomPadding = new Thickness(0, ScreenEdgeMargin);
 
-        public static double AppBarHeightPortrait = 56;
+		public static double AppBarHeightPortrait = 56;
         public static double AppBarHeightLandscape = 48;
 
         public static double ToolBarHeightPortrait = 48;
@@ -33,5 +36,6 @@ namespace pbXForms
 
         public static double TouchTargetHeight = 48;
         public static double IconHeight = 24;
+
     }
 }

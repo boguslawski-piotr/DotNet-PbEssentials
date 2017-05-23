@@ -28,11 +28,10 @@ namespace pbXNet
 		/// <code>IStorage s = await new StorageOnFileSystem().Initialize();</code>
 		/// </example>
 		/// </summary>
-		public async Task<StorageOnFileSystem<T>> Initialize()
+		public async Task InitializeAsync()
         {
             await Fs.SetCurrentDirectoryAsync(null);
             await Fs.CreateDirectoryAsync(Id);
-            return this;
         }
 
         public Task<IEnumerable<string>> FindIdsAsync(string pattern)
