@@ -19,7 +19,7 @@ namespace pbXForms
 			propertyChanged: (bo, o, n) => ((FlatButton)bo).OnCommandChanged());
 
 		public static readonly BindableProperty CommandParameterProperty = BindableProperty.Create("CommandParameter", typeof(object), typeof(FlatButton), null,
-			propertyChanged: (bindable, oldvalue, newvalue) => ((FlatButton)bindable).CommandCanExecuteChanged(bindable, EventArgs.Empty));
+			propertyChanged: (bo, o, n) => ((FlatButton)bo).CommandCanExecuteChanged(bo, EventArgs.Empty));
 
 		public ICommand Command
 		{

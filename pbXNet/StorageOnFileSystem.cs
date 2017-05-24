@@ -31,12 +31,12 @@ namespace pbXNet
 		public virtual async Task InitializeAsync()
         {
             await Fs.SetCurrentDirectoryAsync(null);
-            await Fs.CreateDirectoryAsync(Id);
+            await Fs.CreateDirectoryAsync(Id); // TODO: opoznic tworzenie katalogu do momentu gdy cos naprawde sie dzieje (zapis, odczyt, itp.)
         }
 
-        public virtual Task<IEnumerable<string>> FindIdsAsync(string pattern)
+        public virtual async Task<IEnumerable<string>> FindIdsAsync(string pattern)
         {
-            return Fs.GetFilesAsync(pattern);
+            return await Fs.GetFilesAsync(pattern);
         }
 
         public virtual async Task StoreAsync(string id, T data)
@@ -59,9 +59,9 @@ namespace pbXNet
                 return JsonConvert.DeserializeObject<T>((string)d, pbXNet.Settings.JsonSerializer);
 		}
 		
-        public virtual Task<bool> ExistsAsync(string id)
+        public virtual async Task<bool> ExistsAsync(string id)
         {
-            return Fs.FileExistsAsync(id);
+            return await Fs.FileExistsAsync(id);
         }
 
         public virtual async Task<T> RetrieveAsync(string id)
