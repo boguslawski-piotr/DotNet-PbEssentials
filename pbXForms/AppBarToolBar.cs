@@ -13,11 +13,29 @@ namespace pbXForms
             Padding = new Thickness(0);
             Margin = new Thickness(0);
             //Spacing = Metrics.ToolBarItemsSpacing;
-			Spacing = 0;
-		}
+            Spacing = 0;
+        }
     }
 
     public class ToolBarLayout : AppBarLayout
     { }
+
+    public class ToolBarGridLayout : Grid
+    {
+        public ToolBarGridLayout()
+        {
+            Padding = new Thickness(0);
+            Margin = new Thickness(0);
+            ColumnSpacing = Metrics.ToolBarItemsWideSpacing;
+            RowSpacing = 0;
+            HorizontalOptions = LayoutOptions.CenterAndExpand;
+
+            RowDefinitions = new RowDefinitionCollection() {
+                new RowDefinition() {
+                    Height = GridLength.Star
+                },
+            };
+        }
+    }
 
 }
