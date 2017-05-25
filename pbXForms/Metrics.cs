@@ -20,22 +20,27 @@ namespace pbXForms
 #endif
 #endif
         public static double ScreenEdgeMargin = 16;
+		public static double ScreenEdgeHalfMargin = 8;
+
 		public static Thickness ScreenEdgeLeftRightPadding = new Thickness(ScreenEdgeMargin, 0);
 		public static Thickness ScreenEdgeTopBottomPadding = new Thickness(0, ScreenEdgeMargin);
+		public static Thickness ScreenEdgePadding = new Thickness(ScreenEdgeMargin, ScreenEdgeMargin);
 
 		public static double AppBarHeightPortrait = 56;
         public static double AppBarHeightLandscape = 48;
 
-        public static double ToolBarHeightPortrait = 48;
+        public static double ToolBarHeightPortrait = 56;
         public static double ToolBarHeightLandscape = 48;
 
-        public static double ToolBarItemsSpacing = 2;
-        public static double ToolBarItemsWideSpacing = 16;
+        public static double ToolBarItemsSpacing = 16;
 
         public static double ButtonItemsSpacing = 8;
 
         public static double TouchTargetHeight = 48;
+
         public static double IconHeight = 24;
+		public static double SmallIconHeight = 16;
+
 		public static double ListItemHeight = 56;
         public static Int32 ListItemHeightInt32 = (Int32)ListItemHeight;
 

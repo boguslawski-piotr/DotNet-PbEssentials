@@ -5,13 +5,8 @@ using System.Threading.Tasks;
 
 namespace pbXForms
 {
-#if __IOS__
-	public class FlatButton : Button
-#else
-	public class FlatButton : ContentView
-#endif
-	{
-#if !__IOS__
+    public class FlatButton : ContentView
+    {
 
 		// TODO: public Button+ButtonContentLayout ContentLayout { get; set; }
 
@@ -56,7 +51,13 @@ namespace pbXForms
 			set { _Label.TextColor = value; }
 		}
 
-		public FontAttributes FontAttributes
+		public LineBreakMode LineBreakMode
+		{
+            get { return _Label.LineBreakMode; }
+			set { _Label.LineBreakMode = value; }
+		}
+
+        public FontAttributes FontAttributes
 		{
 			get { return _Label.FontAttributes; }
 			set { _Label.FontAttributes = value; }
@@ -94,43 +95,41 @@ namespace pbXForms
 		}
 
 		public event EventHandler Clicked;
-#endif
 
-		public FlatButton()
-		{
-			HeightRequest = Metrics.TouchTargetHeight;
+        public FlatButton()
+        {
+            HeightRequest = Metrics.TouchTargetHeight;
 
-			MinimumWidthRequest = Metrics.TouchTargetHeight;
+            MinimumWidthRequest = Metrics.TouchTargetHeight;
 
-			VerticalOptions = LayoutOptions.Center;
+            VerticalOptions = LayoutOptions.Center;
 
-			Margin = new Thickness(0);
+            Margin = new Thickness(0);
 
-			WidthRequest = Metrics.TouchTargetHeight;
+            WidthRequest = Metrics.TouchTargetHeight;
 
 			//BackgroundColor = Color.Red;
 
-#if !__IOS__
-
 			Content = new StackLayout()
-			{
-				Orientation = StackOrientation.Horizontal,
-				VerticalOptions = LayoutOptions.CenterAndExpand,
-				HorizontalOptions = LayoutOptions.CenterAndExpand,
+            {
+                Orientation = StackOrientation.Horizontal,
+                VerticalOptions = LayoutOptions.CenterAndExpand,
+                HorizontalOptions = LayoutOptions.CenterAndExpand,
 
-				Margin = new Thickness(0),
-				Padding = new Thickness(0),
-				Spacing = Metrics.ButtonItemsSpacing,
+                Margin = new Thickness(0),
+                Padding = new Thickness(0),
+                Spacing = Metrics.ButtonItemsSpacing,
 
-				Children = {
-					new Image() {
-						IsVisible = false,
-						HeightRequest = Metrics.IconHeight,
-						WidthRequest = Metrics.IconHeight,
-						Aspect = Aspect.AspectFit,
-					},
-					new Label() {
-						IsVisible = false,
+                Children = {
+                    new Image() {
+                        IsVisible = false,
+                        HeightRequest = Metrics.IconHeight,
+                        WidthRequest = Metrics.IconHeight,
+                        Aspect = Aspect.AspectFit,
+                    },
+                    new Label() {
+                        IsVisible = false,
+                        TextColor = (Color)Application.Current.Resources["AccentTextColor"], // TODO: do przemyslenia!
 						VerticalTextAlignment = TextAlignment.Center,
 					}
 				}
@@ -139,10 +138,8 @@ namespace pbXForms
 			TapGestureRecognizer tgr = new TapGestureRecognizer();
 			tgr.Command = new Command(OnTapped);
 			this.GestureRecognizers.Add(tgr);
-#endif
-		}
+        }
 
-#if !__IOS__
 		protected override void OnPropertyChanging(string propertyName = null)
 		{
 			if (propertyName == CommandProperty.PropertyName)
@@ -160,8 +157,8 @@ namespace pbXForms
 			ICommand cmd = Command;
 			if (cmd != null)
 			{
-				//IsEnabledCore = cmd.CanExecute(CommandParameter);
-				// TODO: enable/disable
+				IsEnabled = cmd.CanExecute(CommandParameter);
+                // TODO: visual changes?
 			}
 		}
 
@@ -174,24 +171,24 @@ namespace pbXForms
 			}
 			else
 			{
-				//IsEnabledCore = true;
-				// TODO: enable
+				IsEnabled = true;
+				// TODO: visual changes?
 			}
 		}
 
 		async void OnTapped(object parameter)
 		{
-			double opacity = Opacity;
+            if(!IsEnabled)
+                return;
+
+            double opacity = Opacity;
 
 			await this.FadeTo(0.2, 150);
 
 			Command?.Execute(CommandParameter);
 			Clicked?.Invoke(this, EventArgs.Empty);
 
-#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
             this.FadeTo(opacity, 150);
-#pragma warning restore CS4014
         }
-#endif
-	}
+    }
 }

@@ -1,36 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ContentView
-	xmlns="http://xamarin.com/schemas/2014/forms"
-	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-	xmlns:pbXForms="clr-namespace:pbXForms"
-	x:Class="pbXForms.ContentViewEx">
+    xmlns = "http://xamarin.com/schemas/2014/forms"
+    xmlns:x = "http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:pbXForms = "clr-namespace:pbXForms"
+    x:Class = "pbXForms.ContentViewEx">
 
-	<pbXForms:ContentViewExLayout
-		x:Name="_Grid">
+    <AbsoluteLayout
+        x:Name = "_Layout">
 
-		<pbXForms:AppBarLayout
-			Grid.Row="0"
-			Grid.Column="0"
-			x:Name="_AppBarRow"
-			BackgroundColor="{StaticResource AppBarBackgroundColor}">
+        <pbXForms:ContentViewExLayout
+            x:Name = "_Grid">
 
-		</pbXForms:AppBarLayout>
+            <pbXForms:AppBarLayout
+                Grid.Row = "0"
+                Grid.Column = "0"
+                x:Name = "_AppBarRow"
+                BackgroundColor = "{StaticResource AppBarBackgroundColor}">
 
-		<pbXForms:ContentViewExContentLayout
-			Grid.Row="1"
-			Grid.Column="0"
-			x:Name="_ContentRow">
+            </pbXForms:AppBarLayout>
 
-		</pbXForms:ContentViewExContentLayout>
+            <pbXForms:ContentViewExContentLayout
+                Grid.Row = "1"
+                Grid.Column = "0"
+                x:Name = "_ContentRow">
 
-		<pbXForms:ToolBarLayout
-			Grid.Row="2"
-			Grid.Column="0"
-			x:Name="_ToolBarRow"
-			BackgroundColor="{StaticResource ToolBarBackgroundColor}">
+            </pbXForms:ContentViewExContentLayout>
 
-		</pbXForms:ToolBarLayout>
+            <pbXForms:ToolBarLayout
+                Grid.Row = "2"
+                Grid.Column = "0"
+                x:Name = "_ToolBarRow"
+                BackgroundColor = "{StaticResource ToolBarBackgroundColor}">
 
-	</pbXForms:ContentViewExLayout>
+            </pbXForms:ToolBarLayout>
+
+        </pbXForms:ContentViewExLayout>
+
+        <BoxView
+            x:Name = "_Blocker"
+            IsVisible = "false">
+
+        </BoxView>
+
+        <Frame
+            x:Name = "_Dialog"
+            IsVisible = "false"
+            HasShadow="true"
+            Margin="0"
+            Padding="2"
+            >
+        </Frame>
+
+    </AbsoluteLayout>
 
 </ContentView>

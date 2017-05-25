@@ -24,6 +24,9 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)AppBarToolBar.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MarkupExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ImageEx.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)NavigationEx.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)ContentPageEx.xaml">

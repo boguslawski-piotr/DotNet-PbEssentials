@@ -12,7 +12,6 @@ namespace pbXForms
             HorizontalOptions = LayoutOptions.FillAndExpand;
             Padding = new Thickness(0);
             Margin = new Thickness(0);
-            //Spacing = Metrics.ToolBarItemsSpacing;
             Spacing = 0;
         }
     }
@@ -26,7 +25,7 @@ namespace pbXForms
         {
             Padding = new Thickness(0);
             Margin = new Thickness(0);
-            ColumnSpacing = Metrics.ToolBarItemsWideSpacing;
+            ColumnSpacing = Metrics.ToolBarItemsSpacing;
             RowSpacing = 0;
             HorizontalOptions = LayoutOptions.CenterAndExpand;
 

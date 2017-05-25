@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using pbXNet;
 using Xamarin.Forms;
 
@@ -82,12 +83,16 @@ namespace pbXForms
             }
         }
 
+        public NavigationEx NavigationEx = new NavigationEx();
 
         public ContentViewEx()
         {
             InitializeComponent();
+            NavigationEx.InitializeComponent(this, _Grid, _Blocker, _Dialog);
         }
 
+
+        //
 
         Size _osa;
 
@@ -105,6 +110,8 @@ namespace pbXForms
             LayoutAppBarAndToolBar(width, height);
 
             ContinueOnSizeAllocated(width, height);
+
+            NavigationEx.OnSizeAllocated(width, height);
 
             BatchCommit();
         }

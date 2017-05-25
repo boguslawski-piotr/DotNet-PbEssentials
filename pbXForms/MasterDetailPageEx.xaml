@@ -1,15 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ContentPage
-    xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:pbXForms="clr-namespace:pbXForms"
-    xmlns:local="clr-namespace:SafeNotebooks"
-    x:Class="pbXForms.MasterDetailPageEx">
+    xmlns = "http://xamarin.com/schemas/2014/forms"
+    xmlns:x = "http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:pbXForms = "clr-namespace:pbXForms"
+    xmlns:local = "clr-namespace:SafeNotebooks"
+    x:Class = "pbXForms.MasterDetailPageEx">
 
-    <pbXForms:MasterDetailPageExViewsLayout
-		x:Name="_Views"
-        Spacing="0">
+    <AbsoluteLayout
+        x:Name = "_Layout">
 
-    </pbXForms:MasterDetailPageExViewsLayout>
+        <pbXForms:MasterDetailPageExViewsLayout
+            x:Name = "_ViewsContainer"
+            Spacing = "0">
+
+        </pbXForms:MasterDetailPageExViewsLayout>
+
+        <BoxView
+            x:Name = "_Blocker"
+            IsVisible = "false">
+
+        </BoxView>
+
+        <Frame
+            x:Name = "_Dialog"
+            IsVisible = "false"
+            HasShadow="true"
+            Margin="0"
+            Padding="2"
+            >
+        </Frame>
+
+    </AbsoluteLayout>
 
 </ContentPage>
