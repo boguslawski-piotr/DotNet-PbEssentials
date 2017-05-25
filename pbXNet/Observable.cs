@@ -11,7 +11,7 @@ namespace pbXNet
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
-		protected void Set<T>(ref T storage, T value, [CallerMemberName]string name = null)
+		protected void SetValue<T>(ref T storage, T value, [CallerMemberName]string name = null)
 		{
 			if (Equals(storage, value))
 			{
