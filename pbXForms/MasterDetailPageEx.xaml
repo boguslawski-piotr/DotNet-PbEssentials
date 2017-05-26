@@ -10,25 +10,10 @@
         x:Name = "_Layout">
 
         <pbXForms:MasterDetailPageExViewsLayout
-            x:Name = "_ViewsContainer"
+            x:Name = "_View"
             Spacing = "0">
 
         </pbXForms:MasterDetailPageExViewsLayout>
-
-        <BoxView
-            x:Name = "_Blocker"
-            IsVisible = "false">
-
-        </BoxView>
-
-        <Frame
-            x:Name = "_Dialog"
-            IsVisible = "false"
-            HasShadow="true"
-            Margin="0"
-            Padding="2"
-            >
-        </Frame>
 
     </AbsoluteLayout>
 

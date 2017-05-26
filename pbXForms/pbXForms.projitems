@@ -26,7 +26,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)MarkupExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ImageEx.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)NavigationEx.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ModalViewsManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ModalContentView.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)ContentPageEx.xaml">

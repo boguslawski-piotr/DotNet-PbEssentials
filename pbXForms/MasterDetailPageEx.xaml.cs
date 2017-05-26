@@ -21,18 +21,18 @@ namespace pbXForms
 
     public partial class MasterDetailPageEx : ContentPage
     {
-        public IList<View> Views => _ViewsContainer?.Children;
+        public IList<View> Views => _View?.Children;
 
         protected View _MasterView { get { return Views?.Count > 0 ? Views[0] : null; } }
 
         protected View _DetailView { get { return Views?.Count > 1 ? Views[1] : null; } }
 
-        public NavigationEx NavigationEx = new NavigationEx();
+        public ModalViewsManager ModalViewsManager = new ModalViewsManager();
 
         public MasterDetailPageEx()
         {
             InitializeComponent();
-            NavigationEx.InitializeComponent(this, _ViewsContainer, _Blocker, _Dialog);
+            ModalViewsManager.InitializeComponent(_Layout);
 		}
 
 
@@ -100,7 +100,7 @@ namespace pbXForms
             if (_DetailView != null)
                 _DetailView.IsVisible = IsSplitView ? true : !MasterViewIsVisible;
 
-            NavigationEx.OnSizeAllocated(width, height);
+            ModalViewsManager.OnSizeAllocated(width, height);
 
 			BatchCommit();
         }

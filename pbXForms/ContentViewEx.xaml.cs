@@ -50,7 +50,7 @@ namespace pbXForms
     }
 
 
-    public partial class ContentViewEx : ContentView
+    public partial class ContentViewEx : ModalContentView
     {
         public AppBarLayout AppBar => _AppBarRow;
         public IList<View> AppBarContent => _AppBarRow.Children;
@@ -60,7 +60,6 @@ namespace pbXForms
             set { AppBar.BackgroundColor = value; }
         }
 
-        //protected ContentViewExContentLayout View => __ContentRow;
         public IList<View> ViewContent => _ContentRow.Children;
 
         public ToolBarLayout ToolBar => _ToolBarRow;
@@ -83,16 +82,13 @@ namespace pbXForms
             }
         }
 
-        public NavigationEx NavigationEx = new NavigationEx();
+        public ModalViewsManager ModalViewsManager = new ModalViewsManager();
 
         public ContentViewEx()
         {
             InitializeComponent();
-            NavigationEx.InitializeComponent(this, _Grid, _Blocker, _Dialog);
+            ModalViewsManager.InitializeComponent(_Layout);
         }
-
-
-        //
 
         Size _osa;
 
@@ -100,7 +96,7 @@ namespace pbXForms
         {
             base.OnSizeAllocated(width, height);
 
-            if (_Grid == null)
+            if (_View == null)
                 return;
             if (!Tools.IsDifferent(new Size(width, height), ref _osa))
                 return;
@@ -111,21 +107,21 @@ namespace pbXForms
 
             ContinueOnSizeAllocated(width, height);
 
-            NavigationEx.OnSizeAllocated(width, height);
+            ModalViewsManager.OnSizeAllocated(width, height);
 
             BatchCommit();
         }
 
         protected virtual void LayoutAppBarAndToolBar(double width, double height)
         {
-            if (_Grid == null)
+            if (_View == null)
                 return;
 
             bool IsLandscape = (DeviceEx.Orientation == DeviceOrientation.Landscape);
 
             if (_AppBarRow?.Children?.Count > 0)
             {
-                _Grid.RowDefinitions[0].Height =
+                _View.RowDefinitions[0].Height =
                     (IsLandscape ? Metrics.AppBarHeightLandscape : Metrics.AppBarHeightPortrait)
                     + ((ViewCoversStatusBar && DeviceEx.StatusBarVisible) ? Metrics.StatusBarHeight : 0);
 
@@ -137,7 +133,7 @@ namespace pbXForms
             }
 
             if (_ToolBarRow?.Children?.Count > 0)
-                _Grid.RowDefinitions[2].Height = (IsLandscape ? Metrics.ToolBarHeightLandscape : Metrics.ToolBarHeightPortrait);
+                _View.RowDefinitions[2].Height = (IsLandscape ? Metrics.ToolBarHeightLandscape : Metrics.ToolBarHeightPortrait);
         }
 
         protected virtual void ContinueOnSizeAllocated(double width, double height)
