@@ -13,9 +13,19 @@ namespace pbXForms
 
         public virtual bool HasShadow { get; set; } = false;
 		public virtual float CornerRadius { get; set; } = 6;
-		public virtual uint AnimationLength { get; set; } = 250;
-		public virtual double BlockerOpacity { get; set; } = 0.50;
+
+        public virtual double BlockerOpacity { get; set; } = 0.50;
 		public virtual Color BlokerBackgroundColor { get; set; } = Color.FromHex("#000000");
+
+		public virtual double NavDrawerWidth { get; set; } = 0;
+		public virtual double NavDrawerRelativeWidth { get; set; } = 0.8;
+
+        uint _AnimationsLength = 300;
+        public virtual uint AnimationsLength
+        {
+            get => (uint)((double)_AnimationsLength * (Device.Idiom == TargetIdiom.Tablet ? 1.33 : Device.Idiom == TargetIdiom.Desktop ? 0.77 : 1));
+            set => _AnimationsLength = value;
+        }
 
 		public virtual void InitializeComponent(AbsoluteLayout layout)
         {
@@ -62,7 +72,7 @@ namespace pbXForms
 
         public virtual void OnSizeAllocated(double width, double height)
         {
-            if (_ModalView.IsVisible)
+            if (_ModalView != null && _ModalView.IsVisible)
                 AnimateModalAsync(false, false);
         }
 
@@ -72,21 +82,26 @@ namespace pbXForms
             BottomCenter,
             BottomLeft,
             BottomRight,
-            TakeWholeView,
+            NavDrawer,
+            WholeView,
         }
 
         ModalPosition modalPosition = ModalPosition.Center;
 
         public virtual async Task PushModalAsync(ContentView content, ModalPosition position = ModalPosition.Center, bool animate = true)
         {
-            // Initialize...
+			// Initialize...
 
-            _ModalView.BackgroundColor = content.BackgroundColor;
+            modalPosition = position;
+
+			_ModalView.CornerRadius = modalPosition >= ModalPosition.NavDrawer ? 0 : CornerRadius;
+			_ModalView.Padding = new Thickness(_ModalView.CornerRadius / 2);
+			_ModalView.HasShadow = HasShadow;
+			_ModalView.BackgroundColor = content.BackgroundColor;
             _ModalView.Content = content;
 
             // Show...
 
-            modalPosition = position;
             await AnimateModalAsync(false, animate);
         }
 
@@ -101,39 +116,55 @@ namespace pbXForms
 
 		protected virtual async Task AnimateModalAsync(bool hide, bool animate)
 		{
-            // Calculate size and position...
+			// Calculate size and position...
 
-            _ModalView.HasShadow = HasShadow;
-            _ModalView.CornerRadius = CornerRadius;
+            double navDrawerWidth = NavDrawerWidth <= 0 ? _Layout.Bounds.Width * NavDrawerRelativeWidth : NavDrawerWidth;
 
-			Rectangle bounds = _Layout.Bounds.Inflate(-(Metrics.ScreenEdgeMargin), -(Metrics.ScreenEdgeMargin));
+            Rectangle bounds;
+            if (modalPosition > ModalPosition.NavDrawer) 
+            {
+                bounds = _Layout.Bounds;
+                if (modalPosition == ModalPosition.NavDrawer)
+                    bounds.Width = navDrawerWidth;
+            }
+            else
+			    bounds = _Layout.Bounds.Inflate(-(Metrics.ScreenEdgeMargin), -(Metrics.ScreenEdgeMargin));
 			Xamarin.Forms.Layout.LayoutChildIntoBoundingRegion(_ModalView, bounds);
 
 			Rectangle to = _ModalView.Bounds;
-			if (modalPosition == ModalPosition.Center)
-			{
-				to.X = _Layout.Bounds.Width / 2 - to.Width / 2;
-				to.Y = _Layout.Bounds.Height / 2 - to.Height / 2;
-			}
-			else if (modalPosition == ModalPosition.BottomCenter)
-			{
-				to.X = _Layout.Bounds.Width / 2 - to.Width / 2;
-				to.Y = _Layout.Bounds.Bottom - to.Height - Metrics.ScreenEdgeMargin;
-			}
-			else if (modalPosition == ModalPosition.BottomLeft)
-			{
-				to.X = Metrics.ScreenEdgeMargin;
-				to.Y = _Layout.Bounds.Bottom - to.Height - Metrics.ScreenEdgeMargin;
-			}
-			else if (modalPosition == ModalPosition.BottomRight)
-			{
+            if (modalPosition == ModalPosition.Center)
+            {
+                to.X = _Layout.Bounds.Width / 2 - to.Width / 2;
+                to.Y = _Layout.Bounds.Height / 2 - to.Height / 2;
+            }
+            else if (modalPosition == ModalPosition.BottomCenter)
+            {
+                to.X = _Layout.Bounds.Width / 2 - to.Width / 2;
+                to.Y = _Layout.Bounds.Bottom - to.Height - Metrics.ScreenEdgeMargin;
+            }
+            else if (modalPosition == ModalPosition.BottomLeft)
+            {
+                to.X = Metrics.ScreenEdgeMargin;
+                to.Y = _Layout.Bounds.Bottom - to.Height - Metrics.ScreenEdgeMargin;
+            }
+            else if (modalPosition == ModalPosition.BottomRight)
+            {
                 to.X = _Layout.Bounds.Width - to.Width - Metrics.ScreenEdgeMargin;
-				to.Y = _Layout.Bounds.Bottom - to.Height - Metrics.ScreenEdgeMargin;
-			}
+                to.Y = _Layout.Bounds.Bottom - to.Height - Metrics.ScreenEdgeMargin;
+            }
+            else if (modalPosition == ModalPosition.NavDrawer)
+                to = new Rectangle(0, 0, navDrawerWidth, _Layout.Bounds.Height);
+            else if (modalPosition == ModalPosition.WholeView)
+                to = _Layout.Bounds;
 
 			Rectangle from = to;
-            if(animate)
-			    from.Y = _Layout.Bounds.Height;
+            if (animate)
+            {
+                if (modalPosition == ModalPosition.NavDrawer)
+                    from.X -= _Layout.Bounds.Width; // from/to left
+                else
+                    from.Y = _Layout.Bounds.Height; // from/to bottom
+            }
 
 			AbsoluteLayout.SetLayoutBounds(_ModalView, hide ? to : from);
 			_ModalView.Layout(hide ? to : from);
@@ -148,9 +179,10 @@ namespace pbXForms
 
             if (animate)
             {
+                uint al = AnimationsLength;
                 await Task.WhenAny(
-                    _ModalView.LayoutTo(hide ? from : to, AnimationLength),
-                    _Blocker.FadeTo(hide ? 0 : BlockerOpacity, AnimationLength)
+                    _ModalView.LayoutTo(hide ? from : to, al, hide ? Easing.CubicIn : Easing.CubicOut),
+                    _Blocker.FadeTo(hide ? 0 : BlockerOpacity, al)
                 );
 			}
 
