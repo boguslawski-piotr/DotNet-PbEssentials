@@ -12,15 +12,16 @@ namespace pbXForms
 
     public partial class MasterDetailPageEx : ContentPage
     {
-		public virtual double MasterViewRelativeWidth { get; set; } = 0.3;
-		public virtual double MasterViewMinimumWidth { get; set; } =
+        public virtual double MasterViewRelativeWidth { get; set; } = 0.3;
+        public virtual double MasterViewMinimumWidth { get; set; } =
 #if WINDOWS_UWP || __MACOS__
             320;
 #else
-			240;
+            240;
 #endif
+        public virtual double MasterViewActualWidth { get => (_MasterView == null ? 0 : _MasterView.Bounds.Width); }
 
-		public IList<View> Views => _View?.Children;
+        public IList<View> Views => _View?.Children;
 
         protected View _MasterView;
         protected View _DetailView;
@@ -39,10 +40,15 @@ namespace pbXForms
         /// </summary>
         public void InitializeViews(bool showMasterView = true)
         {
+            if (Views?.Count <= 0)
+                return;
+
             _MasterView = Views[0];
             _DetailView = Views?.Count > 1 ? Views[1] : null;
             if (_DetailView != null && showMasterView)
                 _View.LowerChild(_DetailView);
+            else
+                _MasterViewIsVisible = false;
         }
 
 
@@ -66,13 +72,57 @@ namespace pbXForms
 
                 _MasterViewIsVisible = value;
                 if (_MasterViewIsVisible)
-                    _View.LowerChild(_DetailView);
+                {
+                    //_View.LowerChild(_DetailView);
+                    ShowMasterView();
+                }
                 else
-                    _View.RaiseChild(_DetailView);
+                {
+                    //_View.RaiseChild(_DetailView);
+                    HideMasterView();
+                }
             }
         }
 
-        Size _osa;
+        async Task ShowMasterView()
+        {
+			_View.LowerChild(_DetailView);
+
+            Rectangle mto = _View.Bounds;
+            mto.X -= mto.Width;
+            _MasterView.Layout(mto);
+            mto.X += mto.Width;
+
+            Rectangle dto = _View.Bounds;
+            _DetailView.Layout(dto);
+			dto.X += dto.Width;
+
+			await Task.WhenAny(
+                _MasterView.LayoutTo(mto, ModalViewsManager.AnimationsLength, Easing.CubicOut),
+                _DetailView.LayoutTo(dto, ModalViewsManager.AnimationsLength, Easing.CubicOut)
+            );
+		}
+		
+        async Task HideMasterView()
+		{
+			Rectangle mto = _View.Bounds;
+			_MasterView.Layout(mto);
+			mto.X -= mto.Width;
+
+			Rectangle dto = _View.Bounds;
+			dto.X += dto.Width;
+			_DetailView.Layout(dto);
+            dto.X -= dto.Width;
+
+			await Task.WhenAny(
+				_MasterView.LayoutTo(mto, ModalViewsManager.AnimationsLength, Easing.CubicIn),
+				_DetailView.LayoutTo(dto, ModalViewsManager.AnimationsLength, Easing.CubicIn)
+			);
+			
+            _View.RaiseChild(_DetailView);
+		}
+
+		Size _osa;
 
         protected override void OnSizeAllocated(double width, double height)
         {
@@ -97,13 +147,14 @@ namespace pbXForms
             }
             else
             {
-                double masterWidth = _DetailView != null ? Math.Max(MasterViewMinimumWidth, width * MasterViewRelativeWidth) : width;
+                double masterViewWidth = _DetailView != null ? Math.Max(MasterViewMinimumWidth, width * MasterViewRelativeWidth) : width;
+
                 AbsoluteLayout.SetLayoutFlags(_MasterView, AbsoluteLayoutFlags.None);
-                AbsoluteLayout.SetLayoutBounds(_MasterView, new Rectangle(0, 0, masterWidth, height));
+                AbsoluteLayout.SetLayoutBounds(_MasterView, new Rectangle(0, 0, masterViewWidth, height));
                 if (_DetailView != null)
                 {
                     AbsoluteLayout.SetLayoutFlags(_DetailView, AbsoluteLayoutFlags.None);
-                    AbsoluteLayout.SetLayoutBounds(_DetailView, new Rectangle(masterWidth, 0, width - masterWidth, height));
+                    AbsoluteLayout.SetLayoutBounds(_DetailView, new Rectangle(masterViewWidth, 0, width - masterViewWidth, height));
                 }
             }
 
