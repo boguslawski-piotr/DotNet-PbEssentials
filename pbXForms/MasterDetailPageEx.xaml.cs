@@ -6,26 +6,24 @@ using Xamarin.Forms;
 
 namespace pbXForms
 {
-    public class MasterDetailPageExViewsLayout : StackLayout
+    public class MasterDetailPageExViewsLayout : AbsoluteLayout
     {
-        public MasterDetailPageExViewsLayout()
-        {
-            Orientation = StackOrientation.Horizontal;
-            VerticalOptions = LayoutOptions.FillAndExpand;
-            HorizontalOptions = LayoutOptions.FillAndExpand;
-            Padding = new Thickness(0);
-            Margin = new Thickness(0);
-            Spacing = 0;
-        }
     }
 
     public partial class MasterDetailPageEx : ContentPage
     {
-        public IList<View> Views => _View?.Children;
+		public virtual double MasterViewRelativeWidth { get; set; } = 0.3;
+		public virtual double MasterViewMinimumWidth { get; set; } =
+#if WINDOWS_UWP || __MACOS__
+            320;
+#else
+			240;
+#endif
 
-        protected View _MasterView { get { return Views?.Count > 0 ? Views[0] : null; } }
+		public IList<View> Views => _View?.Children;
 
-        protected View _DetailView { get { return Views?.Count > 1 ? Views[1] : null; } }
+        protected View _MasterView;
+        protected View _DetailView;
 
         public ModalViewsManager ModalViewsManager = new ModalViewsManager();
 
@@ -33,8 +31,22 @@ namespace pbXForms
         {
             InitializeComponent();
             ModalViewsManager.InitializeComponent(_Layout);
-		}
+        }
 
+        /// <summary>
+        /// Initializes the views.
+        /// Must be called AFTER InitializeComponent() of a class that inherits from this.
+        /// </summary>
+        public void InitializeViews(bool showMasterView = true)
+        {
+            _MasterView = Views[0];
+            _DetailView = Views?.Count > 1 ? Views[1] : null;
+            if (_DetailView != null && showMasterView)
+                _View.LowerChild(_DetailView);
+        }
+
+
+        //
 
         public virtual bool IsSplitView
         {
@@ -42,33 +54,23 @@ namespace pbXForms
             get { return DeviceEx.Orientation != DeviceOrientation.Portrait || Device.Idiom != TargetIdiom.Phone; }
         }
 
-
-        bool _MasterViewIsVisible;
+        bool _MasterViewIsVisible = true;
         public virtual bool MasterViewIsVisible
         {
             get {
                 return _MasterViewIsVisible;
             }
             set {
-                // TODO: add animation (slide in/out)
-                if (_MasterView == null)
+                if (_MasterView == null || IsSplitView)
                     return;
-                _MasterViewIsVisible = !IsSplitView ? value : true;
-                _MasterView.IsVisible = _MasterViewIsVisible;
-                if (_DetailView != null)
-                    _DetailView.IsVisible = IsSplitView ? true : !_MasterViewIsVisible;
+
+                _MasterViewIsVisible = value;
+                if (_MasterViewIsVisible)
+                    _View.LowerChild(_DetailView);
+                else
+                    _View.RaiseChild(_DetailView);
             }
         }
-
-        public virtual double MasterViewMinimumWidth { get; set; } =
-#if WINDOWS_UWP || __MACOS__
-            320;
-#else
-            240;
-#endif
-        
-        public virtual double MasterViewRelativeWidth { get; set; } = 0.3;
-
 
         Size _osa;
 
@@ -85,24 +87,29 @@ namespace pbXForms
 
             if (!IsSplitView)
             {
-                _MasterView.WidthRequest = width;
+                AbsoluteLayout.SetLayoutFlags(_MasterView, AbsoluteLayoutFlags.SizeProportional);
+                AbsoluteLayout.SetLayoutBounds(_MasterView, new Rectangle(0, 0, 1, 1));
                 if (_DetailView != null)
-                    _DetailView.WidthRequest = width;
+                {
+                    AbsoluteLayout.SetLayoutFlags(_DetailView, AbsoluteLayoutFlags.SizeProportional);
+                    AbsoluteLayout.SetLayoutBounds(_DetailView, new Rectangle(0, 0, 1, 1));
+                }
             }
             else
             {
-                _MasterView.WidthRequest = Math.Max(MasterViewMinimumWidth, width * MasterViewRelativeWidth);
+                double masterWidth = _DetailView != null ? Math.Max(MasterViewMinimumWidth, width * MasterViewRelativeWidth) : width;
+                AbsoluteLayout.SetLayoutFlags(_MasterView, AbsoluteLayoutFlags.None);
+                AbsoluteLayout.SetLayoutBounds(_MasterView, new Rectangle(0, 0, masterWidth, height));
                 if (_DetailView != null)
-                    _DetailView.WidthRequest = width - _MasterView.WidthRequest;
+                {
+                    AbsoluteLayout.SetLayoutFlags(_DetailView, AbsoluteLayoutFlags.None);
+                    AbsoluteLayout.SetLayoutBounds(_DetailView, new Rectangle(masterWidth, 0, width - masterWidth, height));
+                }
             }
-
-            _MasterView.IsVisible = IsSplitView ? true : MasterViewIsVisible;
-            if (_DetailView != null)
-                _DetailView.IsVisible = IsSplitView ? true : !MasterViewIsVisible;
 
             ModalViewsManager.OnSizeAllocated(width, height);
 
-			BatchCommit();
+            BatchCommit();
         }
 
     }

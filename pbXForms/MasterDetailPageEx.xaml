@@ -10,8 +10,7 @@
         x:Name = "_Layout">
 
         <pbXForms:MasterDetailPageExViewsLayout
-            x:Name = "_View"
-            Spacing = "0">
+            x:Name = "_View">
 
         </pbXForms:MasterDetailPageExViewsLayout>
 
