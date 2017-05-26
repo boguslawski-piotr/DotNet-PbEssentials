@@ -12,7 +12,7 @@ namespace pbXForms
 
     public partial class MasterDetailPageEx : ContentPage
     {
-        public virtual double MasterViewRelativeWidth { get; set; } = 0.3;
+		public virtual double MasterViewRelativeWidth { get; set; } = 0.3;
         public virtual double MasterViewMinimumWidth { get; set; } =
 #if WINDOWS_UWP || __MACOS__
             320;
@@ -20,6 +20,7 @@ namespace pbXForms
             240;
 #endif
         public virtual double MasterViewActualWidth { get => (_MasterView == null ? 0 : _MasterView.Bounds.Width); }
+        public virtual double MasterViewWidthInSplitView { get; protected set; }
 
         public IList<View> Views => _View?.Children;
 
@@ -38,7 +39,7 @@ namespace pbXForms
         /// Initializes the views.
         /// Must be called AFTER InitializeComponent() of a class that inherits from this.
         /// </summary>
-        public void InitializeViews(bool showMasterView = true)
+        public virtual void InitializeViews(bool showMasterView = true)
         {
             if (Views?.Count <= 0)
                 return;
@@ -73,18 +74,16 @@ namespace pbXForms
                 _MasterViewIsVisible = value;
                 if (_MasterViewIsVisible)
                 {
-                    //_View.LowerChild(_DetailView);
                     ShowMasterView();
                 }
                 else
                 {
-                    //_View.RaiseChild(_DetailView);
                     HideMasterView();
                 }
             }
         }
 
-        async Task ShowMasterView()
+        protected virtual async Task ShowMasterView()
         {
 			_View.LowerChild(_DetailView);
 
@@ -103,7 +102,7 @@ namespace pbXForms
             );
 		}
 		
-        async Task HideMasterView()
+        protected virtual async Task HideMasterView()
 		{
 			Rectangle mto = _View.Bounds;
 			_MasterView.Layout(mto);
@@ -137,6 +136,9 @@ namespace pbXForms
 
             if (!IsSplitView)
             {
+				// Calculate master page width in split mode regardless of whether the device at this time is in landscape or portait
+				MasterViewWidthInSplitView = _DetailView != null ? Math.Max(MasterViewMinimumWidth, Math.Max(width, height) * MasterViewRelativeWidth) : width;
+				
                 AbsoluteLayout.SetLayoutFlags(_MasterView, AbsoluteLayoutFlags.SizeProportional);
                 AbsoluteLayout.SetLayoutBounds(_MasterView, new Rectangle(0, 0, 1, 1));
                 if (_DetailView != null)
@@ -147,21 +149,20 @@ namespace pbXForms
             }
             else
             {
-                double masterViewWidth = _DetailView != null ? Math.Max(MasterViewMinimumWidth, width * MasterViewRelativeWidth) : width;
+                MasterViewWidthInSplitView = _DetailView != null ? Math.Max(MasterViewMinimumWidth, width * MasterViewRelativeWidth) : width;
 
                 AbsoluteLayout.SetLayoutFlags(_MasterView, AbsoluteLayoutFlags.None);
-                AbsoluteLayout.SetLayoutBounds(_MasterView, new Rectangle(0, 0, masterViewWidth, height));
+                AbsoluteLayout.SetLayoutBounds(_MasterView, new Rectangle(0, 0, MasterViewWidthInSplitView, height));
                 if (_DetailView != null)
                 {
                     AbsoluteLayout.SetLayoutFlags(_DetailView, AbsoluteLayoutFlags.None);
-                    AbsoluteLayout.SetLayoutBounds(_DetailView, new Rectangle(masterViewWidth, 0, width - masterViewWidth, height));
+                    AbsoluteLayout.SetLayoutBounds(_DetailView, new Rectangle(MasterViewWidthInSplitView, 0, width - MasterViewWidthInSplitView, height));
                 }
             }
 
-            ModalViewsManager.OnSizeAllocated(width, height);
+			ModalViewsManager.OnSizeAllocated(width, height);
 
             BatchCommit();
         }
-
     }
 }
