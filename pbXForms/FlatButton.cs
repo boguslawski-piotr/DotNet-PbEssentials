@@ -2,6 +2,7 @@
 using Xamarin.Forms;
 using System.Windows.Input;
 using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace pbXForms
 {
@@ -176,19 +177,29 @@ namespace pbXForms
 			}
 		}
 
+        volatile bool _onTappedIsRunning = false;
+
 		async void OnTapped(object parameter)
 		{
-            if(!IsEnabled)
+            if(!IsEnabled || _onTappedIsRunning)
                 return;
+			
+            DateTime s = DateTime.Now;
+
+			_onTappedIsRunning = true;
 
             double opacity = Opacity;
 
-			await this.FadeTo(0.2, 150);
+			await this.ScaleTo(1.33, 150, Easing.CubicOut);
 
 			Command?.Execute(CommandParameter);
-			Clicked?.Invoke(this, EventArgs.Empty);
+            Clicked?.Invoke(this, EventArgs.Empty);
+			
+            this.ScaleTo(1, 150, Easing.CubicIn);
 
-            this.FadeTo(opacity, 150);
-        }
+            _onTappedIsRunning = false;
+
+			//Debug.WriteLine($"FlatButton: OnTapped: run for {DateTime.Now - s}");
+		}
     }
 }
