@@ -14,7 +14,8 @@ namespace pbXSecurity
         Undefined,
 		Infinite,
 		WhileAppRunning,
-        WhileAppIsOnTop
+        WhileAppIsOnTop,
+        OneTime
 	};
 
 	/// <summary>

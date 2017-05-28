@@ -69,7 +69,7 @@ namespace pbXSecurity
             string d = JsonConvert.SerializeObject(Passwords);
             d = Obfuscator.Obfuscate(d);
 
-            await Storage.StoreAsync(_PasswordsDataId, d);
+            await Storage.StoreAsync(_PasswordsDataId, d, DateTime.UtcNow);
         }
 
         const string _phrase = "Life is short. Smile while you still have teeth :)";
@@ -159,9 +159,9 @@ namespace pbXSecurity
 
             string d = JsonConvert.SerializeObject(CKeys);
             d = Obfuscator.Obfuscate(d);
-            // TODO: dodac szyfrowanie; haslem powinno byc cos co mozn pobrac z systemu, jest niezmienne i nie da sie wyczytac z kodu programu bez doglebnego debugowania
+            // TODO: dodac szyfrowanie; haslem powinno byc cos co mozna pobrac z systemu, jest niezmienne i nie da sie wyczytac z kodu programu bez doglebnego debugowania
 
-            await Storage.StoreAsync(_CKeysDataId, d);
+            await Storage.StoreAsync(_CKeysDataId, d, DateTime.UtcNow);
         }
 
         public async Task<byte[]> CreateCKeyAsync(string id, CKeyLifeTime lifeTime, string passwd)
@@ -180,7 +180,8 @@ namespace pbXSecurity
                 await SaveCKeysAsync();
             }
             else
-                TemporaryCKeys[id] = new TemporaryCKey() { lifeTime = lifeTime, ckey = ckey };
+                if(lifeTime != CKeyLifeTime.OneTime)
+                    TemporaryCKeys[id] = new TemporaryCKey() { lifeTime = lifeTime, ckey = ckey };
 
             return ckey;
         }
