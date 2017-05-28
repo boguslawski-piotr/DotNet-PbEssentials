@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 
 namespace pbXNet
 {
-    public class StorageOnFileSystem<T> : ISearchableStorage<T>
+    public class StorageOnFileSystem<T> : ISearchableStorage<T> where T : class
     {
         public string Id { get; private set; }
 
@@ -23,10 +23,6 @@ namespace pbXNet
 		/// Initializes internally this instance.
 		/// It is designed to be called (from user code) 
 		/// right after constructor but asynchronously.
-		/// For example:
-		/// <example>
-		/// <code>IStorage s = await new StorageOnFileSystem().Initialize();</code>
-		/// </example>
 		/// </summary>
 		public virtual async Task InitializeAsync()
         {
@@ -39,7 +35,9 @@ namespace pbXNet
             return await Fs.GetFilesAsync(pattern);
         }
 
-        public virtual async Task StoreAsync(string id, T data)
+        const string ModifiedOnSeparator = "@";
+
+        public virtual async Task StoreAsync(string id, T data, DateTime modifiedOn)
         {
             string d;
             if (typeof(T).Equals(typeof(string)))
@@ -47,12 +45,33 @@ namespace pbXNet
             else
                 d = JsonConvert.SerializeObject(data, pbXNet.Settings.JsonSerializer);
 
-			await Fs.WriteTextAsync(id, d);
+            string mod = JsonConvert.SerializeObject(modifiedOn, pbXNet.Settings.JsonSerializer);
+
+            await Fs.WriteTextAsync(id, mod + ModifiedOnSeparator + d);
+		}
+		
+        public virtual async Task<DateTime> GetModifiedOnAsync(string id)
+		{
+            if (!await ExistsAsync(id))
+                return DateTime.MinValue;
+
+			string sd = await Fs.ReadTextAsync(id);
+			sd = sd.Substring(0, sd.IndexOf(ModifiedOnSeparator, StringComparison.Ordinal));
+
+            return JsonConvert.DeserializeObject<DateTime>(sd, pbXNet.Settings.JsonSerializer);
 		}
 
 		public virtual async Task<T> GetACopyAsync(string id)
 		{
-            object d = await Fs.ReadTextAsync(id);
+			if (!await ExistsAsync(id))
+                return null;
+			
+            // Get data from file system and skip saved modification date (is not needed here)
+			string sd = await Fs.ReadTextAsync(id);
+            sd = sd.Substring(sd.IndexOf(ModifiedOnSeparator, StringComparison.Ordinal) + ModifiedOnSeparator.Length);
+
+            // Restore object
+            object d = sd;
             if (typeof(T).Equals(typeof(string)))
                 return (T)d;
             else
@@ -67,7 +86,8 @@ namespace pbXNet
         public virtual async Task<T> RetrieveAsync(string id)
         {
 			T data = await GetACopyAsync(id);
-			await DiscardAsync(id);
+            if(data != null)
+			    await DiscardAsync(id);
 			return data;
 		}
 
@@ -76,6 +96,6 @@ namespace pbXNet
             await Fs.DeleteFileAsync(id);
         }
 
-	}
+    }
 
 }
