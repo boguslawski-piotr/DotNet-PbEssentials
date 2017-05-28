@@ -12,7 +12,7 @@ namespace pbXForms
 
     public partial class MasterDetailPageEx : ContentPage
     {
-		public virtual double MasterViewRelativeWidth { get; set; } = 0.3;
+        public virtual double MasterViewRelativeWidth { get; set; } = 0.3;
         public virtual double MasterViewMinimumWidth { get; set; } =
 #if WINDOWS_UWP || __MACOS__
             320;
@@ -85,7 +85,7 @@ namespace pbXForms
 
         protected virtual async Task ShowMasterView()
         {
-			_View.LowerChild(_DetailView);
+            _View.LowerChild(_DetailView);
 
             Rectangle mto = _View.Bounds;
             mto.X -= mto.Width;
@@ -94,34 +94,34 @@ namespace pbXForms
 
             Rectangle dto = _View.Bounds;
             _DetailView.Layout(dto);
-			dto.X += dto.Width;
+            dto.X += dto.Width;
 
-			await Task.WhenAny(
+            await Task.WhenAll(
                 _MasterView.LayoutTo(mto, ModalViewsManager.AnimationsLength, Easing.CubicOut),
                 _DetailView.LayoutTo(dto, ModalViewsManager.AnimationsLength, Easing.CubicOut)
             );
-		}
-		
-        protected virtual async Task HideMasterView()
-		{
-			Rectangle mto = _View.Bounds;
-			_MasterView.Layout(mto);
-			mto.X -= mto.Width;
+        }
 
-			Rectangle dto = _View.Bounds;
-			dto.X += dto.Width;
-			_DetailView.Layout(dto);
+        protected virtual async Task HideMasterView()
+        {
+            Rectangle mto = _View.Bounds;
+			_MasterView.Layout(mto);
+            mto.X -= mto.Width;
+
+            Rectangle dto = _View.Bounds;
+            dto.X += dto.Width;
+            _DetailView.Layout(dto);
             dto.X -= dto.Width;
 
-			await Task.WhenAny(
-				_MasterView.LayoutTo(mto, ModalViewsManager.AnimationsLength, Easing.CubicIn),
-				_DetailView.LayoutTo(dto, ModalViewsManager.AnimationsLength, Easing.CubicIn)
-			);
-			
-            _View.RaiseChild(_DetailView);
-		}
+            await Task.WhenAll(
+                _MasterView.LayoutTo(mto, ModalViewsManager.AnimationsLength, Easing.CubicIn),
+                _DetailView.LayoutTo(dto, ModalViewsManager.AnimationsLength, Easing.CubicIn)
+            );
 
-		Size _osa;
+            _View.RaiseChild(_DetailView);
+        }
+
+        Size _osa;
 
         protected override void OnSizeAllocated(double width, double height)
         {
@@ -136,9 +136,9 @@ namespace pbXForms
 
             if (!IsSplitView)
             {
-				// Calculate master page width in split mode regardless of whether the device at this time is in landscape or portait
-				MasterViewWidthInSplitView = _DetailView != null ? Math.Max(MasterViewMinimumWidth, Math.Max(width, height) * MasterViewRelativeWidth) : width;
-				
+                // Calculate master page width in split mode regardless of whether the device at this time is in landscape or portait
+                MasterViewWidthInSplitView = _DetailView != null ? Math.Max(MasterViewMinimumWidth, Math.Max(width, height) * MasterViewRelativeWidth) : width;
+
                 AbsoluteLayout.SetLayoutFlags(_MasterView, AbsoluteLayoutFlags.SizeProportional);
                 AbsoluteLayout.SetLayoutBounds(_MasterView, new Rectangle(0, 0, 1, 1));
                 if (_DetailView != null)
@@ -160,7 +160,7 @@ namespace pbXForms
                 }
             }
 
-			ModalViewsManager.OnSizeAllocated(width, height);
+            ModalViewsManager.OnSizeAllocated(width, height);
 
             BatchCommit();
         }

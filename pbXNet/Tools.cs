@@ -14,9 +14,9 @@ namespace pbXNet
         {
             DateTimeZoneHandling = DateTimeZoneHandling.Utc,
             NullValueHandling = NullValueHandling.Ignore,
-#if DEBUG
-            Formatting = Formatting.Indented,
-#endif
+//#if DEBUG
+//            Formatting = Formatting.Indented,
+//#endif
         };
     }
 
