@@ -6,7 +6,6 @@ using Xamarin.Forms;
 
 namespace pbXForms
 {
-
     public class ContentViewExLayout : Grid
     {
         public ContentViewExLayout()

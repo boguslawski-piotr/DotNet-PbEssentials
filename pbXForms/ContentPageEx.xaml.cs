@@ -8,7 +8,6 @@ using pbXNet;
 
 namespace pbXForms
 {
-    //[XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ContentPageEx : ContentPage
     {
         protected ContentViewEx _Content => (ContentViewEx)Content;
@@ -30,6 +29,8 @@ namespace pbXForms
             get { return _Content.ToolBarBackgroundColor; }
             set { _Content.ToolBarBackgroundColor = value; }
         }
+
+        public ModalViewsManager ModalViewsManager => _Content.ModalViewsManager;
 
         public ContentPageEx()
         {

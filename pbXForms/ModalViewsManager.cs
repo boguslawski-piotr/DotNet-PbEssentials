@@ -10,22 +10,15 @@ namespace pbXForms
     {
         protected AbsoluteLayout _Layout;
 
-		public virtual double BlockerOpacity { get; set; } = 0.50;
-		public virtual Color BlokerBackgroundColor { get; set; } = Color.FromHex("#000000");
-		
+        public virtual double BlockerOpacity { get; set; } = 0.50;
+        public virtual Color BlokerBackgroundColor { get; set; } = Color.FromHex("#000000");
+
         public virtual bool HasShadow { get; set; } = false;
         public virtual float CornerRadius { get; set; } = 6;
 
         public virtual double NavDrawerWidthInPortrait { get; set; } = 0;
         public virtual double NavDrawerWidthInLandscape { get; set; } = 0;
         public virtual double NavDrawerRelativeWidth { get; set; } = 0.8;
-
-        uint _AnimationsLength = 300;
-        public virtual uint AnimationsLength
-        {
-            get => (uint)((double)_AnimationsLength * (Device.Idiom == TargetIdiom.Tablet ? 1.33 : Device.Idiom == TargetIdiom.Desktop ? 0.77 : 1));
-            set => _AnimationsLength = value;
-        }
 
         public virtual void InitializeComponent(AbsoluteLayout layout)
         {
@@ -71,47 +64,47 @@ namespace pbXForms
             public double navDrawerWidthInPortrait;
             public double navDrawerWidthInLandscape;
             public double navDrawerRelativeWidth;
-		};
+        };
 
         protected Stack<Modal> _modals = new Stack<Modal>();
 
-		Stack<CancellationTokenSource> _cancellationTokens = new Stack<CancellationTokenSource>();
+        Stack<CancellationTokenSource> _cancellationTokens = new Stack<CancellationTokenSource>();
 
-		public virtual async Task<bool> DisplayModalAsync(ModalContentView content, ModalPosition position = ModalPosition.Center, bool animate = true)
-		{
-			CancellationTokenSource cancellationToken = new CancellationTokenSource();
-			_cancellationTokens.Push(cancellationToken);
+        public virtual async Task<bool> DisplayModalAsync(ModalContentView content, ModalPosition position = ModalPosition.Center, bool animate = true)
+        {
+            CancellationTokenSource cancellationToken = new CancellationTokenSource();
+            _cancellationTokens.Push(cancellationToken);
 
-			bool rc = false;
+            bool rc = false;
 
-			content.OK += (sender, e) => { rc = true; cancellationToken.Cancel(); };
-			content.Cancel += (sender, e) => cancellationToken.Cancel();
+            content.OK += (sender, e) => { rc = true; cancellationToken.Cancel(); };
+            content.Cancel += (sender, e) => cancellationToken.Cancel();
 
-			await PushModalAsync(content, position, animate);
-			try
-			{
-				// This is not the nicest solution, but good enough ;)
-				await Task.Delay(TimeSpan.FromHours(24), cancellationToken.Token);
-			}
-			catch (TaskCanceledException ex)
-			{
-			}
+            await PushModalAsync(content, position, animate);
+            try
+            {
+                // This is not the nicest solution, but good enough ;)
+                await Task.Delay(TimeSpan.FromHours(24), cancellationToken.Token);
+            }
+            catch (TaskCanceledException ex)
+            {
+            }
 
-			await PopModalAsync();
-			_cancellationTokens.Pop();  // Do NOT move this line before PopModalAsync
+            await PopModalAsync();
+            _cancellationTokens.Pop();  // Do NOT move this line before PopModalAsync
 
-			return rc;
-		}
-		
+            return rc;
+        }
+
         public virtual async Task PushModalAsync(ContentView content, ModalPosition position = ModalPosition.Center, bool animate = true)
         {
             Modal modal = new Modal()
             {
                 position = position,
-			    navDrawerWidthInPortrait = NavDrawerWidthInPortrait,
-		        navDrawerWidthInLandscape = NavDrawerWidthInLandscape,
-		        navDrawerRelativeWidth = NavDrawerRelativeWidth,
-	        };
+                navDrawerWidthInPortrait = NavDrawerWidthInPortrait,
+                navDrawerWidthInLandscape = NavDrawerWidthInLandscape,
+                navDrawerRelativeWidth = NavDrawerRelativeWidth,
+            };
 
             modal.blocker = new BoxView()
             {
@@ -170,22 +163,23 @@ namespace pbXForms
                 _cancellationTokens.Peek().Cancel();
         }
 
-		protected virtual async Task AnimateModalAsync(Modal modal, bool hide, bool animate)
+        protected virtual async Task AnimateModalAsync(Modal modal, bool hide, bool animate)
         {
-            // Calculate size and position...
+			// Calculate size and position...
 
             double navDrawerWidth = DeviceEx.Orientation == DeviceOrientation.Landscape ? modal.navDrawerWidthInLandscape : modal.navDrawerWidthInPortrait;
-            navDrawerWidth = navDrawerWidth <= 0 ? _Layout.Bounds.Width * modal.navDrawerRelativeWidth : navDrawerWidth;
+			navDrawerWidth = navDrawerWidth <= 0 ? _Layout.Bounds.Width * modal.navDrawerRelativeWidth : navDrawerWidth;
 
-            Rectangle bounds;
-            if (modal.position > ModalPosition.NavDrawer)
+			Rectangle bounds;
+            if (modal.position >= ModalPosition.NavDrawer)
             {
                 bounds = _Layout.Bounds;
                 if (modal.position == ModalPosition.NavDrawer)
-                    bounds.Width = navDrawerWidth;
+					bounds.Width = navDrawerWidth;
             }
             else
                 bounds = _Layout.Bounds.Inflate(-(Metrics.ScreenEdgeMargin), -(Metrics.ScreenEdgeMargin));
+            
             Xamarin.Forms.Layout.LayoutChildIntoBoundingRegion(modal.view, bounds);
 
             Rectangle to = modal.view.Bounds;
@@ -272,13 +266,13 @@ namespace pbXForms
 
             if (animate)
             {
-                uint al = AnimationsLength;
-                await Task.WhenAny(
+                uint al = DeviceEx.AnimationsLength;
+                await Task.WhenAll(
                     modal.view.LayoutTo(hide ? from : to, al, hide ? Easing.CubicIn : Easing.CubicOut),
-                                    modal.blocker.FadeTo(hide ? 0 : BlockerOpacity, al)
-                                );
+                    modal.blocker.FadeTo(hide ? 0 : BlockerOpacity, al)
+                );
 
-                // This is really needed because LayoutTo is not permananet
+                // This is really needed because LayoutTo is not permananet in this situation.
                 AbsoluteLayout.SetLayoutBounds(modal.view, hide ? from : to);
                 modal.view.Layout(hide ? from : to);
             }
