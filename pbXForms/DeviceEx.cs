@@ -1,4 +1,5 @@
 ﻿using System;
+using Xamarin.Forms;
 
 #if __ANDROID__
 using Android.Content;
@@ -8,7 +9,6 @@ using Android.Views;
 
 #if __IOS__
 using UIKit;
-using Xamarin.Forms;
 #endif
 
 namespace pbXForms
@@ -25,11 +25,16 @@ namespace pbXForms
         static public DeviceOrientation Orientation
         {
             get {
+				if (Application.Current != null && Application.Current.MainPage != null)
+				{
+					// Because the app can run on tablets where split view mode is available, 
+					// it is safer to calculate orientation based on the size of the main window.
+                    // This helps also on desktops :)
+					Rectangle b = Application.Current.MainPage.Bounds;
+					return b.Width >= b.Height ? DeviceOrientation.Landscape : DeviceOrientation.Portrait;
+				}
 #if __IOS__
-                // TODO: dziala dopiero jak glowne okno jest w pelni zbudowane :( -> poprawic aby dzialalo zawsze
-                // sprawdzic to samo na Android i UWP
-
-                var currentOrientation = UIApplication.SharedApplication.StatusBarOrientation;
+				var currentOrientation = UIApplication.SharedApplication.StatusBarOrientation;
 
 				bool isPortrait =
 					currentOrientation == UIInterfaceOrientation.Portrait
@@ -64,11 +69,11 @@ namespace pbXForms
             get {
 #if __IOS__
                 return
-                    DeviceEx.Orientation != DeviceOrientation.Landscape
-                    || Device.Idiom == TargetIdiom.Tablet;
+                    Device.Idiom != TargetIdiom.Phone
+                    || DeviceEx.Orientation != DeviceOrientation.Landscape;
 #else
 #if __ANDROID__ || WINDOWS_UWP
-				return true;
+                return Device.Idiom != TargetIdiom.Desktop;
 #else
                 // macOS
                 return false;
@@ -77,5 +82,13 @@ namespace pbXForms
             }
         }
 
-    }
+		static uint _AnimationsLength = 300;
+		public static uint AnimationsLength
+		{
+			get => (uint)((double)_AnimationsLength * (Device.Idiom == TargetIdiom.Tablet ? 1.33 : Device.Idiom == TargetIdiom.Desktop ? 0.77 : 1));
+			set => _AnimationsLength = value;
+		}
+
+
+	}
 }
