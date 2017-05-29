@@ -19,8 +19,15 @@ namespace pbXNet
             Fs = fs;
         }
 
+        public static async Task<StorageOnFileSystem<T>> NewAsync(string id, IFileSystem fs)
+        {
+            StorageOnFileSystem<T> o = new StorageOnFileSystem<T>(id, fs);
+            await o.InitializeAsync();
+            return o;
+		}
+
 		/// <summary>
-		/// Initializes internally this instance.
+		/// Initializes internally instance.
 		/// It is designed to be called (from user code) 
 		/// right after constructor but asynchronously.
 		/// </summary>
