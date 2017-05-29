@@ -3,6 +3,7 @@ using Xamarin.Forms;
 using System.Windows.Input;
 using System.Threading.Tasks;
 using System.Diagnostics;
+using System.Threading;
 
 namespace pbXForms
 {
@@ -153,13 +154,26 @@ namespace pbXForms
 			base.OnPropertyChanging(propertyName);
 		}
 
+        bool _IsEnabled
+        {
+            set {
+                IsEnabled = value;
+                Content.IsEnabled = IsEnabled;
+                try
+                {
+                    (Content as StackLayout).Children[0].IsEnabled = IsEnabled;
+                    (Content as StackLayout).Children[1].IsEnabled = IsEnabled;
+                }
+                catch { }
+            }
+		}
+
 		void CommandCanExecuteChanged(object sender, EventArgs eventArgs)
 		{
 			ICommand cmd = Command;
 			if (cmd != null)
 			{
-				IsEnabled = cmd.CanExecute(CommandParameter);
-                // TODO: visual changes?
+				_IsEnabled = cmd.CanExecute(CommandParameter);
 			}
 		}
 
@@ -171,33 +185,28 @@ namespace pbXForms
 				CommandCanExecuteChanged(this, EventArgs.Empty);
 			}
 			else
-			{
-				IsEnabled = true;
-				// TODO: visual changes?
-			}
+				_IsEnabled = true;
 		}
 
-        volatile bool _onTappedIsRunning = false;
+        volatile Int32 _onTappedIsRunning = 0;
 
-		async void OnTapped(object parameter)
+		void OnTapped(object parameter)
 		{
-            if(!IsEnabled || _onTappedIsRunning)
+            if(!IsEnabled || Interlocked.Exchange(ref _onTappedIsRunning, 1) == 1)
                 return;
-			
-            DateTime s = DateTime.Now;
 
-			_onTappedIsRunning = true;
-
-            double opacity = Opacity;
-
-			await this.ScaleTo(1.33, 150, Easing.CubicOut);
+#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
+            Task.Run(async () =>
+#pragma warning restore CS4014
+            {
+                await this.ScaleTo(1.33, DeviceEx.AnimationsLength / 2, Easing.CubicOut);
+                await this.ScaleTo(1, DeviceEx.AnimationsLength / 2, Easing.CubicIn);
+            });
 
 			Command?.Execute(CommandParameter);
             Clicked?.Invoke(this, EventArgs.Empty);
-			
-            this.ScaleTo(1, 150, Easing.CubicIn);
 
-            _onTappedIsRunning = false;
+            Interlocked.Exchange(ref _onTappedIsRunning, 0);
 
 			//Debug.WriteLine($"FlatButton: OnTapped: run for {DateTime.Now - s}");
 		}
