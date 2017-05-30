@@ -55,6 +55,8 @@ namespace pbXForms
                 _View.RaiseChild(_DetailView);
             if (showMasterView)
                 _View.RaiseChild(_MasterView);
+
+            // TODO: events willBe... hasBeen... for detail and master ?
         }
 
 
@@ -98,51 +100,68 @@ namespace pbXForms
             }
         }
 
-        public virtual async Task ShowMasterViewAsync()
+        public event EventHandler<(View view, object param)> MasterViewWillBeShown;
+		public event EventHandler<(View view, object param)> MasterViewHasBeenShown;
+
+		public virtual async Task ShowMasterViewAsync(object eventParam = null)
         {
             if (_MasterView == null || IsSplitView || _MasterViewIsVisible)
                 return;
 
-            _View.RaiseChild(_MasterView);
+			MasterViewWillBeShown?.Invoke(this, (_MasterView, eventParam));
+
+			_View.RaiseChild(_MasterView);
 
             await AnimateAsync(_DetailView, _MasterView, AnimateMasterViewDuringShowHide ? ViewsSwitchingAnimation.LeftToRight : ViewsSwitchingAnimation.NoAnimation);
 
             _MasterViewIsVisible = true;
-        }
+			MasterViewHasBeenShown?.Invoke(this, (_MasterView, eventParam));
+		}
 
-        public virtual async Task HideMasterViewAsync()
+		public event EventHandler<(View view, object param)> MasterViewWillBeHidden;
+		public event EventHandler<(View view, object param)> MasterViewHasBeenHidden;
+
+		public virtual async Task HideMasterViewAsync(object eventParam = null)
         {
             if (_MasterView == null || IsSplitView || !_MasterViewIsVisible)
                 return;
 
-            _View.RaiseChild(_DetailView);
+			MasterViewWillBeHidden?.Invoke(this, (_MasterView, eventParam));
+
+			_View.RaiseChild(_DetailView);
 
             await AnimateAsync(_MasterView, _DetailView, AnimateMasterViewDuringShowHide ? ViewsSwitchingAnimation.RightToLeft : ViewsSwitchingAnimation.NoAnimation);
 
             _MasterViewIsVisible = false;
-        }
+			MasterViewHasBeenHidden?.Invoke(this, (_MasterView, eventParam));
+		}
 
-        public virtual async Task<bool> ShowDetailViewAsync<T>(string name, ViewsSwitchingAnimation animation) where T : View
+        public virtual async Task<bool> ShowDetailViewAsync<T>(string name, ViewsSwitchingAnimation animation, object eventParam = null) where T : View
         {
             T view = global::Xamarin.Forms.NameScopeExtensions.FindByName<T>(this, name);
-            return await ShowDetailViewAsync((View)view, animation);
+            return await ShowDetailViewAsync((View)view, animation, eventParam);
         }
 
-        public virtual async Task<bool> ShowDetailViewAsync<T>(ViewsSwitchingAnimation animation)
+        public virtual async Task<bool> ShowDetailViewAsync<T>(ViewsSwitchingAnimation animation, object eventParam = null)
         {
             foreach (var view in Views)
             {
                 if (view.GetType() == typeof(T))
-                    return await ShowDetailViewAsync(view, animation);
+                    return await ShowDetailViewAsync(view, animation, eventParam);
             }
 
             return false;
         }
 
-        public virtual async Task<bool> ShowDetailViewAsync(View detailView, ViewsSwitchingAnimation animation)
+		public event EventHandler<(View view, object param)> DetailViewWillBeShown;
+		public event EventHandler<(View view, object param)> DetailViewHasBeenShown;
+
+        public virtual async Task<bool> ShowDetailViewAsync(View detailView, ViewsSwitchingAnimation animation, object eventParam = null)
         {
             if (detailView == null || Views == null || !Views.Contains(detailView))
                 return false;
+
+            DetailViewWillBeShown?.Invoke(this, (_DetailView, eventParam));
 
             if (!_MasterViewIsVisible || IsSplitView)
             {
@@ -160,6 +179,7 @@ namespace pbXForms
                 await HideMasterViewAsync();
             }
 
+            DetailViewHasBeenShown?.Invoke(this, (_DetailView, eventParam));
             return true;
         }
 
@@ -201,21 +221,17 @@ namespace pbXForms
 
         protected virtual async Task AnimateAsync(View from, Rectangle fromTo, View to, Rectangle toTo, Easing easing)
         {
-#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
-			from.LayoutTo(fromTo, DeviceEx.AnimationsLength, easing);
-            to.LayoutTo(toTo, DeviceEx.AnimationsLength, easing);
-#pragma warning restore CS4014
-			//await Task.WhenAll(
-			//    from.LayoutTo(fromTo, DeviceEx.AnimationsLength, easing),
-			//    to.LayoutTo(toTo, DeviceEx.AnimationsLength, easing)
-			//);
+			await Task.WhenAll(
+			    from.LayoutTo(fromTo, DeviceEx.AnimationsLength, easing),
+			    to.LayoutTo(toTo, DeviceEx.AnimationsLength, easing)
+			);
 		}
 
         Size _osa;
 
         protected override void OnSizeAllocated(double width, double height)
         {
-            Debug.WriteLine($"MasterDetailPageEx: OnSizeAllocated: w: {width}, h: {height}");
+            //Debug.WriteLine($"MasterDetailPageEx: OnSizeAllocated: w: {width}, h: {height}");
 
             base.OnSizeAllocated(width, height);
 
@@ -230,6 +246,7 @@ namespace pbXForms
             {
                 // Calculate master page width in split mode regardless of whether the device at this time is in landscape or portait
                 MasterViewWidthInSplitView = _DetailView != null ? Math.Max(MasterViewMinimumWidth, Math.Max(width, height) * MasterViewRelativeWidth) : width;
+                _MasterViewIsVisible = Views.IndexOf(_MasterView) == Views.Count - 1;
 
                 AbsoluteLayout.SetLayoutFlags(_MasterView, AbsoluteLayoutFlags.SizeProportional);
                 AbsoluteLayout.SetLayoutBounds(_MasterView, new Rectangle(0, 0, 1, 1));
