@@ -69,7 +69,7 @@ namespace pbXForms
             set { ToolBar.BackgroundColor = value; }
         }
 
-        public virtual bool ViewCoversStatusBar
+        public bool ViewCoversStatusBar
         {
             get {
                 return
@@ -81,12 +81,12 @@ namespace pbXForms
             }
         }
 
-        public ModalViewsManager ModalViewsManager = new ModalViewsManager();
+        public ModalViewsManager ModalManager = new ModalViewsManager();
 
         public ContentViewEx()
         {
             InitializeComponent();
-            ModalViewsManager.InitializeComponent(_Layout);
+            ModalManager.InitializeComponent(_Layout);
         }
 
         Size _osa;
@@ -106,7 +106,7 @@ namespace pbXForms
 
             ContinueOnSizeAllocated(width, height);
 
-            ModalViewsManager.OnSizeAllocated(width, height);
+            ModalManager.OnSizeAllocated(width, height);
 
             BatchCommit();
         }

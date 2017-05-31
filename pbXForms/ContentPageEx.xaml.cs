@@ -30,7 +30,7 @@ namespace pbXForms
             set { _Content.ToolBarBackgroundColor = value; }
         }
 
-        public ModalViewsManager ModalViewsManager => _Content.ModalViewsManager;
+        public ModalViewsManager ModalManager => _Content.ModalManager;
 
         public ContentPageEx()
         {

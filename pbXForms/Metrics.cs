@@ -23,7 +23,11 @@ namespace pbXForms
 		public static double ScreenEdgeHalfMargin = 8;
 
 		public static Thickness ScreenEdgeLeftRightPadding = new Thickness(ScreenEdgeMargin, 0);
+		public static Thickness ScreenEdgeLeftPadding = new Thickness(ScreenEdgeMargin, 0, 0, 0);
+		public static Thickness ScreenEdgeRightPadding = new Thickness(0, 0, ScreenEdgeMargin, 0);
 		public static Thickness ScreenEdgeTopBottomPadding = new Thickness(0, ScreenEdgeMargin);
+		public static Thickness ScreenEdgeTopPadding = new Thickness(0, ScreenEdgeMargin, 0, 0);
+		public static Thickness ScreenEdgeBottomPadding = new Thickness(0, 0, 0, ScreenEdgeMargin);
 		public static Thickness ScreenEdgePadding = new Thickness(ScreenEdgeMargin, ScreenEdgeMargin);
 
 		public static double AppBarHeightPortrait = 56;
