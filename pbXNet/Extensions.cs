@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
@@ -32,33 +33,41 @@ namespace pbXNet
     /// </summary>
     public static class CollectionExtensions
 	{
-		//public static void Sort<T>(this ObservableCollection<T> collection, Comparison<T> comparison)
-		//{
-		//    var sortableList = new List<T>(collection);
-		//    if (comparison == null)
-		//        sortableList.Sort();
-		//    else
-		//        sortableList.Sort(comparison);
-
-		//    for (var i = 0; i < sortableList.Count; i++)
-		//    {
-		//        var oldIndex = collection.IndexOf(sortableList[i]);
-		//        var newIndex = i;
-		//        if (oldIndex != newIndex)
-		//            collection.Move(oldIndex, newIndex);
-		//    }
-		//}
-
-		// or
-
-		public static void Sort<T, V>(this ObservableCollection<T> observableCollection, Func<T, V> keySelector)
+        public static void Sort<T>(this ObservableCollection<T> observableCollection, Comparison<T> comparison)
 		{
-			var l = observableCollection.OrderBy(keySelector).ToList();
-			observableCollection.Clear();
-			foreach (var v in l)
-			{
-				observableCollection.Add(v);
-			}
+            var l = new List<T>(observableCollection);
+		    if (comparison == null)
+		        l.Sort();
+		    else
+		        l.Sort(comparison);
+
+		    for (var i = 0; i < l.Count; i++)
+		    {
+		        var oldIndex = observableCollection.IndexOf(l[i]);
+		        var newIndex = i;
+		        if (oldIndex != newIndex)
+		            observableCollection.Move(oldIndex, newIndex);
+		    }
+		}
+
+        public static IOrderedEnumerable<T> OrderBy<T, K>(this ObservableCollection<T> observableCollection, Func<T, K> keySelector)
+		{
+            return Enumerable.OrderBy(observableCollection, keySelector);
+		}
+		
+        public static IOrderedEnumerable<T> OrderBy<T, K>(this ObservableCollection<T> observableCollection, Func<T, K> keySelector, IComparer<K> comparer)
+		{
+			return Enumerable.OrderBy(observableCollection, keySelector, comparer);
+		}
+
+        public static IOrderedEnumerable<T> OrderByDescending<T, K>(this ObservableCollection<T> observableCollection, Func<T, K> keySelector)
+		{
+			return Enumerable.OrderByDescending(observableCollection, keySelector);
+		}
+
+        public static IOrderedEnumerable<T> OrderByDescending<T, K>(this ObservableCollection<T> observableCollection, Func<T, K> keySelector, IComparer<K> comparer)
+		{
+			return Enumerable.OrderByDescending(observableCollection, keySelector, comparer);
 		}
 	}
 
