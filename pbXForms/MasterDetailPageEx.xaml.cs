@@ -23,12 +23,12 @@ namespace pbXForms
         public double MasterViewWidthInSplitView { get; protected set; }
 
         public IList<View> MasterViews { get; set; } = new List<View>();
-		public IList<View> DetailViews => _View?.Children;
-		
-        protected View MasterView;
-		protected View DetailView;
+        public IList<View> DetailViews => _ViewsLayout?.Children;
 
-		protected IList<View> Views => _View?.Children;
+        protected View MasterView;
+        protected View DetailView;
+
+        protected IList<View> Views => _ViewsLayout?.Children;
 
         public ModalViewsManager ModalManager = new ModalViewsManager();
 
@@ -44,7 +44,7 @@ namespace pbXForms
         /// </summary>
         public virtual void InitializeViews(bool showMasterView = true)
         {
-			if (MasterViews.Count > 0)
+            if (MasterViews.Count > 0)
             {
                 MasterView = MasterViews[0];
                 Views.Insert(0, MasterView);
@@ -60,9 +60,9 @@ namespace pbXForms
             _MasterViewIsVisible = !IsSplitView;
 
             if (DetailView != null)
-                _View.RaiseChild(DetailView);
+                _ViewsLayout.RaiseChild(DetailView);
             if (showMasterView)
-                _View.RaiseChild(MasterView);
+                _ViewsLayout.RaiseChild(MasterView);
         }
 
 
@@ -80,17 +80,10 @@ namespace pbXForms
             }
             set {
                 _IsSplitView = value ? 1 : 0;
-                _osa = new Size(-1,-1);
+                _osa = new Size(-1, -1);
                 ForceLayout();
             }
         }
-
-        public enum ViewsSwitchingAnimation
-        {
-            NoAnimation,
-            RightToLeft,
-            LeftToRight,
-        };
 
         bool _MasterViewIsVisible = true;
         public virtual bool MasterViewIsVisible
@@ -100,108 +93,115 @@ namespace pbXForms
             }
             set {
                 if (value)
-                    ShowMasterViewAsync(ViewsSwitchingAnimation.LeftToRight);
+                    ShowMasterViewAsync(ViewsSwitchingAnimation.Back);
                 else
-                    HideMasterViewAsync(ViewsSwitchingAnimation.RightToLeft);
+                    HideMasterViewAsync(ViewsSwitchingAnimation.Forward);
             }
+        }
+
+
+		//
+
+		public enum ViewsSwitchingAnimation
+		{
+			NoAnimation,
+			Forward,
+			Back,
+		};
+
+		public event EventHandler<(View view, object param)> MasterViewWillBeShown;
+        public event EventHandler<(View view, object param)> MasterViewHasBeenShown;
+
+        public async Task<bool> ShowMasterViewAsync<T>(string name, ViewsSwitchingAnimation animation, object eventParam = null) where T : View
+        {
+            T view = global::Xamarin.Forms.NameScopeExtensions.FindByName<T>(this, name);
+            return await ShowMasterViewAsync((View)view, animation, eventParam);
+        }
+
+        public async Task<bool> ShowMasterViewAsync<T>(ViewsSwitchingAnimation animation, object eventParam = null)
+        {
+            foreach (var view in MasterViews)
+            {
+                if (view.GetType() == typeof(T))
+                    return await ShowMasterViewAsync(view, animation, eventParam);
+            }
+
+            return false;
+        }
+
+        public virtual async Task<bool> ShowMasterViewAsync(View newMasterView, ViewsSwitchingAnimation animation, object eventParam = null)
+        {
+            if (newMasterView == null || !MasterViews.Contains(newMasterView))
+                return false;
+            if (newMasterView == MasterView)
+                return await ShowMasterViewAsync(animation, eventParam);
+
+            MasterViewWillBeShown?.Invoke(this, (newMasterView, eventParam));
+
+            View previousMasterView = MasterView;
+
+            if (!Views.Contains(newMasterView))
+                Views.Add(newMasterView);
+            _ViewsLayout.RaiseChild(newMasterView);
+
+            await AnimateAsync(true, previousMasterView, newMasterView, animation);
+
+            MasterView = newMasterView;
+            _MasterViewIsVisible = true;
+
+            MasterViewHasBeenShown?.Invoke(this, (MasterView, eventParam));
+            return true;
+        }
+
+        public virtual async Task<bool> ShowMasterViewAsync(ViewsSwitchingAnimation animation, object eventParam = null)
+        {
+            if (MasterView == null || IsSplitView || _MasterViewIsVisible)
+                return false;
+
+            MasterViewWillBeShown?.Invoke(this, (MasterView, eventParam));
+
+            _ViewsLayout.RaiseChild(MasterView);
+
+            await AnimateAsync(true, DetailView, MasterView, animation);
+
+            _MasterViewIsVisible = true;
+            MasterViewHasBeenShown?.Invoke(this, (MasterView, eventParam));
+            return true;
+
+        }
+
+        public event EventHandler<(View view, object param)> MasterViewWillBeHidden;
+        public event EventHandler<(View view, object param)> MasterViewHasBeenHidden;
+
+        public virtual async Task<bool> HideMasterViewAsync(ViewsSwitchingAnimation animation, object eventParam = null)
+        {
+            if (MasterView == null || IsSplitView || !_MasterViewIsVisible)
+                return false;
+
+            MasterViewWillBeHidden?.Invoke(this, (MasterView, eventParam));
+
+            _ViewsLayout.RaiseChild(DetailView);
+
+            await AnimateAsync(true, MasterView, DetailView, animation);
+
+            _MasterViewIsVisible = false;
+            MasterViewHasBeenHidden?.Invoke(this, (MasterView, eventParam));
+            return true;
         }
 
 
         //
 
-		public event EventHandler<(View view, object param)> MasterViewWillBeShown;
-		public event EventHandler<(View view, object param)> MasterViewHasBeenShown;
+        public event EventHandler<(View view, object param)> DetailViewWillBeShown;
+        public event EventHandler<(View view, object param)> DetailViewHasBeenShown;
 
-		public virtual async Task<bool> ShowMasterViewAsync<T>(string name, ViewsSwitchingAnimation animation, object eventParam = null) where T : View
-		{
-			T view = global::Xamarin.Forms.NameScopeExtensions.FindByName<T>(this, name);
-			return await ShowMasterViewAsync((View)view, animation, eventParam);
-		}
-
-		public virtual async Task<bool> ShowMasterViewAsync<T>(ViewsSwitchingAnimation animation, object eventParam = null)
-		{
-			foreach (var view in MasterViews)
-			{
-				if (view.GetType() == typeof(T))
-					return await ShowMasterViewAsync(view, animation, eventParam);
-			}
-
-			return false;
-		}
-		
-        public virtual async Task<bool> ShowMasterViewAsync(View newMasterView, ViewsSwitchingAnimation animation, object eventParam = null)
-		{
-			if (newMasterView == null || !MasterViews.Contains(newMasterView))
-				return false;
-            if (newMasterView == MasterView)
-                return await ShowMasterViewAsync(animation, eventParam);
-            
-			MasterViewWillBeShown?.Invoke(this, (newMasterView, eventParam));
-
-			View previousMasterView = MasterView;
-
-            if(!Views.Contains(newMasterView))
-               Views.Add(newMasterView);
-            _View.RaiseChild(newMasterView);
-
-            await AnimateAsync(true, previousMasterView, newMasterView, animation);
-
-            MasterView = newMasterView;
-			_MasterViewIsVisible = true;
-			
-            MasterViewHasBeenShown?.Invoke(this, (MasterView, eventParam));
-			return true;
-		}
-
-		public virtual async Task<bool> ShowMasterViewAsync(ViewsSwitchingAnimation animation, object eventParam = null)
-		{
-			if (MasterView == null || IsSplitView || _MasterViewIsVisible)
-				return false;
-
-			MasterViewWillBeShown?.Invoke(this, (MasterView, eventParam));
-
-			_View.RaiseChild(MasterView);
-
-            await AnimateAsync(true, DetailView, MasterView, animation);
-
-			_MasterViewIsVisible = true;
-			MasterViewHasBeenShown?.Invoke(this, (MasterView, eventParam));
-			return true;
-
-		}
-
-		public event EventHandler<(View view, object param)> MasterViewWillBeHidden;
-		public event EventHandler<(View view, object param)> MasterViewHasBeenHidden;
-
-		public virtual async Task<bool> HideMasterViewAsync(ViewsSwitchingAnimation animation, object eventParam = null)
-        {
-            if (MasterView == null || IsSplitView || !_MasterViewIsVisible)
-                return false;
-
-			MasterViewWillBeHidden?.Invoke(this, (MasterView, eventParam));
-
-			_View.RaiseChild(DetailView);
-
-            await AnimateAsync(true, MasterView, DetailView, animation);
-
-            _MasterViewIsVisible = false;
-			MasterViewHasBeenHidden?.Invoke(this, (MasterView, eventParam));
-			return true;
-		}
-
-
-        //
-
-		public event EventHandler<(View view, object param)> DetailViewWillBeShown;
-		public event EventHandler<(View view, object param)> DetailViewHasBeenShown;
-		
-        public virtual async Task<bool> ShowDetailViewAsync<T>(string name, ViewsSwitchingAnimation animation, object eventParam = null) where T : View
+        public async Task<bool> ShowDetailViewAsync<T>(string name, ViewsSwitchingAnimation animation, object eventParam = null) where T : View
         {
             T view = global::Xamarin.Forms.NameScopeExtensions.FindByName<T>(this, name);
             return await ShowDetailViewAsync((View)view, animation, eventParam);
         }
 
-        public virtual async Task<bool> ShowDetailViewAsync<T>(ViewsSwitchingAnimation animation, object eventParam = null)
+        public async Task<bool> ShowDetailViewAsync<T>(ViewsSwitchingAnimation animation, object eventParam = null)
         {
             if (Views != null)
             {
@@ -226,7 +226,7 @@ namespace pbXForms
                 View previousDetailView = DetailView;
                 DetailView = detailView;
 
-                _View.RaiseChild(DetailView);
+                _ViewsLayout.RaiseChild(DetailView);
 
                 if (previousDetailView != DetailView)
                     await AnimateAsync(false, previousDetailView, DetailView, animation);
@@ -244,61 +244,73 @@ namespace pbXForms
 
         //
 
-        protected virtual async Task AnimateAsync(bool mastersPane, View from, View to, ViewsSwitchingAnimation animation)
+        protected async Task AnimateAsync(bool mastersPane, View from, View to, ViewsSwitchingAnimation animation)
         {
             BatchBegin();
 
-            Rectangle vb = _View.Bounds;
+            Rectangle vb = _ViewsLayout.Bounds;
             if (IsSplitView)
             {
                 if (!mastersPane)
                 {
-                    _View.RaiseChild(MasterView);
+                    _ViewsLayout.RaiseChild(MasterView);
                     vb = new Rectangle(MasterViewWidthInSplitView, 0, vb.Width - MasterViewWidthInSplitView, vb.Height);
                 }
                 else
                 {
                     if (DetailView != null)
-                        _View.RaiseChild(DetailView);
+                        _ViewsLayout.RaiseChild(DetailView);
                     vb = new Rectangle(0, 0, MasterViewWidthInSplitView, vb.Height);
                 }
-			}
+            }
 
+            Rectangle fromTo = SetupFromForAnimate(vb, from, animation);
+            Rectangle toTo = SetupToForAnimate(vb, to, animation);
+
+            if (animation != ViewsSwitchingAnimation.NoAnimation)
+                await AnimateAsync(from, fromTo, to, toTo, Easing.CubicOut);
+
+            BatchCommit();
+        }
+
+        protected virtual Rectangle SetupFromForAnimate(Rectangle vb, View from, ViewsSwitchingAnimation animation)
+        {
             Rectangle fromTo = vb;
             from.Layout(fromTo);
             if (animation != ViewsSwitchingAnimation.NoAnimation)
-                if (animation == ViewsSwitchingAnimation.RightToLeft)
+                if (animation == ViewsSwitchingAnimation.Forward)
                     fromTo.X -= fromTo.Width;
                 else
                     fromTo.X += fromTo.Width;
+            return fromTo;
+        }
 
+        protected virtual Rectangle SetupToForAnimate(Rectangle vb, View to, ViewsSwitchingAnimation animation)
+        {
             Rectangle toTo = vb;
             if (animation != ViewsSwitchingAnimation.NoAnimation)
-                if (animation == ViewsSwitchingAnimation.RightToLeft)
+                if (animation == ViewsSwitchingAnimation.Forward)
                     toTo.X += toTo.Width;
                 else
                     toTo.X -= toTo.Width;
             to.Layout(toTo);
             if (animation != ViewsSwitchingAnimation.NoAnimation)
             {
-                if (animation == ViewsSwitchingAnimation.RightToLeft)
+                if (animation == ViewsSwitchingAnimation.Forward)
                     toTo.X -= toTo.Width;
                 else
                     toTo.X += toTo.Width;
-
-                await AnimateAsync(from, fromTo, to, toTo, Easing.CubicOut);
             }
-
-            BatchCommit();
+            return toTo;
         }
 
         protected virtual async Task AnimateAsync(View from, Rectangle fromTo, View to, Rectangle toTo, Easing easing)
         {
-			await Task.WhenAll(
-			    from.LayoutTo(fromTo, DeviceEx.AnimationsLength, easing),
-			    to.LayoutTo(toTo, DeviceEx.AnimationsLength, easing)
-			);
-		}
+            await Task.WhenAll(
+                from.LayoutTo(fromTo, DeviceEx.AnimationsLength, easing),
+                to.LayoutTo(toTo, DeviceEx.AnimationsLength, easing)
+            );
+        }
 
 
         //
@@ -316,30 +328,30 @@ namespace pbXForms
             if (!Tools.IsDifferent(new Size(width, height), ref _osa))
                 return;
 
-			void MasterViewsSetLayout(AbsoluteLayoutFlags flags, Rectangle bounds)
+            void MasterViewsSetLayout(AbsoluteLayoutFlags flags, Rectangle bounds)
             {
-				foreach (var view in MasterViews)
-				{
-					AbsoluteLayout.SetLayoutFlags(view, flags);
-					AbsoluteLayout.SetLayoutBounds(view, bounds);
-				}
-			}
+                foreach (var view in MasterViews)
+                {
+                    AbsoluteLayout.SetLayoutFlags(view, flags);
+                    AbsoluteLayout.SetLayoutBounds(view, bounds);
+                }
+            }
 
-			void DetailViewsSetLayout(AbsoluteLayoutFlags flags, Rectangle bounds)
+            void DetailViewsSetLayout(AbsoluteLayoutFlags flags, Rectangle bounds)
             {
-				if (Views?.Count > 1)
-				{
-					for (int i = 0; i < Views.Count; i++)
-					{
-						View view = Views[i];
-						if (view != MasterView)
-						{
-							AbsoluteLayout.SetLayoutFlags(view, flags);
-							AbsoluteLayout.SetLayoutBounds(view, bounds);
-						}
-					}
-				}
-			}
+                if (Views?.Count > 1)
+                {
+                    for (int i = 0; i < Views.Count; i++)
+                    {
+                        View view = Views[i];
+                        if (view != MasterView)
+                        {
+                            AbsoluteLayout.SetLayoutFlags(view, flags);
+                            AbsoluteLayout.SetLayoutBounds(view, bounds);
+                        }
+                    }
+                }
+            }
 
             BatchBegin();
 
@@ -350,8 +362,8 @@ namespace pbXForms
 
                 _MasterViewIsVisible = Views.IndexOf(MasterView) == Views.Count - 1;
 
-				MasterViewsSetLayout(AbsoluteLayoutFlags.SizeProportional, new Rectangle(0, 0, 1, 1));
-				DetailViewsSetLayout(AbsoluteLayoutFlags.SizeProportional, new Rectangle(0, 0, 1, 1));
+                MasterViewsSetLayout(AbsoluteLayoutFlags.SizeProportional, new Rectangle(0, 0, 1, 1));
+                DetailViewsSetLayout(AbsoluteLayoutFlags.SizeProportional, new Rectangle(0, 0, 1, 1));
             }
             else
             {
@@ -359,8 +371,8 @@ namespace pbXForms
 
                 _MasterViewIsVisible = true;
 
-				MasterViewsSetLayout(AbsoluteLayoutFlags.None, new Rectangle(0, 0, MasterViewWidthInSplitView, height));
-				DetailViewsSetLayout(AbsoluteLayoutFlags.None, new Rectangle(MasterViewWidthInSplitView, 0, width - MasterViewWidthInSplitView, height));
+                MasterViewsSetLayout(AbsoluteLayoutFlags.None, new Rectangle(0, 0, MasterViewWidthInSplitView, height));
+                DetailViewsSetLayout(AbsoluteLayoutFlags.None, new Rectangle(MasterViewWidthInSplitView, 0, width - MasterViewWidthInSplitView, height));
             }
 
             ModalManager.OnSizeAllocated(width, height);

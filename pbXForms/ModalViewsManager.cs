@@ -8,33 +8,33 @@ namespace pbXForms
 {
     public class ModalViewsManager
     {
-        protected AbsoluteLayout _Layout;
+        public double BlockerOpacity { get; set; } = 0.50;
+        public Color BlokerBackgroundColor { get; set; } = Color.FromHex("#000000");
 
-        public virtual double BlockerOpacity { get; set; } = 0.50;
-        public virtual Color BlokerBackgroundColor { get; set; } = Color.FromHex("#000000");
+        public bool HasShadow { get; set; } = false;
+        public float CornerRadius { get; set; } = 6;
 
-        public virtual bool HasShadow { get; set; } = false;
-        public virtual float CornerRadius { get; set; } = 6;
+        public double NavDrawerWidthInPortrait { get; set; } = 0;
+        public double NavDrawerWidthInLandscape { get; set; } = 0;
+        public double NavDrawerRelativeWidth { get; set; } = 0.8;
 
-        public virtual double NavDrawerWidthInPortrait { get; set; } = 0;
-        public virtual double NavDrawerWidthInLandscape { get; set; } = 0;
-        public virtual double NavDrawerRelativeWidth { get; set; } = 0.8;
-
+        protected AbsoluteLayout Layout;
+		
         public virtual void InitializeComponent(AbsoluteLayout layout)
         {
-            _Layout = layout;
+            Layout = layout;
 
-            if (_Layout.Children.Count < 1)
+            if (Layout == null || Layout.Children.Count < 1)
                 throw new Exception("ModalViewsManager: Layout (AbsoluteLayout) must contain at least one view == main view.");
 
-            View view = _Layout.Children[0];
+            View view = Layout.Children[0];
             AbsoluteLayout.SetLayoutFlags(view, AbsoluteLayoutFlags.SizeProportional);
             AbsoluteLayout.SetLayoutBounds(view, new Rectangle(0, 0, 1, 1));
         }
 
         public virtual void OnSizeAllocated(double width, double height)
         {
-            foreach (var m in _modals)
+            foreach (var m in ModalsStack)
             {
                 AnimateModalAsync(m, false, false);
             }
@@ -66,14 +66,13 @@ namespace pbXForms
             public double navDrawerRelativeWidth;
         };
 
-        protected Stack<Modal> _modals = new Stack<Modal>();
-
-        Stack<CancellationTokenSource> _cancellationTokens = new Stack<CancellationTokenSource>();
+        protected Stack<Modal> ModalsStack = new Stack<Modal>();
+        protected Stack<CancellationTokenSource> CancellationTokensStack = new Stack<CancellationTokenSource>();
 
         public virtual async Task<bool> DisplayModalAsync(ModalContentView content, ModalPosition position = ModalPosition.Center, bool animate = true)
         {
             CancellationTokenSource cancellationToken = new CancellationTokenSource();
-            _cancellationTokens.Push(cancellationToken);
+            CancellationTokensStack.Push(cancellationToken);
 
             bool rc = false;
 
@@ -91,7 +90,7 @@ namespace pbXForms
             }
 
             await PopModalAsync();
-            _cancellationTokens.Pop();  // Do NOT move this line before PopModalAsync
+            CancellationTokensStack.Pop();  // Do NOT move this line before PopModalAsync
 
             return rc;
         }
@@ -116,15 +115,15 @@ namespace pbXForms
                 {
                     Command = new Command(async (object parameter) =>
                     {
-                        if (_cancellationTokens.Count > 0)
-                            _cancellationTokens.Peek().Cancel();
+                        if (CancellationTokensStack.Count > 0)
+                            CancellationTokensStack.Peek().Cancel();
                         else
                             await PopModalAsync();
                     }),
                 });
             AbsoluteLayout.SetLayoutFlags(modal.blocker, AbsoluteLayoutFlags.SizeProportional);
             AbsoluteLayout.SetLayoutBounds(modal.blocker, new Rectangle(0, 0, 1, 1));
-            _Layout.Children.Add(modal.blocker);
+            Layout.Children.Add(modal.blocker);
 
             float cornerRadius = position >= ModalPosition.NavDrawer ? 0 : CornerRadius;
             modal.view = new Frame()
@@ -141,26 +140,26 @@ namespace pbXForms
                 Content = content,
             };
             AbsoluteLayout.SetLayoutFlags(modal.view, AbsoluteLayoutFlags.None);
-            _Layout.Children.Add(modal.view);
+            Layout.Children.Add(modal.view);
 
-            _modals.Push(modal);
+            ModalsStack.Push(modal);
 
             await AnimateModalAsync(modal, false, animate);
         }
 
         public virtual async Task PopModalAsync(bool animate = true)
         {
-            if (_modals.Count <= 0)
+            if (ModalsStack.Count <= 0)
                 return;
 
-            Modal modal = _modals.Pop();
+            Modal modal = ModalsStack.Pop();
             await AnimateModalAsync(modal, true, animate);
 
-            _Layout.Children.Remove(modal.view);
-            _Layout.Children.Remove(modal.blocker);
+            Layout.Children.Remove(modal.view);
+            Layout.Children.Remove(modal.blocker);
 
-            if (_cancellationTokens.Count > 0)
-                _cancellationTokens.Peek().Cancel();
+            if (CancellationTokensStack.Count > 0)
+                CancellationTokensStack.Peek().Cancel();
         }
 
         protected virtual async Task AnimateModalAsync(Modal modal, bool hide, bool animate)
@@ -168,17 +167,17 @@ namespace pbXForms
 			// Calculate size and position...
 
             double navDrawerWidth = DeviceEx.Orientation == DeviceOrientation.Landscape ? modal.navDrawerWidthInLandscape : modal.navDrawerWidthInPortrait;
-			navDrawerWidth = navDrawerWidth <= 0 ? _Layout.Bounds.Width * modal.navDrawerRelativeWidth : navDrawerWidth;
+			navDrawerWidth = navDrawerWidth <= 0 ? Layout.Bounds.Width * modal.navDrawerRelativeWidth : navDrawerWidth;
 
 			Rectangle bounds;
             if (modal.position >= ModalPosition.NavDrawer)
             {
-                bounds = _Layout.Bounds;
+                bounds = Layout.Bounds;
                 if (modal.position == ModalPosition.NavDrawer)
 					bounds.Width = navDrawerWidth;
             }
             else
-                bounds = _Layout.Bounds.Inflate(-(Metrics.ScreenEdgeMargin), -(Metrics.ScreenEdgeMargin));
+                bounds = Layout.Bounds.Inflate(-(Metrics.ScreenEdgeMargin), -(Metrics.ScreenEdgeMargin));
             
             Xamarin.Forms.Layout.LayoutChildIntoBoundingRegion(modal.view, bounds);
 
@@ -186,23 +185,23 @@ namespace pbXForms
             switch (modal.position)
             {
                 case ModalPosition.Center:
-                    to.X = _Layout.Bounds.Width / 2 - to.Width / 2;
-                    to.Y = _Layout.Bounds.Height / 2 - to.Height / 2;
+                    to.X = Layout.Bounds.Width / 2 - to.Width / 2;
+                    to.Y = Layout.Bounds.Height / 2 - to.Height / 2;
                     break;
                 case ModalPosition.BottomCenter:
-                    to.X = _Layout.Bounds.Width / 2 - to.Width / 2;
-                    to.Y = _Layout.Bounds.Bottom - to.Height - Metrics.ScreenEdgeMargin;
+                    to.X = Layout.Bounds.Width / 2 - to.Width / 2;
+                    to.Y = Layout.Bounds.Bottom - to.Height - Metrics.ScreenEdgeMargin;
                     break;
                 case ModalPosition.BottomLeft:
                     to.X = Metrics.ScreenEdgeMargin;
-                    to.Y = _Layout.Bounds.Bottom - to.Height - Metrics.ScreenEdgeMargin;
+                    to.Y = Layout.Bounds.Bottom - to.Height - Metrics.ScreenEdgeMargin;
                     break;
                 case ModalPosition.BottomRight:
-                    to.X = _Layout.Bounds.Width - to.Width - Metrics.ScreenEdgeMargin;
-                    to.Y = _Layout.Bounds.Bottom - to.Height - Metrics.ScreenEdgeMargin;
+                    to.X = Layout.Bounds.Width - to.Width - Metrics.ScreenEdgeMargin;
+                    to.Y = Layout.Bounds.Bottom - to.Height - Metrics.ScreenEdgeMargin;
                     break;
                 case ModalPosition.TopCenter:
-                    to.X = _Layout.Bounds.Width / 2 - to.Width / 2;
+                    to.X = Layout.Bounds.Width / 2 - to.Width / 2;
                     to.Y = Metrics.ScreenEdgeMargin;
                     break;
                 case ModalPosition.TopLeft:
@@ -210,22 +209,22 @@ namespace pbXForms
                     to.Y = Metrics.ScreenEdgeMargin;
                     break;
                 case ModalPosition.TopRight:
-                    to.X = _Layout.Bounds.Width - to.Width - Metrics.ScreenEdgeMargin;
+                    to.X = Layout.Bounds.Width - to.Width - Metrics.ScreenEdgeMargin;
                     to.Y = Metrics.ScreenEdgeMargin;
                     break;
                 case ModalPosition.LeftCenter:
                     to.X = Metrics.ScreenEdgeMargin;
-                    to.Y = _Layout.Bounds.Height / 2 - to.Height / 2;
+                    to.Y = Layout.Bounds.Height / 2 - to.Height / 2;
                     break;
                 case ModalPosition.RightCenter:
-                    to.X = _Layout.Bounds.Width - to.Width - Metrics.ScreenEdgeMargin;
-                    to.Y = _Layout.Bounds.Height / 2 - to.Height / 2;
+                    to.X = Layout.Bounds.Width - to.Width - Metrics.ScreenEdgeMargin;
+                    to.Y = Layout.Bounds.Height / 2 - to.Height / 2;
                     break;
                 case ModalPosition.NavDrawer:
-                    to = new Rectangle(0, 0, navDrawerWidth, _Layout.Bounds.Height);
+                    to = new Rectangle(0, 0, navDrawerWidth, Layout.Bounds.Height);
                     break;
                 case ModalPosition.WholeView:
-                    to = _Layout.Bounds;
+                    to = Layout.Bounds;
                     break;
             }
 
@@ -237,13 +236,13 @@ namespace pbXForms
                 else
                 {
                     if (modal.position == ModalPosition.RightCenter)
-                        from.X += _Layout.Bounds.Width;     // from/to right
+                        from.X += Layout.Bounds.Width;     // from/to right
                     else
                     {
                         if (modal.position == ModalPosition.TopCenter || modal.position == ModalPosition.TopLeft || modal.position == ModalPosition.TopRight)
                             from.Y -= to.Height;            // from/to top
                         else
-                            from.Y = _Layout.Bounds.Height; // from/to bottom
+                            from.Y = Layout.Bounds.Height; // from/to bottom
                     }
                 }
             }

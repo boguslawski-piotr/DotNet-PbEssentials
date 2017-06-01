@@ -9,7 +9,7 @@
         x:Name = "_Layout">
 
         <pbXForms:ContentViewExLayout
-            x:Name = "_View">
+            x:Name = "_ContentLayout">
 
             <pbXForms:AppBarLayout
                 Grid.Row = "0"

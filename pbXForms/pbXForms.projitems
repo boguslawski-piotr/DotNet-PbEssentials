@@ -9,7 +9,7 @@
     <Import_RootNamespace>pbXForms</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)FlatButton.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PIButton.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Metrics.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ContentPageEx.xaml.cs">
       <DependentUpon>ContentPageEx.xaml</DependentUpon>

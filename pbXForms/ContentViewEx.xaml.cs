@@ -58,20 +58,10 @@ namespace pbXForms
 
         public ToolBarLayout ToolBar => _ToolBarRow;
         public IList<View> ToolBarContent => _ToolBarRow.Children;
-
-        public bool ViewCoversStatusBar
-        {
-            get {
-                return
-#if __IOS__
-                true;
-#else
-				false;
-#endif
-            }
-        }
-
+		
         public ModalViewsManager ModalManager = new ModalViewsManager();
+
+		public bool ViewCoversStatusBar => Device.RuntimePlatform == Device.iOS ? true : false;
 
         public ContentViewEx()
         {
@@ -85,7 +75,7 @@ namespace pbXForms
         {
             base.OnSizeAllocated(width, height);
 
-            if (_View == null)
+            if (_ContentLayout == null)
                 return;
             if (!Tools.IsDifferent(new Size(width, height), ref _osa))
                 return;
@@ -103,14 +93,14 @@ namespace pbXForms
 
         protected virtual void LayoutAppBarAndToolBar(double width, double height)
         {
-            if (_View == null)
+            if (_ContentLayout == null)
                 return;
 
             bool IsLandscape = (DeviceEx.Orientation == DeviceOrientation.Landscape);
 
             if (_AppBarRow?.Children?.Count > 0)
             {
-                _View.RowDefinitions[0].Height =
+                _ContentLayout.RowDefinitions[0].Height =
                     (IsLandscape ? Metrics.AppBarHeightLandscape : Metrics.AppBarHeightPortrait)
                     + ((ViewCoversStatusBar && DeviceEx.StatusBarVisible) ? Metrics.StatusBarHeight : 0);
 
@@ -122,7 +112,7 @@ namespace pbXForms
             }
 
             if (_ToolBarRow?.Children?.Count > 0)
-                _View.RowDefinitions[2].Height = (IsLandscape ? Metrics.ToolBarHeightLandscape : Metrics.ToolBarHeightPortrait);
+                _ContentLayout.RowDefinitions[2].Height = (IsLandscape ? Metrics.ToolBarHeightLandscape : Metrics.ToolBarHeightPortrait);
         }
 
         protected virtual void ContinueOnSizeAllocated(double width, double height)

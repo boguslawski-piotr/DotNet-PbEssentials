@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -67,21 +69,29 @@ namespace pbXForms
 			}
 		}
 
-		async void OnTapped(object parameter)
+		volatile Int32 _onTappedIsRunning = 0;
+		
+        void OnTapped(object parameter)
 		{
-            if (!IsEnabled)
+            if (!IsEnabled || Interlocked.Exchange(ref _onTappedIsRunning, 1) == 1)
                 return;
             
-			double opacity = Opacity;
-
-			await this.FadeTo(0.2, 150);
+			StartTappedAnimation();
 
 			Command?.Execute(CommandParameter);
 			Clicked?.Invoke(this, EventArgs.Empty);
+			
+            Interlocked.Exchange(ref _onTappedIsRunning, 0);
+		}
 
-#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
-			this.FadeTo(opacity, 150);
-#pragma warning restore CS4014
+		protected virtual void StartTappedAnimation()
+		{
+			Task.Run(async () =>
+			{
+				await this.ScaleTo(1.25, (uint)(DeviceEx.AnimationsLength * 0.65), Easing.CubicOut);
+				await this.ScaleTo(1, (uint)(DeviceEx.AnimationsLength * 0.35), Easing.CubicIn);
+			});
+
 		}
 	}
 }

@@ -8,13 +8,13 @@ using static Xamarin.Forms.Button;
 
 namespace pbXForms
 {
-    public class FlatButton : ContentView
+    public class PIButton : ContentView
     {
-        public static readonly BindableProperty CommandProperty = BindableProperty.Create("Command", typeof(ICommand), typeof(FlatButton), null,
-            propertyChanged: (bo, o, n) => ((FlatButton)bo).OnCommandChanged());
+        public static readonly BindableProperty CommandProperty = BindableProperty.Create("Command", typeof(ICommand), typeof(PIButton), null,
+            propertyChanged: (bo, o, n) => ((PIButton)bo).OnCommandChanged());
 
-        public static readonly BindableProperty CommandParameterProperty = BindableProperty.Create("CommandParameter", typeof(object), typeof(FlatButton), null,
-            propertyChanged: (bo, o, n) => ((FlatButton)bo).CommandCanExecuteChanged(bo, EventArgs.Empty));
+        public static readonly BindableProperty CommandParameterProperty = BindableProperty.Create("CommandParameter", typeof(object), typeof(PIButton), null,
+            propertyChanged: (bo, o, n) => ((PIButton)bo).CommandCanExecuteChanged(bo, EventArgs.Empty));
 
         public ICommand Command
         {
@@ -27,11 +27,12 @@ namespace pbXForms
             get { return GetValue(CommandParameterProperty); }
             set { SetValue(CommandParameterProperty, value); }
         }
-		
+
         public event EventHandler Clicked;
 
-		public static readonly BindableProperty ContentLayoutProperty =
-            BindableProperty.Create("ContentLayout", typeof(ButtonContentLayout), typeof(FlatButton), new ButtonContentLayout(ButtonContentLayout.ImagePosition.Left, Metrics.ButtonItemsSpacing));
+        public static readonly BindableProperty ContentLayoutProperty = BindableProperty.Create("ContentLayout", typeof(ButtonContentLayout), typeof(PIButton),
+            new ButtonContentLayout(ButtonContentLayout.ImagePosition.Left, Metrics.ButtonItemsSpacing), 
+            propertyChanged: (bo, o, n) => ((PIButton)bo).OnContentLayoutChanged());
 
         public ButtonContentLayout ContentLayout
         {
@@ -96,12 +97,12 @@ namespace pbXForms
             }
         }
 
-        public FlatButton()
+        public PIButton()
         {
             HeightRequest = Metrics.TouchTargetHeight;
-			MinimumHeightRequest = Metrics.TouchTargetHeight;
-			WidthRequest = Metrics.TouchTargetHeight;
-			MinimumWidthRequest = Metrics.TouchTargetHeight;
+            MinimumHeightRequest = Metrics.TouchTargetHeight;
+            WidthRequest = Metrics.TouchTargetHeight;
+            MinimumWidthRequest = Metrics.TouchTargetHeight;
 
             VerticalOptions = LayoutOptions.Center;
             Margin = new Thickness(0);
@@ -154,24 +155,6 @@ namespace pbXForms
             base.OnPropertyChanging(propertyName);
         }
 
-        protected override void OnPropertyChanged(string propertyName = null)
-        {
-            if (propertyName == ContentLayoutProperty.PropertyName)
-            {
-                if (Content is StackLayout c)
-                {
-                    bool vert = ContentLayout.Position == ButtonContentLayout.ImagePosition.Bottom || ContentLayout.Position == ButtonContentLayout.ImagePosition.Top;
-                    c.Orientation = vert ? StackOrientation.Vertical : StackOrientation.Horizontal;
-                    c.Spacing = ContentLayout.Spacing;
-
-                    if (ContentLayout.Position == ButtonContentLayout.ImagePosition.Top || ContentLayout.Position == ButtonContentLayout.ImagePosition.Right)
-                        c.RaiseChild(_Image);
-                }
-            }
-
-            base.OnPropertyChanged(propertyName);
-        }
-
         bool _IsEnabled
         {
             set {
@@ -202,27 +185,49 @@ namespace pbXForms
                 _IsEnabled = true;
         }
 
-        volatile Int32 _onTappedIsRunning = 0;
+        void OnContentLayoutChanged()
+		{
+			if (Content is StackLayout c)
+			{
+				bool vert = ContentLayout.Position == ButtonContentLayout.ImagePosition.Bottom || ContentLayout.Position == ButtonContentLayout.ImagePosition.Top;
+
+				c.Orientation = vert ? StackOrientation.Vertical : StackOrientation.Horizontal;
+				c.Spacing = ContentLayout.Spacing;
+
+				if (ContentLayout.Position == ButtonContentLayout.ImagePosition.Top || ContentLayout.Position == ButtonContentLayout.ImagePosition.Right)
+				{
+					if (c.Children[0] == _Image)
+						c.RaiseChild(_Image);
+				}
+			}
+		}
+
+		volatile Int32 _onTappedIsRunning = 0;
 
         void OnTapped(object parameter)
         {
             if (!IsEnabled || Interlocked.Exchange(ref _onTappedIsRunning, 1) == 1)
                 return;
 
-#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
-            Task.Run(async () =>
-#pragma warning restore CS4014
-            {
-                await this.ScaleTo(1.25, (uint)(DeviceEx.AnimationsLength * 0.65), Easing.CubicOut);
-                await this.ScaleTo(1, (uint)(DeviceEx.AnimationsLength * 0.35), Easing.CubicIn);
-            });
+            StartTappedAnimation();
 
             Command?.Execute(CommandParameter);
             Clicked?.Invoke(this, EventArgs.Empty);
 
             Interlocked.Exchange(ref _onTappedIsRunning, 0);
-
-            //Debug.WriteLine($"FlatButton: OnTapped: run for {DateTime.Now - s}");
         }
+
+        protected virtual void StartTappedAnimation()
+        {
+			Task.Run(async () =>
+			{
+				await this.ScaleTo(1.25, (uint)(DeviceEx.AnimationsLength * 0.65), Easing.CubicOut);
+				await this.ScaleTo(1, (uint)(DeviceEx.AnimationsLength * 0.35), Easing.CubicIn);
+			});
+
+		}
     }
+
+    [Obsolete("FlatButton is obsolete. Please use PIButton (as Platform Independent Button) instead.")]
+	public class FlatButton : PIButton { }
 }
