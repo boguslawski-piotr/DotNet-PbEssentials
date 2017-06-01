@@ -52,22 +52,12 @@ namespace pbXForms
     public partial class ContentViewEx : ModalContentView
     {
         public AppBarLayout AppBar => _AppBarRow;
-        public IList<View> AppBarContent => _AppBarRow.Children;
-        public Color AppBarBackgroundColor
-        {
-            get { return AppBar.BackgroundColor; }
-            set { AppBar.BackgroundColor = value; }
-        }
+		public IList<View> AppBarContent => _AppBarRow.Children;
 
         public IList<View> ViewContent => _ContentRow.Children;
 
         public ToolBarLayout ToolBar => _ToolBarRow;
         public IList<View> ToolBarContent => _ToolBarRow.Children;
-        public Color ToolBarBackgroundColor
-        {
-            get { return ToolBar.BackgroundColor; }
-            set { ToolBar.BackgroundColor = value; }
-        }
 
         public bool ViewCoversStatusBar
         {

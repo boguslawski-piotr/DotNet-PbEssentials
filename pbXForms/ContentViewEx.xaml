@@ -14,8 +14,7 @@
             <pbXForms:AppBarLayout
                 Grid.Row = "0"
                 Grid.Column = "0"
-                x:Name = "_AppBarRow"
-                BackgroundColor = "{StaticResource AppBarBackgroundColor}">
+                x:Name = "_AppBarRow">
 
             </pbXForms:AppBarLayout>
 
@@ -29,8 +28,7 @@
             <pbXForms:ToolBarLayout
                 Grid.Row = "2"
                 Grid.Column = "0"
-                x:Name = "_ToolBarRow"
-                BackgroundColor = "{StaticResource ToolBarBackgroundColor}">
+                x:Name = "_ToolBarRow">
 
             </pbXForms:ToolBarLayout>
 
