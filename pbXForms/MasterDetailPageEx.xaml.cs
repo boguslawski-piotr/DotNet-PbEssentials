@@ -142,12 +142,9 @@ namespace pbXForms
 
             if(!Views.Contains(newMasterView))
                Views.Add(newMasterView);
-            newMasterView.IsVisible = true;
             _View.RaiseChild(newMasterView);
 
             await AnimateAsync(true, previousMasterView, newMasterView, animation);
-
-            previousMasterView.IsVisible = false;
 
             MasterView = newMasterView;
 			_MasterViewIsVisible = true;
@@ -249,6 +246,8 @@ namespace pbXForms
 
         protected virtual async Task AnimateAsync(bool mastersPane, View from, View to, ViewsSwitchingAnimation animation)
         {
+            BatchBegin();
+
             Rectangle vb = _View.Bounds;
             if (IsSplitView)
             {
@@ -287,8 +286,10 @@ namespace pbXForms
                 else
                     toTo.X += toTo.Width;
 
-                await AnimateAsync(from, fromTo, to, toTo, animation != ViewsSwitchingAnimation.RightToLeft ? Easing.CubicOut : Easing.CubicIn);
+                await AnimateAsync(from, fromTo, to, toTo, Easing.CubicOut);
             }
+
+            BatchCommit();
         }
 
         protected virtual async Task AnimateAsync(View from, Rectangle fromTo, View to, Rectangle toTo, Easing easing)

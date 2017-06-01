@@ -268,7 +268,7 @@ namespace pbXForms
             {
                 uint al = DeviceEx.AnimationsLength;
                 await Task.WhenAll(
-                    modal.view.LayoutTo(hide ? from : to, al, hide ? Easing.CubicIn : Easing.CubicOut),
+                    modal.view.LayoutTo(hide ? from : to, al, Easing.CubicOut),
                     modal.blocker.FadeTo(hide ? 0 : BlockerOpacity, al / 2)
                 );
 
