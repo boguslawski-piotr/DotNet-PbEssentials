@@ -27,6 +27,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Extensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ModalViewsManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ModalContentView.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PINBehavior.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)ContentPageEx.xaml">
