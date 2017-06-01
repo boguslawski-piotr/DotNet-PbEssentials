@@ -1,5 +1,8 @@
 ﻿using System;
 using Xamarin.Forms;
+using pbXSecurity;
+using System.Text;
+using pbXNet;
 
 #if __ANDROID__
 using Android.Content;
@@ -9,6 +12,7 @@ using Android.Views;
 
 #if __IOS__
 using UIKit;
+using Foundation;
 #endif
 
 namespace pbXForms
@@ -22,25 +26,65 @@ namespace pbXForms
 
     static public class DeviceEx
     {
-        static public DeviceOrientation Orientation
+        /// <summary>
+        /// Gets the unique device identifier (should be really unique accross all devices with the same operating system).
+        /// </summary>
+		public static string Id
+		{
+			get {
+#if __IOS__
+                string id = UIDevice.CurrentDevice.IdentifierForVendor.AsString();
+                string id2 = UIDevice.CurrentDevice.Model;
+#endif
+#if __MACOS__
+                //Mono.Posix.Syscall ???
+
+                // TODO: DeviceEx.Id for macOS
+                string id = "1e08400f-8fe7-4565-acc2-7f8b26f98af4";
+                string id2 = "macOS";
+#endif
+#if __ANDROID__
+				string id = Android.Provider.Settings.Secure.AndroidId;
+				string id2 = "34535a7e-d8ff-4a45-99de-c8507802b498";
+#endif
+#if WINDOWS_UWP
+                // TODO: DeviceEx.Id for UWP
+                string id = "b3fea4b6-0f44-466e-96e0-ba25324671fc";
+                string id2 = "UWP";
+#endif
+				byte[] ckey = new AesCryptographer().GenerateKey(Encoding.UTF8.GetBytes(id + id2), new byte[] { 34, 56, 2, 34, 6, 87, 12, 34, 56, 11 });
+				return ConvertEx.ToHexString(ckey);
+			}
+		}
+
+        /// <summary>
+        /// Gets the device/main window (if created) orientation.
+        /// </summary>
+		static public DeviceOrientation Orientation
         {
             get {
-				if (Application.Current != null && Application.Current.MainPage != null)
-				{
-					// Because the app can run on tablets where split view mode is available, 
-					// it is safer to calculate orientation based on the size of the main window.
+                if (Application.Current != null && Application.Current.MainPage != null)
+                {
+                    // Because the app can run on tablets where split view mode is available, 
+                    // it is safer to calculate orientation based on the size of the main window.
                     // This helps also on desktops :)
-					Rectangle b = Application.Current.MainPage.Bounds;
-					return b.Width >= b.Height ? DeviceOrientation.Landscape : DeviceOrientation.Portrait;
-				}
+                    Rectangle b = Application.Current.MainPage.Bounds;
+                    return b.Width >= b.Height ? DeviceOrientation.Landscape : DeviceOrientation.Portrait;
+                }
 #if __IOS__
-				var currentOrientation = UIApplication.SharedApplication.StatusBarOrientation;
+                var currentDeviceOrientation = UIDevice.CurrentDevice.Orientation;
+                if (currentDeviceOrientation != UIDeviceOrientation.Unknown)
+                {
+					// TODO: czemu UIDevice.CurrentDevice.Orientation nie dziala?
+				}
 
-				bool isPortrait =
-					currentOrientation == UIInterfaceOrientation.Portrait
-					|| currentOrientation == UIInterfaceOrientation.PortraitUpsideDown;
+                var currentOrientation = UIApplication.SharedApplication.StatusBarOrientation;
 
-				return isPortrait ? DeviceOrientation.Portrait : DeviceOrientation.Landscape;
+                bool isPortrait =
+                    currentOrientation == UIInterfaceOrientation.Portrait
+                    || currentOrientation == UIInterfaceOrientation.PortraitUpsideDown;
+
+                return isPortrait ? DeviceOrientation.Portrait : DeviceOrientation.Landscape;
 #else
 #if __ANDROID__
 				IWindowManager windowManager = Android.App.Application.Context.GetSystemService(Context.WindowService).JavaCast<IWindowManager>();
@@ -64,6 +108,10 @@ namespace pbXForms
             }
         }
 
+        /// <summary>
+        /// Gets a value indicating whether status bar is visible on device in actual mode.
+        /// </summary>
+        /// <value><c>true</c> if status bar visible; otherwise, <c>false</c>.</value>
         static public bool StatusBarVisible
         {
             get {
@@ -82,13 +130,15 @@ namespace pbXForms
             }
         }
 
-		static uint _AnimationsLength = 300;
+        static uint _AnimationsLength = 300;
+
+		/// <summary>
+		/// The default length of the animations for a device or device type/idiom.
+		/// </summary>
 		public static uint AnimationsLength
-		{
-			get => (uint)((double)_AnimationsLength * (Device.Idiom == TargetIdiom.Tablet ? 1.33 : Device.Idiom == TargetIdiom.Desktop ? 0.77 : 1));
-			set => _AnimationsLength = value;
-		}
-
-
+        {
+            get => (uint)((double)_AnimationsLength * (Device.Idiom == TargetIdiom.Tablet ? 1.33 : Device.Idiom == TargetIdiom.Desktop ? 0.77 : 1));
+            set => _AnimationsLength = value;
+        }
 	}
 }
