@@ -269,7 +269,7 @@ namespace pbXForms
                 uint al = DeviceEx.AnimationsLength;
                 await Task.WhenAll(
                     modal.view.LayoutTo(hide ? from : to, al, hide ? Easing.CubicIn : Easing.CubicOut),
-                    modal.blocker.FadeTo(hide ? 0 : BlockerOpacity, al)
+                    modal.blocker.FadeTo(hide ? 0 : BlockerOpacity, al / 2)
                 );
 
                 // This is really needed because LayoutTo is not permananet in this situation.
