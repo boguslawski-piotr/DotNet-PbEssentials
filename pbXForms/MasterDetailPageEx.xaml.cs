@@ -139,15 +139,20 @@ namespace pbXForms
 			MasterViewWillBeShown?.Invoke(this, (newMasterView, eventParam));
 
 			View previousMasterView = MasterView;
-			Views.Add(newMasterView);
+
+            if(!Views.Contains(newMasterView))
+               Views.Add(newMasterView);
+            newMasterView.IsVisible = true;
             _View.RaiseChild(newMasterView);
 
             await AnimateAsync(true, previousMasterView, newMasterView, animation);
 
-            Views.Remove(previousMasterView);
+            previousMasterView.IsVisible = false;
+
             MasterView = newMasterView;
 			_MasterViewIsVisible = true;
-			MasterViewHasBeenShown?.Invoke(this, (MasterView, eventParam));
+			
+            MasterViewHasBeenShown?.Invoke(this, (MasterView, eventParam));
 			return true;
 		}
 
