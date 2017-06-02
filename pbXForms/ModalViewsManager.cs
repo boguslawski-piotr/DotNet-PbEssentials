@@ -19,7 +19,7 @@ namespace pbXForms
         public double NavDrawerRelativeWidth { get; set; } = 0.8;
 
         protected AbsoluteLayout Layout;
-		
+
         public virtual void InitializeComponent(AbsoluteLayout layout)
         {
             Layout = layout;
@@ -164,21 +164,21 @@ namespace pbXForms
 
         protected virtual async Task AnimateModalAsync(Modal modal, bool hide, bool animate)
         {
-			// Calculate size and position...
+            // Calculate size and position...
 
             double navDrawerWidth = DeviceEx.Orientation == DeviceOrientation.Landscape ? modal.navDrawerWidthInLandscape : modal.navDrawerWidthInPortrait;
-			navDrawerWidth = navDrawerWidth <= 0 ? Layout.Bounds.Width * modal.navDrawerRelativeWidth : navDrawerWidth;
+            navDrawerWidth = navDrawerWidth <= 0 ? Layout.Bounds.Width * modal.navDrawerRelativeWidth : navDrawerWidth;
 
-			Rectangle bounds;
+            Rectangle bounds;
             if (modal.position >= ModalPosition.NavDrawer)
             {
                 bounds = Layout.Bounds;
                 if (modal.position == ModalPosition.NavDrawer)
-					bounds.Width = navDrawerWidth;
+                    bounds.Width = navDrawerWidth;
             }
             else
                 bounds = Layout.Bounds.Inflate(-(Metrics.ScreenEdgeMargin), -(Metrics.ScreenEdgeMargin));
-            
+
             Xamarin.Forms.Layout.LayoutChildIntoBoundingRegion(modal.view, bounds);
 
             Rectangle to = modal.view.Bounds;
