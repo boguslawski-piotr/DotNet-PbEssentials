@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+    
+  <data name="LibName" xml:space="preserve">
+    <value>pbXNet</value>
+  </data>
+    
+  <data name="DeviceFileSystem.Root.Personal" xml:space="preserve">
+    <value>Your personal folder</value>
+  </data>
+  <data name="DeviceFileSystem.Root.Documents" xml:space="preserve">
+    <value>Documents folder</value>
+  </data>
+  <data name="DeviceFileSystem.Root.Desktop" xml:space="preserve">
+    <value>Desktop folder</value>
+  </data>
+  <data name="DeviceFileSystem.Root.Config" xml:space="preserve">
+    <value>Preferences folder</value>
+  </data>
+  <data name="DeviceFileSystem.Root.External" xml:space="preserve">
+    <value>External storage (SDcard, USB stick, etc.)</value>
+  </data>
+  <data name="folder" xml:space="preserve">
+    <value>folder</value>
+  </data>
+
+</root>

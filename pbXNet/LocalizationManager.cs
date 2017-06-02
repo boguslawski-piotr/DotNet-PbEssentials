@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.Reflection;
@@ -11,18 +12,6 @@ namespace pbXNet
 {
     public static class LocalizationManager
     {
-        // TODO: umozliwic dodanie dwolnej liczby zasobow i wtedy wyszukiwanie tekstow po kolei, w kolejnosci dodawania
-
-        static string _BaseName { get; set; }
-
-        static Assembly _Assembly { get; set; }
-
-        public static void AddResources(string baseName, Assembly assembly)
-        {
-            _BaseName = baseName;
-            _Assembly = assembly;
-        }
-
         static Locale _Locale = new Locale();
 
         public static CultureInfo CurrentCultureInfo
@@ -48,18 +37,37 @@ namespace pbXNet
             }
         }
 
-        static ResourceManager _ResourceManager;
-
-		public static ResourceManager ResourceManager
+        class Resource
         {
-            get {
-                if (object.ReferenceEquals(_ResourceManager, null))
-                {
-                    ResourceManager temp = new ResourceManager(_BaseName, _Assembly);
-                    _ResourceManager = temp;
+            public string BaseName { get; set; }
+            public Assembly Assembly { get; set; }
+
+            ResourceManager _ResourceManager;
+            public ResourceManager ResourceManager
+            {
+                get {
+                    if (object.ReferenceEquals(_ResourceManager, null))
+                    {
+                        ResourceManager rm = new ResourceManager(BaseName, Assembly);
+                        _ResourceManager = rm;
+                    }
+                    return _ResourceManager;
                 }
-                return _ResourceManager;
+
             }
+        }
+
+        static IList<Resource> _resources = new List<Resource>();
+
+        public static void AddResource(string baseName, Assembly assembly)
+        {
+            Resource resource = new Resource()
+            {
+                BaseName = baseName,
+                Assembly = assembly,
+            };
+
+            _resources.Add(resource);
         }
 
         public static string GetText(string name)
@@ -69,12 +77,19 @@ namespace pbXNet
 
             string value = null;
 
-            if (ResourceManager != null)
-                try
+            if (_resources.Count > 0)
+            {
+                foreach (var r in _resources)
                 {
-                    value = ResourceManager.GetString(name, Culture);
+                    try
+                    {
+                        value = r.ResourceManager.GetString(name, Culture);
+                        if (value != null)
+                            break;
+                    }
+                    catch { }
                 }
-                catch { }
+            }
 
             if (value == null)
                 value = $"!@ {name} @!"; // returns the key, which GETS DISPLAYED TO THE USER
