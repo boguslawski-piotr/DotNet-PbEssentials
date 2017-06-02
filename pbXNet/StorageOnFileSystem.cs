@@ -24,27 +24,23 @@ namespace pbXNet
             StorageOnFileSystem<T> o = new StorageOnFileSystem<T>(id, fs);
             await o.InitializeAsync();
             return o;
-		}
-
-		/// <summary>
-		/// Initializes internally instance.
-		/// It is designed to be called (from user code) 
-		/// right after constructor but asynchronously.
-		/// </summary>
-		public virtual async Task InitializeAsync()
-        {
-            await Fs.SetCurrentDirectoryAsync(null);
-            await Fs.CreateDirectoryAsync(Id); // TODO: opoznic tworzenie katalogu do momentu gdy cos naprawde sie dzieje (zapis, odczyt, itp.)
         }
 
-        public virtual async Task<IEnumerable<string>> FindIdsAsync(string pattern)
+        public virtual async Task InitializeAsync()
         {
-            return await Fs.GetFilesAsync(pattern);
+            await Fs.SetCurrentDirectoryAsync(null);
+        }
+
+        protected async Task<IFileSystem> GetFsAsync()
+        {
+            await Fs.SetCurrentDirectoryAsync(null);
+            await Fs.CreateDirectoryAsync(Id);
+            return Fs;
         }
 
         const string ModifiedOnSeparator = "@";
 
-        public virtual async Task StoreAsync(string id, T data, DateTime modifiedOn)
+        public virtual async Task StoreAsync(string thingId, T data, DateTime modifiedOn)
         {
             string d;
             if (typeof(T).Equals(typeof(string)))
@@ -54,27 +50,42 @@ namespace pbXNet
 
             string mod = JsonConvert.SerializeObject(modifiedOn, pbXNet.Settings.JsonSerializer);
 
-            await Fs.WriteTextAsync(id, mod + ModifiedOnSeparator + d);
-		}
-		
-        public virtual async Task<DateTime> GetModifiedOnAsync(string id)
-		{
-            if (!await ExistsAsync(id))
+            IFileSystem fs = await GetFsAsync();
+            await fs.WriteTextAsync(thingId, mod + ModifiedOnSeparator + d);
+        }
+
+        public virtual async Task<bool> ExistsAsync(string thingId)
+        {
+            // We do not use GetFsAsync() in order to delay directory creation as much as possible.
+
+            await Fs.SetCurrentDirectoryAsync(null);
+            if (!await Fs.DirectoryExistsAsync(Id))
+                return false;
+
+            await Fs.CreateDirectoryAsync(Id);
+            return await Fs.FileExistsAsync(thingId);
+        }
+
+        public virtual async Task<DateTime> GetModifiedOnAsync(string thingId)
+        {
+            if (!await ExistsAsync(thingId))
                 return DateTime.MinValue;
 
-			string sd = await Fs.ReadTextAsync(id);
-			sd = sd.Substring(0, sd.IndexOf(ModifiedOnSeparator, StringComparison.Ordinal));
+            IFileSystem fs = await GetFsAsync();
+            string sd = await fs.ReadTextAsync(thingId);
+            sd = sd.Substring(0, sd.IndexOf(ModifiedOnSeparator, StringComparison.Ordinal));
 
             return JsonConvert.DeserializeObject<DateTime>(sd, pbXNet.Settings.JsonSerializer);
-		}
+        }
 
-		public virtual async Task<T> GetACopyAsync(string id)
-		{
-			if (!await ExistsAsync(id))
+        public virtual async Task<T> GetACopyAsync(string thingId)
+        {
+            if (!await ExistsAsync(thingId))
                 return null;
-			
+
             // Get data from file system and skip saved modification date (is not needed here)
-			string sd = await Fs.ReadTextAsync(id);
+            IFileSystem fs = await GetFsAsync();
+            string sd = await fs.ReadTextAsync(thingId);
             sd = sd.Substring(sd.IndexOf(ModifiedOnSeparator, StringComparison.Ordinal) + ModifiedOnSeparator.Length);
 
             // Restore object
@@ -83,26 +94,35 @@ namespace pbXNet
                 return (T)d;
             else
                 return JsonConvert.DeserializeObject<T>((string)d, pbXNet.Settings.JsonSerializer);
-		}
-		
-        public virtual async Task<bool> ExistsAsync(string id)
-        {
-            return await Fs.FileExistsAsync(id);
         }
 
-        public virtual async Task<T> RetrieveAsync(string id)
+        public virtual async Task<T> RetrieveAsync(string thingId)
         {
-			T data = await GetACopyAsync(id);
-            if(data != null)
-			    await DiscardAsync(id);
-			return data;
-		}
-
-        public virtual async Task DiscardAsync(string id)
-        {
-            await Fs.DeleteFileAsync(id);
+            T data = await GetACopyAsync(thingId);
+            if (data != null)
+                await DiscardAsync(thingId);
+            return data;
         }
 
+        public virtual async Task DiscardAsync(string thingId)
+        {
+            IFileSystem fs = await GetFsAsync();
+            await fs.DeleteFileAsync(thingId);
+        }
+
+
+        //
+
+        public virtual async Task<IEnumerable<string>> FindIdsAsync(string pattern)
+        {
+            // We do not use GetFsAsync() in order to delay directory creation as much as possible.
+
+            await Fs.SetCurrentDirectoryAsync(null);
+            if (!await Fs.DirectoryExistsAsync(Id))
+                return null;
+
+            await Fs.CreateDirectoryAsync(Id);
+            return await Fs.GetFilesAsync(pattern);
+        }
     }
-
 }
