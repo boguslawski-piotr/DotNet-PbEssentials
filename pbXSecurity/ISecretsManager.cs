@@ -3,22 +3,22 @@ using System.Threading.Tasks;
 
 namespace pbXSecurity
 {
-	/// <summary>
+    /// <summary>
     /// Cryptographic keys life time definitions 
     /// used in ISecretsManager.CreateCKeyAsync.
-	/// WARNING: Do not change constants values order.
-	/// If needed add new value(s) at the end.
-	/// </summary>
-	public enum CKeyLifeTime
-	{
+    /// WARNING: Do not change constants values order.
+    /// If needed add new value(s) at the end.
+    /// </summary>
+    public enum CKeyLifeTime
+    {
         Undefined,
-		Infinite,
-		WhileAppRunning,
+        Infinite,
+        WhileAppRunning,
         WhileAppIsOnTop,
         OneTime
-	};
+    };
 
-	/// <summary>
+    /// <summary>
     /// Secrets manager.
     /// </summary>
     public interface ISecretsManager
@@ -28,9 +28,9 @@ namespace pbXSecurity
         string Id { get; }
 
 
-		// Basic device owner authentication (pin, passkey, biometrics, etc.)
+        // Basic device owner authentication (pin, passkey, biometrics, etc.)
 
-		bool DeviceOwnerAuthenticationAvailable { get; }
+        bool DeviceOwnerAuthenticationAvailable { get; }
         bool DeviceOwnerAuthenticationWithBiometricsAvailable { get; }
         bool AuthenticateDeviceOwner(string msg, Action Succes, Action<string> Error);
 
@@ -51,7 +51,8 @@ namespace pbXSecurity
         Task DeleteCKeyAsync(string id);
 
         Task<string> EncryptAsync(string data, byte[] ckey, byte[] iv);
-		Task<string> DecryptAsync(string data, byte[] ckey, byte[] iv);
-		byte[] GenerateIV();
-	}
+        Task<string> DecryptAsync(string data, byte[] ckey, byte[] iv);
+
+        byte[] GenerateIV();
+    }
 }

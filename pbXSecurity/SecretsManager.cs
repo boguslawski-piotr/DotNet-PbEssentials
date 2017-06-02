@@ -20,10 +20,10 @@ namespace pbXSecurity
 
         protected IStorage<string> Storage { get; }
 
-        public SecretsManager(string id = null, ICryptographer cryptographer = null, IStorage<string> storage = null)
+        public SecretsManager(string id, ICryptographer cryptographer, IStorage<string> storage = null)
         {
-            Id = id ?? pbXNet.Tools.CreateGuid();
-            Cryptographer = cryptographer ?? new AesCryptographer();
+            Id = id;
+            Cryptographer = cryptographer;
             Storage = storage;
         }
 
