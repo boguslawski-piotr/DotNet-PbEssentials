@@ -5,35 +5,32 @@ using System.Globalization;
 using System.Reflection;
 using System.Resources;
 
-//using Xamarin.Forms;
-//using Xamarin.Forms.Xaml;
-
 namespace pbXNet
 {
     public static class LocalizationManager
     {
-        static Locale _Locale = new Locale();
+        static Locale _locale = new Locale();
 
         public static CultureInfo CurrentCultureInfo
         {
             get {
-                CultureInfo c = _Locale.GetCurrentCultureInfo();
-                _Locale.SetLocale(c);
+                CultureInfo c = _locale.GetCurrentCultureInfo();
+                _locale.SetLocale(c);
                 return c;
             }
         }
 
-        static CultureInfo _Culture;
+        static CultureInfo _cultureInfo;
 
-        public static CultureInfo Culture
+        public static CultureInfo CultureInfo
         {
             get {
-                if (_Culture == null)
-                    _Culture = CurrentCultureInfo;
-                return _Culture;
+                if (_cultureInfo == null)
+                    _cultureInfo = CurrentCultureInfo;
+                return _cultureInfo;
             }
             set {
-                _Culture = value;
+                _cultureInfo = value;
             }
         }
 
@@ -59,8 +56,14 @@ namespace pbXNet
 
         static IList<Resource> _resources = new List<Resource>();
 
-        public static void AddResource(string baseName, Assembly assembly)
+        public static void AddResource(string baseName, Assembly assembly, bool first = false)
         {
+            if (first)
+            {
+                _resources.Clear();
+                CultureInfo = null;
+            }
+
             Resource resource = new Resource()
             {
                 BaseName = baseName,
@@ -83,7 +86,7 @@ namespace pbXNet
                 {
                     try
                     {
-                        value = r.ResourceManager.GetString(name, Culture);
+                        value = r.ResourceManager.GetString(name, CultureInfo);
                         if (value != null)
                             break;
                     }

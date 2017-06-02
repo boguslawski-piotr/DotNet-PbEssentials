@@ -20,7 +20,6 @@ namespace pbXNet
             var androidLocale = Java.Util.Locale.Default;
             netLanguage = AndroidToDotnetLanguage(androidLocale.ToString().Replace("_", "-"));
 
-            // this gets called a lot - try/catch can be expensive so consider caching or something
             System.Globalization.CultureInfo ci = null;
             try
             {
@@ -28,7 +27,7 @@ namespace pbXNet
             }
             catch (CultureNotFoundException e1)
             {
-                // iOS locale not valid .NET culture (eg. "en-ES" : English in Spain)
+                // locale not valid .NET culture (eg. "en-ES" : English in Spain)
                 // fallback to first characters, in this case "en"
                 try
                 {
@@ -37,7 +36,7 @@ namespace pbXNet
                 }
                 catch (CultureNotFoundException e2)
                 {
-                    // iOS language not valid .NET culture, falling back to English
+                    // language not valid .NET culture, falling back to English
                     ci = new System.Globalization.CultureInfo("en");
                 }
             }
@@ -47,6 +46,7 @@ namespace pbXNet
         string AndroidToDotnetLanguage(string androidLanguage)
         {
             var netLanguage = androidLanguage;
+
             //certain languages need to be converted to CultureInfo equivalent
             switch (androidLanguage)
             {
@@ -64,20 +64,24 @@ namespace pbXNet
                     // add more application-specific cases here (if required)
                     // ONLY use cultures that have been tested and known to work
             }
+
             return netLanguage;
         }
 
         string ToDotnetFallbackLanguage(PlatformCulture platCulture)
         {
-            var netLanguage = platCulture.LanguageCode; // use the first part of the identifier (two chars, usually);
+            var netLanguage = platCulture.LanguageCode; 
+
             switch (platCulture.LanguageCode)
             {
                 case "gsw":
                     netLanguage = "de-CH"; // equivalent to German (Switzerland) for this app
                     break;
-                    // add more application-specific cases here (if required)
-                    // ONLY use cultures that have been tested and known to work
+
+                // add more application-specific cases here (if required)
+                // ONLY use cultures that have been tested and known to work
             }
+
             return netLanguage;
         }
     }

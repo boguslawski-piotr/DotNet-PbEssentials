@@ -1,4 +1,4 @@
-﻿#if __UNIFIED__ || __IOS__
+﻿#if __UNIFIED__
 
 using System;
 using System.Globalization;
@@ -24,7 +24,6 @@ namespace pbXNet
                 netLanguage = iOSToDotnetLanguage(pref);
             }
 
-            // this gets called a lot - try/catch can be expensive so consider caching or something
             System.Globalization.CultureInfo ci = null;
             try
             {
@@ -52,6 +51,7 @@ namespace pbXNet
         string iOSToDotnetLanguage(string iOSLanguage)
         {
             var netLanguage = iOSLanguage;
+
             //certain languages need to be converted to CultureInfo equivalent
             switch (iOSLanguage)
             {
@@ -62,15 +62,18 @@ namespace pbXNet
                 case "gsw-CH":  // "Schwiizertüütsch (Swiss German)" not supported .NET culture
                     netLanguage = "de-CH"; // closest supported
                     break;
-                    // add more application-specific cases here (if required)
-                    // ONLY use cultures that have been tested and known to work
+
+                // add more application-specific cases here (if required)
+                // ONLY use cultures that have been tested and known to work
             }
+
             return netLanguage;
         }
 
         string ToDotnetFallbackLanguage(PlatformCulture platCulture)
         {
-            var netLanguage = platCulture.LanguageCode; // use the first part of the identifier (two chars, usually);
+            var netLanguage = platCulture.LanguageCode;
+
             switch (platCulture.LanguageCode)
             {
                 case "pt":
@@ -79,9 +82,11 @@ namespace pbXNet
                 case "gsw":
                     netLanguage = "de-CH"; // equivalent to German (Switzerland) for this app
                     break;
-                    // add more application-specific cases here (if required)
-                    // ONLY use cultures that have been tested and known to work
+
+                // add more application-specific cases here (if required)
+                // ONLY use cultures that have been tested and known to work
             }
+
             return netLanguage;
         }
     }

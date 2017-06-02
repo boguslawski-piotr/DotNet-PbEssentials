@@ -19,6 +19,9 @@
   </data>
     
   <data name="DeviceFileSystem.Root.Personal" xml:space="preserve">
+    <value>This device</value>
+  </data>
+  <data name="DeviceFileSystem.Root.Personal.Desktop" xml:space="preserve">
     <value>Your personal folder</value>
   </data>
   <data name="DeviceFileSystem.Root.Documents" xml:space="preserve">

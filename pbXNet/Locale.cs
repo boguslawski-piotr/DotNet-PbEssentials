@@ -45,7 +45,7 @@ namespace pbXNet
 
     public partial class Locale : ILocale
     {
-		// You will find the implementation in the platform directories...
-	}
+        // You will find the implementation in the platform directories...
+    }
 }
 

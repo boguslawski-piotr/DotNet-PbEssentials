@@ -32,7 +32,11 @@ namespace pbXNet
                 switch (Root)
                 {
                     case DeviceFileSystemRoot.Personal:
+#if __MACOS__ || WINDOWS_UWP
+                        return T.Localized("DeviceFileSystem.Root.Personal.Desktop");
+#else
                         return T.Localized("DeviceFileSystem.Root.Personal");
+#endif
                     case DeviceFileSystemRoot.Documents:
                         return T.Localized("DeviceFileSystem.Root.Documents");
                     case DeviceFileSystemRoot.Desktop:
