@@ -10,10 +10,9 @@ namespace pbXNet
     public enum DeviceFileSystemRoot
     {
         Personal,
+        Documents,
         Desktop,
-        Shared,
         Config,
-        Roaming,
         External, // SDCard, USB drive, etc.
     }
 
@@ -26,12 +25,26 @@ namespace pbXNet
         public DeviceFileSystemRoot Root { get; }
 
         public string Id { get; } = Tools.CreateGuid();
-		
+
         public string Name
         {
             get {
-                // TODO: DeviceFileSystem.Name: jak to rozwiazac aby nie uzywac lokalizowanych tekstow?
-                return $"{Root.ToString()} folder";
+                switch (Root)
+                {
+                    case DeviceFileSystemRoot.Personal:
+                        return T.Localized("DeviceFileSystem.Root.Personal");
+                    case DeviceFileSystemRoot.Documents:
+                        return T.Localized("DeviceFileSystem.Root.Documents");
+                    case DeviceFileSystemRoot.Desktop:
+                        return T.Localized("DeviceFileSystem.Root.Desktop");
+                    case DeviceFileSystemRoot.Config:
+                        return T.Localized("DeviceFileSystem.Root.Config");
+                    case DeviceFileSystemRoot.External:
+                        return T.Localized("DeviceFileSystem.Root.External");
+                    default:
+                        return $"{Root.ToString()} {T.Localized("folder")}";
+
+                }
             }
         }
 
@@ -43,8 +56,8 @@ namespace pbXNet
 
         public DeviceFileSystem(string dirname, DeviceFileSystemRoot root = DeviceFileSystemRoot.Personal)
         {
-			Root = root;
-			Initialize(dirname);
+            Root = root;
+            Initialize(dirname);
         }
 
         // You will find the rest of implementation in the platform directories...

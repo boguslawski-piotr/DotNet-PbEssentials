@@ -14,40 +14,36 @@ namespace pbXNet
     {
         public static readonly IEnumerable<DeviceFileSystemRoot> AvailableRootsForEndUser = new List<DeviceFileSystemRoot>() {
             DeviceFileSystemRoot.Personal,
-#if DEBUG
-            //DeviceFileSystemRoot.Config, // only for testing
-#endif
-#if __UNIFIED__ && !__IOS__
-            // macOS
+#if __MACOS__
+            DeviceFileSystemRoot.Documents,
             DeviceFileSystemRoot.Desktop,
-            DeviceFileSystemRoot.Shared
 #endif
 #if __ANDROID__
 #endif
-		};
+#if DEBUG
+            //DeviceFileSystemRoot.Config, // only for testing
+#endif
+        };
 
         string _root;
         string _current;
         Stack<string> _previous = new Stack<string>();
 
-        protected void Initialize(string dirname = null)
+        protected virtual void Initialize(string dirname = null)
         {
             switch (Root)
             {
-                case DeviceFileSystemRoot.Personal:
+                case DeviceFileSystemRoot.Documents:
                     _root = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+                    _root = Path.Combine(_root, "Documents");
                     break;
                 case DeviceFileSystemRoot.Desktop:
                     _root = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-                    break;
-                case DeviceFileSystemRoot.Shared:
-                    _root = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
                     break;
                 case DeviceFileSystemRoot.Config:
                     _root = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
                     break;
                 default:
-                    // TODO: Obsluzyc reszte (o ile!?) typow Root w DeviceFileSystem
                     _root = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
                     break;
             }
@@ -55,13 +51,13 @@ namespace pbXNet
             SetCurrentDirectoryAsync(dirname);
         }
 
-        public void Dispose()
+        public virtual void Dispose()
         {
             _previous.Clear();
             _root = _current = null;
         }
 
-        public Task<IFileSystem> MakeCopyAsync()
+        public virtual Task<IFileSystem> MakeCopyAsync()
         {
             DeviceFileSystem fs = new DeviceFileSystem(this.Root)
             {
@@ -72,7 +68,7 @@ namespace pbXNet
             return Task.FromResult<IFileSystem>(fs);
         }
 
-        public Task SetCurrentDirectoryAsync(string dirname)
+        public virtual Task SetCurrentDirectoryAsync(string dirname)
         {
             if (string.IsNullOrEmpty(dirname))
             {
@@ -91,21 +87,21 @@ namespace pbXNet
             return Task.FromResult(true);
         }
 
-        public Task<bool> DirectoryExistsAsync(string dirname)
+        public virtual Task<bool> DirectoryExistsAsync(string dirname)
         {
             string dirpath = GetFilePath(dirname);
             bool exists = Directory.Exists(dirpath);
             return Task.FromResult(exists);
         }
 
-        public Task<bool> FileExistsAsync(string filename)
+        public virtual Task<bool> FileExistsAsync(string filename)
         {
             string filepath = GetFilePath(filename);
             bool exists = File.Exists(filepath);
             return Task.FromResult(exists);
         }
 
-        public Task<IEnumerable<string>> GetDirectoriesAsync(string pattern = "")
+        public virtual Task<IEnumerable<string>> GetDirectoriesAsync(string pattern = "")
         {
             IEnumerable<string> dirnames =
                 from dirpath in Directory.EnumerateDirectories(_current)
@@ -115,7 +111,7 @@ namespace pbXNet
             return Task.FromResult(dirnames);
         }
 
-        public Task<IEnumerable<string>> GetFilesAsync(string pattern = "")
+        public virtual Task<IEnumerable<string>> GetFilesAsync(string pattern = "")
         {
             IEnumerable<string> filenames =
                 from filepath in Directory.EnumerateFiles(_current)
@@ -125,7 +121,7 @@ namespace pbXNet
             return Task.FromResult(filenames);
         }
 
-        public Task CreateDirectoryAsync(string dirname)
+        public virtual Task CreateDirectoryAsync(string dirname)
         {
             string dirpath = GetFilePath(dirname);
             DirectoryInfo dir = Directory.CreateDirectory(GetFilePath(dirpath));
@@ -134,20 +130,20 @@ namespace pbXNet
             return Task.FromResult(true);
         }
 
-        public Task DeleteDirectoryAsync(string dirname)
+        public virtual Task DeleteDirectoryAsync(string dirname)
         {
             Directory.Delete(GetFilePath(dirname));
             return Task.FromResult(true);
         }
 
-        public Task DeleteFileAsync(string filename)
+        public virtual Task DeleteFileAsync(string filename)
         {
             File.Delete(GetFilePath(filename));
             return Task.FromResult(true);
         }
 
 
-        public async Task WriteTextAsync(string filename, string text)
+        public virtual async Task WriteTextAsync(string filename, string text)
         {
             string filepath = GetFilePath(filename);
             using (StreamWriter writer = File.CreateText(filepath))
@@ -156,7 +152,7 @@ namespace pbXNet
             }
         }
 
-        public async Task<string> ReadTextAsync(string filename)
+        public virtual async Task<string> ReadTextAsync(string filename)
         {
             string filepath = GetFilePath(filename);
             using (StreamReader reader = File.OpenText(filepath))
@@ -165,11 +161,10 @@ namespace pbXNet
             }
         }
 
-        string GetFilePath(string filename)
+        protected string GetFilePath(string filename)
         {
             return Path.Combine(_current, filename);
         }
-
     }
 }
 
