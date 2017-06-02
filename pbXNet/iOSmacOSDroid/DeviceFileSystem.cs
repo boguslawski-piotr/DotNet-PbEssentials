@@ -18,8 +18,6 @@ namespace pbXNet
             DeviceFileSystemRoot.Documents,
             DeviceFileSystemRoot.Desktop,
 #endif
-#if __ANDROID__
-#endif
 #if DEBUG
             //DeviceFileSystemRoot.Config, // only for testing
 #endif
