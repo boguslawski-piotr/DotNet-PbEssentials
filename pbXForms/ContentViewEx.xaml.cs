@@ -68,9 +68,12 @@ namespace pbXForms
             InitializeComponent();
             ModalManager.InitializeComponent(_Layout);
 
-            var panGesture = new PanGestureRecognizer();
-            panGesture.PanUpdated += OnPanUpdated;
-            _ContentLayout.GestureRecognizers.Add(panGesture);
+            if (Device.Idiom != TargetIdiom.Desktop)
+            {
+                var panGesture = new PanGestureRecognizer();
+                panGesture.PanUpdated += OnPanUpdated;
+                _ContentLayout.GestureRecognizers.Add(panGesture);
+            }
         }
 
 
