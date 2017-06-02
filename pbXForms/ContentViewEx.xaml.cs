@@ -52,22 +52,29 @@ namespace pbXForms
     public partial class ContentViewEx : ModalContentView
     {
         public AppBarLayout AppBar => _AppBarRow;
-		public IList<View> AppBarContent => _AppBarRow.Children;
+        public IList<View> AppBarContent => _AppBarRow.Children;
 
         public IList<View> ViewContent => _ContentRow.Children;
 
         public ToolBarLayout ToolBar => _ToolBarRow;
         public IList<View> ToolBarContent => _ToolBarRow.Children;
-		
+
         public ModalViewsManager ModalManager = new ModalViewsManager();
 
-		public bool ViewCoversStatusBar => Device.RuntimePlatform == Device.iOS ? true : false;
+        public bool ViewCoversStatusBar => Device.RuntimePlatform == Device.iOS ? true : false;
 
         public ContentViewEx()
         {
             InitializeComponent();
             ModalManager.InitializeComponent(_Layout);
+
+            var panGesture = new PanGestureRecognizer();
+            panGesture.PanUpdated += OnPanUpdated;
+            _ContentLayout.GestureRecognizers.Add(panGesture);
         }
+
+
+        //
 
         Size _osa;
 
@@ -116,6 +123,37 @@ namespace pbXForms
         }
 
         protected virtual void ContinueOnSizeAllocated(double width, double height)
+        {
+        }
+
+
+        //
+
+        double swipeLength = 0;
+
+        void OnPanUpdated(object sender, PanUpdatedEventArgs e)
+        {
+            if (e.StatusType == GestureStatus.Started)
+                swipeLength = 0;
+            if (e.StatusType == GestureStatus.Running)
+                swipeLength = e.TotalX;
+            if (e.StatusType == GestureStatus.Completed)
+            {
+                double swipeMinLength = _ContentLayout.Bounds.Width / 4;
+                if (swipeLength > swipeMinLength)
+                    OnSwipeLeftToRight();
+                else if (swipeLength < 0 && swipeLength * -1 > swipeMinLength)
+                    OnSwipeRightToLeft();
+
+                swipeLength = 0;
+            }
+        }
+
+        public virtual void OnSwipeRightToLeft()
+        {
+        }
+
+        public virtual void OnSwipeLeftToRight()
         {
         }
     }

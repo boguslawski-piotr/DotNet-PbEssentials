@@ -100,16 +100,16 @@ namespace pbXForms
         }
 
 
-		//
+        //
 
-		public enum ViewsSwitchingAnimation
-		{
-			NoAnimation,
-			Forward,
-			Back,
-		};
+        public enum ViewsSwitchingAnimation
+        {
+            NoAnimation,
+            Forward,
+            Back,
+        };
 
-		public event EventHandler<(View view, object param)> MasterViewWillBeShown;
+        public event EventHandler<(View view, object param)> MasterViewWillBeShown;
         public event EventHandler<(View view, object param)> MasterViewHasBeenShown;
 
         public async Task<bool> ShowMasterViewAsync<T>(string name, ViewsSwitchingAnimation animation, object eventParam = null) where T : View
