@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Droid", "SafeNotebooks\Droi
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "pbXForms", "pbXForms\pbXForms.shproj", "{2EC89D71-92C3-4121-801C-2975C54C7135}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mac", "SafeNotebooks\Mac\Mac.csproj", "{7F4FAECE-5E0E-488D-9F5B-3C85B34C9B69}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "macOS", "SafeNotebooks\Mac\macOS.csproj", "{7F4FAECE-5E0E-488D-9F5B-3C85B34C9B69}"
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "pbXSecurity", "pbXSecurity\pbXSecurity.shproj", "{10EBD9BF-4B9F-4130-BE8F-5C245D3B5C37}"
 EndProject
