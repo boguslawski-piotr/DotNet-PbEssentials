@@ -268,7 +268,7 @@ namespace pbXForms
             Rectangle toTo = SetupToForAnimate(vb, to, animation);
 
             if (animation != ViewsSwitchingAnimation.NoAnimation)
-                await AnimateAsync(from, fromTo, to, toTo, Easing.CubicOut);
+                await AnimateAsync(from, fromTo, to, toTo);
 
             BatchCommit();
         }
@@ -304,11 +304,11 @@ namespace pbXForms
             return toTo;
         }
 
-        protected virtual async Task AnimateAsync(View from, Rectangle fromTo, View to, Rectangle toTo, Easing easing)
+        protected virtual async Task AnimateAsync(View from, Rectangle fromTo, View to, Rectangle toTo)
         {
             await Task.WhenAll(
-                from.LayoutTo(fromTo, DeviceEx.AnimationsLength, easing),
-                to.LayoutTo(toTo, DeviceEx.AnimationsLength, easing)
+                from.LayoutTo(fromTo, DeviceEx.AnimationsLength, Easing.CubicOut),
+                to.LayoutTo(toTo, DeviceEx.AnimationsLength, Easing.CubicOut)
             );
         }
 
