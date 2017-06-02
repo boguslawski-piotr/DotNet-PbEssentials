@@ -28,6 +28,10 @@
     <Compile Include="$(MSBuildThisFileDirectory)ModalViewsManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ModalContentView.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PINBehavior.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Droid\ButtonExRenderer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ButtonEx.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UWP\ButtonExRenderer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)macOS\ButtonExRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)ContentPageEx.xaml">
@@ -42,5 +46,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)License.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)Droid\" />
+    <Folder Include="$(MSBuildThisFileDirectory)UWP\" />
+    <Folder Include="$(MSBuildThisFileDirectory)macOS\" />
   </ItemGroup>
 </Project>
