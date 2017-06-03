@@ -85,13 +85,14 @@ Global
 		$0.TextStylePolicy = $3
 		$3.scope = text/x-csharp
 		$0.CSharpFormattingPolicy = $4
-		$4.NewLinesForBracesInAccessors = False
 		$4.scope = text/x-csharp
+		$4.NewLinesForBracesInAccessors = False
 		$0.TextStylePolicy = $5
 		$5.FileWidth = 80
 		$5.scope = text/plain
 		$0.TextStylePolicy = $6
 		$6.scope = application/xaml+xml
+		$6.FileWidth = 80
 		$0.XmlFormattingPolicy = $7
 		$7.scope = application/xaml+xml
 		$7.DefaultFormat = $24
@@ -106,7 +107,7 @@ Global
 		$24.EmptyLinesBeforeStart = 1
 		$0.TextStylePolicy = $8
 		$8.scope = application/xml
-		$8.FileWidth = 160
+		$8.FileWidth = 80
 		$0.XmlFormattingPolicy = $9
 		$9.DefaultFormat = $10
 		$10.AttributesInNewLine = True
