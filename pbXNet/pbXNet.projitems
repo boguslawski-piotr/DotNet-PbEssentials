@@ -39,11 +39,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)T.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
       <LogicalName>pbXNet.Texts.T.resources</LogicalName>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)T.pl.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
       <LogicalName>pbXNet.Texts.T.pl.resources</LogicalName>
     </EmbeddedResource>
   </ItemGroup>
