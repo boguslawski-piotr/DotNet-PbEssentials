@@ -38,10 +38,10 @@
     <None Include="$(MSBuildThisFileDirectory)License.md" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)T.resx">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)pbXNetT.resx">
       <LogicalName>pbXNet.Texts.T.resources</LogicalName>
     </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)T.pl.resx">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)pbXNetT.pl.resx">
       <LogicalName>pbXNet.Texts.T.pl.resources</LogicalName>
     </EmbeddedResource>
   </ItemGroup>
