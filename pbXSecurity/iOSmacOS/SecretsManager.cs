@@ -9,79 +9,85 @@ using System.Text;
 
 namespace pbXSecurity
 {
-    public partial class SecretsManager : ISecretsManager
-    {
-        public bool DeviceOwnerAuthenticationAvailable
-        {
-            get {
-                var context = new LAContext();
-                return context.CanEvaluatePolicy(LAPolicy.DeviceOwnerAuthentication, out NSError error);
-            }
-        }
+	public partial class SecretsManager : ISecretsManager
+	{
+		public void Initialize(object param)
+		{
+		}
 
-        public bool DeviceOwnerAuthenticationWithBiometricsAvailable
-        {
-            get {
-                var context = new LAContext();
-                return context.CanEvaluatePolicy(LAPolicy.DeviceOwnerAuthenticationWithBiometrics, out NSError error);
-            }
-        }
+		public bool DeviceOwnerAuthenticationAvailable
+		{
+			get {
+				var context = new LAContext();
+				return context.CanEvaluatePolicy(LAPolicy.DeviceOwnerAuthentication, out NSError error);
+			}
+		}
 
-        bool _AuthenticateDeviceOwner(LAContext context, LAPolicy policy, string msg, Action Success, Action<string> Error)
-        {
-            NSError error;
-            if (context.CanEvaluatePolicy(policy, out error))
-            {
-                Debug.WriteLine($"iOS/macOS: _AuthenticateDeviceOwner: policy: {policy}");
+		public bool DeviceOwnerAuthenticationWithBiometricsAvailable
+		{
+			get {
+				var context = new LAContext();
+				return context.CanEvaluatePolicy(LAPolicy.DeviceOwnerAuthenticationWithBiometrics, out NSError error);
+			}
+		}
 
-                var replyHandler = new LAContextReplyHandler((bool success, NSError _error) =>
-                {
-                    context.BeginInvokeOnMainThread(() =>
-                    {
-                        if (success)
-                        {
-                            Debug.WriteLine($"iOS/macOS: _AuthenticateDeviceOwner: success");
-                            Success();
-                        }
-                        else
-                        {
-                            Debug.WriteLine($"iOS/macOS: _AuthenticateDeviceOwner: error: {_error}");
-                            if (_error.Code == Convert.ToInt32(LAStatus.UserFallback)
-                                && policy == LAPolicy.DeviceOwnerAuthenticationWithBiometrics)
-                            {
-                                _AuthenticateDeviceOwner(context, LAPolicy.DeviceOwnerAuthentication, msg, Success, Error);
-                            }
-                            else
-                                Error(_error.ToString());
-                        }
-                    });
+		bool _AuthenticateDeviceOwner(LAContext context, LAPolicy policy, string msg, Action Success, Action<string, bool> Error)
+		{
+			NSError error;
+			if (context.CanEvaluatePolicy(policy, out error))
+			{
+				Debug.WriteLine($"SecretsManager: _AuthenticateDeviceOwner: policy: {policy}");
 
-                });
+				var replyHandler = new LAContextReplyHandler((bool success, NSError _error) =>
+				{
+					context.BeginInvokeOnMainThread(() =>
+					{
+						if (success)
+						{
+							Debug.WriteLine($"SecretsManager: _AuthenticateDeviceOwner: success");
 
-                context.EvaluatePolicy(policy, new NSString(msg), replyHandler);
+							Success();
+						}
+						else
+						{
+							Debug.WriteLine($"SecretsManager: _AuthenticateDeviceOwner: error: {_error}");
 
-                return true;
-            }
-            else
-            {
-                Debug.WriteLine($"iOS/macOS: _AuthenticateDeviceOwner: (policy: {policy}), error: {error}");
-            }
+							if (_error.Code == Convert.ToInt32(LAStatus.UserFallback)
+								&& policy == LAPolicy.DeviceOwnerAuthenticationWithBiometrics)
+							{
+								_AuthenticateDeviceOwner(context, LAPolicy.DeviceOwnerAuthentication, msg, Success, Error);
+							}
+							else
+								Error(_error.ToString(), false);
+						}
+					});
 
-            return false;
-        }
+				});
 
-        public bool AuthenticateDeviceOwner(string msg, Action Success, Action<string> Error)
-        {
+				context.EvaluatePolicy(policy, new NSString(msg), replyHandler);
+
+				return true;
+			}
+			else
+			{
+				Debug.WriteLine($"SecretsManager: _AuthenticateDeviceOwner: (policy: {policy}), error: {error}");
+			}
+
+			return false;
+		}
+
+		public bool AuthenticateDeviceOwner(string msg, Action Success, Action<string, bool> Error)
+		{
 			// It seems that the call with parameter LAPolicy.DeviceOwnerAuthentication automatically uses biometrics authentication when it is set in the system settings.
 			// TODO: check AuthenticateDeviceOwner on a real device(s)
 
 			var context = new LAContext();
-            //if (!context.CanEvaluatePolicy(LAPolicy.DeviceOwnerAuthenticationWithBiometrics, out NSError error))
-            return _AuthenticateDeviceOwner(context, LAPolicy.DeviceOwnerAuthentication, msg, Success, Error);
-            //else
-            //    return _AuthenticateDeviceOwner(context, LAPolicy.DeviceOwnerAuthenticationWithBiometrics, msg, Success, Error);
-        }
-    }
+			//if (!context.CanEvaluatePolicy(LAPolicy.DeviceOwnerAuthenticationWithBiometrics, out NSError error))
+			return _AuthenticateDeviceOwner(context, LAPolicy.DeviceOwnerAuthentication, msg, Success, Error);
+			//else
+			//    return _AuthenticateDeviceOwner(context, LAPolicy.DeviceOwnerAuthenticationWithBiometrics, msg, Success, Error);
+		}
+	}
 }
 
 #endif
