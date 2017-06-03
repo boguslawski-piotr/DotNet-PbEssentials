@@ -27,4 +27,12 @@
     <Folder Include="$(MSBuildThisFileDirectory)UWP\" />
     <Folder Include="$(MSBuildThisFileDirectory)iOSmacOSDroid\" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)pbXSecurityT.resx">
+      <LogicalName>pbXSecurity.Texts.T.resources</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)pbXSecurityT.pl.resx">
+      <LogicalName>pbXSecurity.Texts.T.pl.resources</LogicalName>
+    </EmbeddedResource>
+  </ItemGroup>
 </Project>

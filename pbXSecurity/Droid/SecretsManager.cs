@@ -14,6 +14,7 @@ using Android.Util;
 using Java.Lang;
 using Java.Security;
 using Javax.Crypto;
+using pbXNet;
 
 namespace pbXSecurity
 {
@@ -23,86 +24,93 @@ namespace pbXSecurity
 		public void Initialize(object activity)
 		{
 			_activity = activity as AppCompatActivity;
-			if (_activity == null)
-				return;
+		}
 
-			_fingerprintManager = FingerprintManagerCompat.From(_activity);
-			if (_fingerprintManager.IsHardwareDetected)
-			{
-				KeyguardManager keyguardManager = (KeyguardManager)_activity.GetSystemService(Android.Content.Context.KeyguardService);
-				if (keyguardManager.IsKeyguardSecure)
+		bool DOBiometricsAuthenticationAvailable
+		{
+			get {
+				if (_activity != null)
 				{
-					if (_fingerprintManager.HasEnrolledFingerprints)
+					_fingerprintManager = FingerprintManagerCompat.From(_activity);
+					try
 					{
-						_deviceOwnerAuthenticationWithBiometricsAvailable = true;
+						if (_fingerprintManager.IsHardwareDetected && _fingerprintManager.HasEnrolledFingerprints)
+						{
+							KeyguardManager keyguardManager = (KeyguardManager)_activity.GetSystemService(Android.Content.Context.KeyguardService);
+							if (keyguardManager.IsKeyguardSecure)
+								return true;
+						}
+					}
+					catch (System.Exception ex)
+					{
+						Debug.WriteLine($"SecretsManager: DOBiometricsAuthenticationAvailable: exception: {ex}");
 					}
 				}
+				return false;
 			}
 		}
 
-		public bool DeviceOwnerAuthenticationAvailable => DeviceOwnerAuthenticationWithBiometricsAvailable;
-		public bool DeviceOwnerAuthenticationWithBiometricsAvailable => _deviceOwnerAuthenticationWithBiometricsAvailable;
+		public DOAuthentication AvailableDOAuthentication
+		{
+			get {
+				if (DOBiometricsAuthenticationAvailable)
+					return DOAuthentication.Fingerprint;
+				return DOAuthentication.None;
+			}
+		}
 
-		bool _deviceOwnerAuthenticationWithBiometricsAvailable;
 		Activity _activity;
-
-		CryptoObjectHelper _cryptoObjectHelper = new CryptoObjectHelper();
+		CryptoObjectHelper _cryptoObjectHelper;
 		FingerprintManagerCompat _fingerprintManager;
-		FingerprintAuthCallbacks _callbacks;
+		FingerprintAuthCallbacks _authenticatecallbacks;
 		CancellationSignal _cancellationSignal;
 
-		public bool AuthenticateDeviceOwner(string msg, Action Success, Action<string, bool> Error)
+		public bool StartDOAuthentication(string msg, Action Success, Action<string, bool> ErrorOrHint)
 		{
-			if (!DeviceOwnerAuthenticationWithBiometricsAvailable || _activity == null)
+			if (!DOBiometricsAuthenticationAvailable)
 				return false;
 
 			Android.Content.PM.Permission permissionResult = ContextCompat.CheckSelfPermission(_activity, Manifest.Permission.UseFingerprint);
 			if (permissionResult != Android.Content.PM.Permission.Granted)
 			{
-				if (_activity.ShouldShowRequestPermissionRationale(Manifest.Permission.UseFingerprint))
-				{
-					// TODO: co tu wyswietlic?
-					Error("Show an explanation to the user... TODO", false);
-				}
-				else
-				{
-					_activity.RequestPermissions(new string[] { Manifest.Permission.UseFingerprint }, 1);
+				// If the system did not allow the use of fingerprint scanner then we send 
+				// a request to show a dialog that allows the user to decide what to do with it.
+				//
+				// See: https://developer.android.com/training/permissions/requesting.html
 
-					// TODO: tutaj dalej wg. tego poradnika :(
-					// https://developer.android.com/training/permissions/requesting.html
+				_activity.RequestPermissions(new string[] { Manifest.Permission.UseFingerprint }, 0);
+				ErrorOrHint(T.Localized("FingerprintRequestPermissions"), false);
+				return true;
 
-					Error("No permission to use fingerprint scanner.", false);
-					return true;
-				}
 			}
 
+			if (_cryptoObjectHelper == null)
+				_cryptoObjectHelper = new CryptoObjectHelper();
 			_fingerprintManager = FingerprintManagerCompat.From(_activity);
-			_callbacks = new FingerprintAuthCallbacks(Success, Error);
+			_authenticatecallbacks = new FingerprintAuthCallbacks(Success, ErrorOrHint);
 			_cancellationSignal = new CancellationSignal();
 
 			_fingerprintManager.Authenticate(_cryptoObjectHelper.BuildCryptoObject(),
 											 (int)FingerprintAuthenticationFlags.None,
 											 _cancellationSignal,
-											 _callbacks,
+											 _authenticatecallbacks,
 											 null);
 			return true;
 		}
 
-		public bool DeviceOwnerAuthenticationCancelationAvailable()
+		public bool CanDOAuthenticationBeCanceled()
 		{
-			// TODO: do interface... lepsza nazwa?
 			return true;
 		}
 
-		public void CancelDeviceOwnerAuthentication()
+		public void CancelDOAuthentication()
 		{
-			// TODO: do interface... lepsza nazwa?
 			if (_cancellationSignal != null)
 				_cancellationSignal.Cancel();
 
 			_cancellationSignal = null;
 			_fingerprintManager = null;
-			_callbacks = null;
+			_authenticatecallbacks = null;
 		}
 	}
 
@@ -115,12 +123,12 @@ namespace pbXSecurity
 		static readonly byte[] SECRET_BYTES = { 34, 12, 67, 16, 87, 62, 27, 48, 29 };
 
 		Action _Success;
-		Action<string, bool> _Error;
+		Action<string, bool> _ErrorOrHint;
 
-		public FingerprintAuthCallbacks(Action Success, Action<string, bool> Error)
+		public FingerprintAuthCallbacks(Action Success, Action<string, bool> ErrorOrHint)
 		{
 			_Success = Success;
-			_Error = Error;
+			_ErrorOrHint = ErrorOrHint;
 		}
 
 		public override void OnAuthenticationSucceeded(FingerprintManagerCompat.AuthenticationResult result)
@@ -156,14 +164,14 @@ namespace pbXSecurity
 		{
 			Debug.WriteLine($"SecretsManager: FingerprintAuthCallbacks: OnAuthenticationHelp: {helpMsgId}: {helpString.ToString()}");
 
-			_Error(helpString.ToString(), true);
+			_ErrorOrHint(helpString.ToString(), true);
 		}
 
 		public override void OnAuthenticationFailed()
 		{
 			Debug.WriteLine($"SecretsManager: FingerprintAuthCallbacks: OnAuthenticationFailed");
 
-			_Error("Fingerprint scanned but not recognized.", true); // TODO: translation
+			_ErrorOrHint(T.Localized("FingerprintAuthenticationFailed"), true);
 		}
 
 		public override void OnAuthenticationError(int errMsgId, ICharSequence errString)
@@ -176,7 +184,7 @@ namespace pbXSecurity
 			Debug.WriteLine($"SecretsManager: FingerprintAuthCallbacks: OnAuthenticationError: {errMsgId}: {errString}");
 
 			if (errMsgId != (int)FingerprintState.ErrorCanceled)
-				_Error(errString.ToString(), false);
+				_ErrorOrHint(errString.ToString(), false);
 		}
 	}
 

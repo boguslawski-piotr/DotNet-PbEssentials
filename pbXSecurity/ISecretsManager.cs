@@ -3,6 +3,16 @@ using System.Threading.Tasks;
 
 namespace pbXSecurity
 {
+	public enum DOAuthentication
+	{
+		None,
+		Password,
+		Fingerprint,
+		Iris,
+		Face,
+		UserSelection,
+	}
+
 	/// <summary>
 	/// Cryptographic keys life time definitions 
 	/// used in ISecretsManager.CreateCKeyAsync.
@@ -32,10 +42,11 @@ namespace pbXSecurity
 
 		// Basic device owner authentication (pin, passkey, biometrics, etc.)
 
-		bool DeviceOwnerAuthenticationAvailable { get; }
-		bool DeviceOwnerAuthenticationWithBiometricsAvailable { get; }
-		bool AuthenticateDeviceOwner(string msg, Action Succes, Action<string, bool> Error); // string: err/hint message, bool: this is only a hint?
+		DOAuthentication AvailableDOAuthentication { get; }
 
+		bool StartDOAuthentication(string msg, Action Succes, Action<string, bool> ErrorOrHint); // string: err/hint message, bool: this is only a hint?
+		bool CanDOAuthenticationBeCanceled();
+		void CancelDOAuthentication();
 
 		// Basic authentication based on passwords
 		// Implementation should never store any password anywhere in any form

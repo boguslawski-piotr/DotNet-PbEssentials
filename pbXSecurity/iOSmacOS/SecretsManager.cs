@@ -15,7 +15,7 @@ namespace pbXSecurity
 		{
 		}
 
-		public bool DeviceOwnerAuthenticationAvailable
+		bool DeviceOwnerAuthenticationAvailable
 		{
 			get {
 				var context = new LAContext();
@@ -23,7 +23,7 @@ namespace pbXSecurity
 			}
 		}
 
-		public bool DeviceOwnerAuthenticationWithBiometricsAvailable
+		bool DeviceOwnerBiometricsAuthenticationAvailable
 		{
 			get {
 				var context = new LAContext();
@@ -31,10 +31,20 @@ namespace pbXSecurity
 			}
 		}
 
-		bool _AuthenticateDeviceOwner(LAContext context, LAPolicy policy, string msg, Action Success, Action<string, bool> Error)
+		public DOAuthentication AvailableDOAuthentication
 		{
-			NSError error;
-			if (context.CanEvaluatePolicy(policy, out error))
+			get {
+				if (DeviceOwnerBiometricsAuthenticationAvailable)
+					return DOAuthentication.Fingerprint;
+				if (DeviceOwnerAuthenticationAvailable)
+					return DOAuthentication.Password;
+				return DOAuthentication.None;
+			}
+		}
+
+		bool _StartDOAuthentication(LAContext context, LAPolicy policy, string msg, Action Success, Action<string, bool> ErrorOrHint)
+		{
+			if (context.CanEvaluatePolicy(policy, out NSError error))
 			{
 				Debug.WriteLine($"SecretsManager: _AuthenticateDeviceOwner: policy: {policy}");
 
@@ -55,10 +65,10 @@ namespace pbXSecurity
 							if (_error.Code == Convert.ToInt32(LAStatus.UserFallback)
 								&& policy == LAPolicy.DeviceOwnerAuthenticationWithBiometrics)
 							{
-								_AuthenticateDeviceOwner(context, LAPolicy.DeviceOwnerAuthentication, msg, Success, Error);
+								_StartDOAuthentication(context, LAPolicy.DeviceOwnerAuthentication, msg, Success, ErrorOrHint);
 							}
 							else
-								Error(_error.ToString(), false);
+								ErrorOrHint(_error.ToString(), false);
 						}
 					});
 
@@ -76,17 +86,27 @@ namespace pbXSecurity
 			return false;
 		}
 
-		public bool AuthenticateDeviceOwner(string msg, Action Success, Action<string, bool> Error)
+		public bool StartDOAuthentication(string msg, Action Success, Action<string, bool> ErrorOrHint)
 		{
 			// It seems that the call with parameter LAPolicy.DeviceOwnerAuthentication automatically uses biometrics authentication when it is set in the system settings.
-			// TODO: check AuthenticateDeviceOwner on a real device(s)
+			// TODO: check StartDOAuthentication on a real device(s)
 
 			var context = new LAContext();
 			//if (!context.CanEvaluatePolicy(LAPolicy.DeviceOwnerAuthenticationWithBiometrics, out NSError error))
-			return _AuthenticateDeviceOwner(context, LAPolicy.DeviceOwnerAuthentication, msg, Success, Error);
+			return _StartDOAuthentication(context, LAPolicy.DeviceOwnerAuthentication, msg, Success, ErrorOrHint);
 			//else
 			//    return _AuthenticateDeviceOwner(context, LAPolicy.DeviceOwnerAuthenticationWithBiometrics, msg, Success, Error);
 		}
+
+		public bool CanDOAuthenticationBeCanceled()
+		{
+			return false;
+		}
+
+		public void CancelDOAuthentication()
+		{
+		}
+
 	}
 }
 
