@@ -35,9 +35,6 @@
     <Folder Include="$(MSBuildThisFileDirectory)Droid\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="$(MSBuildThisFileDirectory)License.md" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)pbXNetT.resx">
       <LogicalName>pbXNet.Texts.T.resources</LogicalName>
     </EmbeddedResource>

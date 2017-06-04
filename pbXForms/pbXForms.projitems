@@ -45,9 +45,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="$(MSBuildThisFileDirectory)License.md" />
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Droid\" />
     <Folder Include="$(MSBuildThisFileDirectory)UWP\" />
     <Folder Include="$(MSBuildThisFileDirectory)macOS\" />
