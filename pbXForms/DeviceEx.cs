@@ -3,6 +3,7 @@ using System.Text;
 using pbXNet;
 using pbXSecurity;
 using Xamarin.Forms;
+using System.Diagnostics;
 
 #if __ANDROID__
 using Android.Content;
@@ -44,8 +45,8 @@ namespace pbXForms
 				string id2 = "macOS";
 #endif
 #if __ANDROID__
-                string id = Android.Provider.Settings.Secure.AndroidId;
-                string id2 = "34535a7e-d8ff-4a45-99de-c8507802b498";
+				string id = Android.Provider.Settings.Secure.AndroidId;
+				string id2 = "34535a7e-d8ff-4a45-99de-c8507802b498";
 #endif
 #if WINDOWS_UWP
                 // TODO: DeviceEx.Id for UWP
@@ -75,7 +76,8 @@ namespace pbXForms
 						{
 							IEnumerator<Xamarin.Forms.Page> ModalPages = Application.Current.MainPage.Navigation.ModalStack.GetEnumerator();
 							while (ModalPages.MoveNext())
-								b = ModalPages.Current.Bounds;
+								if (!ModalPages.Current.Bounds.IsEmpty)
+									b = ModalPages.Current.Bounds;
 						}
 						catch { }
 					}
@@ -97,12 +99,12 @@ namespace pbXForms
 				return isPortrait ? DeviceOrientation.Portrait : DeviceOrientation.Landscape;
 #else
 #if __ANDROID__
-                IWindowManager windowManager = Android.App.Application.Context.GetSystemService(Context.WindowService).JavaCast<IWindowManager>();
+				IWindowManager windowManager = Android.App.Application.Context.GetSystemService(Context.WindowService).JavaCast<IWindowManager>();
 
-                var rotation = windowManager.DefaultDisplay.Rotation;
-                bool isLandscape = rotation == SurfaceOrientation.Rotation90 || rotation == SurfaceOrientation.Rotation270;
+				var rotation = windowManager.DefaultDisplay.Rotation;
+				bool isLandscape = rotation == SurfaceOrientation.Rotation90 || rotation == SurfaceOrientation.Rotation270;
 
-                return isLandscape ? DeviceOrientation.Landscape : DeviceOrientation.Portrait;
+				return isLandscape ? DeviceOrientation.Landscape : DeviceOrientation.Portrait;
 #else
 #if WINDOWS_UWP
                 var orientation = Windows.UI.ViewManagement.ApplicationView.GetForCurrentView().Orientation;
@@ -131,7 +133,7 @@ namespace pbXForms
 					|| DeviceEx.Orientation != DeviceOrientation.Landscape;
 #else
 #if __ANDROID__ || WINDOWS_UWP
-                return Device.Idiom != TargetIdiom.Desktop;
+				return Device.Idiom != TargetIdiom.Desktop;
 #else
 				// macOS
 				return false;
