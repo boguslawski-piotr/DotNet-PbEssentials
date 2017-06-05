@@ -1,0 +1,79 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "iOS", "iOS\iOS.csproj", "{F4C3126F-4A9C-4C0D-BA7E-2B21FDB07F24}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "pbXNet", "..\pbXNet\pbXNet.shproj", "{0F24CC4F-7A9B-4835-8F00-4DC291773539}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "pbXNet_Tests", "pbXNet\pbXNet_Tests.shproj", "{3F753A30-8FDA-4E69-BF4E-A1F0DDB8F4D8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Droid", "Droid\Droid.csproj", "{D3F707F7-0ED2-4088-A40B-069D2529632C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|iPhoneSimulator = Debug|iPhoneSimulator
+		Release|iPhone = Release|iPhone
+		Release|iPhoneSimulator = Release|iPhoneSimulator
+		Debug|iPhone = Debug|iPhone
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F4C3126F-4A9C-4C0D-BA7E-2B21FDB07F24}.Debug|iPhoneSimulator.ActiveCfg = Debug|iPhoneSimulator
+		{F4C3126F-4A9C-4C0D-BA7E-2B21FDB07F24}.Debug|iPhoneSimulator.Build.0 = Debug|iPhoneSimulator
+		{F4C3126F-4A9C-4C0D-BA7E-2B21FDB07F24}.Release|iPhone.ActiveCfg = Release|iPhone
+		{F4C3126F-4A9C-4C0D-BA7E-2B21FDB07F24}.Release|iPhone.Build.0 = Release|iPhone
+		{F4C3126F-4A9C-4C0D-BA7E-2B21FDB07F24}.Release|iPhoneSimulator.ActiveCfg = Release|iPhoneSimulator
+		{F4C3126F-4A9C-4C0D-BA7E-2B21FDB07F24}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
+		{F4C3126F-4A9C-4C0D-BA7E-2B21FDB07F24}.Debug|iPhone.ActiveCfg = Debug|iPhone
+		{F4C3126F-4A9C-4C0D-BA7E-2B21FDB07F24}.Debug|iPhone.Build.0 = Debug|iPhone
+		{D3F707F7-0ED2-4088-A40B-069D2529632C}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{D3F707F7-0ED2-4088-A40B-069D2529632C}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{D3F707F7-0ED2-4088-A40B-069D2529632C}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{D3F707F7-0ED2-4088-A40B-069D2529632C}.Release|iPhone.Build.0 = Release|Any CPU
+		{D3F707F7-0ED2-4088-A40B-069D2529632C}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{D3F707F7-0ED2-4088-A40B-069D2529632C}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{D3F707F7-0ED2-4088-A40B-069D2529632C}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{D3F707F7-0ED2-4088-A40B-069D2529632C}.Debug|iPhone.Build.0 = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		Policies = $0
+		$0.TextStylePolicy = $1
+		$1.inheritsSet = null
+		$1.scope = application/vnd.apple-xcode-storyboard
+		$0.XmlFormattingPolicy = $2
+		$2.inheritsSet = null
+		$2.scope = application/vnd.apple-xcode-storyboard
+		$0.TextStylePolicy = $3
+		$3.FileWidth = 160
+		$3.scope = application/xml
+		$0.XmlFormattingPolicy = $4
+		$4.DefaultFormat = $5
+		$5.AttributesInNewLine = True
+		$5.MaxAttributesPerLine = 1
+		$5.AlignAttributes = True
+		$5.SpacesBeforeAssignment = 1
+		$5.SpacesAfterAssignment = 1
+		$5.EmptyLinesAfterStart = 1
+		$5.EmptyLinesAfterEnd = 1
+		$4.scope = application/xml
+		$0.TextStylePolicy = $6
+		$6.FileWidth = 80
+		$6.scope = text/plain
+		$0.TextStylePolicy = $7
+		$7.inheritsSet = null
+		$7.scope = application/config+xml
+		$0.XmlFormattingPolicy = $8
+		$8.inheritsSet = null
+		$8.scope = application/config+xml
+		$0.TextStylePolicy = $9
+		$9.FileWidth = 160
+		$9.scope = text/x-csharp
+		$0.CSharpFormattingPolicy = $10
+		$10.scope = text/x-csharp
+		$0.TextStylePolicy = $11
+		$11.inheritsSet = null
+		$11.scope = text/microsoft-resx
+		$0.XmlFormattingPolicy = $12
+		$12.inheritsSet = null
+		$12.scope = text/microsoft-resx
+	EndGlobalSection
+EndGlobal
