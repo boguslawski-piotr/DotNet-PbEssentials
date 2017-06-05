@@ -76,8 +76,25 @@ namespace pbXNet
 			return Passwords.ContainsKey(id);
 		}
 
+		public async Task AddOrUpdatePasswordAsync(string id, char[] passwd)
+		{
+			byte[] bpasswd = Encoding.UTF8.GetBytes(passwd);
+			await AddOrUpdatePasswordAsync(id, bpasswd);
+			bpasswd.FillWithDefault();
+		}
+
 		public async Task AddOrUpdatePasswordAsync(string id, string passwd)
 		{
+			byte[] bpasswd = Encoding.UTF8.GetBytes(passwd);
+			await AddOrUpdatePasswordAsync(id, bpasswd);
+			bpasswd.FillWithDefault();
+		}
+
+		public async Task AddOrUpdatePasswordAsync(string id, byte[] passwd)
+		{
+			if (id == null)
+				return;
+
 			await LoadPasswordsAsync();
 
 			Password _password;
@@ -89,7 +106,7 @@ namespace pbXNet
 				};
 			}
 
-			byte[] ckey = Cryptographer.GenerateKey(Encoding.UTF8.GetBytes(passwd), _salt);
+			byte[] ckey = Cryptographer.GenerateKey(passwd, _salt);
 			_password.data = Cryptographer.Encrypt(Encoding.UTF8.GetBytes(_phrase), ckey, _password.iv);
 
 			Passwords[id] = _password;
@@ -106,7 +123,23 @@ namespace pbXNet
 			}
 		}
 
+		public async Task<bool> ComparePasswordAsync(string id, char[] passwd)
+		{
+			byte[] bpasswd = Encoding.UTF8.GetBytes(passwd);
+			bool b = await ComparePasswordAsync(id, bpasswd);
+			bpasswd.FillWithDefault();
+			return b;
+		}
+
 		public async Task<bool> ComparePasswordAsync(string id, string passwd)
+		{
+			byte[] bpasswd = Encoding.UTF8.GetBytes(passwd);
+			bool b = await ComparePasswordAsync(id, bpasswd);
+			bpasswd.FillWithDefault();
+			return b;
+		}
+
+		public async Task<bool> ComparePasswordAsync(string id, byte[] passwd)
 		{
 			await LoadPasswordsAsync();
 
@@ -114,7 +147,7 @@ namespace pbXNet
 			if (!Passwords.TryGetValue(id, out _password))
 				return false;
 
-			byte[] ckey = Cryptographer.GenerateKey(Encoding.UTF8.GetBytes(passwd), _salt);
+			byte[] ckey = Cryptographer.GenerateKey(passwd, _salt);
 			byte[] ddata = Cryptographer.Decrypt(_password.data, ckey, _password.iv);
 
 			return ddata.SequenceEqual(Encoding.UTF8.GetBytes(_phrase));
@@ -161,10 +194,26 @@ namespace pbXNet
 
 		public async Task<byte[]> CreateCKeyAsync(string id, CKeyLifeTime lifeTime, string passwd)
 		{
+			byte[] bpasswd = Encoding.UTF8.GetBytes(passwd);
+			byte[] ckey = await CreateCKeyAsync(id, lifeTime, bpasswd);
+			bpasswd.FillWithDefault();
+			return ckey;
+		}
+
+		public async Task<byte[]> CreateCKeyAsync(string id, CKeyLifeTime lifeTime, char[] passwd)
+		{
+			byte[] bpasswd = Encoding.UTF8.GetBytes(passwd);
+			byte[] ckey = await CreateCKeyAsync(id, lifeTime, bpasswd);
+			bpasswd.FillWithDefault();
+			return ckey;
+		}
+
+		public async Task<byte[]> CreateCKeyAsync(string id, CKeyLifeTime lifeTime, byte[] passwd)
+		{
 			if (id == null)
 				return null;
 
-			byte[] ckey = Cryptographer.GenerateKey(Encoding.UTF8.GetBytes(passwd), _salt);
+			byte[] ckey = Cryptographer.GenerateKey(passwd, _salt);
 
 			if (lifeTime == CKeyLifeTime.Infinite)
 			{

@@ -48,18 +48,28 @@ namespace pbXNet
 		bool CanDOAuthenticationBeCanceled();
 		void CancelDOAuthentication();
 
+
 		// Basic authentication based on passwords
 		// Implementation should never store any password anywhere in any form
 
-		Task<bool> PasswordExistsAsync(string id);
 		Task AddOrUpdatePasswordAsync(string id, string passwd);
+		Task AddOrUpdatePasswordAsync(string id, char[] passwd);
+		Task AddOrUpdatePasswordAsync(string id, byte[] passwd);
+
+		Task<bool> PasswordExistsAsync(string id);
 		Task DeletePasswordAsync(string id);
+
 		Task<bool> ComparePasswordAsync(string id, string passwd);
+		Task<bool> ComparePasswordAsync(string id, char[] passwd);
+		Task<bool> ComparePasswordAsync(string id, byte[] passwd);
 
 
 		// Cryptographic keys, encryption and decryption
 
 		Task<byte[]> CreateCKeyAsync(string id, CKeyLifeTime lifeTime, string passwd);
+		Task<byte[]> CreateCKeyAsync(string id, CKeyLifeTime lifeTime, char[] passwd);
+		Task<byte[]> CreateCKeyAsync(string id, CKeyLifeTime lifeTime, byte[] passwd);
+
 		Task<byte[]> GetCKeyAsync(string id);
 		Task DeleteCKeyAsync(string id);
 
