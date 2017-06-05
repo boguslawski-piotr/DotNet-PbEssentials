@@ -175,8 +175,10 @@ namespace pbXNet
 				await SaveCKeysAsync();
 			}
 			else
+			{
 				if (lifeTime != CKeyLifeTime.OneTime)
-				TemporaryCKeys[id] = new TemporaryCKey() { lifeTime = lifeTime, ckey = ckey };
+					TemporaryCKeys[id] = new TemporaryCKey() { lifeTime = lifeTime, ckey = ckey };
+			}
 
 			return ckey;
 		}
