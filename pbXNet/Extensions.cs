@@ -8,7 +8,25 @@ using System.Text;
 namespace pbXNet
 {
 	/// <summary>
-	/// String extensions.
+	/// Arrays extensions.
+	/// </summary>
+	public static class ArrayExtensions
+	{
+		public static void FillWithDefault<VT>(this VT[] src) where VT: struct
+		{
+			for (int n = 0; n < src.Length; n++)
+				src[n] = new VT();
+		}
+
+		public static void FillWithNull<NT>(this NT[] src) where NT: class
+		{
+			for (int n = 0; n < src.Length; n++)
+				src[n] = null;
+		}
+	}
+
+	/// <summary>
+	/// Strings extensions.
 	/// </summary>
 	public static class StringExtensions
 	{
@@ -29,7 +47,7 @@ namespace pbXNet
 	}
 
 	/// <summary>
-	/// Collection extensions.
+	/// Collections extensions.
 	/// </summary>
 	public static class CollectionExtensions
 	{
