@@ -13,15 +13,17 @@ namespace pbXForms
 
 		public PIButton DelBtn => _delBtn;
 		public PIButton OKBtn => _okBtn;
-		public BtnBridge Btn;
+		public DigitBtnsArray DigitBtns;
 
 		char[] _pin = { };
 		public char[] Pin => _pin;
 
+		Grid _grid => (View?.Children[0] as Grid);
+
 		public PinDlg()
 		{
 			InitializeComponent();
-			Btn = new BtnBridge((View.Children[0] as Grid));
+			DigitBtns = new DigitBtnsArray(_grid);
 		}
 
 		public void Reset()
@@ -31,6 +33,29 @@ namespace pbXForms
 			_pin = new char[] { };
 			UpdatePinVisualization();
 		}
+
+		public void SetCompactSize()
+		{
+			_grid.RowSpacing = Metrics.ButtonItemsSpacing / 2;
+			_titleAndPinBar.Spacing = Metrics.ButtonItemsSpacing / 2;
+			Content.WidthRequest = 240;
+		}
+
+		public void SetNormalSize()
+		{
+			_grid.RowSpacing = Metrics.ButtonItemsSpacing;
+			_titleAndPinBar.Spacing = Metrics.ButtonItemsSpacing;
+			Content.WidthRequest = 280;
+		}
+
+		public void SetLargeSize()
+		{
+			_grid.RowSpacing = Metrics.ButtonItemsSpacing * 2;
+			_titleAndPinBar.Spacing = Metrics.ButtonItemsSpacing * 2;
+			Content.WidthRequest = 320;
+		}
+
+		//
 
 		void UpdatePinVisualization()
 		{
@@ -56,14 +81,13 @@ namespace pbXForms
 			}
 		}
 
-
 		//
 
-		public class BtnBridge
+		public class DigitBtnsArray
 		{
-			Grid _grid;
+			readonly Grid _grid;
 
-			public BtnBridge(Grid grid)
+			public DigitBtnsArray(Grid grid)
 			{
 				_grid = grid;
 			}
