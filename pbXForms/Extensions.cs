@@ -3,7 +3,7 @@ using Xamarin.Forms;
 
 namespace pbXForms
 {
-    public static class ColorExtensions
+	public static class ColorExtensions
 	{
 		public static string ToHex(this Color v)
 		{

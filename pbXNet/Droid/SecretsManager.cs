@@ -10,11 +10,9 @@ using Android.Support.V4.Content;
 using Android.Support.V4.Hardware.Fingerprint;
 using Android.Support.V4.OS;
 using Android.Support.V7.App;
-using Android.Util;
 using Java.Lang;
 using Java.Security;
 using Javax.Crypto;
-using pbXNet;
 
 namespace pbXNet
 {

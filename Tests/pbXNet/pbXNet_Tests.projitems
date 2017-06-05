@@ -10,5 +10,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Tools_Tests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)AesCryptographer_Tests.cs" />
   </ItemGroup>
 </Project>

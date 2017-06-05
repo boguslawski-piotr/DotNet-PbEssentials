@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ContentPage
-    xmlns = "http://xamarin.com/schemas/2014/forms"
-    xmlns:x = "http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:pbXForms = "clr-namespace:pbXForms"
-    x:Class = "pbXForms.MasterDetailPageEx">
+	xmlns = "http://xamarin.com/schemas/2014/forms"
+	xmlns:x = "http://schemas.microsoft.com/winfx/2009/xaml"
+	xmlns:pbXForms = "clr-namespace:pbXForms"
+	x:Class = "pbXForms.MasterDetailPageEx">
 
-    <AbsoluteLayout
-        x:Name = "_Layout">
+	<AbsoluteLayout
+		x:Name = "_Layout">
 
-        <pbXForms:MasterDetailPageExViewsLayout
-            x:Name = "_ViewsLayout">
+		<pbXForms:MasterDetailPageExViewsLayout
+			x:Name = "_ViewsLayout">
 
-        </pbXForms:MasterDetailPageExViewsLayout>
+		</pbXForms:MasterDetailPageExViewsLayout>
 
-    </AbsoluteLayout>
+	</AbsoluteLayout>
 
 </ContentPage>

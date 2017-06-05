@@ -6,8 +6,8 @@ using Xamarin.Forms;
 
 namespace pbXForms
 {
-    public class ImageEx : Image
-    {
+	public class ImageEx : Image
+	{
 		public static readonly BindableProperty CommandProperty = BindableProperty.Create("Command", typeof(ICommand), typeof(ImageEx), null,
 			propertyChanged: (bo, o, n) => ((ImageEx)bo).OnCommandChanged());
 
@@ -25,11 +25,11 @@ namespace pbXForms
 			get { return GetValue(CommandParameterProperty); }
 			set { SetValue(CommandParameterProperty, value); }
 		}
-		
-        public event EventHandler Clicked;
 
-        public ImageEx()
-        {
+		public event EventHandler Clicked;
+
+		public ImageEx()
+		{
 			TapGestureRecognizer tgr = new TapGestureRecognizer();
 			tgr.Command = new Command(OnTapped);
 			this.GestureRecognizers.Add(tgr);
@@ -70,18 +70,18 @@ namespace pbXForms
 		}
 
 		volatile Int32 _onTappedIsRunning = 0;
-		
-        void OnTapped(object parameter)
+
+		void OnTapped(object parameter)
 		{
-            if (!IsEnabled || Interlocked.Exchange(ref _onTappedIsRunning, 1) == 1)
-                return;
-            
+			if (!IsEnabled || Interlocked.Exchange(ref _onTappedIsRunning, 1) == 1)
+				return;
+
 			StartTappedAnimation();
 
 			Command?.Execute(CommandParameter);
 			Clicked?.Invoke(this, EventArgs.Empty);
-			
-            Interlocked.Exchange(ref _onTappedIsRunning, 0);
+
+			Interlocked.Exchange(ref _onTappedIsRunning, 0);
 		}
 
 		protected virtual void StartTappedAnimation()

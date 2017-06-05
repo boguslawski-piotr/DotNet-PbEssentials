@@ -1,11 +1,9 @@
-﻿#if __UNIFIED__ || __IOS__ || __ANDROID__
+﻿#if __UNIFIED__ || __ANDROID__
 
 using System;
 using System.Diagnostics;
 using System.IO;
 using System.Security.Cryptography;
-using System.Text;
-using pbXNet;
 
 namespace pbXNet
 {

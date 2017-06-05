@@ -3,5 +3,5 @@ using Xamarin.Forms;
 
 namespace pbXForms
 {
-    public class ButtonEx : Button {}
+	public class ButtonEx : Button { }
 }

@@ -4,7 +4,6 @@ using System;
 
 namespace pbXNet
 {
-
 	public partial class SecretsManager : ISecretsManager
 	{
 

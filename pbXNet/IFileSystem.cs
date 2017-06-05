@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 //
@@ -10,49 +8,49 @@ using System.Threading.Tasks;
 
 namespace pbXNet
 {
-    public enum FileSystemType
-    {
-        Local,
-        Remote,
-    }
+	public enum FileSystemType
+	{
+		Local,
+		Remote,
+	}
 
-    /// <summary>
-    /// </summary>
-    public interface IFileSystem : IDisposable
-    {
-        FileSystemType Type { get; }
+	/// <summary>
+	/// </summary>
+	public interface IFileSystem : IDisposable
+	{
+		FileSystemType Type { get; }
 
 		string Id { get; }
-		
-        string Name { get; }
 
-        /// <summary>
-        /// Should be super, super fast!
-        /// </summary>
-        Task<IFileSystem> MakeCopyAsync();
+		string Name { get; }
+
+		/// <summary>
+		/// Should be super, super fast!
+		/// </summary>
+		Task<IFileSystem> MakeCopyAsync();
 
 		/// <summary>
 		/// Should handle: null == root, .. == one level back.
 		/// </summary>
 		Task SetCurrentDirectoryAsync(string dirname);
 
-        // All below should work in current directory.
+		// All below should work in current directory.
 
-        Task<bool> DirectoryExistsAsync(string dirname);
-        Task<bool> FileExistsAsync(string filename);
+		Task<bool> DirectoryExistsAsync(string dirname);
+		Task<bool> FileExistsAsync(string filename);
 
-        Task<IEnumerable<string>> GetDirectoriesAsync(string pattern = "");
-        Task<IEnumerable<string>> GetFilesAsync(string pattern = "");
+		Task<IEnumerable<string>> GetDirectoriesAsync(string pattern = "");
+		Task<IEnumerable<string>> GetFilesAsync(string pattern = "");
 
-        /// <summary>
-        /// Should set current directory to one created.
-        /// </summary>
-        Task CreateDirectoryAsync(string dirname);
+		/// <summary>
+		/// Should set current directory to one created.
+		/// </summary>
+		Task CreateDirectoryAsync(string dirname);
 
-        Task DeleteDirectoryAsync(string dirname);
-        Task DeleteFileAsync(string filename);
-	
-        Task WriteTextAsync(string filename, string text);
+		Task DeleteDirectoryAsync(string dirname);
+		Task DeleteFileAsync(string filename);
+
+		Task WriteTextAsync(string filename, string text);
 		Task<string> ReadTextAsync(string filename);
 	}
 }

@@ -2,15 +2,14 @@
 using System.Diagnostics;
 using System.Text;
 
-//using NUnit.Framework;
-//using NUnit.Framework.Constraints;
+using NUnit.Framework;
 
-namespace pbXNet
+namespace pbXNet.Tests
 {
-	//[TestFixture]
-	public class AesCryptographerTests /*: BaseTestFixture*/
+	[TestFixture]
+	public class AesCryptographer_Tests
 	{
-		//[Test]
+		[Test]
 		public void BasicEncryptDecrypt()
 		{
 			string smsg = "jakis test do zaszyfrowania, ąęśćłó, !@#$%^&*()_+, jakis test do zaszyfrowania, jakis test do zaszyfrowania, ąęśćłó, jakis test do zaszyfrowania";
@@ -45,8 +44,8 @@ namespace pbXNet
 
 			//
 
-			//Assert.AreEqual(smsg, msgDecrypted);
-			Debug.Assert(smsg == smsgDecrypted, "CryptographerTests.BasicEncryptDecrypt");
+			Assert.AreEqual(smsg, smsgDecrypted);
+			//Assert.True(smsg == smsgDecrypted);
 		}
 	}
 }

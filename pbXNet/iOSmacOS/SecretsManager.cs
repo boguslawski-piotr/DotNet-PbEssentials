@@ -1,11 +1,10 @@
-#if __UNIFIED__ || __IOS__
+#if __UNIFIED__
 
 using System;
 using System.Diagnostics;
 
 using LocalAuthentication;
 using Foundation;
-using System.Text;
 
 namespace pbXNet
 {
@@ -17,8 +16,7 @@ namespace pbXNet
 
 		bool DeviceOwnerAuthenticationAvailable
 		{
-			get
-			{
+			get {
 				var context = new LAContext();
 				return context.CanEvaluatePolicy(LAPolicy.DeviceOwnerAuthentication, out NSError error);
 			}
@@ -26,8 +24,7 @@ namespace pbXNet
 
 		bool DeviceOwnerBiometricsAuthenticationAvailable
 		{
-			get
-			{
+			get {
 				var context = new LAContext();
 				return context.CanEvaluatePolicy(LAPolicy.DeviceOwnerAuthenticationWithBiometrics, out NSError error);
 			}
@@ -35,8 +32,7 @@ namespace pbXNet
 
 		public DOAuthentication AvailableDOAuthentication
 		{
-			get
-			{
+			get {
 				if (DeviceOwnerBiometricsAuthenticationAvailable)
 					return DOAuthentication.Fingerprint;
 				if (DeviceOwnerAuthenticationAvailable)

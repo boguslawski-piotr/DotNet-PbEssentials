@@ -1,9 +1,8 @@
 ﻿using System;
-using Xamarin.Forms;
-using System.Windows.Input;
-using System.Threading.Tasks;
-using System.Diagnostics;
 using System.Threading;
+using System.Threading.Tasks;
+using System.Windows.Input;
+using Xamarin.Forms;
 using static Xamarin.Forms.Button;
 
 namespace pbXForms

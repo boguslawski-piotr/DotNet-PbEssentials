@@ -2,7 +2,6 @@
 using System.Text;
 using pbXNet;
 using Xamarin.Forms;
-using System.Diagnostics;
 
 #if __ANDROID__
 using Android.Content;

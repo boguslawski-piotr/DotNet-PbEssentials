@@ -33,7 +33,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)UWP\AesCryptographer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UWP\SecretsManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)AesCryptographer.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)AesCryptographerTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ICryptographer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ISecretsManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Obfuscator.cs" />

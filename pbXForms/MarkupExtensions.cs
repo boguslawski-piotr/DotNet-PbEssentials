@@ -12,7 +12,7 @@ namespace pbXForms
 
 		public object ProvideValue(IServiceProvider serviceProvider)
 		{
-            return T.Localized(Text);
+			return T.Localized(Text);
 		}
 	}
 }
