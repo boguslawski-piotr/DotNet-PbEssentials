@@ -325,7 +325,7 @@ namespace pbXForms
 
             if (MasterView == null)
                 return;
-            if (!Tools.IsDifferent(new Size(width, height), ref _osa))
+            if (!Tools.MakeIdenticalIfDifferent(new Size(width, height), ref _osa))
                 return;
 
             void MasterViewsSetLayout(AbsoluteLayoutFlags flags, Rectangle bounds)

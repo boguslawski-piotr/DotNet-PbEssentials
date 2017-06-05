@@ -87,7 +87,7 @@ namespace pbXForms
 
             if (_ContentLayout == null)
                 return;
-            if (!Tools.IsDifferent(new Size(width, height), ref _osa))
+            if (!Tools.MakeIdenticalIfDifferent(new Size(width, height), ref _osa))
                 return;
 
             BatchBegin();

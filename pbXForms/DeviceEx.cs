@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Text;
 using pbXNet;
-using pbXSecurity;
 using Xamarin.Forms;
 using System.Diagnostics;
 
