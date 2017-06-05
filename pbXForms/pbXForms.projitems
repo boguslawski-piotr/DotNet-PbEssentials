@@ -32,6 +32,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)ButtonEx.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UWP\ButtonExRenderer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)macOS\ButtonExRenderer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PinDlg.xaml.cs">
+      <DependentUpon>PinDlg.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)ContentPageEx.xaml">
@@ -41,6 +44,9 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)ContentViewEx.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)PinDlg.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>

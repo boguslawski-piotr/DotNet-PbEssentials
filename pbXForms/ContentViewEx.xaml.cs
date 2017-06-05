@@ -54,6 +54,7 @@ namespace pbXForms
 		public AppBarLayout AppBar => _AppBarRow;
 		public IList<View> AppBarContent => _AppBarRow.Children;
 
+		public ContentViewExContentLayout View => _ContentRow;
 		public IList<View> ViewContent => _ContentRow.Children;
 
 		public ToolBarLayout ToolBar => _ToolBarRow;
