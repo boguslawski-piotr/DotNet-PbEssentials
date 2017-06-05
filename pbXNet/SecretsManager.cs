@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using pbXNet;
 
-namespace pbXSecurity
+namespace pbXNet
 {
 	public partial class SecretsManager : ISecretsManager
 	{

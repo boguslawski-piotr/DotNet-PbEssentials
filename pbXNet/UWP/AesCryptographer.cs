@@ -7,7 +7,7 @@ using Windows.Storage.Streams;
 
 using pbXNet;
 
-namespace pbXSecurity
+namespace pbXNet
 {
     public partial class AesCryptographer: ICryptographer
     {

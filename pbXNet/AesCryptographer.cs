@@ -2,7 +2,7 @@
 using System.IO;
 using System.Threading.Tasks;
 
-namespace pbXSecurity
+namespace pbXNet
 {
     public partial class AesCryptographer : ICryptographer
     {

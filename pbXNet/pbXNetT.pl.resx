@@ -36,4 +36,10 @@
 	<data name="folder" xml:space="preserve">
 		<value>katalog</value>
 	</data>
+    <data name = "FingerprintAuthenticationFailed" xml:space = "preserve">
+		<value>Odcisk palca zeskanowany, ale nie rozpoznany.</value>
+	</data>
+    <data name = "FingerprintRequestPermissions" xml:space = "preserve">
+		<value>Zapytanie o przydzielenie uprawnień do użycia skanera odcisków palca zostało wysłane do sysytemu.</value>
+	</data>
 </root>

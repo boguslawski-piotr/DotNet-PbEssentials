@@ -7,7 +7,7 @@ using LocalAuthentication;
 using Foundation;
 using System.Text;
 
-namespace pbXSecurity
+namespace pbXNet
 {
 	public partial class SecretsManager : ISecretsManager
 	{
@@ -17,7 +17,8 @@ namespace pbXSecurity
 
 		bool DeviceOwnerAuthenticationAvailable
 		{
-			get {
+			get
+			{
 				var context = new LAContext();
 				return context.CanEvaluatePolicy(LAPolicy.DeviceOwnerAuthentication, out NSError error);
 			}
@@ -25,7 +26,8 @@ namespace pbXSecurity
 
 		bool DeviceOwnerBiometricsAuthenticationAvailable
 		{
-			get {
+			get
+			{
 				var context = new LAContext();
 				return context.CanEvaluatePolicy(LAPolicy.DeviceOwnerAuthenticationWithBiometrics, out NSError error);
 			}
@@ -33,7 +35,8 @@ namespace pbXSecurity
 
 		public DOAuthentication AvailableDOAuthentication
 		{
-			get {
+			get
+			{
 				if (DeviceOwnerBiometricsAuthenticationAvailable)
 					return DOAuthentication.Fingerprint;
 				if (DeviceOwnerAuthenticationAvailable)

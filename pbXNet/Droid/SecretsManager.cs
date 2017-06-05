@@ -16,7 +16,7 @@ using Java.Security;
 using Javax.Crypto;
 using pbXNet;
 
-namespace pbXSecurity
+namespace pbXNet
 {
 
 	public partial class SecretsManager : ISecretsManager

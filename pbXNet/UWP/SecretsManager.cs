@@ -2,7 +2,7 @@
 
 using System;
 
-namespace pbXSecurity
+namespace pbXNet
 {
 
 	public partial class SecretsManager : ISecretsManager

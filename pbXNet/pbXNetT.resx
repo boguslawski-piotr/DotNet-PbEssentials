@@ -36,4 +36,10 @@
 	<data name="folder" xml:space="preserve">
 		<value>folder</value>
 	</data>
+    <data name = "FingerprintAuthenticationFailed" xml:space = "preserve">
+		<value>Fingerprint scanned but not recognized.</value>
+	</data>
+    <data name = "FingerprintRequestPermissions" xml:space = "preserve">
+		<value>Request for permission to use fingerprint scanner was sent to the system.</value>
+	</data>
 </root>
