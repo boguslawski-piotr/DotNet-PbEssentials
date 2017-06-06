@@ -11,7 +11,8 @@
 		<Grid
 			ColumnSpacing = "{x:Static pbXForms:Metrics.ButtonItemsSpacing}"
 			RowSpacing = "{x:Static pbXForms:Metrics.ButtonItemsSpacing}"
-			Padding = "{x:Static pbXForms:Metrics.ScreenEdgePadding}"
+			Padding="0"
+			Margin="0"
 			HorizontalOptions = "Center"
 			VerticalOptions = "Center">
 
@@ -39,13 +40,14 @@
 				Grid.Row = "0"
 				Grid.Column = "0"
 				Grid.ColumnSpan = "3"
+				Padding="{x:Static pbXForms:Metrics.ScreenEdgeLeftRightTopPadding}"
 				Spacing = "{x:Static pbXForms:Metrics.ButtonItemsSpacing}">
 
 				<Label
 					x:Name = "_title"
 					HorizontalTextAlignment = "Center"
 					HorizontalOptions = "FillAndExpand"
-					Text = "" />
+					Text = " " />
 
 				<Label
 					x:Name = "_pinVisualization"

@@ -36,8 +36,8 @@ namespace pbXForms
 
 		public void SetCompactSize()
 		{
-			_grid.RowSpacing = Metrics.ButtonItemsSpacing / 2;
-			_titleAndPinBar.Spacing = Metrics.ButtonItemsSpacing / 2;
+			_grid.RowSpacing = Metrics.ButtonItemsSpacing / 4;
+			_titleAndPinBar.Spacing = Metrics.ButtonItemsSpacing / 4;
 			Content.WidthRequest = 240;
 		}
 
