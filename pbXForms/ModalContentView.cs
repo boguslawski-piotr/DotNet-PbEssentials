@@ -8,6 +8,10 @@ namespace pbXForms
 		public event EventHandler OK;
 		public event EventHandler Cancel;
 
+		public ModalViewsManager.ModalPosition Position = ModalViewsManager.ModalPosition.WholeView;
+
+		public bool ViewCoversStatusBar => (Position == ModalViewsManager.ModalPosition.WholeView) && Device.RuntimePlatform == Device.iOS;
+
 		public ModalContentView()
 		{
 		}

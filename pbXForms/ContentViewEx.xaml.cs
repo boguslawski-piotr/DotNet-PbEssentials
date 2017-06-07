@@ -48,7 +48,6 @@ namespace pbXForms
 		}
 	}
 
-
 	public partial class ContentViewEx : ModalContentView
 	{
 		public AppBarLayout AppBar => _AppBarRow;
@@ -61,8 +60,6 @@ namespace pbXForms
 		public IList<View> ToolBarContent => _ToolBarRow.Children;
 
 		public ModalViewsManager ModalManager = new ModalViewsManager();
-
-		public bool ViewCoversStatusBar => Device.RuntimePlatform == Device.iOS ? true : false;
 
 		public ContentViewEx()
 		{
