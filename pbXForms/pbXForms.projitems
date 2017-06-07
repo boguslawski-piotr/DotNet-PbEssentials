@@ -35,6 +35,13 @@
     <Compile Include="$(MSBuildThisFileDirectory)PinDlg.xaml.cs">
       <DependentUpon>PinDlg.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)SettingsContentView.xaml.cs">
+      <DependentUpon>SettingsContentView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)SettingsControl.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SettingsSwitch.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SettingsSeparator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SettingsGroup.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)ContentPageEx.xaml">
@@ -47,6 +54,9 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)PinDlg.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)SettingsContentView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
