@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Reflection;
 using pbXNet;
 using Xamarin.Forms;
 
@@ -29,15 +28,9 @@ namespace pbXForms
 
 	public partial class SettingsContentView : ModalContentView
 	{
-		public double HeaderHeight { get; set; } = -1;
-		public AppBarLayout Header => _HeaderRow;
-		public IList<View> HeaderContent => _HeaderRow.Children;
-
-		public IList<View> ViewContent => _ContentRow.Children;
-
+		public double HeaderHeightInPortrait { get; set; } = -1;
+		public double HeaderHeightInLandscape { get; set; } = -1;
 		public double FooterHeight { get; set; } = -1;
-		public ToolBarLayout Footer => _FooterRow;
-		public IList<View> FooterContent => _FooterRow.Children;
 
 		public Color GroupBackgroundColor { get; set; }
 		public Color GroupHeaderBackgroundColor { get; set; }
@@ -48,6 +41,13 @@ namespace pbXForms
 		public Color ControlBackgroundColor { get; set; }
 		public Color ControlTextTextColor { get; set; }
 		public Color ControlDescTextColor { get; set; }
+
+		public IList<View> HeaderContent => _HeaderRow.Children;
+		public IList<View> ViewContent => _ContentRow.Children;
+		public IList<View> FooterContent => _FooterRow.Children;
+
+		protected AppBarLayout Header => _HeaderRow;
+		protected ToolBarLayout Footer => _FooterRow;
 
 		public SettingsContentView()
 		{
@@ -132,16 +132,34 @@ namespace pbXForms
 			if (!Tools.MakeIdenticalIfDifferent(new Size(width, height), ref _osa))
 				return;
 
+			BatchBegin();
+
+			LayoutHeaderAndFooter(width, height);
+
+			ContinueOnSizeAllocated(width, height);
+
+			BatchCommit();
+		}
+
+		protected virtual void LayoutHeaderAndFooter(double width, double height)
+		{
 			if (_HeaderRow?.Children?.Count > 0)
 			{
-				if (HeaderHeight > 0)
-					_ContentLayout.RowDefinitions[0].Height = HeaderHeight + ((ViewCoversStatusBar && DeviceEx.StatusBarVisible) ? Metrics.StatusBarHeight : 0);
+				bool IsLandscape = (DeviceEx.Orientation == DeviceOrientation.Landscape);
+				double HeaderHeight = IsLandscape ? HeaderHeightInLandscape : HeaderHeightInPortrait;
 
-				_HeaderRow.Padding = new Thickness(0, ViewCoversStatusBar && DeviceEx.StatusBarVisible ? Metrics.StatusBarHeight : 0, 0, 0);
+				if (HeaderHeight > 0)
+					_ContentLayout.RowDefinitions[0].Height = HeaderHeight + (ViewCoversStatusBar ? Metrics.StatusBarHeight : 0);
+
+				_HeaderRow.Padding = new Thickness(0, ViewCoversStatusBar ? Metrics.StatusBarHeight : 0, 0, 0);
 			}
 
 			if (_FooterRow?.Children?.Count > 0 && FooterHeight > 0)
 				_ContentLayout.RowDefinitions[2].Height = FooterHeight;
+		}
+
+		protected virtual void ContinueOnSizeAllocated(double width, double height)
+		{
 		}
 	}
 }

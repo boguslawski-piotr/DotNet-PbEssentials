@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using pbXNet;
 using Xamarin.Forms;
 
@@ -110,11 +108,11 @@ namespace pbXForms
 			{
 				_ContentLayout.RowDefinitions[0].Height =
 					(IsLandscape ? Metrics.AppBarHeightLandscape : Metrics.AppBarHeightPortrait)
-					+ ((ViewCoversStatusBar && DeviceEx.StatusBarVisible) ? Metrics.StatusBarHeight : 0);
+					+ (ViewCoversStatusBar ? Metrics.StatusBarHeight : 0);
 
 				_AppBarRow.Padding = new Thickness(
 					0,
-					(ViewCoversStatusBar && DeviceEx.StatusBarVisible ? Metrics.StatusBarHeight : 0),
+					(ViewCoversStatusBar ? Metrics.StatusBarHeight : 0),
 					0,
 					0);
 			}

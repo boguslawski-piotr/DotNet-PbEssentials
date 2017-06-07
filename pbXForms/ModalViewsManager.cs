@@ -8,17 +8,51 @@ namespace pbXForms
 {
 	public class ModalViewsManager
 	{
-		public double BlockerOpacity { get; set; } = 0.50;
+		/// Modal position.
+		public enum ModalPosition
+		{
+			Center,
+			BottomCenter,
+			BottomLeft,
+			BottomRight,
+			TopCenter,
+			TopLeft,
+			TopRight,
+			LeftCenter,
+			RightCenter,
+			NavDrawer,
+			WholeView,
+		}
+
+		/// Gets or sets the background color of the bloker.
 		public Color BlokerBackgroundColor { get; set; } = Color.FromHex("#000000");
 
-		public bool HasShadow { get; set; } = false;
-		public float CornerRadius { get; set; } = 6;
+		/// Gets or sets the blocker opacity applied when modal is displayed.
+		public double BlockerOpacity { get; set; } = 0.50;
 
-		public double NavDrawerWidthInPortrait { get; set; } = 0;
-		public double NavDrawerWidthInLandscape { get; set; } = 0;
-		public double NavDrawerRelativeWidth { get; set; } = 0.8;
+		public event EventHandler<ModalContentView> ModalWillBeShown;
+
+		public event EventHandler<ModalContentView> ModalHasBeenShown;
+
+		public event EventHandler<ModalContentView> ModalWillBeHidden;
+
+		public event EventHandler<ModalContentView> ModalHasBeenHidden;
+
+		//
 
 		protected AbsoluteLayout Layout;
+
+		protected class Modal
+		{
+			public ModalPosition position;
+			public BoxView blocker;
+			public ContentView view;
+		};
+
+		protected Stack<Modal> ModalsStack = new Stack<Modal>();
+		protected Stack<CancellationTokenSource> CancellationTokensStack = new Stack<CancellationTokenSource>();
+
+		//
 
 		public virtual void InitializeComponent(AbsoluteLayout layout)
 		{
@@ -39,35 +73,6 @@ namespace pbXForms
 				AnimateModalAsync(m, false, false);
 			}
 		}
-
-		public enum ModalPosition
-		{
-			Center,
-			BottomCenter,
-			BottomLeft,
-			BottomRight,
-			TopCenter,
-			TopLeft,
-			TopRight,
-			LeftCenter,
-			RightCenter,
-			NavDrawer,
-			WholeView,
-		}
-
-		protected class Modal
-		{
-			public ModalPosition position;
-			public BoxView blocker;
-			public ContentView view;
-
-			public double navDrawerWidthInPortrait;
-			public double navDrawerWidthInLandscape;
-			public double navDrawerRelativeWidth;
-		};
-
-		protected Stack<Modal> ModalsStack = new Stack<Modal>();
-		protected Stack<CancellationTokenSource> CancellationTokensStack = new Stack<CancellationTokenSource>();
 
 		public virtual async Task<bool> DisplayModalAsync(ModalContentView content, ModalPosition position = ModalPosition.Center, bool animate = true)
 		{
@@ -102,15 +107,12 @@ namespace pbXForms
 			Modal modal = new Modal()
 			{
 				position = position,
-				navDrawerWidthInPortrait = NavDrawerWidthInPortrait,
-				navDrawerWidthInLandscape = NavDrawerWidthInLandscape,
-				navDrawerRelativeWidth = NavDrawerRelativeWidth,
 			};
 
 			modal.blocker = new BoxView()
 			{
-				BackgroundColor = Color.Transparent,
 				IsVisible = false,
+				BackgroundColor = BlokerBackgroundColor,
 			};
 			modal.blocker.GestureRecognizers.Add(
 				new TapGestureRecognizer()
@@ -127,13 +129,13 @@ namespace pbXForms
 			AbsoluteLayout.SetLayoutBounds(modal.blocker, new Rectangle(0, 0, 1, 1));
 			Layout.Children.Add(modal.blocker);
 
-			float cornerRadius = position >= ModalPosition.NavDrawer ? 0 : CornerRadius;
-			modal.view = new Frame()
+			float cornerRadius = position >= ModalPosition.NavDrawer ? 0 : content.CornerRadius;
+			modal.view = new Frame
 			{
 				IsVisible = false,
 				BackgroundColor = content.BackgroundColor,
-				HasShadow = this.HasShadow,
-				OutlineColor = Color.Transparent,
+				HasShadow = content.HasShadow,
+				OutlineColor = content.BackgroundColor,
 				CornerRadius = cornerRadius,
 				Margin = new Thickness(0),
 				Padding = new Thickness(cornerRadius / 2),
@@ -164,12 +166,16 @@ namespace pbXForms
 				CancellationTokensStack.Peek().Cancel();
 		}
 
+		//
+
 		protected virtual async Task AnimateModalAsync(Modal modal, bool hide, bool animate)
 		{
 			// Calculate size and position...
 
-			double navDrawerWidth = DeviceEx.Orientation == DeviceOrientation.Landscape ? modal.navDrawerWidthInLandscape : modal.navDrawerWidthInPortrait;
-			navDrawerWidth = navDrawerWidth <= 0 ? Layout.Bounds.Width * modal.navDrawerRelativeWidth : navDrawerWidth;
+			ModalContentView mvc = modal.view.Content as ModalContentView;
+
+			double navDrawerWidth = DeviceEx.Orientation == DeviceOrientation.Landscape ? mvc.WidthInLandscapeWhenNavDrawer : mvc.WidthInPortraitWhenNavDrawer;
+			navDrawerWidth = navDrawerWidth <= 0 ? Layout.Bounds.Width * mvc.RelativeWidthWhenNavDrawer : navDrawerWidth;
 
 			Rectangle bounds;
 			if (modal.position >= ModalPosition.NavDrawer)
@@ -185,10 +191,18 @@ namespace pbXForms
 
 			Rectangle to = modal.view.Bounds;
 
-			if (modal.view.Content.MinimumHeightRequest > 0)
-				to.Height = Math.Max(modal.view.Content.MinimumHeightRequest, to.Height);
-			if (modal.view.Content.MinimumWidthRequest > 0)
-				to.Width = Math.Max(modal.view.Content.MinimumWidthRequest, to.Width);
+			if (modal.position < ModalPosition.NavDrawer)
+			{
+				if (mvc.MinimumHeightRequest > 0)
+					to.Height = Math.Min(bounds.Height, Math.Max(mvc.MinimumHeightRequest, to.Height));
+				if (mvc.MaximumHeightRequest > 0)
+					to.Height = Math.Min(mvc.MaximumHeightRequest, to.Height);
+
+				if (mvc.MinimumWidthRequest > 0)
+					to.Width = Math.Min(bounds.Width, Math.Max(mvc.MinimumWidthRequest, to.Width));
+				if (mvc.MaximumWidthRequest > 0)
+					to.Width = Math.Min(mvc.MaximumWidthRequest, to.Width);
+			}
 
 			switch (modal.position)
 			{
@@ -266,8 +280,18 @@ namespace pbXForms
 			// Show/hide with optional animation...
 
 			modal.blocker.Opacity = hide || !animate ? BlockerOpacity : 0;
-			modal.blocker.BackgroundColor = BlokerBackgroundColor;
 
+			if (!hide)
+			{
+				mvc.OnAppearingWhenModal();
+				ModalWillBeShown?.Invoke(this, mvc);
+			}
+			else
+			{
+				mvc.OnDisappearingWhenModal();
+				ModalWillBeHidden?.Invoke(this, mvc);
+			}
+			
 			modal.blocker.IsVisible = true;
 			modal.view.IsVisible = true;
 
@@ -286,6 +310,11 @@ namespace pbXForms
 
 			modal.blocker.IsVisible = !hide;
 			modal.view.IsVisible = !hide;
+
+			if (!hide)
+				ModalHasBeenShown?.Invoke(this, mvc);
+			else
+				ModalHasBeenHidden?.Invoke(this, mvc);
 		}
 	}
 }
