@@ -4,7 +4,7 @@ using Xamarin.Forms;
 
 namespace pbXForms
 {
-	public partial class PinDlg : ContentViewEx
+	public partial class PinDlg : ModalContentView
 	{
 		public Label Title => _title;
 
@@ -18,7 +18,7 @@ namespace pbXForms
 		char[] _pin = { };
 		public char[] Pin => _pin;
 
-		Grid _grid => (View?.Children[0] as Grid);
+		Grid _grid => (Content as Grid);
 
 		public PinDlg()
 		{
@@ -28,7 +28,7 @@ namespace pbXForms
 
 		public void Reset()
 		{
-			// Reset data from memory
+			// Remove data from memory
 			_pin?.FillWithDefault();
 			_pin = new char[] { };
 			UpdatePinVisualization();
@@ -36,9 +36,9 @@ namespace pbXForms
 
 		public void SetCompactSize()
 		{
-			_grid.RowSpacing = Metrics.ButtonItemsSpacing / 4;
-			_titleAndPinBar.Spacing = Metrics.ButtonItemsSpacing / 4;
-			Content.WidthRequest = 240;
+			_grid.RowSpacing = Metrics.ButtonItemsSpacing / 2;
+			_grid.Padding = new Thickness(0);
+			_titleAndPinBar.Spacing = Metrics.ButtonItemsSpacing / 2;
 		}
 
 		public void SetNormalSize()
@@ -46,13 +46,6 @@ namespace pbXForms
 			_grid.RowSpacing = Metrics.ButtonItemsSpacing;
 			_titleAndPinBar.Spacing = Metrics.ButtonItemsSpacing;
 			Content.WidthRequest = 280;
-		}
-
-		public void SetLargeSize()
-		{
-			_grid.RowSpacing = Metrics.ButtonItemsSpacing * 2;
-			_titleAndPinBar.Spacing = Metrics.ButtonItemsSpacing * 2;
-			Content.WidthRequest = 320;
 		}
 
 		//
@@ -79,6 +72,14 @@ namespace pbXForms
 				Array.Resize<char>(ref _pin, _pin.Length - 1);
 				UpdatePinVisualization();
 			}
+		}
+
+		public override void OnOK()
+		{
+			if (_pin.Length <= 0)
+				OnCancel();
+			else
+				base.OnOK();
 		}
 
 		//

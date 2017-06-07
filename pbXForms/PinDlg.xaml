@@ -1,159 +1,155 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<pbXForms:ContentViewEx
+<pbXForms:ModalContentView
 	xmlns = "http://xamarin.com/schemas/2014/forms"
 	xmlns:x = "http://schemas.microsoft.com/winfx/2009/xaml"
 	xmlns:pbXForms = "clr-namespace:pbXForms"
 	x:Class = "pbXForms.PinDlg"
-	WidthRequest="280">
+	WidthRequest = "280">
 
-	<pbXForms:ContentViewEx.ViewContent>
+	<Grid
+		ColumnSpacing = "{x:Static pbXForms:Metrics.ButtonItemsSpacing}"
+		RowSpacing = "{x:Static pbXForms:Metrics.ButtonItemsSpacing}"
+		Padding = "{x:Static pbXForms:Metrics.ScreenEdgeBottomPadding}"
+		Margin = "0"
+		HorizontalOptions = "FillAndExpand"
+		VerticalOptions = "CenterAndExpand">
 
-		<Grid
-			ColumnSpacing = "{x:Static pbXForms:Metrics.ButtonItemsSpacing}"
-			RowSpacing = "{x:Static pbXForms:Metrics.ButtonItemsSpacing}"
-			Padding="0"
-			Margin="0"
-			HorizontalOptions = "Center"
-			VerticalOptions = "Center">
+		<Grid.RowDefinitions>
 
-			<Grid.RowDefinitions>
+			<RowDefinition
+				Height = "*" />
 
-				<RowDefinition
-					Height = "*" />
+			<RowDefinition
+				Height = "{x:Static pbXForms:Metrics.TouchTargetHeight}" />
 
-				<RowDefinition
-					Height = "{x:Static pbXForms:Metrics.TouchTargetHeight}" />
+			<RowDefinition
+				Height = "{x:Static pbXForms:Metrics.TouchTargetHeight}" />
 
-				<RowDefinition
-					Height = "{x:Static pbXForms:Metrics.TouchTargetHeight}" />
+			<RowDefinition
+				Height = "{x:Static pbXForms:Metrics.TouchTargetHeight}" />
 
-				<RowDefinition
-					Height = "{x:Static pbXForms:Metrics.TouchTargetHeight}" />
+			<RowDefinition
+				Height = "{x:Static pbXForms:Metrics.TouchTargetHeight}" />
 
-				<RowDefinition
-					Height = "{x:Static pbXForms:Metrics.TouchTargetHeight}" />
+		</Grid.RowDefinitions>
 
-			</Grid.RowDefinitions>
+		<pbXForms:ContentViewExContentLayout
+			x:Name = "_titleAndPinBar"
+			Grid.Row = "0"
+			Grid.Column = "0"
+			Grid.ColumnSpan = "3"
+			Padding = "{x:Static pbXForms:Metrics.ScreenEdgeLeftRightTopPadding}"
+			Spacing = "{x:Static pbXForms:Metrics.ButtonItemsSpacing}">
 
-			<pbXForms:ContentViewExContentLayout
-				x:Name="_titleAndPinBar"
-				Grid.Row = "0"
-				Grid.Column = "0"
-				Grid.ColumnSpan = "3"
-				Padding="{x:Static pbXForms:Metrics.ScreenEdgeLeftRightTopPadding}"
-				Spacing = "{x:Static pbXForms:Metrics.ButtonItemsSpacing}">
+			<Label
+				x:Name = "_title"
+				HorizontalTextAlignment = "Center"
+				HorizontalOptions = "FillAndExpand"
+				Text = " " />
 
-				<Label
-					x:Name = "_title"
-					HorizontalTextAlignment = "Center"
-					HorizontalOptions = "FillAndExpand"
-					Text = " " />
+			<Label
+				x:Name = "_pinVisualization"
+				HorizontalTextAlignment = "Center"
+				HorizontalOptions = "FillAndExpand"
+				Text = " " />
 
-				<Label
-					x:Name = "_pinVisualization"
-					HorizontalTextAlignment = "Center"
-					HorizontalOptions = "FillAndExpand"
-					Text = " " />
+		</pbXForms:ContentViewExContentLayout>
 
-			</pbXForms:ContentViewExContentLayout>
+		<pbXForms:PIButton
+			Grid.Row = "1"
+			Grid.Column = "0"
+			Clicked = "Digit_Clicked"
+			CommandParameter = "1"
+			FontSize = "Large"
+			Text = "1" />
 
-			<pbXForms:PIButton
-				Grid.Row = "1"
-				Grid.Column = "0"
-				Clicked = "Digit_Clicked"
-				CommandParameter = "1"
-				FontSize = "Large"
-				Text = "1" />
+		<pbXForms:PIButton
+			Grid.Row = "1"
+			Grid.Column = "1"
+			Clicked = "Digit_Clicked"
+			CommandParameter = "2"
+			FontSize = "Large"
+			Text = "2" />
 
-			<pbXForms:PIButton
-				Grid.Row = "1"
-				Grid.Column = "1"
-				Clicked = "Digit_Clicked"
-				CommandParameter = "2"
-				FontSize = "Large"
-				Text = "2" />
+		<pbXForms:PIButton
+			Grid.Row = "1"
+			Grid.Column = "2"
+			Clicked = "Digit_Clicked"
+			CommandParameter = "3"
+			FontSize = "Large"
+			Text = "3" />
 
-			<pbXForms:PIButton
-				Grid.Row = "1"
-				Grid.Column = "2"
-				Clicked = "Digit_Clicked"
-				CommandParameter = "3"
-				FontSize = "Large"
-				Text = "3" />
+		<pbXForms:PIButton
+			Grid.Row = "2"
+			Grid.Column = "0"
+			Clicked = "Digit_Clicked"
+			CommandParameter = "4"
+			FontSize = "Large"
+			Text = "4" />
 
-			<pbXForms:PIButton
-				Grid.Row = "2"
-				Grid.Column = "0"
-				Clicked = "Digit_Clicked"
-				CommandParameter = "4"
-				FontSize = "Large"
-				Text = "4" />
+		<pbXForms:PIButton
+			Grid.Row = "2"
+			Grid.Column = "1"
+			Clicked = "Digit_Clicked"
+			CommandParameter = "5"
+			FontSize = "Large"
+			Text = "5" />
 
-			<pbXForms:PIButton
-				Grid.Row = "2"
-				Grid.Column = "1"
-				Clicked = "Digit_Clicked"
-				CommandParameter = "5"
-				FontSize = "Large"
-				Text = "5" />
+		<pbXForms:PIButton
+			Grid.Row = "2"
+			Grid.Column = "2"
+			Clicked = "Digit_Clicked"
+			CommandParameter = "6"
+			FontSize = "Large"
+			Text = "6" />
 
-			<pbXForms:PIButton
-				Grid.Row = "2"
-				Grid.Column = "2"
-				Clicked = "Digit_Clicked"
-				CommandParameter = "6"
-				FontSize = "Large"
-				Text = "6" />
+		<pbXForms:PIButton
+			Grid.Row = "3"
+			Grid.Column = "0"
+			Clicked = "Digit_Clicked"
+			CommandParameter = "7"
+			FontSize = "Large"
+			Text = "7" />
 
-			<pbXForms:PIButton
-				Grid.Row = "3"
-				Grid.Column = "0"
-				Clicked = "Digit_Clicked"
-				CommandParameter = "7"
-				FontSize = "Large"
-				Text = "7" />
+		<pbXForms:PIButton
+			Grid.Row = "3"
+			Grid.Column = "1"
+			Clicked = "Digit_Clicked"
+			CommandParameter = "8"
+			FontSize = "Large"
+			Text = "8" />
 
-			<pbXForms:PIButton
-				Grid.Row = "3"
-				Grid.Column = "1"
-				Clicked = "Digit_Clicked"
-				CommandParameter = "8"
-				FontSize = "Large"
-				Text = "8" />
+		<pbXForms:PIButton
+			Grid.Row = "3"
+			Grid.Column = "2"
+			Clicked = "Digit_Clicked"
+			CommandParameter = "9"
+			FontSize = "Large"
+			Text = "9" />
 
-			<pbXForms:PIButton
-				Grid.Row = "3"
-				Grid.Column = "2"
-				Clicked = "Digit_Clicked"
-				CommandParameter = "9"
-				FontSize = "Large"
-				Text = "9" />
+		<pbXForms:PIButton
+			x:Name = "_delBtn"
+			Grid.Row = "4"
+			Grid.Column = "0"
+			Clicked = "Del_Clicked"
+			Text = "⌫" />
 
-			<pbXForms:PIButton
-				x:Name = "_delBtn"
-				Grid.Row = "4"
-				Grid.Column = "0"
-				Clicked = "Del_Clicked"
-				Text = "⌫" />
+		<pbXForms:PIButton
+			Grid.Row = "4"
+			Grid.Column = "1"
+			Clicked = "Digit_Clicked"
+			CommandParameter = "0"
+			FontSize = "Large"
+			Text = "0" />
 
-			<pbXForms:PIButton
-				Grid.Row = "4"
-				Grid.Column = "1"
-				Clicked = "Digit_Clicked"
-				CommandParameter = "0"
-				FontSize = "Large"
-				Text = "0" />
+		<pbXForms:PIButton
+			x:Name = "_okBtn"
+			Grid.Row = "4"
+			Grid.Column = "2"
+			Clicked = "OK_Clicked"
+			Text = "OK"
+			FontAttributes = "Bold" />
 
-			<pbXForms:PIButton
-				x:Name = "_okBtn"
-				Grid.Row = "4"
-				Grid.Column = "2"
-				Clicked = "OK_Clicked"
-				Text = "OK"
-				FontAttributes = "Bold" />
+	</Grid>
 
-		</Grid>
-
-	</pbXForms:ContentViewEx.ViewContent>
-
-</pbXForms:ContentViewEx>
+</pbXForms:ModalContentView>
