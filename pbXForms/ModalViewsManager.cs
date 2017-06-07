@@ -95,8 +95,10 @@ namespace pbXForms
 			return rc;
 		}
 
-		public virtual async Task PushModalAsync(ContentView content, ModalPosition position = ModalPosition.Center, bool animate = true)
+		public virtual async Task PushModalAsync(ModalContentView content, ModalPosition position = ModalPosition.Center, bool animate = true)
 		{
+			content.Position = position;
+
 			Modal modal = new Modal()
 			{
 				position = position,
@@ -182,6 +184,12 @@ namespace pbXForms
 			Xamarin.Forms.Layout.LayoutChildIntoBoundingRegion(modal.view, bounds);
 
 			Rectangle to = modal.view.Bounds;
+
+			if (modal.view.Content.MinimumHeightRequest > 0)
+				to.Height = Math.Max(modal.view.Content.MinimumHeightRequest, to.Height);
+			if (modal.view.Content.MinimumWidthRequest > 0)
+				to.Width = Math.Max(modal.view.Content.MinimumWidthRequest, to.Width);
+
 			switch (modal.position)
 			{
 				case ModalPosition.Center:
