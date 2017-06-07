@@ -23,6 +23,15 @@ namespace pbXNet
 			for (int n = 0; n < src.Length; n++)
 				src[n] = null;
 		}
+
+		public static T[] MakeACopy<T>(this T[] src)
+		{
+			return Array.ConvertAll<T, T>(src, (i) => i);
+			//T[] dst = { };
+			//Array.Resize<T>(ref dst, src.Length);
+			//Array.Copy(src, dst, src.Length);
+			//return dst;
+		}
 	}
 
 	/// <summary>
