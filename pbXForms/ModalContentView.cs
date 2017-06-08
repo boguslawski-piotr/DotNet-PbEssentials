@@ -36,7 +36,7 @@ namespace pbXForms
 		//
 
 		/// How and where this view was displayed by the modal views manager.
-		/// It should be readonly but C # does not have the mechanism of friendly classes like C++ does :(
+		/// It should be readonly/private set but C# does not have the mechanism of friendly classes like C++ does :(
 		public ModalViewsManager.ModalPosition Position = ModalViewsManager.ModalPosition.WholeView;
 
 		/// Gets a value indicating whether this view covers status bar.
