@@ -28,10 +28,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)ModalViewsManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ModalContentView.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PINBehavior.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Droid\ButtonExRenderer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ButtonEx.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)UWP\ButtonExRenderer.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)macOS\ButtonExRenderer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PinDlg.xaml.cs">
       <DependentUpon>PinDlg.xaml</DependentUpon>
     </Compile>
@@ -59,10 +56,5 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)SettingsContentView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="$(MSBuildThisFileDirectory)Droid\" />
-    <Folder Include="$(MSBuildThisFileDirectory)UWP\" />
-    <Folder Include="$(MSBuildThisFileDirectory)macOS\" />
   </ItemGroup>
 </Project>
