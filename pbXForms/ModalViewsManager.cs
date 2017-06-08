@@ -135,7 +135,7 @@ namespace pbXForms
 				IsVisible = false,
 				BackgroundColor = content.BackgroundColor,
 				HasShadow = content.HasShadow,
-				OutlineColor = content.BackgroundColor,
+				OutlineColor = Color.Transparent,
 				CornerRadius = cornerRadius,
 				Margin = new Thickness(0),
 				Padding = new Thickness(cornerRadius / 2),
