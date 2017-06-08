@@ -5,13 +5,13 @@ namespace pbXNet
 	/// <summary>
 	/// Settings.
 	/// </summary>
-	static class Settings
+	public static class Settings
 	{
 
 		/// <summary>
 		/// Settings to use with JsonConvert.Serialize i Deserialize methods.
 		/// </summary>
-		internal static readonly JsonSerializerSettings JsonSerializer = new JsonSerializerSettings()
+		public static readonly JsonSerializerSettings JsonSerializer = new JsonSerializerSettings()
 		{
 			DateTimeZoneHandling = DateTimeZoneHandling.Utc,
 			NullValueHandling = NullValueHandling.Ignore,
