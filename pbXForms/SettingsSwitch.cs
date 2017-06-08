@@ -5,13 +5,22 @@ namespace pbXForms
 {
 	public class SettingsSwitch : SettingsControlWithDesc
 	{
-		public static readonly BindableProperty IsToggledProperty = BindableProperty.Create("IsToggled", typeof(bool), typeof(SettingsSwitch), false, BindingMode.TwoWay);
+		public static readonly BindableProperty IsToggledProperty =
+			BindableProperty.Create("IsToggled",
+									typeof(bool),
+									typeof(SettingsSwitch),
+									false,
+									defaultBindingMode: BindingMode.TwoWay,
+									propertyChanged: (bindable, oldValue, newValue) =>
+									{
+										((SettingsSwitch)bindable)._Switch.IsToggled = (bool)newValue;
+										((SettingsSwitch)bindable).Toggled?.Invoke(bindable, new ToggledEventArgs((bool)newValue));
+									});
 
 		public new bool IsEnabled
 		{
 			get => _Switch.IsEnabled;
-			set
-			{
+			set {
 				_Switch.IsEnabled = value;
 				base.IsEnabled = value;
 			}
@@ -20,14 +29,7 @@ namespace pbXForms
 		public bool IsToggled
 		{
 			get => (bool)GetValue(IsToggledProperty);
-			set
-			{
-				if (IsToggled != value)
-				{
-					SetValue(IsToggledProperty, value);
-					_Switch.IsToggled = value;
-				}
-			}
+			set => SetValue(IsToggledProperty, value);
 		}
 
 		public event EventHandler<ToggledEventArgs> Toggled;
@@ -38,23 +40,14 @@ namespace pbXForms
 		{
 			_Switch = new Switch();
 			_Switch.VerticalOptions = LayoutOptions.Center;
+			_Switch.Toggled += OnInnerSwitchToggled;
 
 			_Control.Children.Add(_Switch);
 		}
 
-		protected override void OnBindingContextChanged()
-		{
-			base.OnBindingContextChanged();
-
-			_Switch.Toggled -= OnToggled;
-			_Switch.IsToggled = this.IsToggled;
-			_Switch.Toggled += OnToggled;
-		}
-
-		protected virtual void OnToggled(object sender, ToggledEventArgs e)
+		protected virtual void OnInnerSwitchToggled(object sender, ToggledEventArgs e)
 		{
 			SetValue(IsToggledProperty, e.Value);
-			Toggled?.Invoke(sender, e);
 		}
 	}
 }
