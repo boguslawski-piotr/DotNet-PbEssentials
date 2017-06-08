@@ -3,11 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "iOS", "iOS\iOS.csproj", "{F4C3126F-4A9C-4C0D-BA7E-2B21FDB07F24}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "pbXNet", "..\pbXNet\pbXNet.shproj", "{0F24CC4F-7A9B-4835-8F00-4DC291773539}"
-EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "pbXNet_Tests", "pbXNet\pbXNet_Tests.shproj", "{3F753A30-8FDA-4E69-BF4E-A1F0DDB8F4D8}"
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "pbXNet.Tests", "pbXNet\pbXNet.Tests.shproj", "{3F753A30-8FDA-4E69-BF4E-A1F0DDB8F4D8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Droid", "Droid\Droid.csproj", "{D3F707F7-0ED2-4088-A40B-069D2529632C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pbXNet.Droid", "..\pbXNet.Droid\pbXNet.Droid.csproj", "{09F056D8-6ECD-4398-B06C-AFE32E911B85}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pbXNet.iOS", "..\pbXNet.iOS\pbXNet.iOS.csproj", "{885C3BD5-106C-47FA-83D1-B86217610C25}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "pbXNet.Shared", "..\pbXNet\pbXNet.Shared.shproj", "{0F24CC4F-7A9B-4835-8F00-4DC291773539}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +37,22 @@ Global
 		{D3F707F7-0ED2-4088-A40B-069D2529632C}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 		{D3F707F7-0ED2-4088-A40B-069D2529632C}.Debug|iPhone.ActiveCfg = Debug|Any CPU
 		{D3F707F7-0ED2-4088-A40B-069D2529632C}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{09F056D8-6ECD-4398-B06C-AFE32E911B85}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{09F056D8-6ECD-4398-B06C-AFE32E911B85}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{09F056D8-6ECD-4398-B06C-AFE32E911B85}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{09F056D8-6ECD-4398-B06C-AFE32E911B85}.Release|iPhone.Build.0 = Release|Any CPU
+		{09F056D8-6ECD-4398-B06C-AFE32E911B85}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{09F056D8-6ECD-4398-B06C-AFE32E911B85}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{09F056D8-6ECD-4398-B06C-AFE32E911B85}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{09F056D8-6ECD-4398-B06C-AFE32E911B85}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{885C3BD5-106C-47FA-83D1-B86217610C25}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{885C3BD5-106C-47FA-83D1-B86217610C25}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{885C3BD5-106C-47FA-83D1-B86217610C25}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{885C3BD5-106C-47FA-83D1-B86217610C25}.Release|iPhone.Build.0 = Release|Any CPU
+		{885C3BD5-106C-47FA-83D1-B86217610C25}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{885C3BD5-106C-47FA-83D1-B86217610C25}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{885C3BD5-106C-47FA-83D1-B86217610C25}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{885C3BD5-106C-47FA-83D1-B86217610C25}.Debug|iPhone.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		Policies = $0

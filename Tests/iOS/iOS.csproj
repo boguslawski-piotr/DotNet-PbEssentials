@@ -109,7 +109,12 @@
     <Compile Include="UnitTestAppDelegate.cs" />
     <Compile Include="Tests.cs" />
   </ItemGroup>
-  <Import Project="..\pbXNet\pbXNet_Tests.projitems" Label="Shared" Condition="Exists('..\pbXNet\pbXNet_Tests.projitems')" />
-  <Import Project="..\..\pbXNet\pbXNet.projitems" Label="Shared" Condition="Exists('..\..\pbXNet\pbXNet.projitems')" />
+  <ItemGroup>
+    <ProjectReference Include="..\..\pbXNet.iOS\pbXNet.iOS.csproj">
+      <Project>{885C3BD5-106C-47FA-83D1-B86217610C25}</Project>
+      <Name>pbXNet.iOS</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="..\pbXNet\pbXNet.Tests.projitems" Label="Shared" Condition="Exists('..\pbXNet\pbXNet.Tests.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

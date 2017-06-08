@@ -1,0 +1,56 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "pbXNet.Shared", "pbXNet\pbXNet.Shared.shproj", "{0F24CC4F-7A9B-4835-8F00-4DC291773539}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pbXNet.Droid", "pbXNet.Droid\pbXNet.Droid.csproj", "{09F056D8-6ECD-4398-B06C-AFE32E911B85}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pbXNet.iOS", "pbXNet.iOS\pbXNet.iOS.csproj", "{885C3BD5-106C-47FA-83D1-B86217610C25}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pbXNet.macOS", "pbXNet.macOS\pbXNet.macOS.csproj", "{038B20C3-4EDD-4619-B83A-EC3471335477}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "pbXForms.Shared", "pbXForms\pbXForms.Shared.shproj", "{2EC89D71-92C3-4121-801C-2975C54C7135}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pbXForms.iOS", "pbXForms.iOS\pbXForms.iOS.csproj", "{1E8F6F65-6007-4717-B210-C3554873F37A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{763C96D2-39EA-4DF7-8F87-0D0F6ECDC200}"
+	ProjectSection(SolutionItems) = preProject
+		CommonAssemblyInfo.cs = CommonAssemblyInfo.cs
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pbXForms.macOS", "pbXForms.macOS\pbXForms.macOS.csproj", "{6FE2DB7D-4FB5-4A33-AC48-41C22DEA02A5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pbXForms.Droid", "pbXForms.Droid\pbXForms.Droid.csproj", "{D4DEE17B-27B9-4BF3-8868-76197F53EB6D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{09F056D8-6ECD-4398-B06C-AFE32E911B85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{09F056D8-6ECD-4398-B06C-AFE32E911B85}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{09F056D8-6ECD-4398-B06C-AFE32E911B85}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{09F056D8-6ECD-4398-B06C-AFE32E911B85}.Release|Any CPU.Build.0 = Release|Any CPU
+		{885C3BD5-106C-47FA-83D1-B86217610C25}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{885C3BD5-106C-47FA-83D1-B86217610C25}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{885C3BD5-106C-47FA-83D1-B86217610C25}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{885C3BD5-106C-47FA-83D1-B86217610C25}.Release|Any CPU.Build.0 = Release|Any CPU
+		{038B20C3-4EDD-4619-B83A-EC3471335477}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{038B20C3-4EDD-4619-B83A-EC3471335477}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{038B20C3-4EDD-4619-B83A-EC3471335477}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{038B20C3-4EDD-4619-B83A-EC3471335477}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1E8F6F65-6007-4717-B210-C3554873F37A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E8F6F65-6007-4717-B210-C3554873F37A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E8F6F65-6007-4717-B210-C3554873F37A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E8F6F65-6007-4717-B210-C3554873F37A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6FE2DB7D-4FB5-4A33-AC48-41C22DEA02A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6FE2DB7D-4FB5-4A33-AC48-41C22DEA02A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6FE2DB7D-4FB5-4A33-AC48-41C22DEA02A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6FE2DB7D-4FB5-4A33-AC48-41C22DEA02A5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D4DEE17B-27B9-4BF3-8868-76197F53EB6D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D4DEE17B-27B9-4BF3-8868-76197F53EB6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D4DEE17B-27B9-4BF3-8868-76197F53EB6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D4DEE17B-27B9-4BF3-8868-76197F53EB6D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
