@@ -39,5 +39,4 @@ namespace pbXNet
 			return new MemoryStream(Encoding.UTF8.GetBytes(src));
 		}
 	}
-
 }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
 
 namespace pbXNet
 {
@@ -13,15 +12,20 @@ namespace pbXNet
 
 		protected IFileSystem Fs;
 
-		public StorageOnFileSystem(string id, IFileSystem fs)
+		protected ISerializer Serializer;
+
+		public class SerializerNotSetException : Exception { }
+
+		public StorageOnFileSystem(string id, IFileSystem fs, ISerializer serializer = null)
 		{
 			Id = id;
 			Fs = fs;
+			Serializer = serializer;
 		}
 
-		public static async Task<StorageOnFileSystem<T>> NewAsync(string id, IFileSystem fs)
+		public static async Task<StorageOnFileSystem<T>> NewAsync(string id, IFileSystem fs, ISerializer serializer = null)
 		{
-			StorageOnFileSystem<T> o = new StorageOnFileSystem<T>(id, fs);
+			StorageOnFileSystem<T> o = new StorageOnFileSystem<T>(id, fs, serializer);
 			await o.InitializeAsync();
 			return o;
 		}
@@ -42,13 +46,16 @@ namespace pbXNet
 
 		public virtual async Task StoreAsync(string thingId, T data, DateTime modifiedOn)
 		{
+			if (Serializer == null)
+				throw new SerializerNotSetException();
+			
 			string d;
 			if (typeof(T).Equals(typeof(string)))
 				d = data.ToString();
 			else
-				d = JsonConvert.SerializeObject(data, pbXNet.Settings.JsonSerializer);
+				d = Serializer.ToString(data);
 
-			string mod = JsonConvert.SerializeObject(modifiedOn, pbXNet.Settings.JsonSerializer);
+			string mod = Serializer.ToString(modifiedOn);
 
 			IFileSystem fs = await GetFsAsync();
 			await fs.WriteTextAsync(thingId, mod + ModifiedOnSeparator + d);
@@ -71,11 +78,14 @@ namespace pbXNet
 			if (!await ExistsAsync(thingId))
 				return DateTime.MinValue;
 
+			if (Serializer == null)
+				throw new SerializerNotSetException();
+
 			IFileSystem fs = await GetFsAsync();
 			string sd = await fs.ReadTextAsync(thingId);
 			sd = sd.Substring(0, sd.IndexOf(ModifiedOnSeparator, StringComparison.Ordinal));
 
-			return JsonConvert.DeserializeObject<DateTime>(sd, pbXNet.Settings.JsonSerializer);
+			return Serializer.FromString<DateTime>(sd);
 		}
 
 		public virtual async Task<T> GetACopyAsync(string thingId)
@@ -93,7 +103,12 @@ namespace pbXNet
 			if (typeof(T).Equals(typeof(string)))
 				return (T)d;
 			else
-				return JsonConvert.DeserializeObject<T>((string)d, pbXNet.Settings.JsonSerializer);
+			{
+				if (Serializer == null)
+					throw new SerializerNotSetException();
+				
+				return Serializer.FromString<T>((string)d);
+			}
 		}
 
 		public virtual async Task<T> RetrieveAsync(string thingId)

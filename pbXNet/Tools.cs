@@ -1,27 +1,5 @@
-﻿using Newtonsoft.Json;
-
-namespace pbXNet
+﻿namespace pbXNet
 {
-	/// <summary>
-	/// Settings.
-	/// </summary>
-	public static class Settings
-	{
-
-		/// <summary>
-		/// Settings to use with JsonConvert.Serialize i Deserialize methods.
-		/// </summary>
-		public static readonly JsonSerializerSettings JsonSerializer = new JsonSerializerSettings()
-		{
-			DateTimeZoneHandling = DateTimeZoneHandling.Utc,
-			NullValueHandling = NullValueHandling.Ignore,
-			//#if DEBUG
-			//            Formatting = Formatting.Indented,
-			//#endif
-		};
-	}
-
-
 	/// <summary>
 	/// Various useful functions.
 	/// </summary>

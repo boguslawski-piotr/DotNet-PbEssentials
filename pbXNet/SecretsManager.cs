@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
 
 namespace pbXNet
 {
@@ -15,11 +14,14 @@ namespace pbXNet
 
 		protected IStorage<string> Storage { get; }
 
-		public SecretsManager(string id, ICryptographer cryptographer, IStorage<string> storage = null)
+		protected ISerializer Serializer { get; set; }
+
+		public SecretsManager(string id, ICryptographer cryptographer, IStorage<string> storage = null, ISerializer serializer = null)
 		{
 			Id = id;
 			Cryptographer = cryptographer;
 			Storage = storage;
+			Serializer = serializer;
 		}
 
 
@@ -45,23 +47,23 @@ namespace pbXNet
 
 		protected virtual async Task LoadPasswordsAsync()
 		{
-			if (Passwords.Count > 0 || Storage == null)
+			if (Passwords.Count > 0 || Storage == null || Serializer == null)
 				return;
 
 			string d = await Storage.GetACopyAsync(_PasswordsDataId);
 			if (!string.IsNullOrEmpty(d))
 			{
 				d = Obfuscator.DeObfuscate(d);
-				Passwords = JsonConvert.DeserializeObject<Dictionary<string, Password>>(d);
+				Passwords = Serializer.FromString<Dictionary<string, Password>>(d);
 			}
 		}
 
 		protected virtual async Task SavePasswordsAsync()
 		{
-			if (Storage == null)
+			if (Storage == null || Serializer == null)
 				return;
 
-			string d = JsonConvert.SerializeObject(Passwords);
+			string d = Serializer.ToString(Passwords);
 			d = Obfuscator.Obfuscate(d);
 
 			await Storage.StoreAsync(_PasswordsDataId, d, DateTime.UtcNow);
@@ -169,23 +171,23 @@ namespace pbXNet
 
 		protected virtual async Task LoadCKeysAsync()
 		{
-			if (CKeys.Count > 0 || Storage == null)
+			if (CKeys.Count > 0 || Storage == null || Serializer == null)
 				return;
 
 			string d = await Storage.GetACopyAsync(_CKeysDataId);
 			if (!string.IsNullOrEmpty(d))
 			{
 				d = Obfuscator.DeObfuscate(d);
-				CKeys = JsonConvert.DeserializeObject<IDictionary<string, byte[]>>(d);
+				CKeys = Serializer.FromString<IDictionary<string, byte[]>>(d);
 			}
 		}
 
 		protected virtual async Task SaveCKeysAsync()
 		{
-			if (Storage == null)
+			if (Storage == null || Serializer == null)
 				return;
 
-			string d = JsonConvert.SerializeObject(CKeys);
+			string d = Serializer.ToString(CKeys);
 			d = Obfuscator.Obfuscate(d);
 			// TODO: dodac szyfrowanie; haslem powinno byc cos co mozna pobrac z systemu, jest niezmienne i nie da sie wyczytac z kodu programu bez doglebnego debugowania
 
