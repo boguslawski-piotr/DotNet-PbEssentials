@@ -7,15 +7,6 @@ namespace pbXForms
 {
 	public static partial class DeviceEx
 	{
-		static string _Id
-		{
-			get {
-				string id = UIDevice.CurrentDevice.IdentifierForVendor.AsString();
-				string id2 = UIDevice.CurrentDevice.Model;
-				return id + id2;
-			}
-		}
-
 		static DeviceOrientation _Orientation
 		{
 			get {

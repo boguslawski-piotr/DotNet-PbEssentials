@@ -189,6 +189,7 @@ namespace pbXNet
 
 			string d = _serializer.ToString(_ckeys);
 			d = Obfuscator.Obfuscate(d);
+
 			// TODO: dodac szyfrowanie; haslem powinno byc cos co mozna pobrac z systemu, jest niezmienne i nie da sie wyczytac z kodu programu bez doglebnego debugowania
 
 			await _storage.StoreAsync(_ckeysDataId, d, DateTime.UtcNow);

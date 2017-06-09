@@ -15,18 +15,6 @@ namespace pbXForms
 	public static partial class DeviceEx
 	{
 		/// <summary>
-		/// Gets the unique device identifier (should be really unique accross all devices with the same operating system).
-		/// This function could be slow and it is recommended to store the results in a local/class variable.
-		/// </summary>
-		public static string Id
-		{
-			get {
-				byte[] ckey = new AesCryptographer().GenerateKey(Encoding.UTF8.GetBytes(_Id), new byte[] { 34, 56, 2, 34, 6, 87, 12, 34, 56, 11 });
-				return ConvertEx.ToHexString(ckey);
-			}
-		}
-
-		/// <summary>
 		/// Gets the device/main window (if created) orientation.
 		/// </summary>
 		public static DeviceOrientation Orientation

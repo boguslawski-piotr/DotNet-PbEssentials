@@ -75,6 +75,9 @@
     <Compile Include="..\pbXNet\iOSmacOSDroid\DeviceFileSystem.cs">
       <Link>pbXNet\iOSmacOSDroid\DeviceFileSystem.cs</Link>
     </Compile>
+    <Compile Include="..\pbXNet\macOS\Tools.cs">
+      <Link>pbXNet\macOS\Tools.cs</Link>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
