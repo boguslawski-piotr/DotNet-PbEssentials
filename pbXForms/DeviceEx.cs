@@ -3,17 +3,6 @@ using System.Text;
 using pbXNet;
 using Xamarin.Forms;
 
-#if __ANDROID__
-using Android.Content;
-using Android.Runtime;
-using Android.Views;
-#endif
-
-#if __IOS__
-using UIKit;
-using Foundation;
-#endif
-
 namespace pbXForms
 {
 	public enum DeviceOrientation
@@ -23,35 +12,16 @@ namespace pbXForms
 		Portrait
 	}
 
-	public static class DeviceEx
+	public static partial class DeviceEx
 	{
 		/// <summary>
 		/// Gets the unique device identifier (should be really unique accross all devices with the same operating system).
+		/// This function could be slow and it is recommended to store the results in a local/class variable.
 		/// </summary>
 		public static string Id
 		{
 			get {
-#if __IOS__
-				string id = UIDevice.CurrentDevice.IdentifierForVendor.AsString();
-				string id2 = UIDevice.CurrentDevice.Model;
-#endif
-#if __MACOS__
-				//Mono.Posix.Syscall ???
-
-				// TODO: DeviceEx.Id for macOS
-				string id = "1e08400f-8fe7-4565-acc2-7f8b26f98af4";
-				string id2 = "macOS";
-#endif
-#if __ANDROID__
-				string id = Android.Provider.Settings.Secure.AndroidId;
-				string id2 = "34535a7e-d8ff-4a45-99de-c8507802b498";
-#endif
-#if WINDOWS_UWP
-                // TODO: DeviceEx.Id for UWP
-                string id = "b3fea4b6-0f44-466e-96e0-ba25324671fc";
-                string id2 = "UWP";
-#endif
-				byte[] ckey = new AesCryptographer().GenerateKey(Encoding.UTF8.GetBytes(id + id2), new byte[] { 34, 56, 2, 34, 6, 87, 12, 34, 56, 11 });
+				byte[] ckey = new AesCryptographer().GenerateKey(Encoding.UTF8.GetBytes(_Id), new byte[] { 34, 56, 2, 34, 6, 87, 12, 34, 56, 11 });
 				return ConvertEx.ToHexString(ckey);
 			}
 		}
@@ -81,40 +51,8 @@ namespace pbXForms
 					}
 					return b.Width >= b.Height ? DeviceOrientation.Landscape : DeviceOrientation.Portrait;
 				}
-#if __IOS__
-				var currentDeviceOrientation = UIDevice.CurrentDevice.Orientation;
-				if (currentDeviceOrientation != UIDeviceOrientation.Unknown)
-				{
-					// TODO: czemu UIDevice.CurrentDevice.Orientation nie dziala?
-				}
 
-				var currentOrientation = UIApplication.SharedApplication.StatusBarOrientation;
-
-				bool isPortrait =
-					currentOrientation == UIInterfaceOrientation.Portrait
-					|| currentOrientation == UIInterfaceOrientation.PortraitUpsideDown;
-
-				return isPortrait ? DeviceOrientation.Portrait : DeviceOrientation.Landscape;
-#else
-#if __ANDROID__
-				IWindowManager windowManager = Android.App.Application.Context.GetSystemService(Context.WindowService).JavaCast<IWindowManager>();
-
-				var rotation = windowManager.DefaultDisplay.Rotation;
-				bool isLandscape = rotation == SurfaceOrientation.Rotation90 || rotation == SurfaceOrientation.Rotation270;
-
-				return isLandscape ? DeviceOrientation.Landscape : DeviceOrientation.Portrait;
-#else
-#if WINDOWS_UWP
-                var orientation = Windows.UI.ViewManagement.ApplicationView.GetForCurrentView().Orientation;
-                if (orientation == Windows.UI.ViewManagement.ApplicationViewOrientation.Landscape)
-                    return DeviceOrientation.Landscape;
-                return DeviceOrientation.Portrait;
-#else
-				// macOS
-				return DeviceOrientation.Landscape;
-#endif
-#endif
-#endif
+				return _Orientation;
 			}
 		}
 
@@ -125,18 +63,7 @@ namespace pbXForms
 		public static bool StatusBarVisible
 		{
 			get {
-#if __IOS__
-				return
-					Device.Idiom != TargetIdiom.Phone
-					|| DeviceEx.Orientation != DeviceOrientation.Landscape;
-#else
-#if __ANDROID__ || WINDOWS_UWP
-				return Device.Idiom != TargetIdiom.Desktop;
-#else
-				// macOS
-				return false;
-#endif
-#endif
+				return _StatusBarVisible;
 			}
 		}
 

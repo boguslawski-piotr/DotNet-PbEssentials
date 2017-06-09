@@ -113,6 +113,9 @@
     <Compile Include="..\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="..\pbXForms\Droid\DeviceEx.cs">
+      <Link>pbXForms\Droid\DeviceEx.cs</Link>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\values\Strings.xml" />
