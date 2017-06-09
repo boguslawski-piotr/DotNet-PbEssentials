@@ -26,7 +26,7 @@ namespace pbXNet
 		string _current;
 		Stack<string> _previous = new Stack<string>();
 
-		protected virtual void Initialize(string dirname = null)
+		protected virtual void Initialize()
 		{
 			switch (Root)
 			{
@@ -45,7 +45,8 @@ namespace pbXNet
 					break;
 			}
 
-			SetCurrentDirectoryAsync(dirname);
+			_current = _root;
+			_previous.Clear();
 		}
 
 		public virtual void Dispose()
@@ -63,6 +64,29 @@ namespace pbXNet
 				_previous = new Stack<string>(_previous.AsEnumerable()),
 			};
 			return Task.FromResult<IFileSystem>(fs);
+		}
+
+		string _savedRoot;
+		string _SavedCurrent;
+		Stack<string> _savedPrevious;
+
+		public virtual Task SaveStateAsync()
+		{
+			// TODO: zaimplementowac pelny stos
+			_savedRoot = _root;
+			_SavedCurrent = _current;
+			_savedPrevious = new Stack<string>(_previous.AsEnumerable());
+
+			return Task.FromResult(true);
+		}
+
+		public virtual Task RestoreStateAsync()
+		{
+			_root = _savedRoot;
+			_current = _SavedCurrent;
+			_previous = _savedPrevious;
+
+			return Task.FromResult(true);
 		}
 
 		public virtual Task SetCurrentDirectoryAsync(string dirname)
@@ -120,25 +144,29 @@ namespace pbXNet
 
 		public virtual Task CreateDirectoryAsync(string dirname)
 		{
-			string dirpath = GetFilePath(dirname);
-			DirectoryInfo dir = Directory.CreateDirectory(GetFilePath(dirpath));
-			_previous.Push(_current);
-			_current = dirpath;
+			if (!string.IsNullOrEmpty(dirname))
+			{
+				string dirpath = GetFilePath(dirname);
+				DirectoryInfo dir = Directory.CreateDirectory(GetFilePath(dirpath));
+				_previous.Push(_current);
+				_current = dirpath;
+			}
 			return Task.FromResult(true);
 		}
 
 		public virtual Task DeleteDirectoryAsync(string dirname)
 		{
-			Directory.Delete(GetFilePath(dirname));
+			if (!string.IsNullOrEmpty(dirname))
+				Directory.Delete(GetFilePath(dirname));
 			return Task.FromResult(true);
 		}
 
 		public virtual Task DeleteFileAsync(string filename)
 		{
-			File.Delete(GetFilePath(filename));
+			if (!string.IsNullOrEmpty(filename))
+				File.Delete(GetFilePath(filename));
 			return Task.FromResult(true);
 		}
-
 
 		public virtual async Task WriteTextAsync(string filename, string text)
 		{

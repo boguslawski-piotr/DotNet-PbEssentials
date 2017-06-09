@@ -14,11 +14,11 @@ namespace pbXNet
 			DeviceFileSystemRoot.Personal,
 		};
 
-		protected void Initialize(string dirname)
+		protected void Initialize()
 		{
 			// TODO: UWP DeviceFileSystem obsluzyc wiecej typow DeviceFileSystemRoot Root
 			_root = ApplicationData.Current.LocalFolder;
-			SetCurrentDirectory(dirname);
+            _current = _root;
 		}
 
 		public void Dispose()
@@ -32,8 +32,7 @@ namespace pbXNet
 
 		async public Task<IFileSystem> MakeCopyAsync()
 		{
-			DeviceFileSystem cp = new DeviceFileSystem();
-			cp.SetType(_type);
+			DeviceFileSystem cp = new DeviceFileSystem(this.Root);
 			if (_root != null)
 				cp._root = await StorageFolder.GetFolderFromPathAsync(_root.Path);
 			if (_current != null)
@@ -49,7 +48,8 @@ namespace pbXNet
 			}
 			else if (dirname == "..")
 			{
-				_current = await _current.GetParentAsync();
+				if(_current != _root)				
+				    _current = await _current.GetParentAsync();
 			}
 			else
 			{
@@ -89,7 +89,8 @@ namespace pbXNet
 
 		async public Task CreateDirectoryAsync(string dirname)
 		{
-			_current = await _current.CreateFolderAsync(dirname, CreationCollisionOption.OpenIfExists);
+			if (!string.IsNullOrEmpty(dirname)) 
+_current = await _current.CreateFolderAsync(dirname, CreationCollisionOption.OpenIfExists);
 		}
 
 		async public Task WriteTextAsync(string filename, string text)

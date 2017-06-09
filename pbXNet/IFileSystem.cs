@@ -29,6 +29,9 @@ namespace pbXNet
 		/// </summary>
 		Task<IFileSystem> MakeCopyAsync();
 
+		Task SaveStateAsync();
+		Task RestoreStateAsync();
+
 		/// <summary>
 		/// Should handle: null == root, .. == one level back.
 		/// </summary>

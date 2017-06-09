@@ -14,16 +14,16 @@ namespace pbXNet
 
 		protected ISerializer Serializer;
 
-		public class SerializerNotSetException : Exception { }
-
-		public StorageOnFileSystem(string id, IFileSystem fs, ISerializer serializer = null)
+		/// Id will be used as directory name in the root of file system.
+		/// In this directory all data will be stored.
+		public StorageOnFileSystem(string id, IFileSystem fs, ISerializer serializer)
 		{
 			Id = id;
 			Fs = fs;
 			Serializer = serializer;
 		}
 
-		public static async Task<StorageOnFileSystem<T>> NewAsync(string id, IFileSystem fs, ISerializer serializer = null)
+		public static async Task<StorageOnFileSystem<T>> NewAsync(string id, IFileSystem fs, ISerializer serializer)
 		{
 			StorageOnFileSystem<T> o = new StorageOnFileSystem<T>(id, fs, serializer);
 			await o.InitializeAsync();
@@ -35,20 +35,17 @@ namespace pbXNet
 			await Fs.SetCurrentDirectoryAsync(null);
 		}
 
-		protected async Task<IFileSystem> GetFsAsync()
+		protected virtual async Task<IFileSystem> GetFsAsync()
 		{
 			await Fs.SetCurrentDirectoryAsync(null);
 			await Fs.CreateDirectoryAsync(Id);
 			return Fs;
 		}
 
-		const string ModifiedOnSeparator = "@";
+		protected const string ModifiedOnSeparator = "@";
 
 		public virtual async Task StoreAsync(string thingId, T data, DateTime modifiedOn)
 		{
-			if (Serializer == null)
-				throw new SerializerNotSetException();
-			
 			string d;
 			if (typeof(T).Equals(typeof(string)))
 				d = data.ToString();
@@ -78,9 +75,6 @@ namespace pbXNet
 			if (!await ExistsAsync(thingId))
 				return DateTime.MinValue;
 
-			if (Serializer == null)
-				throw new SerializerNotSetException();
-
 			IFileSystem fs = await GetFsAsync();
 			string sd = await fs.ReadTextAsync(thingId);
 			sd = sd.Substring(0, sd.IndexOf(ModifiedOnSeparator, StringComparison.Ordinal));
@@ -103,12 +97,7 @@ namespace pbXNet
 			if (typeof(T).Equals(typeof(string)))
 				return (T)d;
 			else
-			{
-				if (Serializer == null)
-					throw new SerializerNotSetException();
-				
 				return Serializer.FromString<T>((string)d);
-			}
 		}
 
 		public virtual async Task<T> RetrieveAsync(string thingId)

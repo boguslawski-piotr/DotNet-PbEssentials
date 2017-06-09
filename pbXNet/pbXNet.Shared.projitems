@@ -28,6 +28,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Obfuscator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SecretsManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ISerializer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BinarySerializer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)EncryptedFileSystem.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)pbXNetT.resx">

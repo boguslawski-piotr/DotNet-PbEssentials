@@ -53,13 +53,7 @@ namespace pbXNet
 		public DeviceFileSystem(DeviceFileSystemRoot root = DeviceFileSystemRoot.Personal)
 		{
 			Root = root;
-			Initialize(null);
-		}
-
-		public DeviceFileSystem(string dirname, DeviceFileSystemRoot root = DeviceFileSystemRoot.Personal)
-		{
-			Root = root;
-			Initialize(dirname);
+			Initialize();
 		}
 
 		// You will find the rest of implementation in the platform directories...
