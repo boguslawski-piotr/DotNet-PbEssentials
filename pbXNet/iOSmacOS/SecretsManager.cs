@@ -8,13 +8,13 @@ using Foundation;
 
 namespace pbXNet
 {
-	public partial class SecretsManager : ISecretsManager
+	public sealed partial class SecretsManager : ISecretsManager
 	{
 		public void Initialize(object param)
 		{
 		}
 
-		bool DeviceOwnerAuthenticationAvailable
+		bool DOAuthenticationAvailable
 		{
 			get {
 				var context = new LAContext();
@@ -22,7 +22,7 @@ namespace pbXNet
 			}
 		}
 
-		bool DeviceOwnerBiometricsAuthenticationAvailable
+		bool DOBiometricsAuthenticationAvailable
 		{
 			get {
 				var context = new LAContext();
@@ -33,9 +33,9 @@ namespace pbXNet
 		public DOAuthentication AvailableDOAuthentication
 		{
 			get {
-				if (DeviceOwnerBiometricsAuthenticationAvailable)
+				if (DOBiometricsAuthenticationAvailable)
 					return DOAuthentication.Fingerprint;
-				if (DeviceOwnerAuthenticationAvailable)
+				if (DOAuthenticationAvailable)
 					return DOAuthentication.Password;
 				return DOAuthentication.None;
 			}

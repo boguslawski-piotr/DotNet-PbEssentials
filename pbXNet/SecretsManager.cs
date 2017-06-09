@@ -6,22 +6,22 @@ using System.Threading.Tasks;
 
 namespace pbXNet
 {
-	public partial class SecretsManager : ISecretsManager
+	public sealed partial class SecretsManager : ISecretsManager
 	{
 		public string Id { get; }
 
-		protected ICryptographer Cryptographer { get; }
+		ICryptographer _cryptographer { get; }
 
-		protected IStorage<string> Storage { get; }
+		IStorage<string> _storage { get; }
 
-		protected ISerializer Serializer { get; set; }
+		ISerializer _serializer { get; }
 
 		public SecretsManager(string id, ICryptographer cryptographer, IStorage<string> storage = null, ISerializer serializer = null)
 		{
 			Id = id;
-			Cryptographer = cryptographer;
-			Storage = storage;
-			Serializer = serializer;
+			_cryptographer = cryptographer;
+			_storage = storage;
+			_serializer = serializer;
 		}
 
 
@@ -33,40 +33,40 @@ namespace pbXNet
 		// No password is ever written anywhere
 
 		[Serializable]
-		protected class Password
+		class Password
 		{
 			public byte[] iv;
 			public byte[] data;
 		};
 
-		protected IDictionary<string, Password> Passwords = new Dictionary<string, Password>();
+		IDictionary<string, Password> _passwords = new Dictionary<string, Password>();
 
 		// TODO: Exceptions/Errors handling
 
-		const string _PasswordsDataId = "12b77038229d4f8f941b8465cb132c03";
+		const string _passwordsDataId = ".12b77038229d4f8f941b8465cb132c03";
 
-		protected virtual async Task LoadPasswordsAsync()
+		async Task LoadPasswordsAsync()
 		{
-			if (Passwords.Count > 0 || Storage == null || Serializer == null)
+			if (_passwords.Count > 0 || _storage == null || _serializer == null)
 				return;
 
-			string d = await Storage.GetACopyAsync(_PasswordsDataId);
+			string d = await _storage.GetACopyAsync(_passwordsDataId);
 			if (!string.IsNullOrEmpty(d))
 			{
 				d = Obfuscator.DeObfuscate(d);
-				Passwords = Serializer.FromString<Dictionary<string, Password>>(d);
+				_passwords = _serializer.FromString<Dictionary<string, Password>>(d);
 			}
 		}
 
-		protected virtual async Task SavePasswordsAsync()
+		async Task SavePasswordsAsync()
 		{
-			if (Storage == null || Serializer == null)
+			if (_storage == null || _serializer == null)
 				return;
 
-			string d = Serializer.ToString(Passwords);
+			string d = _serializer.ToString(_passwords);
 			d = Obfuscator.Obfuscate(d);
 
-			await Storage.StoreAsync(_PasswordsDataId, d, DateTime.UtcNow);
+			await _storage.StoreAsync(_passwordsDataId, d, DateTime.UtcNow);
 		}
 
 		const string _phrase = "Life is short. Smile while you still have teeth :)";
@@ -75,7 +75,7 @@ namespace pbXNet
 		public async Task<bool> PasswordExistsAsync(string id)
 		{
 			await LoadPasswordsAsync();
-			return Passwords.ContainsKey(id);
+			return _passwords.ContainsKey(id);
 		}
 
 		public async Task AddOrUpdatePasswordAsync(string id, char[] passwd)
@@ -100,18 +100,18 @@ namespace pbXNet
 			await LoadPasswordsAsync();
 
 			Password _password;
-			if (!Passwords.TryGetValue(id, out _password))
+			if (!_passwords.TryGetValue(id, out _password))
 			{
 				_password = new Password()
 				{
-					iv = Cryptographer.GenerateIV()
+					iv = _cryptographer.GenerateIV()
 				};
 			}
 
-			byte[] ckey = Cryptographer.GenerateKey(passwd, _salt);
-			_password.data = Cryptographer.Encrypt(Encoding.UTF8.GetBytes(_phrase), ckey, _password.iv);
+			byte[] ckey = _cryptographer.GenerateKey(passwd, _salt);
+			_password.data = _cryptographer.Encrypt(Encoding.UTF8.GetBytes(_phrase), ckey, _password.iv);
 
-			Passwords[id] = _password;
+			_passwords[id] = _password;
 
 			SavePasswordsAsync();
 		}
@@ -120,7 +120,7 @@ namespace pbXNet
 		{
 			if (await PasswordExistsAsync(id))
 			{
-				Passwords.Remove(id);
+				_passwords.Remove(id);
 				SavePasswordsAsync();
 			}
 		}
@@ -146,11 +146,11 @@ namespace pbXNet
 			await LoadPasswordsAsync();
 
 			Password _password;
-			if (!Passwords.TryGetValue(id, out _password))
+			if (!_passwords.TryGetValue(id, out _password))
 				return false;
 
-			byte[] ckey = Cryptographer.GenerateKey(passwd, _salt);
-			byte[] ddata = Cryptographer.Decrypt(_password.data, ckey, _password.iv);
+			byte[] ckey = _cryptographer.GenerateKey(passwd, _salt);
+			byte[] ddata = _cryptographer.Decrypt(_password.data, ckey, _password.iv);
 
 			return ddata.SequenceEqual(Encoding.UTF8.GetBytes(_phrase));
 		}
@@ -158,40 +158,40 @@ namespace pbXNet
 
 		// Cryptographic keys, encryption and decryption
 
-		protected class TemporaryCKey
+		class TemporaryCKey
 		{
 			public CKeyLifeTime lifeTime;
 			public byte[] ckey;
 		}
 
-		protected IDictionary<string, byte[]> CKeys = new Dictionary<string, byte[]>();
-		protected IDictionary<string, TemporaryCKey> TemporaryCKeys = new Dictionary<string, TemporaryCKey>();
+		IDictionary<string, byte[]> _ckeys = new Dictionary<string, byte[]>();
+		IDictionary<string, TemporaryCKey> _temporaryCKeys = new Dictionary<string, TemporaryCKey>();
 
-		const string _CKeysDataId = "d46ee950276f4665aefa06cb2ee6b35e";
+		const string _ckeysDataId = ".d46ee950276f4665aefa06cb2ee6b35e";
 
-		protected virtual async Task LoadCKeysAsync()
+		async Task LoadCKeysAsync()
 		{
-			if (CKeys.Count > 0 || Storage == null || Serializer == null)
+			if (_ckeys.Count > 0 || _storage == null || _serializer == null)
 				return;
 
-			string d = await Storage.GetACopyAsync(_CKeysDataId);
+			string d = await _storage.GetACopyAsync(_ckeysDataId);
 			if (!string.IsNullOrEmpty(d))
 			{
 				d = Obfuscator.DeObfuscate(d);
-				CKeys = Serializer.FromString<IDictionary<string, byte[]>>(d);
+				_ckeys = _serializer.FromString<IDictionary<string, byte[]>>(d);
 			}
 		}
 
-		protected virtual async Task SaveCKeysAsync()
+		async Task SaveCKeysAsync()
 		{
-			if (Storage == null || Serializer == null)
+			if (_storage == null || _serializer == null)
 				return;
 
-			string d = Serializer.ToString(CKeys);
+			string d = _serializer.ToString(_ckeys);
 			d = Obfuscator.Obfuscate(d);
 			// TODO: dodac szyfrowanie; haslem powinno byc cos co mozna pobrac z systemu, jest niezmienne i nie da sie wyczytac z kodu programu bez doglebnego debugowania
 
-			await Storage.StoreAsync(_CKeysDataId, d, DateTime.UtcNow);
+			await _storage.StoreAsync(_ckeysDataId, d, DateTime.UtcNow);
 		}
 
 		public async Task<byte[]> CreateCKeyAsync(string id, CKeyLifeTime lifeTime, string passwd)
@@ -215,20 +215,20 @@ namespace pbXNet
 			if (id == null)
 				return null;
 
-			byte[] ckey = Cryptographer.GenerateKey(passwd, _salt);
+			byte[] ckey = _cryptographer.GenerateKey(passwd, _salt);
 
 			if (lifeTime == CKeyLifeTime.Infinite)
 			{
 				await LoadCKeysAsync();
 
-				CKeys[id] = ckey;
+				_ckeys[id] = ckey;
 
 				await SaveCKeysAsync();
 			}
 			else
 			{
 				if (lifeTime != CKeyLifeTime.OneTime)
-					TemporaryCKeys[id] = new TemporaryCKey() { lifeTime = lifeTime, ckey = ckey };
+					_temporaryCKeys[id] = new TemporaryCKey() { lifeTime = lifeTime, ckey = ckey };
 			}
 
 			return ckey;
@@ -236,13 +236,13 @@ namespace pbXNet
 
 		public async Task<byte[]> GetCKeyAsync(string id)
 		{
-			if (TemporaryCKeys.TryGetValue(id, out TemporaryCKey ckey))
+			if (_temporaryCKeys.TryGetValue(id, out TemporaryCKey ckey))
 				return ckey.ckey;
 
 			await LoadCKeysAsync();
 
 			ckey = new TemporaryCKey();
-			if (CKeys.TryGetValue(id, out ckey.ckey))
+			if (_ckeys.TryGetValue(id, out ckey.ckey))
 				return ckey.ckey;
 
 			return null;
@@ -250,33 +250,33 @@ namespace pbXNet
 
 		public async Task DeleteCKeyAsync(string id)
 		{
-			if (TemporaryCKeys.ContainsKey(id))
-				TemporaryCKeys.Remove(id);
+			if (_temporaryCKeys.ContainsKey(id))
+				_temporaryCKeys.Remove(id);
 
 			await LoadCKeysAsync();
 
-			if (CKeys.ContainsKey(id))
+			if (_ckeys.ContainsKey(id))
 			{
-				CKeys.Remove(id);
+				_ckeys.Remove(id);
 				await SaveCKeysAsync();
 			}
 		}
 
 		public async Task<string> EncryptAsync(string data, byte[] ckey, byte[] iv)
 		{
-			byte[] edata = Cryptographer.Encrypt(Encoding.UTF8.GetBytes(data), ckey, iv);
+			byte[] edata = _cryptographer.Encrypt(Encoding.UTF8.GetBytes(data), ckey, iv);
 			return ConvertEx.ToHexString(edata);
 		}
 
 		public async Task<string> DecryptAsync(string data, byte[] ckey, byte[] iv)
 		{
-			byte[] ddata = Cryptographer.Decrypt(data.FromHexString(), ckey, iv);
+			byte[] ddata = _cryptographer.Decrypt(data.FromHexString(), ckey, iv);
 			return Encoding.UTF8.GetString(ddata, 0, ddata.Length);
 		}
 
 		public byte[] GenerateIV()
 		{
-			return Cryptographer.GenerateIV();
+			return _cryptographer.GenerateIV();
 		}
 	}
 }
