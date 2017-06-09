@@ -24,14 +24,18 @@ namespace pbXNet
 				src[n] = null;
 		}
 
-		public static T[] MakeACopy<T>(this T[] src)
+		public static void FillWith<T>(this T[] src, T v)
 		{
-			return Array.ConvertAll<T, T>(src, (i) => i);
-			//T[] dst = { };
-			//Array.Resize<T>(ref dst, src.Length);
-			//Array.Copy(src, dst, src.Length);
-			//return dst;
+			for (int n = 0; n < src.Length; n++)
+				src[n] = v;
 		}
+
+		public static string ToHexString(this byte[] src)
+		{
+			string d = ConvertEx.ToHexString(src);
+			return d;
+		}
+
 	}
 
 	/// <summary>
@@ -67,7 +71,7 @@ namespace pbXNet
 				l.Sort();
 			else
 				l.Sort(comparison);
-
+			
 			for (var i = 0; i < l.Count; i++)
 			{
 				var oldIndex = observableCollection.IndexOf(l[i]);
@@ -75,26 +79,6 @@ namespace pbXNet
 				if (oldIndex != newIndex)
 					observableCollection.Move(oldIndex, newIndex);
 			}
-		}
-
-		public static IOrderedEnumerable<T> OrderBy<T, K>(this ObservableCollection<T> observableCollection, Func<T, K> keySelector)
-		{
-			return Enumerable.OrderBy(observableCollection, keySelector);
-		}
-
-		public static IOrderedEnumerable<T> OrderBy<T, K>(this ObservableCollection<T> observableCollection, Func<T, K> keySelector, IComparer<K> comparer)
-		{
-			return Enumerable.OrderBy(observableCollection, keySelector, comparer);
-		}
-
-		public static IOrderedEnumerable<T> OrderByDescending<T, K>(this ObservableCollection<T> observableCollection, Func<T, K> keySelector)
-		{
-			return Enumerable.OrderByDescending(observableCollection, keySelector);
-		}
-
-		public static IOrderedEnumerable<T> OrderByDescending<T, K>(this ObservableCollection<T> observableCollection, Func<T, K> keySelector, IComparer<K> comparer)
-		{
-			return Enumerable.OrderByDescending(observableCollection, keySelector, comparer);
 		}
 	}
 

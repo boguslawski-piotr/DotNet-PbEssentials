@@ -14,6 +14,11 @@ namespace pbXNet
 			return s;
 		}
 
+		public static string ToHexString(MemoryStream src)
+		{
+			return ToHexString(src.ToArray());
+		}
+
 		public static byte[] FromHexString(string d)
 		{
 			byte[] da = new byte[d.Length / 2];
@@ -29,14 +34,14 @@ namespace pbXNet
 			return Encoding.UTF8.GetString(src.ToArray(), 0, (int)src.Length);
 		}
 
-		public static byte[] ToByteArray(string src)
+		public static byte[] ToByteArray(string d)
 		{
-			return Encoding.UTF8.GetBytes(src);
+			return Encoding.UTF8.GetBytes(d);
 		}
 
-		public static MemoryStream ToMemoryStream(string src)
+		public static MemoryStream ToMemoryStream(string d)
 		{
-			return new MemoryStream(Encoding.UTF8.GetBytes(src));
+			return new MemoryStream(Encoding.UTF8.GetBytes(d));
 		}
 	}
 }
