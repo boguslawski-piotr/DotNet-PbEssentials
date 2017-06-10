@@ -319,8 +319,6 @@ namespace pbXForms
 
 		protected override void OnSizeAllocated(double width, double height)
 		{
-			//Debug.WriteLine($"MasterDetailPageEx: OnSizeAllocated: w: {width}, h: {height}");
-
 			base.OnSizeAllocated(width, height);
 
 			if (MasterView == null)
