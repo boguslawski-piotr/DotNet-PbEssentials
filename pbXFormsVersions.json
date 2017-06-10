@@ -11,34 +11,12 @@
 		]
 	},
 	{
-		"FileName": "pbXForms/pbXForms.Shared.shproj",
-		"Entries": [
-			{
-				"Pattern": "<ReleaseVersion>\\s*([0-9]+)\\.([0-9]+)\\.([0-9]+)\\.([0-9]+)\\s*</ReleaseVersion>"
-			}
-		]
-
-	},
-	{
-		"FileName": "pbXForms.Droid/pbXForms.Droid.csproj",
-		"Entries": [
-			{
-				"Pattern": "<ReleaseVersion>\\s*([0-9]+)\\.([0-9]+)\\.([0-9]+)\\.([0-9]+)\\s*</ReleaseVersion>"
-			}
-		]
-
-	},
-	{
-		"FileName": "pbXForms.iOS/pbXForms.iOS.csproj",
-		"Entries": [
-			{
-				"Pattern": "<ReleaseVersion>\\s*([0-9]+)\\.([0-9]+)\\.([0-9]+)\\.([0-9]+)\\s*</ReleaseVersion>"
-			}
-		]
-
-	},
-	{
-		"FileName": "pbXForms.macOS/pbXForms.macOS.csproj",
+		"FileNames": [
+			"pbXForms.Droid/pbXForms.Droid.csproj",
+			"pbXForms.iOS/pbXForms.iOS.csproj",
+			"pbXForms.macOS/pbXForms.macOS.csproj",
+			"pbXForms/pbXForms.Shared.shproj",
+		],
 		"Entries": [
 			{
 				"Pattern": "<ReleaseVersion>\\s*([0-9]+)\\.([0-9]+)\\.([0-9]+)\\.([0-9]+)\\s*</ReleaseVersion>"
