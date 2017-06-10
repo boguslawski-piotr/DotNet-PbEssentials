@@ -41,7 +41,7 @@ namespace pbXNet
 					}
 					catch (System.Exception ex)
 					{
-						Debug.WriteLine($"SecretsManager: DOBiometricsAuthenticationAvailable: exception: {ex}");
+						Log.E(ex.Message, this);
 					}
 				}
 				return false;
@@ -139,7 +139,7 @@ namespace pbXNet
 					byte[] doFinalResult = result.CryptoObject.Cipher.DoFinal(SECRET_BYTES);
 					_Success();
 
-					Debug.WriteLine($"SecretsManager: FingerprintAuthCallbacks: Fingerprint authentication succeeded, DoFinal results: {Convert.ToBase64String(doFinalResult)}");
+					Log.I($"DoFinal results: {Convert.ToBase64String(doFinalResult)}", this);
 				}
 				catch (BadPaddingException bpe)
 				{
@@ -154,20 +154,20 @@ namespace pbXNet
 			{
 				_Success();
 
-				Debug.WriteLine($"SecretsManager: FingerprintAuthCallbacks: Fingerprint authentication succeeded.");
+				Log.I("", this);
 			}
 		}
 
 		public override void OnAuthenticationHelp(int helpMsgId, ICharSequence helpString)
 		{
-			Debug.WriteLine($"SecretsManager: FingerprintAuthCallbacks: OnAuthenticationHelp: {helpMsgId}: {helpString.ToString()}");
+			Log.D($"{helpMsgId}: {helpString.ToString()}", this);
 
 			_ErrorOrHint(helpString.ToString(), true);
 		}
 
 		public override void OnAuthenticationFailed()
 		{
-			Debug.WriteLine($"SecretsManager: FingerprintAuthCallbacks: OnAuthenticationFailed");
+			Log.E("", this);
 
 			_ErrorOrHint(T.Localized("FingerprintAuthenticationFailed"), true);
 		}
@@ -179,7 +179,7 @@ namespace pbXNet
 
 		new void OnAuthenticationError(int errMsgId, string errString)
 		{
-			Debug.WriteLine($"SecretsManager: FingerprintAuthCallbacks: OnAuthenticationError: {errMsgId}: {errString}");
+			Log.E($"{errMsgId}: {errString}", this);
 
 			if (errMsgId != (int)FingerprintState.ErrorCanceled)
 				_ErrorOrHint(errString.ToString(), false);
@@ -232,7 +232,7 @@ namespace pbXNet
 			}
 			catch (KeyPermanentlyInvalidatedException e)
 			{
-				Debug.WriteLine($"SecretsManager: CryptoObjectHelper: The key was invalidated, creating a new key.");
+				Log.I($"the key was invalidated, creating a new key", this);
 
 				_keystore.DeleteEntry(KEY_NAME);
 				if (retry)
@@ -241,6 +241,7 @@ namespace pbXNet
 				}
 				else
 				{
+					Log.E(e.Message, this);
 					throw new System.Exception("Could not create the cipher for fingerprint authentication.", e);
 				}
 			}
@@ -277,7 +278,7 @@ namespace pbXNet
 			keyGen.Init(keyGenSpec);
 			keyGen.GenerateKey();
 
-			Debug.WriteLine($"SecretsManager: CryptoObjectHelper: New key created for fingerprint authentication.");
+			Log.I($"new key created for fingerprint authentication", this);
 		}
 	}
 }

@@ -45,7 +45,7 @@ namespace pbXNet
 		{
 			if (context.CanEvaluatePolicy(policy, out NSError error))
 			{
-				Debug.WriteLine($"SecretsManager: _AuthenticateDeviceOwner: policy: {policy}");
+				Log.D($"policy: {policy}", this);
 
 				var replyHandler = new LAContextReplyHandler((bool success, NSError _error) =>
 				{
@@ -53,13 +53,13 @@ namespace pbXNet
 					{
 						if (success)
 						{
-							Debug.WriteLine($"SecretsManager: _AuthenticateDeviceOwner: success");
+							Log.I("success", this);
 
 							Success();
 						}
 						else
 						{
-							Debug.WriteLine($"SecretsManager: _AuthenticateDeviceOwner: error: {_error}");
+							Log.E(_error.ToString(), this);
 
 							if (_error.Code == Convert.ToInt32(LAStatus.UserFallback)
 								&& policy == LAPolicy.DeviceOwnerAuthenticationWithBiometrics)
@@ -79,7 +79,7 @@ namespace pbXNet
 			}
 			else
 			{
-				Debug.WriteLine($"SecretsManager: _AuthenticateDeviceOwner: (policy: {policy}), error: {error}");
+				Log.E($"(policy: {policy}), error: {error}", this);
 			}
 
 			return false;

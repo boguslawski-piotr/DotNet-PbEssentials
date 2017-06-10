@@ -46,7 +46,7 @@ namespace pbXNet
 				}
 				catch (Exception ex)
 				{
-					Debug.WriteLine($"AesCryptographer: Encrypt: error: {ex.Message}");
+					Log.E(ex.Message, this);
 					return new byte[0];
 				}
 			}
@@ -73,7 +73,7 @@ namespace pbXNet
 				}
 				catch (Exception ex)
 				{
-					Debug.WriteLine($"AesCryptographer: Decrypt: error: {ex.Message}");
+					Log.E(ex.Message, this);
 					return new byte[0];
 				}
 			}

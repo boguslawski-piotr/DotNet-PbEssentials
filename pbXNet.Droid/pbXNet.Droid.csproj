@@ -102,6 +102,9 @@
     <Compile Include="..\pbXNet\Droid\Tools.cs">
       <Link>pbXNet\Droid\Tools.cs</Link>
     </Compile>
+    <Compile Include="..\pbXNet\Droid\Log.cs">
+      <Link>pbXNet\Droid\Log.cs</Link>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

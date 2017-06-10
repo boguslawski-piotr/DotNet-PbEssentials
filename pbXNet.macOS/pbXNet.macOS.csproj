@@ -78,6 +78,9 @@
     <Compile Include="..\pbXNet\macOS\Tools.cs">
       <Link>pbXNet\macOS\Tools.cs</Link>
     </Compile>
+    <Compile Include="..\pbXNet\iOSmacOS\Log.cs">
+      <Link>pbXNet\iOSmacOS\Log.cs</Link>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
