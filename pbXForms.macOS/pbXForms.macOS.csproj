@@ -11,6 +11,8 @@
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <TargetFrameworkIdentifier>Xamarin.Mac</TargetFrameworkIdentifier>
     <MonoMacResourcePrefix>Resources</MonoMacResourcePrefix>
+    <ReleaseVersion>1.0.0.0</ReleaseVersion>
+    <SynchReleaseVersion>false</SynchReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -62,12 +64,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="..\CommonAssemblyInfo.cs">
-      <Link>Properties\CommonAssemblyInfo.cs</Link>
-    </Compile>
     <Compile Include="..\pbXForms\macOS\DeviceEx.cs">
       <Link>pbXForms\macOS\DeviceEx.cs</Link>
+    </Compile>
+    <Compile Include="..\pbXForms\pbXForms.AssemblyInfo.cs">
+      <Link>Properties\pbXForms.AssemblyInfo.cs</Link>
     </Compile>
   </ItemGroup>
   <ItemGroup>

@@ -15,7 +15,7 @@
     <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
     <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
     <AndroidUseLatestPlatformSdk>true</AndroidUseLatestPlatformSdk>
-    <ReleaseVersion>1.0.0</ReleaseVersion>
+    <ReleaseVersion>1.0.0.0</ReleaseVersion>
     <SynchReleaseVersion>false</SynchReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -109,12 +109,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Resources\Resource.designer.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="..\CommonAssemblyInfo.cs">
-      <Link>Properties\CommonAssemblyInfo.cs</Link>
-    </Compile>
     <Compile Include="..\pbXForms\Droid\DeviceEx.cs">
       <Link>pbXForms\Droid\DeviceEx.cs</Link>
+    </Compile>
+    <Compile Include="..\pbXForms\pbXForms.AssemblyInfo.cs">
+      <Link>Properties\pbXForms.AssemblyInfo.cs</Link>
     </Compile>
   </ItemGroup>
   <ItemGroup>

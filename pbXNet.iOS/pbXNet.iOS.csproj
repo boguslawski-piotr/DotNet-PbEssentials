@@ -9,7 +9,7 @@
     <RootNamespace>pbXNet</RootNamespace>
     <AssemblyName>pbXNet</AssemblyName>
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
-    <ReleaseVersion>1.0.0</ReleaseVersion>
+    <ReleaseVersion>1.0.0.0</ReleaseVersion>
     <SynchReleaseVersion>false</SynchReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -54,10 +54,6 @@
     <Folder Include="Resources\" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="..\CommonAssemblyInfo.cs">
-      <Link>Properties\CommonAssemblyInfo.cs</Link>
-    </Compile>
     <Compile Include="..\pbXNet\iOSmacOS\Locale.cs">
       <Link>pbXNet\iOSmacOS\Locale.cs</Link>
     </Compile>
@@ -75,6 +71,9 @@
     </Compile>
     <Compile Include="..\pbXNet\iOSmacOS\Log.cs">
       <Link>pbXNet\iOSmacOS\Log.cs</Link>
+    </Compile>
+    <Compile Include="..\pbXNet\pbXNet.AssemblyInfo.cs">
+      <Link>Properties\pbXNet.AssemblyInfo.cs</Link>
     </Compile>
   </ItemGroup>
   <ItemGroup>
