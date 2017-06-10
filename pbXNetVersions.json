@@ -1,0 +1,49 @@
+[
+	{
+		"FileName": "pbXNet/pbXNet.AssemblyInfo.cs",
+		"Entries": [
+			{
+				"Pattern": "AssemblyVersion\\(\"([0-9]+)\\.([0-9]+)\\.([0-9]+)\\.([0-9*]+)\"\\)"
+			},
+			{
+				"Pattern": "AssemblyFileVersion\\(\"([0-9]+)\\.([0-9]+)\\.([0-9]+)\\.([0-9*]+)\"\\)"
+			}
+		]
+	},
+	{
+		"FileName": "pbXNet/pbXNet.Shared.shproj",
+		"Entries": [
+			{
+				"Pattern": "<ReleaseVersion>\\s*([0-9]+)\\.([0-9]+)\\.([0-9]+)\\.([0-9]+)\\s*</ReleaseVersion>"
+			}
+		]
+
+	},
+	{
+		"FileName": "pbXNet.Droid/pbXNet.Droid.csproj",
+		"Entries": [
+			{
+				"Pattern": "<ReleaseVersion>\\s*([0-9]+)\\.([0-9]+)\\.([0-9]+)\\.([0-9]+)\\s*</ReleaseVersion>"
+			}
+		]
+
+	},
+	{
+		"FileName": "pbXNet.iOS/pbXNet.iOS.csproj",
+		"Entries": [
+			{
+				"Pattern": "<ReleaseVersion>\\s*([0-9]+)\\.([0-9]+)\\.([0-9]+)\\.([0-9]+)\\s*</ReleaseVersion>"
+			}
+		]
+
+	},
+	{
+		"FileName": "pbXNet.macOS/pbXNet.macOS.csproj",
+		"Entries": [
+			{
+				"Pattern": "<ReleaseVersion>\\s*([0-9]+)\\.([0-9]+)\\.([0-9]+)\\.([0-9]+)\\s*</ReleaseVersion>"
+			}
+		]
+
+	},
+]
