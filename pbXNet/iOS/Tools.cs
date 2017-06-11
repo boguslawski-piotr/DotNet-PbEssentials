@@ -9,8 +9,8 @@ namespace pbXNet
 		static string _Uaqpid
 		{
 			get {
-				string id = UIDevice.CurrentDevice.IdentifierForVendor.AsString();
-				string id2 = UIDevice.CurrentDevice.Model;
+				string id = UIDevice.CurrentDevice?.IdentifierForVendor?.AsString();
+				string id2 = UIDevice.CurrentDevice?.Model;
 				return id + id2;
 			}
 		}

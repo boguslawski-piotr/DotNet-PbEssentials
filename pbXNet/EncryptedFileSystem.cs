@@ -44,7 +44,7 @@ namespace pbXNet
 			_cryptographer = cryptographer;
 		}
 
-		public async Task InitializeAsync()
+		public virtual async Task InitializeAsync()
 		{
 			if (_ckey != null && _iv != null)
 				return;
@@ -89,17 +89,17 @@ namespace pbXNet
 			_cryptographer = null;
 		}
 
-		public async Task<IFileSystem> MakeCopyAsync()
+		public Task<IFileSystem> MakeCopyAsync()
 		{
 			throw new NotSupportedException();
 		}
 
-		public virtual async Task SaveStateAsync()
+		public async Task SaveStateAsync()
 		{
 			await _fs.SaveStateAsync();
 		}
 
-		public virtual async Task RestoreStateAsync()
+		public async Task RestoreStateAsync()
 		{
 			await _fs.RestoreStateAsync();
 		}
@@ -144,7 +144,7 @@ namespace pbXNet
 			await _fs.DeleteFileAsync(filename);
 		}
 
-		public async Task<string> ReadTextAsync(string filename)
+		public virtual async Task<string> ReadTextAsync(string filename)
 		{
 			// TODO: dodac sprawdzanie czy jestesmy poza katalogiem o nazwie Id i jezeli tak, to nie odszyfrowywac
 			string text = await _fs.ReadTextAsync(filename);
@@ -156,7 +156,7 @@ namespace pbXNet
 			return Encoding.UTF8.GetString(dtext, 0, dtext.Length);
 		}
 
-		public async Task WriteTextAsync(string filename, string text)
+		public virtual async Task WriteTextAsync(string filename, string text)
 		{
 			// TODO: dodac sprawdzanie czy jestesmy poza katalogiem o nazwie Id i jezeli tak, to nie szyfrowac
 

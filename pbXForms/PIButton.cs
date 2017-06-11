@@ -226,7 +226,4 @@ namespace pbXForms
 
 		}
 	}
-
-	[Obsolete("FlatButton is obsolete. Please use PIButton (as Platform Independent Button) instead.")]
-	public class FlatButton : PIButton { }
 }

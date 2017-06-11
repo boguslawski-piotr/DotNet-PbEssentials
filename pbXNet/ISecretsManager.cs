@@ -33,12 +33,9 @@ namespace pbXNet
 	/// </summary>
 	public interface ISecretsManager
 	{
-		//
-
 		string Id { get; }
 
 		void Initialize(object param);
-
 
 		// Basic device owner authentication (pin, passkey, biometrics, etc.)
 
@@ -48,7 +45,6 @@ namespace pbXNet
 		bool CanDOAuthenticationBeCanceled();
 		void CancelDOAuthentication();
 
-
 		// Basic authentication based on passwords
 		// Implementation should never store any password anywhere in any form
 
@@ -57,12 +53,12 @@ namespace pbXNet
 		Task AddOrUpdatePasswordAsync(string id, byte[] passwd);
 
 		Task<bool> PasswordExistsAsync(string id);
+
 		Task DeletePasswordAsync(string id);
 
 		Task<bool> ComparePasswordAsync(string id, string passwd);
 		Task<bool> ComparePasswordAsync(string id, char[] passwd);
 		Task<bool> ComparePasswordAsync(string id, byte[] passwd);
-
 
 		// Cryptographic keys, encryption and decryption
 
@@ -71,11 +67,16 @@ namespace pbXNet
 		Task<byte[]> CreateCKeyAsync(string id, CKeyLifeTime lifeTime, byte[] passwd);
 
 		Task<byte[]> GetCKeyAsync(string id);
+
 		Task DeleteCKeyAsync(string id);
 
+		string Encrypt(string data, byte[] ckey, byte[] iv);
 		Task<string> EncryptAsync(string data, byte[] ckey, byte[] iv);
+
+		string Decrypt(string data, byte[] ckey, byte[] iv);
 		Task<string> DecryptAsync(string data, byte[] ckey, byte[] iv);
 
 		byte[] GenerateIV();
+		Task<byte[]> GenerateIVAsync();
 	}
 }

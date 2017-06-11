@@ -92,6 +92,8 @@ namespace pbXNet
 			bpasswd.FillWithDefault();
 		}
 
+#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
+
 		public async Task AddOrUpdatePasswordAsync(string id, byte[] passwd)
 		{
 			if (id == null)
@@ -110,6 +112,7 @@ namespace pbXNet
 
 			byte[] ckey = _cryptographer.GenerateKey(passwd, _salt);
 			_password.data = _cryptographer.Encrypt(Encoding.UTF8.GetBytes(_phrase), ckey, _password.iv);
+			ckey.FillWithDefault();
 
 			_passwords[id] = _password;
 
@@ -124,6 +127,8 @@ namespace pbXNet
 				SavePasswordsAsync();
 			}
 		}
+
+#pragma warning restore CS4014
 
 		public async Task<bool> ComparePasswordAsync(string id, char[] passwd)
 		{
@@ -151,6 +156,7 @@ namespace pbXNet
 
 			byte[] ckey = _cryptographer.GenerateKey(passwd, _salt);
 			byte[] ddata = _cryptographer.Decrypt(_password.data, ckey, _password.iv);
+			ckey.FillWithDefault();
 
 			return ddata.SequenceEqual(Encoding.UTF8.GetBytes(_phrase));
 		}
@@ -252,32 +258,51 @@ namespace pbXNet
 		public async Task DeleteCKeyAsync(string id)
 		{
 			if (_temporaryCKeys.ContainsKey(id))
+			{
+				_temporaryCKeys[id].ckey?.FillWithDefault();
 				_temporaryCKeys.Remove(id);
+			}
 
 			await LoadCKeysAsync();
 
 			if (_ckeys.ContainsKey(id))
 			{
+				_ckeys[id]?.FillWithDefault();
 				_ckeys.Remove(id);
 				await SaveCKeysAsync();
 			}
 		}
 
-		public async Task<string> EncryptAsync(string data, byte[] ckey, byte[] iv)
+		public string Encrypt(string data, byte[] ckey, byte[] iv)
 		{
 			byte[] edata = _cryptographer.Encrypt(Encoding.UTF8.GetBytes(data), ckey, iv);
 			return ConvertEx.ToHexString(edata);
 		}
 
-		public async Task<string> DecryptAsync(string data, byte[] ckey, byte[] iv)
+		public async Task<string> EncryptAsync(string data, byte[] ckey, byte[] iv)
+		{
+			return await Task.Run(() => Encrypt(data, ckey, iv));
+		}
+
+		public string Decrypt(string data, byte[] ckey, byte[] iv)
 		{
 			byte[] ddata = _cryptographer.Decrypt(data.FromHexString(), ckey, iv);
 			return Encoding.UTF8.GetString(ddata, 0, ddata.Length);
 		}
 
+		public async Task<string> DecryptAsync(string data, byte[] ckey, byte[] iv)
+		{
+			return await Task.Run(() => Decrypt(data, ckey, iv));
+		}
+
 		public byte[] GenerateIV()
 		{
 			return _cryptographer.GenerateIV();
+		}
+
+		public async Task<byte[]> GenerateIVAsync()
+		{
+			return await Task.Run(() => GenerateIV());
 		}
 	}
 }

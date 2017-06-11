@@ -15,6 +15,8 @@ namespace pbXNet
 			Thread.CurrentThread.CurrentUICulture = ci;
 		}
 
+#pragma warning disable CS0168
+
 		public CultureInfo GetCurrentCultureInfo()
 		{
 			var netLanguage = "en";
@@ -47,7 +49,9 @@ namespace pbXNet
 
 			return ci;
 		}
-
+		
+#pragma warning restore CS0168
+		
 		string iOSToDotnetLanguage(string iOSLanguage)
 		{
 			var netLanguage = iOSLanguage;

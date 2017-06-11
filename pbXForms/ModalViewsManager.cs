@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using pbXNet;
 using Xamarin.Forms;
 
 namespace pbXForms
@@ -66,6 +67,8 @@ namespace pbXForms
 			AbsoluteLayout.SetLayoutBounds(view, new Rectangle(0, 0, 1, 1));
 		}
 
+#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
+
 		public virtual void OnSizeAllocated(double width, double height)
 		{
 			foreach (var m in ModalsStack)
@@ -73,6 +76,8 @@ namespace pbXForms
 				AnimateModalAsync(m, false, false);
 			}
 		}
+
+#pragma warning restore CS4014
 
 		public virtual async Task<bool> DisplayModalAsync(ModalContentView content, ModalPosition position = ModalPosition.Center, bool animate = true)
 		{
@@ -92,6 +97,7 @@ namespace pbXForms
 			}
 			catch (TaskCanceledException ex)
 			{
+				Log.D(ex.Message, this);
 			}
 
 			await PopModalAsync();
