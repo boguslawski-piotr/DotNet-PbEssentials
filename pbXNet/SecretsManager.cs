@@ -32,33 +32,36 @@ namespace pbXNet
 		// Basic authentication based on passwords
 		// No password is ever written anywhere
 
+		// TODO: jakas lepsza nazwa(y)
 		[Serializable]
-		class Password
+		class EncryptedPassword
 		{
 			public byte[] iv;
 			public byte[] data;
 		};
 
-		IDictionary<string, Password> _passwords = new Dictionary<string, Password>();
+		IDictionary<string, EncryptedPassword> _passwords = new Dictionary<string, EncryptedPassword>();
 
 		// TODO: Exceptions/Errors handling
 
 		const string _passwordsDataId = ".12b77038229d4f8f941b8465cb132c03";
 
-		async Task LoadPasswordsAsync()
+		void LoadPasswords()
 		{
 			if (_passwords.Count > 0 || _storage == null || _serializer == null)
 				return;
 
-			string d = await _storage.GetACopyAsync(_passwordsDataId);
+			// TODO: async as sync -> sprawdzic wyjatki i czy na pewno jest to ok rozwiazanie
+			string d = Task.Run(async () => await _storage.GetACopyAsync(_passwordsDataId)).GetAwaiter().GetResult();
+			//string d = await _storage.GetACopyAsync(_passwordsDataId);
 			if (!string.IsNullOrEmpty(d))
 			{
 				d = Obfuscator.DeObfuscate(d);
-				_passwords = _serializer.FromString<Dictionary<string, Password>>(d);
+				_passwords = _serializer.FromString<Dictionary<string, EncryptedPassword>>(d);
 			}
 		}
 
-		async Task SavePasswordsAsync()
+		void SavePasswords()
 		{
 			if (_storage == null || _serializer == null)
 				return;
@@ -66,45 +69,29 @@ namespace pbXNet
 			string d = _serializer.ToString(_passwords);
 			d = Obfuscator.Obfuscate(d);
 
-			await _storage.StoreAsync(_passwordsDataId, d, DateTime.UtcNow);
+			_storage.StoreAsync(_passwordsDataId, d, DateTime.UtcNow);
 		}
 
 		const string _phrase = "Life is short. Smile while you still have teeth :)";
 		readonly byte[] _salt = { 0x43, 0x87, 0x23, 0x72, 0x45, 0x56, 0x68, 0x14, 0x62, 0x84 };
 
-		public async Task<bool> PasswordExistsAsync(string id)
+		public bool PasswordExists(string id)
 		{
-			await LoadPasswordsAsync();
+			LoadPasswords();
 			return _passwords.ContainsKey(id);
 		}
 
-		public async Task AddOrUpdatePasswordAsync(string id, char[] passwd)
-		{
-			byte[] bpasswd = Encoding.UTF8.GetBytes(passwd);
-			await AddOrUpdatePasswordAsync(id, bpasswd);
-			bpasswd.FillWithDefault();
-		}
-
-		public async Task AddOrUpdatePasswordAsync(string id, string passwd)
-		{
-			byte[] bpasswd = Encoding.UTF8.GetBytes(passwd);
-			await AddOrUpdatePasswordAsync(id, bpasswd);
-			bpasswd.FillWithDefault();
-		}
-
-#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
-
-		public async Task AddOrUpdatePasswordAsync(string id, byte[] passwd)
+		public void AddOrUpdatePassword(string id, Password passwd)
 		{
 			if (id == null)
 				return;
 
-			await LoadPasswordsAsync();
+			LoadPasswords();
 
-			Password _password;
+			EncryptedPassword _password;
 			if (!_passwords.TryGetValue(id, out _password))
 			{
-				_password = new Password()
+				_password = new EncryptedPassword()
 				{
 					iv = _cryptographer.GenerateIV()
 				};
@@ -116,41 +103,23 @@ namespace pbXNet
 
 			_passwords[id] = _password;
 
-			SavePasswordsAsync();
+			SavePasswords();
 		}
 
-		public async Task DeletePasswordAsync(string id)
+		public void DeletePassword(string id)
 		{
-			if (await PasswordExistsAsync(id))
+			if (PasswordExists(id))
 			{
 				_passwords.Remove(id);
-				SavePasswordsAsync();
+				SavePasswords();
 			}
 		}
 
-#pragma warning restore CS4014
-
-		public async Task<bool> ComparePasswordAsync(string id, char[] passwd)
+		public bool ComparePassword(string id, Password passwd)
 		{
-			byte[] bpasswd = Encoding.UTF8.GetBytes(passwd);
-			bool b = await ComparePasswordAsync(id, bpasswd);
-			bpasswd.FillWithDefault();
-			return b;
-		}
+			LoadPasswords();
 
-		public async Task<bool> ComparePasswordAsync(string id, string passwd)
-		{
-			byte[] bpasswd = Encoding.UTF8.GetBytes(passwd);
-			bool b = await ComparePasswordAsync(id, bpasswd);
-			bpasswd.FillWithDefault();
-			return b;
-		}
-
-		public async Task<bool> ComparePasswordAsync(string id, byte[] passwd)
-		{
-			await LoadPasswordsAsync();
-
-			Password _password;
+			EncryptedPassword _password;
 			if (!_passwords.TryGetValue(id, out _password))
 				return false;
 
@@ -175,12 +144,14 @@ namespace pbXNet
 
 		const string _ckeysDataId = ".d46ee950276f4665aefa06cb2ee6b35e";
 
-		async Task LoadCKeysAsync()
+		void LoadCKeys()
 		{
 			if (_ckeys.Count > 0 || _storage == null || _serializer == null)
 				return;
 
-			string d = await _storage.GetACopyAsync(_ckeysDataId);
+			// TODO: async as sync -> sprawdzic wyjatki i czy na pewno jest to ok rozwiazanie
+			string d = Task.Run(async () => await _storage.GetACopyAsync(_ckeysDataId)).GetAwaiter().GetResult();
+			//string d = await _storage.GetACopyAsync(_ckeysDataId);
 			if (!string.IsNullOrEmpty(d))
 			{
 				d = Obfuscator.DeObfuscate(d);
@@ -188,7 +159,7 @@ namespace pbXNet
 			}
 		}
 
-		async Task SaveCKeysAsync()
+		void SaveCKeys()
 		{
 			if (_storage == null || _serializer == null)
 				return;
@@ -198,26 +169,10 @@ namespace pbXNet
 
 			// TODO: dodac szyfrowanie; haslem powinno byc cos co mozna pobrac z systemu, jest niezmienne i nie da sie wyczytac z kodu programu bez doglebnego debugowania
 
-			await _storage.StoreAsync(_ckeysDataId, d, DateTime.UtcNow);
+			_storage.StoreAsync(_ckeysDataId, d, DateTime.UtcNow);
 		}
 
-		public async Task<byte[]> CreateCKeyAsync(string id, CKeyLifeTime lifeTime, string passwd)
-		{
-			byte[] bpasswd = Encoding.UTF8.GetBytes(passwd);
-			byte[] ckey = await CreateCKeyAsync(id, lifeTime, bpasswd);
-			bpasswd.FillWithDefault();
-			return ckey;
-		}
-
-		public async Task<byte[]> CreateCKeyAsync(string id, CKeyLifeTime lifeTime, char[] passwd)
-		{
-			byte[] bpasswd = Encoding.UTF8.GetBytes(passwd);
-			byte[] ckey = await CreateCKeyAsync(id, lifeTime, bpasswd);
-			bpasswd.FillWithDefault();
-			return ckey;
-		}
-
-		public async Task<byte[]> CreateCKeyAsync(string id, CKeyLifeTime lifeTime, byte[] passwd)
+		public byte[] CreateCKey(string id, CKeyLifeTime lifeTime, Password passwd)
 		{
 			if (id == null)
 				return null;
@@ -226,11 +181,11 @@ namespace pbXNet
 
 			if (lifeTime == CKeyLifeTime.Infinite)
 			{
-				await LoadCKeysAsync();
+				LoadCKeys();
 
 				_ckeys[id] = ckey;
 
-				await SaveCKeysAsync();
+				SaveCKeys();
 			}
 			else
 			{
@@ -241,12 +196,12 @@ namespace pbXNet
 			return ckey;
 		}
 
-		public async Task<byte[]> GetCKeyAsync(string id)
+		public byte[] GetCKey(string id)
 		{
 			if (_temporaryCKeys.TryGetValue(id, out TemporaryCKey ckey))
 				return ckey.ckey;
 
-			await LoadCKeysAsync();
+			LoadCKeys();
 
 			ckey = new TemporaryCKey();
 			if (_ckeys.TryGetValue(id, out ckey.ckey))
@@ -255,7 +210,7 @@ namespace pbXNet
 			return null;
 		}
 
-		public async Task DeleteCKeyAsync(string id)
+		public void DeleteCKey(string id)
 		{
 			if (_temporaryCKeys.ContainsKey(id))
 			{
@@ -263,13 +218,13 @@ namespace pbXNet
 				_temporaryCKeys.Remove(id);
 			}
 
-			await LoadCKeysAsync();
+			LoadCKeys();
 
 			if (_ckeys.ContainsKey(id))
 			{
 				_ckeys[id]?.FillWithDefault();
 				_ckeys.Remove(id);
-				await SaveCKeysAsync();
+				SaveCKeys();
 			}
 		}
 
@@ -279,30 +234,15 @@ namespace pbXNet
 			return ConvertEx.ToHexString(edata);
 		}
 
-		public async Task<string> EncryptAsync(string data, byte[] ckey, byte[] iv)
-		{
-			return await Task.Run(() => Encrypt(data, ckey, iv));
-		}
-
 		public string Decrypt(string data, byte[] ckey, byte[] iv)
 		{
 			byte[] ddata = _cryptographer.Decrypt(data.FromHexString(), ckey, iv);
 			return Encoding.UTF8.GetString(ddata, 0, ddata.Length);
 		}
 
-		public async Task<string> DecryptAsync(string data, byte[] ckey, byte[] iv)
-		{
-			return await Task.Run(() => Decrypt(data, ckey, iv));
-		}
-
 		public byte[] GenerateIV()
 		{
 			return _cryptographer.GenerateIV();
-		}
-
-		public async Task<byte[]> GenerateIVAsync()
-		{
-			return await Task.Run(() => GenerateIV());
 		}
 	}
 }

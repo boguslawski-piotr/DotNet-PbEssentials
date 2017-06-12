@@ -14,6 +14,11 @@ namespace pbXNet
 			return s;
 		}
 
+		public static string ToHexString(char[] d)
+		{
+			return ToHexString(Encoding.UTF8.GetBytes(d));
+		}
+
 		public static string ToHexString(MemoryStream src)
 		{
 			return ToHexString(src.ToArray());

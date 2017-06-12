@@ -16,15 +16,9 @@ namespace pbXNet
 		IFileSystem _fs;
 		ICryptographer _cryptographer;
 
-		byte[] _pwd;
+		Password _passwd;
 		byte[] _ckey;
 		byte[] _iv;
-
-		public enum CKeyType
-		{
-			Password,
-			CKey,
-		}
 
 		/// Id will be used as directory name in the root of file system. 
 		/// The data in this directory (and in all subdirectories) will be encrypted. 
@@ -33,13 +27,18 @@ namespace pbXNet
 		/// IMPORTANT NOTE: 
 		/// Passed pwd or ckey is / can be completely cleaned (zeros) as soon as possible / at an unspecified moment.
 		/// You should not use this data anymore after it was passed to the EncryptedFileSystem class constructor.
-		public EncryptedFileSystem(string id, IFileSystem fs, ICryptographer cryptographer, CKeyType cKeyType, byte[] ckey)
+		public EncryptedFileSystem(string id, IFileSystem fs, ICryptographer cryptographer, byte[] ckey)
 		{
 			Id = id;
-			if (cKeyType == CKeyType.Password)
-				_pwd = ckey;
-			else
-				_ckey = ckey;
+			_ckey = ckey;
+			_fs = fs;
+			_cryptographer = cryptographer;
+		}
+
+		public EncryptedFileSystem(string id, IFileSystem fs, ICryptographer cryptographer, Password passwd)
+		{
+			Id = id;
+			_passwd = passwd;
 			_fs = fs;
 			_cryptographer = cryptographer;
 		}
@@ -72,19 +71,20 @@ namespace pbXNet
 			}
 
 			if (_ckey == null)
-				_ckey = _cryptographer.GenerateKey(_pwd, _iv);
+				_ckey = _cryptographer.GenerateKey(_passwd, _iv);
 
-			_pwd?.FillWithDefault();
+			_passwd?.Clear(true);
 
 			await _fs.RestoreStateAsync();
 		}
 
 		public void Dispose()
 		{
-			_pwd?.FillWithDefault();
+			_passwd?.Clear(true);
 			_ckey?.FillWithDefault();
 			_iv?.FillWithDefault();
-			_pwd = _ckey = _iv = null;
+			_passwd = null;
+			_ckey = _iv = null;
 			_fs = null;
 			_cryptographer = null;
 		}

@@ -5,16 +5,10 @@ namespace pbXNet
 {
 	public interface ICompressor
 	{
-		MemoryStream Compress(Stream from);
-		Task<MemoryStream> CompressAsync(Stream from);
-
-		MemoryStream Decompress(Stream from);
-		Task<MemoryStream> DecompressAsync(Stream from);
+		T Compress<T>(Stream from) where T: Stream, new();
+		T Decompress<T>(Stream from) where T : Stream, new();
 
 		string Compress(string d, bool returnAsBase64 = false);
-		Task<string> CompressAsync(string d, bool returnAsBase64 = false);
-
 		string Decompress(string d, bool fromBase64 = false);
-		Task<string> DecompressAsync(string d, bool fromBase64 = false);
 	}
 }

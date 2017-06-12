@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-
-namespace pbXNet
+﻿namespace pbXNet
 {
 	public static class Obfuscator
 	{
@@ -10,16 +8,10 @@ namespace pbXNet
 			return compressor.Compress(d, true);
 		}
 
-		public static async Task<string> ObfuscateAsync(string d)
-			=> await Task.Run(() => Obfuscate(d));
-
 		public static string DeObfuscate(string d)
 		{
 			ICompressor compressor = new DeflateCompressor();
 			return compressor.Decompress(d, true);
 		}
-
-		static public async Task<string> DeObfuscateAsync(string d)
-			=> await Task.Run(() => DeObfuscate(d));
 	}
 }

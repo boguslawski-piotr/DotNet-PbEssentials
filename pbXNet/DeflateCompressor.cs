@@ -7,9 +7,9 @@ namespace pbXNet
 {
 	public class DeflateCompressor : ICompressor
 	{
-		public MemoryStream Compress(Stream from)
+		public T Compress<T>(Stream from) where T : Stream, new()
 		{
-			MemoryStream to = new MemoryStream((int)from.Length);
+			T to = new T();
 			using (DeflateStream via = new DeflateStream(to, CompressionMode.Compress, true))
 			{
 				from.Position = 0;
@@ -18,12 +18,9 @@ namespace pbXNet
 			return to;
 		}
 
-		public async Task<MemoryStream> CompressAsync(Stream from)
-			=> await Task.Run(() => Compress(from));
-
-		public MemoryStream Decompress(Stream from)
+		public T Decompress<T>(Stream from) where T : Stream, new()
 		{
-			MemoryStream to = new MemoryStream((int)from.Length * 2);
+			T to = new T();
 			using (DeflateStream via = new DeflateStream(from, CompressionMode.Decompress, true))
 			{
 				from.Position = 0;
@@ -32,13 +29,10 @@ namespace pbXNet
 			return to;
 		}
 
-		public async Task<MemoryStream> DecompressAsync(Stream from)
-			=> await Task.Run(() => Decompress(from));
-
 		public string Compress(string d, bool returnAsBase64 = false)
 		{
 			// Compress stream...
-			MemoryStream dcs = Compress(ConvertEx.ToMemoryStream(d));
+			MemoryStream dcs = Compress<MemoryStream>(ConvertEx.ToMemoryStream(d));
 			dcs.Position = 0;
 			byte[] dca = dcs.ToArray();
 			dcs.Dispose();
@@ -51,14 +45,11 @@ namespace pbXNet
 			return d;
 		}
 
-		public async Task<string> CompressAsync(string d, bool returnAsBase64 = false)
-			=> await Task.Run(() => Compress(d, returnAsBase64));
-
 		public string Decompress(string d, bool fromBase64 = false)
 		{
 			// Decompress...
 			MemoryStream dms = new MemoryStream(!fromBase64 ? ConvertEx.FromHexString(d) : Convert.FromBase64String(d));
-			MemoryStream dcs = Decompress(dms);
+			MemoryStream dcs = Decompress<MemoryStream>(dms);
 
 			// Build string to return...
 			dcs.Position = 0;
@@ -68,10 +59,6 @@ namespace pbXNet
 			dms.Dispose();
 			return d;
 		}
-
-		public async Task<string> DecompressAsync(string d, bool fromBase64 = false)
-			=> await Task.Run(() => Decompress(d, fromBase64));
-
 	}
 }
 

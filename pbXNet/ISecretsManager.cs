@@ -48,35 +48,21 @@ namespace pbXNet
 		// Basic authentication based on passwords
 		// Implementation should never store any password anywhere in any form
 
-		Task AddOrUpdatePasswordAsync(string id, string passwd);
-		Task AddOrUpdatePasswordAsync(string id, char[] passwd);
-		Task AddOrUpdatePasswordAsync(string id, byte[] passwd);
+		void AddOrUpdatePassword(string id, Password passwd);
+		bool PasswordExists(string id);
+		void DeletePassword(string id);
 
-		Task<bool> PasswordExistsAsync(string id);
-
-		Task DeletePasswordAsync(string id);
-
-		Task<bool> ComparePasswordAsync(string id, string passwd);
-		Task<bool> ComparePasswordAsync(string id, char[] passwd);
-		Task<bool> ComparePasswordAsync(string id, byte[] passwd);
+		bool ComparePassword(string id, Password passwd);
 
 		// Cryptographic keys, encryption and decryption
 
-		Task<byte[]> CreateCKeyAsync(string id, CKeyLifeTime lifeTime, string passwd);
-		Task<byte[]> CreateCKeyAsync(string id, CKeyLifeTime lifeTime, char[] passwd);
-		Task<byte[]> CreateCKeyAsync(string id, CKeyLifeTime lifeTime, byte[] passwd);
-
-		Task<byte[]> GetCKeyAsync(string id);
-
-		Task DeleteCKeyAsync(string id);
+		byte[] CreateCKey(string id, CKeyLifeTime lifeTime, Password passwd);
+		byte[] GetCKey(string id);
+		void DeleteCKey(string id);
 
 		string Encrypt(string data, byte[] ckey, byte[] iv);
-		Task<string> EncryptAsync(string data, byte[] ckey, byte[] iv);
-
 		string Decrypt(string data, byte[] ckey, byte[] iv);
-		Task<string> DecryptAsync(string data, byte[] ckey, byte[] iv);
 
 		byte[] GenerateIV();
-		Task<byte[]> GenerateIVAsync();
 	}
 }

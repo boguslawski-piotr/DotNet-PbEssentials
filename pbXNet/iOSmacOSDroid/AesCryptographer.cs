@@ -9,13 +9,15 @@ namespace pbXNet
 {
 	public partial class AesCryptographer : ICryptographer
 	{
-		public byte[] GenerateKey(byte[] pwd, byte[] salt, int length = 32)
+		public byte[] GenerateKey(Password pwd, byte[] salt, int length = 32)
 		{
 			PasswordDeriveBytes pdb = new PasswordDeriveBytes(pwd, salt)
 			{
 				IterationCount = 10000
 			};
-			return pdb.GetBytes(length);
+			byte[] key = pdb.GetBytes(length);
+			pwd.Clear(false);
+			return key;
 		}
 
 		public byte[] GenerateIV(int length = 16)
@@ -27,14 +29,12 @@ namespace pbXNet
 
 		public byte[] Encrypt(byte[] msg, byte[] key, byte[] iv)
 		{
-			// algoritm
-			AesManaged objAlg = new AesManaged();
+			AesManaged objAlg = new AesManaged()
+			{
+				Key = key,
+				IV = iv
+			};
 
-			// prepare
-			objAlg.Key = key;
-			objAlg.IV = iv;
-
-			// encrypt using streams
 			using (MemoryStream sMsgEncrypted = new MemoryStream())
 			{
 				CryptoStream csEncrypt = new CryptoStream(sMsgEncrypted, objAlg.CreateEncryptor(), CryptoStreamMode.Write);
@@ -54,14 +54,12 @@ namespace pbXNet
 
 		public byte[] Decrypt(byte[] msg, byte[] key, byte[] iv)
 		{
-			// algoritm
-			AesManaged objAlg = new AesManaged();
+			AesManaged objAlg = new AesManaged()
+			{
+				Key = key,
+				IV = iv
+			};
 
-			// prepare
-			objAlg.Key = key;
-			objAlg.IV = iv;
-
-			// decrypt using streams
 			using (MemoryStream sMsgDecrypted = new MemoryStream())
 			{
 				CryptoStream csDecrypt = new CryptoStream(sMsgDecrypted, objAlg.CreateDecryptor(), CryptoStreamMode.Write);

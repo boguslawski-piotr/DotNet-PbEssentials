@@ -36,6 +36,11 @@ namespace pbXNet
 			return d;
 		}
 
+		public static string ToHexString(this char[] src)
+		{
+			string d = ConvertEx.ToHexString(src);
+			return d;
+		}
 	}
 
 	/// <summary>
