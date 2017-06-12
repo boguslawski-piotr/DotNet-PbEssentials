@@ -15,8 +15,8 @@ namespace pbXForms
 		public PIButton OKBtn => _okBtn;
 		public DigitBtnsArray DigitBtns;
 
-		char[] _pin = { };
-		public char[] Pin => _pin;
+		Password _pin = new Password();
+		public Password Pin => _pin;
 
 		Grid _grid => (Content as Grid);
 
@@ -28,9 +28,7 @@ namespace pbXForms
 
 		public void Reset()
 		{
-			// Remove data from memory
-			_pin?.FillWithDefault();
-			_pin = new char[] { };
+			_pin.Clear(true);
 			UpdatePinVisualization();
 		}
 
@@ -59,8 +57,7 @@ namespace pbXForms
 		{
 			if (sender is PIButton btn)
 			{
-				Array.Resize<char>(ref _pin, _pin.Length + 1);
-				_pin[_pin.Length - 1] = ((string)btn.CommandParameter)[0];
+				_pin += ((string)btn.CommandParameter)[0];
 				UpdatePinVisualization();
 			}
 		}
@@ -69,7 +66,7 @@ namespace pbXForms
 		{
 			if (_pin.Length > 0)
 			{
-				Array.Resize<char>(ref _pin, _pin.Length - 1);
+				_pin.RemoveLast();
 				UpdatePinVisualization();
 			}
 		}
