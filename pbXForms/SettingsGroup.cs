@@ -5,39 +5,29 @@ using Xamarin.Forms;
 
 namespace pbXForms
 {
-	public class SettingsGroupHeader : StackLayout
-	{
-	}
+	public class SettingsGroupHeader : StackLayout { }
 
-	public class SettingsGroupText : Label
-	{
-	}
+	public class SettingsGroupText : Label { }
 
-	public class SettingsGroupDesc : Label
-	{
-	}
+	public class SettingsGroupDesc : Label { }
 
-	public class SettingsGroupContent : StackLayout
-	{
-	}
+	public class SettingsGroupContent : StackLayout { }
 
 	public class SettingsGroupCollapsedExpandedImage : Image { }
 
-	[ContentProperty("_GroupContent")]
+	[ContentProperty("_Content")]
 	public class SettingsGroup : StackLayout
 	{
-		SettingsGroupHeader _HeaderFrame;
+		protected SettingsGroupHeader _HeaderLayout;
+		protected SettingsGroupHeader _Header;
+		protected SettingsGroupText _HeaderText;
+		protected SettingsGroupDesc _HeaderDesc;
+		protected SettingsGroupCollapsedExpandedImage _HeaderCollapsedExpandedImage;
 
-		SettingsGroupHeader _Header;
-		SettingsGroupText _HeaderText;
-		SettingsGroupDesc _HeaderDesc;
+		protected SettingsGroupContent _ContentLayout;
+		protected IList<View> _Content => _ContentLayout.Children;
 
-		SettingsGroupCollapsedExpandedImage _HeaderCollapsedExpandedImage;
-
-		SettingsGroupContent _Content;
-		IList<View> _GroupContent => _Content.Children;
-
-		SettingsLineSeparator _Separator;
+		protected SettingsLineSeparator _Separator;
 
 		public string Text
 		{
@@ -48,24 +38,23 @@ namespace pbXForms
 		public string Desc
 		{
 			get => _HeaderDesc?.Text;
-			set
-			{
+			set {
 				_HeaderDesc.Text = value;
 				_HeaderDesc.IsVisible = true;
 			}
 		}
 
-		public bool Separator {
+		public bool Separator
+		{
 			get => _Separator.IsVisible;
 			set => _Separator.IsVisible = value;
 		}
 
 		public bool IsCollapsed
 		{
-			get => !_Content.IsVisible;
-			set
-			{
-				_Content.IsVisible = !value;
+			get => !_ContentLayout.IsVisible;
+			set {
+				_ContentLayout.IsVisible = !value;
 				_HeaderCollapsedExpandedImage.Rotation = value ? 0 : 90;
 			}
 		}
@@ -77,7 +66,7 @@ namespace pbXForms
 			Margin = new Thickness(0);
 			Spacing = 0;
 
-			_HeaderFrame = new SettingsGroupHeader()
+			_HeaderLayout = new SettingsGroupHeader()
 			{
 				Orientation = StackOrientation.Horizontal,
 				Spacing = Metrics.ButtonItemsSpacing,
@@ -87,7 +76,7 @@ namespace pbXForms
 
 			TapGestureRecognizer tgr = new TapGestureRecognizer();
 			tgr.Command = new Command(OnTapped);
-			_HeaderFrame.GestureRecognizers.Add(tgr);
+			_HeaderLayout.GestureRecognizers.Add(tgr);
 
 			_Header = new SettingsGroupHeader()
 			{
@@ -115,10 +104,10 @@ namespace pbXForms
 
 			_HeaderCollapsedExpandedImage = new SettingsGroupCollapsedExpandedImage();
 
-			_HeaderFrame.Children.Add(_Header);
-			_HeaderFrame.Children.Add(_HeaderCollapsedExpandedImage);
+			_HeaderLayout.Children.Add(_Header);
+			_HeaderLayout.Children.Add(_HeaderCollapsedExpandedImage);
 
-			_Content = new SettingsGroupContent()
+			_ContentLayout = new SettingsGroupContent()
 			{
 				Orientation = StackOrientation.Vertical,
 				Padding = new Thickness(0),
@@ -128,22 +117,25 @@ namespace pbXForms
 
 			_Separator = new SettingsLineSeparator();
 
-			Children.Add(_HeaderFrame);
-			Children.Add(_Content);
+			Children.Add(_HeaderLayout);
+			Children.Add(_ContentLayout);
 			Children.Add(_Separator);
 		}
 
-		async void OnTapped(object parameter)
-		{
 #pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
-			_HeaderCollapsedExpandedImage.RotateTo(IsCollapsed ? 90 : 0, DeviceEx.AnimationsLength);
-#pragma warning restore CS4014
+
+		protected virtual async void OnTapped(object parameter)
+		{
+			_HeaderCollapsedExpandedImage?.RotateTo(IsCollapsed ? 90 : 0, DeviceEx.AnimationsLength);
 
 			await _Header.FadeTo(0.25, (uint)(DeviceEx.AnimationsLength * 0.50), Easing.CubicOut);
 
-			_Content.IsVisible = !_Content.IsVisible;
+			_ContentLayout.IsVisible = !_ContentLayout.IsVisible;
 
 			await _Header.FadeTo(1, (uint)(DeviceEx.AnimationsLength * 0.50), Easing.CubicIn);
 		}
+
+#pragma warning restore CS4014
+
 	}
 }

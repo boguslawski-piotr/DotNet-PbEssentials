@@ -2,25 +2,19 @@
 
 namespace pbXForms
 {
-	public class SettingsControl : StackLayout
-	{
-	}
+	public class SettingsControl : StackLayout { }
 
-	public class SettingsControlText : Label
-	{
-	}
+	public class SettingsControlText : Label { }
 
-	public class SettingsControlDesc : Label
-	{
-	}
+	public class SettingsControlDesc : Label { }
 
 	public class SettingsControlWithDesc : StackLayout
 	{
-		protected SettingsControl _Control;
+		protected SettingsControl _ControlLayout;
+		protected SettingsControlText _ControlText;
 
-		SettingsControlText _ControlText;
-		SettingsControlDesc _ControlDesc;
-		SettingsLineSeparator _Separator;
+		protected SettingsControlDesc _Desc;
+		protected SettingsLineSeparator _Separator;
 
 		public string Text
 		{
@@ -30,11 +24,10 @@ namespace pbXForms
 
 		public string Desc
 		{
-			get => _ControlDesc?.Text;
-			set
-			{
-				_ControlDesc.Text = value;
-				_ControlDesc.IsVisible = true;
+			get => _Desc?.Text;
+			set {
+				_Desc.Text = value;
+				_Desc.IsVisible = true;
 				_Separator.IsVisible = false;
 			}
 		}
@@ -48,16 +41,15 @@ namespace pbXForms
 		public new bool IsEnabled
 		{
 			get => _ControlText.IsEnabled;
-			set
-			{
+			set {
 				base.IsEnabled = value;
 
-				_Control.IsEnabled = value;
+				_ControlLayout.IsEnabled = value;
 				_ControlText.IsEnabled = value;
-				_ControlDesc.IsEnabled = value;
+				_Desc.IsEnabled = value;
 
 				_ControlText.Opacity = value ? 1 : 0.25;
-				_ControlDesc.Opacity = _ControlText.Opacity;
+				_Desc.Opacity = _ControlText.Opacity;
 			}
 		}
 
@@ -68,7 +60,7 @@ namespace pbXForms
 			Margin = new Thickness(0);
 			Spacing = 0;
 
-			_Control = new SettingsControl()
+			_ControlLayout = new SettingsControl()
 			{
 				Orientation = StackOrientation.Horizontal,
 				Padding = new Thickness(Metrics.ButtonItemsSpacing, Metrics.ButtonItemsSpacing),
@@ -83,9 +75,9 @@ namespace pbXForms
 				Text = this.Text,
 			};
 
-			_Control.Children.Add(_ControlText);
+			_ControlLayout.Children.Add(_ControlText);
 
-			_ControlDesc = new SettingsControlDesc()
+			_Desc = new SettingsControlDesc()
 			{
 				FontSize = Device.GetNamedSize(NamedSize.Micro, typeof(Label)),
 				Margin = new Thickness(Metrics.ButtonItemsSpacing, Metrics.ButtonItemsSpacing / 4, Metrics.ButtonItemsSpacing, Metrics.ButtonItemsSpacing * 2),
@@ -97,8 +89,8 @@ namespace pbXForms
 				Margin = new Thickness(Metrics.ButtonItemsSpacing, 0, 0, 0),
 			};
 
-			Children.Add(_Control);
-			Children.Add(_ControlDesc);
+			Children.Add(_ControlLayout);
+			Children.Add(_Desc);
 			Children.Add(_Separator);
 		}
 	}

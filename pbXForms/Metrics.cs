@@ -12,8 +12,7 @@ namespace pbXForms
 		public static double StatusBarHeight = 24;
 #else
 #if WINDOWS_UWP
-        // TODO: for Phone and Desktop
-		public static double StatusBarHeight = 0;
+		public static double StatusBarHeight = Device.Idiom == TargetIdiom.Desktop ? 0 : StatusBar.GetForCurrentView().OccludedRect.Height;
 #else
 		public static double StatusBarHeight = 0;
 #endif
@@ -34,11 +33,13 @@ namespace pbXForms
 
 		public static Thickness ScreenEdgePadding = new Thickness(ScreenEdgeMargin, ScreenEdgeMargin);
 
+
 		public static double AppBarHeightPortrait = 56;
 		public static double AppBarHeightLandscape = 48;
 
 		public static double ToolBarHeightPortrait = 56;
 		public static double ToolBarHeightLandscape = 48;
+
 
 		public static double ToolBarItemsSpacing = 16;
 
@@ -51,6 +52,5 @@ namespace pbXForms
 
 		public static double ListItemHeight = 56;
 		public static Int32 ListItemHeightInt32 = (Int32)ListItemHeight;
-
 	}
 }

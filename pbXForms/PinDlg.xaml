@@ -33,7 +33,7 @@
 
 		</Grid.RowDefinitions>
 
-		<pbXForms:ContentViewExContentLayout
+		<pbXForms:ContentViewViewLayout
 			x:Name = "_titleAndPinBar"
 			Grid.Row = "0"
 			Grid.Column = "0"
@@ -53,7 +53,7 @@
 				HorizontalOptions = "FillAndExpand"
 				Text = " " />
 
-		</pbXForms:ContentViewExContentLayout>
+		</pbXForms:ContentViewViewLayout>
 
 		<pbXForms:PIButton
 			Grid.Row = "1"

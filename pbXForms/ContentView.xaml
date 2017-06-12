@@ -1,14 +1,14 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<pbXForms:ModalContentView
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<pbXForms:BaseContentView
 	xmlns = "http://xamarin.com/schemas/2014/forms"
 	xmlns:x = "http://schemas.microsoft.com/winfx/2009/xaml"
 	xmlns:pbXForms = "clr-namespace:pbXForms;assembly=pbXForms"
-	x:Class = "pbXForms.ContentViewEx">
+	x:Class = "pbXForms.ContentView">
 
 	<AbsoluteLayout
 		x:Name = "_Layout">
 
-		<pbXForms:ContentViewExLayout
+		<pbXForms:ContentViewLayout
 			x:Name = "_ContentLayout">
 
 			<pbXForms:AppBarLayout
@@ -18,12 +18,12 @@
 
 			</pbXForms:AppBarLayout>
 
-			<pbXForms:ContentViewExContentLayout
+			<pbXForms:ContentViewViewLayout
 				Grid.Row = "1"
 				Grid.Column = "0"
-				x:Name = "_ContentRow">
+				x:Name = "_ViewRow">
 
-			</pbXForms:ContentViewExContentLayout>
+			</pbXForms:ContentViewViewLayout>
 
 			<pbXForms:ToolBarLayout
 				Grid.Row = "2"
@@ -32,8 +32,8 @@
 
 			</pbXForms:ToolBarLayout>
 
-		</pbXForms:ContentViewExLayout>
+		</pbXForms:ContentViewLayout>
 
 	</AbsoluteLayout>
 
-</pbXForms:ModalContentView>
+</pbXForms:BaseContentView>

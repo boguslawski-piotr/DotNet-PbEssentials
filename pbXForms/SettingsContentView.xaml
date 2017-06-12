@@ -10,21 +10,21 @@
 		x:Name = "_ContentLayout">
 
 		<pbXForms:AppBarLayout
-			x:Name = "_HeaderRow"
+			x:Name = "_AppBarRow"
 			Grid.Row = "0"
 			Grid.Column="0">
 
 		</pbXForms:AppBarLayout>
 
 		<ScrollView
-			x:Name = "_ContentRowScroller"
+			x:Name = "_ViewRowScroller"
 			Margin="0"
 			Padding="0"
 			Grid.Row = "1"
 			Grid.Column="0">
 
 			<StackLayout
-				x:Name = "_ContentRow"
+				x:Name = "_ViewRow"
 				Orientation = "Vertical"
 				VerticalOptions = "StartAndExpand"
 				HorizontalOptions = "FillAndExpand"
@@ -37,7 +37,7 @@
 		</ScrollView>
 
 		<pbXForms:ToolBarLayout
-			x:Name = "_FooterRow"
+			x:Name = "_ToolBarRow"
 			Grid.Row = "2"
 			Grid.Column="0">
 

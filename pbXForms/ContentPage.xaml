@@ -3,8 +3,8 @@
 	xmlns = "http://xamarin.com/schemas/2014/forms"
 	xmlns:x = "http://schemas.microsoft.com/winfx/2009/xaml"
 	xmlns:pbXForms = "clr-namespace:pbXForms;assembly=pbXForms"
-	x:Class = "pbXForms.ContentPageEx">
+	x:Class = "pbXForms.ContentPage">
 
-	<pbXForms:ContentViewEx />
+	<pbXForms:ContentView />
 
 </ContentPage>

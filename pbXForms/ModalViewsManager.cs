@@ -47,7 +47,7 @@ namespace pbXForms
 		{
 			public ModalPosition position;
 			public BoxView blocker;
-			public ContentView view;
+			public Xamarin.Forms.ContentView view;
 		};
 
 		protected Stack<Modal> ModalsStack = new Stack<Modal>();

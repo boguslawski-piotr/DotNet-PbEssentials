@@ -28,10 +28,6 @@ namespace pbXForms
 
 	public partial class SettingsContentView : ModalContentView
 	{
-		public double HeaderHeightInPortrait { get; set; } = -1;
-		public double HeaderHeightInLandscape { get; set; } = -1;
-		public double FooterHeight { get; set; } = -1;
-
 		public Color GroupBackgroundColor { get; set; }
 		public Color GroupHeaderBackgroundColor { get; set; }
 		public Color GroupTextTextColor { get; set; }
@@ -42,17 +38,21 @@ namespace pbXForms
 		public Color ControlTextTextColor { get; set; }
 		public Color ControlDescTextColor { get; set; }
 
-		public IList<View> HeaderContent => _HeaderRow.Children;
-		public IList<View> ViewContent => _ContentRow.Children;
-		public IList<View> FooterContent => _FooterRow.Children;
+		protected override AppBarLayout AppBarLayout => _AppBarRow;
+		public IList<View> AppBarContent => _AppBarRow.Children;
 
-		protected AppBarLayout Header => _HeaderRow;
-		protected ToolBarLayout Footer => _FooterRow;
+		protected override Layout<View> ViewLayout => _ViewRow;
+		public IList<View> ViewContent => _ViewRow.Children;
+
+		protected override ToolBarLayout ToolBarLayout => _ToolBarRow;
+		public IList<View> ToolBarContent => _ToolBarRow.Children;
+
+		protected override Grid ContentLayout => _ContentLayout;
 
 		public SettingsContentView()
 		{
 			InitializeComponent();
-			_ContentRowScroller.Padding = new Thickness(0, 0, 0, Metrics.ButtonItemsSpacing * 3);
+			_ViewRowScroller.Padding = new Thickness(0, 0, 0, Metrics.ButtonItemsSpacing * 3);
 		}
 
 		void SetColor(IList<View> l, Type type, Color color, Action<VisualElement, Color> setter)
@@ -116,50 +116,6 @@ namespace pbXForms
 			SetBackgroundColor(ViewContent, typeof(SettingsControl), ControlBackgroundColor);
 			SetTextColor(ViewContent, typeof(SettingsControlText), ControlTextTextColor);
 			SetTextColor(ViewContent, typeof(SettingsControlDesc), ControlDescTextColor);
-		}
-
-
-		//
-
-		Size _osa;
-
-		protected override void OnSizeAllocated(double width, double height)
-		{
-			base.OnSizeAllocated(width, height);
-
-			if (_ContentLayout == null)
-				return;
-			if (!Tools.MakeIdenticalIfDifferent(new Size(width, height), ref _osa))
-				return;
-
-			BatchBegin();
-
-			LayoutHeaderAndFooter(width, height);
-
-			ContinueOnSizeAllocated(width, height);
-
-			BatchCommit();
-		}
-
-		protected virtual void LayoutHeaderAndFooter(double width, double height)
-		{
-			if (_HeaderRow?.Children?.Count > 0)
-			{
-				bool IsLandscape = (DeviceEx.Orientation == DeviceOrientation.Landscape);
-				double HeaderHeight = IsLandscape ? HeaderHeightInLandscape : HeaderHeightInPortrait;
-
-				if (HeaderHeight > 0)
-					_ContentLayout.RowDefinitions[0].Height = HeaderHeight + (ViewCoversStatusBar ? Metrics.StatusBarHeight : 0);
-
-				_HeaderRow.Padding = new Thickness(0, ViewCoversStatusBar ? Metrics.StatusBarHeight : 0, 0, 0);
-			}
-
-			if (_FooterRow?.Children?.Count > 0 && FooterHeight > 0)
-				_ContentLayout.RowDefinitions[2].Height = FooterHeight;
-		}
-
-		protected virtual void ContinueOnSizeAllocated(double width, double height)
-		{
 		}
 	}
 }

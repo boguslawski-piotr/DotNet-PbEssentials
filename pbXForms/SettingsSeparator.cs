@@ -16,7 +16,6 @@ namespace pbXForms
 	{
 		public SettingsLineSeparator()
 		{
-			// TODO: dac ustawianie koloru i przezroczystosci tego
 			HeightRequest = 0.5;
 			BackgroundColor = Color.Black;
 			Opacity = 0.15;

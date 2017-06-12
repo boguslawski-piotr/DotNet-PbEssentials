@@ -16,8 +16,7 @@ namespace pbXForms
 		}
 	}
 
-	public class ToolBarLayout : AppBarLayout
-	{ }
+	public class ToolBarLayout : AppBarLayout { }
 
 	public class ToolBarGridLayout : Grid
 	{

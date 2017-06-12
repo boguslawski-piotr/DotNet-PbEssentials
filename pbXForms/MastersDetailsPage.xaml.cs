@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
@@ -7,19 +7,13 @@ using Xamarin.Forms;
 
 namespace pbXForms
 {
-	public class MasterDetailPageExViewsLayout : AbsoluteLayout
-	{
-	}
+	public class MastersDetailsPageViewsLayout : AbsoluteLayout { }
 
-	public partial class MasterDetailPageEx : ContentPage
+	public partial class MastersDetailsPage : Xamarin.Forms.ContentPage
 	{
 		public double MasterViewRelativeWidth { get; set; } = 0.3;
-		public double MasterViewMinimumWidth { get; set; } =
-#if WINDOWS_UWP || __MACOS__
-			320;
-#else
-			240;
-#endif
+		public double MasterViewMinimumWidth { get; set; } = Device.Idiom != TargetIdiom.Desktop ? 240 : 320;
+
 		public double MasterViewWidthInSplitView { get; protected set; }
 
 		public IList<View> MasterViews { get; set; } = new List<View>();
@@ -32,14 +26,14 @@ namespace pbXForms
 
 		public ModalViewsManager ModalManager = new ModalViewsManager();
 
-		public MasterDetailPageEx()
+		public MastersDetailsPage()
 		{
 			InitializeComponent();
 			ModalManager.InitializeComponent(_Layout);
 		}
 
 		/// <summary>
-		/// Initializes the views.
+		/// Initializes all master and detail views.
 		/// Must be called AFTER InitializeComponent() of a class that inherits from this.
 		/// </summary>
 		public virtual void InitializeViews(bool showMasterView = true)
@@ -64,9 +58,6 @@ namespace pbXForms
 			if (showMasterView)
 				_ViewsLayout.RaiseChild(MasterView);
 		}
-
-
-		//
 
 		int _IsSplitView = -1;
 		public virtual bool IsSplitView

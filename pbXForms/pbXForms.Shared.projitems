@@ -11,15 +11,15 @@
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)PIButton.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Metrics.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ContentPageEx.xaml.cs">
-      <DependentUpon>ContentPageEx.xaml</DependentUpon>
+    <Compile Include="$(MSBuildThisFileDirectory)ContentPage.xaml.cs">
+      <DependentUpon>ContentPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)DeviceEx.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)MasterDetailPageEx.xaml.cs">
-      <DependentUpon>MasterDetailPageEx.xaml</DependentUpon>
+    <Compile Include="$(MSBuildThisFileDirectory)MastersDetailsPage.xaml.cs">
+      <DependentUpon>MastersDetailsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)ContentViewEx.xaml.cs">
-      <DependentUpon>ContentViewEx.xaml</DependentUpon>
+    <Compile Include="$(MSBuildThisFileDirectory)ContentView.xaml.cs">
+      <DependentUpon>ContentView.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)AppBarToolBar.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MarkupExtensions.cs" />
@@ -28,7 +28,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)ModalViewsManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ModalContentView.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PINBehavior.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ButtonEx.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PinDlg.xaml.cs">
       <DependentUpon>PinDlg.xaml</DependentUpon>
     </Compile>
@@ -39,15 +38,16 @@
     <Compile Include="$(MSBuildThisFileDirectory)SettingsSwitch.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SettingsSeparator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SettingsGroup.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BaseContentView.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)ContentPageEx.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)ContentPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)MasterDetailPageEx.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)MastersDetailsPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)ContentViewEx.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)ContentView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)PinDlg.xaml">

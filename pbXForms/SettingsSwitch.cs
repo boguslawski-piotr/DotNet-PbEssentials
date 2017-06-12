@@ -42,7 +42,7 @@ namespace pbXForms
 			_Switch.VerticalOptions = LayoutOptions.Center;
 			_Switch.Toggled += OnInnerSwitchToggled;
 
-			_Control.Children.Add(_Switch);
+			_ControlLayout.Children.Add(_Switch);
 		}
 
 		protected virtual void OnInnerSwitchToggled(object sender, ToggledEventArgs e)

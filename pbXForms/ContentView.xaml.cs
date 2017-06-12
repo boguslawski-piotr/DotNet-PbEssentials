@@ -1,12 +1,12 @@
-using System.Collections.Generic;
+﻿﻿using System.Collections.Generic;
 using pbXNet;
 using Xamarin.Forms;
 
 namespace pbXForms
 {
-	public class ContentViewExLayout : Grid
+	public class ContentViewLayout : Grid
 	{
-		public ContentViewExLayout()
+		public ContentViewLayout()
 		{
 			Padding = new Thickness(0);
 			Margin = new Thickness(0);
@@ -33,9 +33,9 @@ namespace pbXForms
 		}
 	}
 
-	public class ContentViewExContentLayout : StackLayout
+	public class ContentViewViewLayout : StackLayout
 	{
-		public ContentViewExContentLayout()
+		public ContentViewViewLayout()
 		{
 			Orientation = StackOrientation.Vertical;
 			VerticalOptions = LayoutOptions.FillAndExpand;
@@ -46,20 +46,22 @@ namespace pbXForms
 		}
 	}
 
-	public partial class ContentViewEx : ModalContentView
+	public partial class ContentView : BaseContentView
 	{
-		public AppBarLayout AppBar => _AppBarRow;
+		protected override AppBarLayout AppBarLayout => _AppBarRow;
 		public IList<View> AppBarContent => _AppBarRow.Children;
 
-		public ContentViewExContentLayout View => _ContentRow;
-		public IList<View> ViewContent => _ContentRow.Children;
+		protected override Layout<View> ViewLayout => _ViewRow;
+		public IList<View> ViewContent => _ViewRow.Children;
 
-		public ToolBarLayout ToolBar => _ToolBarRow;
+		protected override ToolBarLayout ToolBarLayout => _ToolBarRow;
 		public IList<View> ToolBarContent => _ToolBarRow.Children;
 
 		public ModalViewsManager ModalManager = new ModalViewsManager();
 
-		public ContentViewEx()
+		protected override Grid ContentLayout => _ContentLayout;
+
+		public ContentView()
 		{
 			InitializeComponent();
 			ModalManager.InitializeComponent(_Layout);
@@ -72,61 +74,12 @@ namespace pbXForms
 			}
 		}
 
-
-		//
-
-		Size _osa;
-
 		protected override void OnSizeAllocated(double width, double height)
 		{
 			base.OnSizeAllocated(width, height);
 
-			if (_ContentLayout == null)
-				return;
-			if (!Tools.MakeIdenticalIfDifferent(new Size(width, height), ref _osa))
-				return;
-
-			BatchBegin();
-
-			LayoutAppBarAndToolBar(width, height);
-
-			ContinueOnSizeAllocated(width, height);
-
 			ModalManager.OnSizeAllocated(width, height);
-
-			BatchCommit();
 		}
-
-		protected virtual void LayoutAppBarAndToolBar(double width, double height)
-		{
-			if (_ContentLayout == null)
-				return;
-
-			bool IsLandscape = (DeviceEx.Orientation == DeviceOrientation.Landscape);
-
-			if (_AppBarRow?.Children?.Count > 0)
-			{
-				_ContentLayout.RowDefinitions[0].Height =
-					(IsLandscape ? Metrics.AppBarHeightLandscape : Metrics.AppBarHeightPortrait)
-					+ (ViewCoversStatusBar ? Metrics.StatusBarHeight : 0);
-
-				_AppBarRow.Padding = new Thickness(
-					0,
-					(ViewCoversStatusBar ? Metrics.StatusBarHeight : 0),
-					0,
-					0);
-			}
-
-			if (_ToolBarRow?.Children?.Count > 0)
-				_ContentLayout.RowDefinitions[2].Height = (IsLandscape ? Metrics.ToolBarHeightLandscape : Metrics.ToolBarHeightPortrait);
-		}
-
-		protected virtual void ContinueOnSizeAllocated(double width, double height)
-		{
-		}
-
-
-		//
 
 		double swipeLength = 0;
 

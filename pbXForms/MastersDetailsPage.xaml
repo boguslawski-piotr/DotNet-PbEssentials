@@ -3,15 +3,15 @@
 	xmlns = "http://xamarin.com/schemas/2014/forms"
 	xmlns:x = "http://schemas.microsoft.com/winfx/2009/xaml"
 	xmlns:pbXForms = "clr-namespace:pbXForms;assembly=pbXForms"
-	x:Class = "pbXForms.MasterDetailPageEx">
+	x:Class = "pbXForms.MastersDetailsPage">
 
 	<AbsoluteLayout
 		x:Name = "_Layout">
 
-		<pbXForms:MasterDetailPageExViewsLayout
+		<pbXForms:MastersDetailsPageViewsLayout
 			x:Name = "_ViewsLayout">
 
-		</pbXForms:MasterDetailPageExViewsLayout>
+		</pbXForms:MastersDetailsPageViewsLayout>
 
 	</AbsoluteLayout>
 
