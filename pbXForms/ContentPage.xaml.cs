@@ -5,7 +5,11 @@ namespace pbXForms
 {
 	public partial class ContentPage : Xamarin.Forms.ContentPage
 	{
-		public new ContentView Content => (pbXForms.ContentView)base.Content;
+		public new pbXForms.ContentView Content
+		{
+			get => (pbXForms.ContentView)base.Content;
+			set => base.Content = value;
+		}
 
 		public IList<View> AppBarContent => Content.AppBarContent;
 		public IList<View> ViewContent => Content.ViewContent;
