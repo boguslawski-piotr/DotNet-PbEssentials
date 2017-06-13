@@ -102,6 +102,11 @@ namespace pbXNet
 			return !(l == r);
 		}
 
+		public override int GetHashCode()
+		{
+			return _passwd.GetHashCode();
+		}
+
 		public override string ToString()
 		{
 			return string.Format($"[Length={Length}] {_passwd?.ToHexString()}");
