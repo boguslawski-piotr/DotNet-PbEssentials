@@ -173,7 +173,7 @@ namespace pbXNet
 			string filepath = GetFilePath(filename);
 			using (StreamWriter writer = File.CreateText(filepath))
 			{
-				await writer.WriteAsync(text);
+				await writer.WriteAsync(text).ConfigureAwait(false);
 			}
 		}
 
@@ -182,7 +182,7 @@ namespace pbXNet
 			string filepath = GetFilePath(filename);
 			using (StreamReader reader = File.OpenText(filepath))
 			{
-				return await reader.ReadToEndAsync();
+				return await reader.ReadToEndAsync().ConfigureAwait(false);
 			}
 		}
 

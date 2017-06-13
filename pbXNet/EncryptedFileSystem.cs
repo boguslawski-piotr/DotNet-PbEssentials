@@ -51,14 +51,14 @@ namespace pbXNet
 			const string _configFileName = ".929b653c172a4002b3072e4f5dacf955";
 			string d;
 
-			await _fs.SaveStateAsync();
+			await _fs.SaveStateAsync().ConfigureAwait(false);
 
-			await _fs.SetCurrentDirectoryAsync(null);
-			await _fs.CreateDirectoryAsync(Id);
+			await _fs.SetCurrentDirectoryAsync(null).ConfigureAwait(false);
+			await _fs.CreateDirectoryAsync(Id).ConfigureAwait(false);
 
-			if (await _fs.FileExistsAsync(_configFileName))
+			if (await _fs.FileExistsAsync(_configFileName).ConfigureAwait(false))
 			{
-				d = await _fs.ReadTextAsync(_configFileName);
+				d = await _fs.ReadTextAsync(_configFileName).ConfigureAwait(false);
 				d = Obfuscator.DeObfuscate(d);
 				_iv = d.FromHexString();
 			}
@@ -67,7 +67,7 @@ namespace pbXNet
 				_iv = _cryptographer.GenerateIV();
 				d = ConvertEx.ToHexString(_iv);
 				d = Obfuscator.Obfuscate(d);
-				await _fs.WriteTextAsync(_configFileName, d);
+				await _fs.WriteTextAsync(_configFileName, d).ConfigureAwait(false);
 			}
 
 			if (_ckey == null)
@@ -75,7 +75,7 @@ namespace pbXNet
 
 			_passwd?.Clear(true);
 
-			await _fs.RestoreStateAsync();
+			await _fs.RestoreStateAsync().ConfigureAwait(false);
 		}
 
 		public void Dispose()
@@ -94,60 +94,30 @@ namespace pbXNet
 			throw new NotSupportedException();
 		}
 
-		public async Task SaveStateAsync()
-		{
-			await _fs.SaveStateAsync();
-		}
+		public async Task SaveStateAsync() => await _fs.SaveStateAsync().ConfigureAwait(false);
 
-		public async Task RestoreStateAsync()
-		{
-			await _fs.RestoreStateAsync();
-		}
+		public async Task RestoreStateAsync() => await _fs.RestoreStateAsync().ConfigureAwait(false);
 
-		public async Task SetCurrentDirectoryAsync(string dirname)
-		{
-			await _fs.SetCurrentDirectoryAsync(dirname);
-		}
+		public async Task SetCurrentDirectoryAsync(string dirname) => await _fs.SetCurrentDirectoryAsync(dirname).ConfigureAwait(false);
 
-		public async Task<bool> DirectoryExistsAsync(string dirname)
-		{
-			return await _fs.DirectoryExistsAsync(dirname);
-		}
+		public async Task<bool> DirectoryExistsAsync(string dirname) => await _fs.DirectoryExistsAsync(dirname).ConfigureAwait(false);
 
-		public async Task<bool> FileExistsAsync(string filename)
-		{
-			return await _fs.FileExistsAsync(filename);
-		}
+		public async Task<bool> FileExistsAsync(string filename) => await _fs.FileExistsAsync(filename).ConfigureAwait(false);
 
-		public async Task<IEnumerable<string>> GetDirectoriesAsync(string pattern = "")
-		{
-			return await _fs.GetDirectoriesAsync(pattern);
-		}
+		public async Task<IEnumerable<string>> GetDirectoriesAsync(string pattern = "") => await _fs.GetDirectoriesAsync(pattern).ConfigureAwait(false);
 
-		public async Task<IEnumerable<string>> GetFilesAsync(string pattern = "")
-		{
-			return await _fs.GetFilesAsync(pattern);
-		}
+		public async Task<IEnumerable<string>> GetFilesAsync(string pattern = "") => await _fs.GetFilesAsync(pattern).ConfigureAwait(false);
 
-		public async Task CreateDirectoryAsync(string dirname)
-		{
-			await _fs.CreateDirectoryAsync(dirname);
-		}
+		public async Task CreateDirectoryAsync(string dirname) => await _fs.CreateDirectoryAsync(dirname).ConfigureAwait(false);
 
-		public async Task DeleteDirectoryAsync(string dirname)
-		{
-			await _fs.DeleteDirectoryAsync(dirname);
-		}
+		public async Task DeleteDirectoryAsync(string dirname) => await _fs.DeleteDirectoryAsync(dirname).ConfigureAwait(false);
 
-		public async Task DeleteFileAsync(string filename)
-		{
-			await _fs.DeleteFileAsync(filename);
-		}
+		public async Task DeleteFileAsync(string filename) => await _fs.DeleteFileAsync(filename).ConfigureAwait(false);
 
 		public virtual async Task<string> ReadTextAsync(string filename)
 		{
 			// TODO: dodac sprawdzanie czy jestesmy poza katalogiem o nazwie Id i jezeli tak, to nie odszyfrowywac
-			string text = await _fs.ReadTextAsync(filename);
+			string text = await _fs.ReadTextAsync(filename).ConfigureAwait(false);
 
 			if (_ckey == null || _iv == null)
 				await InitializeAsync();
@@ -164,7 +134,7 @@ namespace pbXNet
 				await InitializeAsync();
 
 			byte[] etext = _cryptographer.Encrypt(Encoding.UTF8.GetBytes(text), _ckey, _iv);
-			await _fs.WriteTextAsync(filename, ConvertEx.ToHexString(etext));
+			await _fs.WriteTextAsync(filename, ConvertEx.ToHexString(etext)).ConfigureAwait(false);
 		}
 	}
 }

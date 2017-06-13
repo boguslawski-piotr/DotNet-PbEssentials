@@ -4,8 +4,17 @@ using System.Threading.Tasks;
 
 namespace pbXNet
 {
+	public enum StorageType
+	{
+		Memory,
+		LocalIO,
+		RemoteIO,
+	}
+
 	public interface IStorage<T> where T : class
 	{
+		StorageType Type { get; }
+
 		string Id { get; }
 
 		string Name { get; }
