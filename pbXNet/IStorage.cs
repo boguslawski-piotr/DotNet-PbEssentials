@@ -4,11 +4,16 @@ using System.Threading.Tasks;
 
 namespace pbXNet
 {
+	[Flags]
 	public enum StorageType
 	{
-		Memory,
-		LocalIO,
-		RemoteIO,
+		Memory = 0x0000,
+		LocalIO = 0x0001,
+		LocalService = 0x0002,
+		Quick = Memory | LocalIO | LocalService,
+		RemoteIO = 0x0010,
+		RemoteService = 0x0020,
+		Slow = RemoteIO | RemoteService,
 	}
 
 	public interface IStorage<T> where T : class
