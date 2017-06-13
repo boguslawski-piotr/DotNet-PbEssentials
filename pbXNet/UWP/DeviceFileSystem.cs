@@ -2,6 +2,8 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Windows.Storage;
 
@@ -9,7 +11,7 @@ namespace pbXNet
 {
 	public partial class DeviceFileSystem : IFileSystem, IDisposable
 	{
-		public readonly IEnumerable<DeviceFileSystemRoot> AvailableRootsForEndUser = new List<DeviceFileSystemRoot>()
+		public static readonly IEnumerable<DeviceFileSystemRoot> AvailableRootsForEndUser = new List<DeviceFileSystemRoot>()
 		{
 			DeviceFileSystemRoot.Personal,
 		};
@@ -18,7 +20,7 @@ namespace pbXNet
 		{
 			// TODO: UWP DeviceFileSystem obsluzyc wiecej typow DeviceFileSystemRoot Root
 			_root = ApplicationData.Current.LocalFolder;
-            _current = _root;
+			_current = _root;
 		}
 
 		public void Dispose()
@@ -29,6 +31,18 @@ namespace pbXNet
 
 		private StorageFolder _root;
 		private StorageFolder _current;
+
+		// TODO: DeviceFileSystem: Save/RestoreStateAsync
+
+		public Task SaveStateAsync()
+		{
+			return Task.FromResult(true);
+		}
+
+		public Task RestoreStateAsync()
+		{
+			return Task.FromResult(true);
+		}
 
 		async public Task<IFileSystem> MakeCopyAsync()
 		{
@@ -48,8 +62,8 @@ namespace pbXNet
 			}
 			else if (dirname == "..")
 			{
-				if(_current != _root)				
-				    _current = await _current.GetParentAsync();
+				if (_current != _root)
+					_current = await _current.GetParentAsync();
 			}
 			else
 			{
@@ -89,8 +103,8 @@ namespace pbXNet
 
 		async public Task CreateDirectoryAsync(string dirname)
 		{
-			if (!string.IsNullOrEmpty(dirname)) 
-_current = await _current.CreateFolderAsync(dirname, CreationCollisionOption.OpenIfExists);
+			if (!string.IsNullOrEmpty(dirname))
+				_current = await _current.CreateFolderAsync(dirname, CreationCollisionOption.OpenIfExists);
 		}
 
 		async public Task WriteTextAsync(string filename, string text)

@@ -4,25 +4,30 @@ using System;
 
 namespace pbXNet
 {
+	// TODO: SecretsManager DOAuth UWP
+
 	public partial class SecretsManager : ISecretsManager
 	{
+		public DOAuthentication AvailableDOAuthentication => DOAuthentication.None;
 
-		public bool DeviceOwnerAuthenticationAvailable
+		public void Initialize(object param)
 		{
-            get { return DeviceOwnerAuthenticationWithBiometricsAvailable; }
 		}
 
-		public bool DeviceOwnerAuthenticationWithBiometricsAvailable
-		{
-            get { return false; }
-		}
-
-		public bool AuthenticateDeviceOwner(string msg, Action Success, Action<string> Error)
+		public bool StartDOAuthentication(string msg, Action Succes, Action<string, bool> ErrorOrHint)
 		{
 			return false;
 		}
-	}
 
+		public bool CanDOAuthenticationBeCanceled()
+		{
+			return false;
+		}
+
+		public void CancelDOAuthentication()
+		{
+		}
+	}
 }
 
 #endif

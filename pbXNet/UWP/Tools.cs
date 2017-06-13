@@ -1,7 +1,7 @@
 ﻿#if WINDOWS_UWP
 
-using System.Collections.Generic;
-using System.Text;
+using System;
+using System.IO;
 
 namespace pbXNet
 {
@@ -15,6 +15,28 @@ namespace pbXNet
 				string id2 = "UWP";
 				return id + id2;
 			}
+		}
+	}
+
+	//[AttributeUsageAttribute(AttributeTargets.Class | AttributeTargets.Struct | AttributeTargets.Enum | AttributeTargets.Delegate, Inherited = false)]
+	//public sealed class SerializableAttribute : Attribute { }
+
+	public interface IFormatter
+	{
+		void Serialize(Stream serializationStream, object graph);
+		object Deserialize(Stream serializationStream);
+	}
+
+	public class BinaryFormatter : IFormatter
+	{
+		public object Deserialize(Stream serializationStream)
+		{
+			throw new NotImplementedException();
+		}
+
+		public void Serialize(Stream serializationStream, object graph)
+		{
+			throw new NotImplementedException();
 		}
 	}
 }

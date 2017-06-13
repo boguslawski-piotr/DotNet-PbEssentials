@@ -14,9 +14,11 @@ namespace pbXNet
 			const int iterations = 10000;
 
 			KeyDerivationAlgorithmProvider objKdfProv = KeyDerivationAlgorithmProvider.OpenAlgorithm(KeyDerivationAlgorithmNames.Pbkdf2Sha1);
+
 			IBuffer buffPwd = CryptographicBuffer.CreateFromByteArray(pwd);
 			pwd.Clear(false);
 			IBuffer buffSalt = CryptographicBuffer.CreateFromByteArray(salt);
+
 			KeyDerivationParameters pbkdf2Params = KeyDerivationParameters.BuildForPbkdf2(buffSalt, iterations);
 			CryptographicKey keyOriginal = objKdfProv.CreateKey(buffPwd);
 			IBuffer buffKey = CryptographicEngine.DeriveKeyMaterial(keyOriginal, pbkdf2Params, (uint)length);
@@ -50,7 +52,7 @@ namespace pbXNet
 			}
 			catch (Exception e)
 			{
-				Debug.WriteLine($"AesCryptographer: Encrypt: error: {e.Message}");
+				Log.E(e.Message, this);
 				return new byte[0];
 			}
 		}
@@ -74,7 +76,7 @@ namespace pbXNet
 			}
 			catch (Exception e)
 			{
-				Debug.WriteLine($"AesCryptographer: Decrypt: error: {e.Message}");
+				Log.E(e.Message, this);
 				return new byte[0];
 			}
 		}

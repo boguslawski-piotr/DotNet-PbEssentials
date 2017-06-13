@@ -1,6 +1,7 @@
 ﻿#if WINDOWS_UWP
 
 using System;
+using System.Globalization;
 
 namespace pbXNet
 {

@@ -1,6 +1,10 @@
 ﻿using System;
 using Xamarin.Forms;
 
+#if WINDOWS_UWP
+using Windows.UI.ViewManagement;
+#endif
+
 namespace pbXForms
 {
 	public class Metrics

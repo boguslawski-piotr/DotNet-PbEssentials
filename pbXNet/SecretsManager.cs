@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -33,7 +34,7 @@ namespace pbXNet
 		// No password is ever written anywhere
 
 		// TODO: jakas lepsza nazwa(y)
-		[Serializable]
+		//[Serializable]
 		class EncryptedPassword
 		{
 			public byte[] iv;
@@ -133,6 +134,7 @@ namespace pbXNet
 
 		// Cryptographic keys, encryption and decryption
 
+		//[Serializable]
 		class TemporaryCKey
 		{
 			public CKeyLifeTime lifeTime;
