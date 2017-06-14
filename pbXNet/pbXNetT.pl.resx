@@ -36,10 +36,35 @@
 	<data name="folder" xml:space="preserve">
 		<value>katalog</value>
 	</data>
-    <data name = "FingerprintAuthenticationFailed" xml:space = "preserve">
+	<data name="FingerprintAuthenticationFailed" xml:space = "preserve">
 		<value>Odcisk palca zeskanowany, ale nie rozpoznany.</value>
 	</data>
-    <data name = "FingerprintRequestPermissions" xml:space = "preserve">
-		<value>Zapytanie o przydzielenie uprawnień do użycia skanera odcisków palca zostało wysłane do sysytemu.</value>
+	<data name = "FingerprintRequestPermissions" xml:space = "preserve">
+		<value>Zapytanie o przydzielenie uprawnień do użycia skanera odcisków palca zostało wysłane do systemu.</value>
 	</data>
+	<data name="BDBusy" xml:space="preserve">
+		<value>Urządzenie biometryczne jest zajęte.</value>
+	</data>
+	<data name="BDNotFound" xml:space="preserve">
+		<value>Nie znaleziono żadnego urządzenia biometrycznego.</value>
+	</data>
+	<data name="BVDisabledByPolicy" xml:space="preserve">
+		<value>Weryfikacja biometryczna jest wyłączona przez administatora.</value>
+	</data>
+	<data name="BVNotConfigured" xml:space="preserve">
+		<value>Weryfikacja biometryczna nie jest skonfigurowana.</value>
+	</data>
+	<data name="BVTooManyAttemts" xml:space="preserve">
+		<value>Zbyt dużo prób. Weryfikacja biometryczna anulowana.</value>
+	</data>
+	<data name="BVCanceled" xml:space="preserve">
+		<value>Weryfikacja biometryczna anulowana.</value>
+	</data>
+	<data name="BVUnavailable" xml:space="preserve">
+		<value>Weryfikacja biometryczna jest aktualnie niedostępna.</value>
+	</data>
+	<data name="BVError" xml:space="preserve">
+		<value>Błąd weryfikacji biometrycznej: </value>
+	</data>
+
 </root>

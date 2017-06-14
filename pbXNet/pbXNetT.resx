@@ -42,4 +42,28 @@
     <data name = "FingerprintRequestPermissions" xml:space = "preserve">
 		<value>Request for permission to use fingerprint scanner was sent to the system.</value>
 	</data>
+	<data name="BDBusy" xml:space="preserve">
+		<value>Biometric device is busy.</value>
+	</data>
+	<data name="BDNotFound" xml:space="preserve">
+		<value>No biometric device found.</value>
+	</data>
+	<data name="BVDisabledByPolicy" xml:space="preserve">
+		<value>Biometric authentication is disabled by policy.</value>
+	</data>
+	<data name="BVNotConfigured" xml:space="preserve">
+		<value>Biometric authentication not configured.</value>
+	</data>
+	<data name="BVTooManyAttemts" xml:space="preserve">
+		<value>There have been too many failed attempts. Biometrics authentication canceled.</value>
+	</data>
+	<data name="BVCanceled" xml:space="preserve">
+		<value>Biometrics authentication canceled.</value>
+	</data>
+	<data name="BVUnavailable" xml:space="preserve">
+		<value>Biometrics authentication is currently unavailable.</value>
+	</data>
+	<data name="BVError" xml:space="preserve">
+		<value>Biometrics authentication failed: </value>
+	</data>
 </root>
