@@ -132,6 +132,9 @@
     <Compile Include="../pbXNet/UWP/Tools.cs">
       <Link>pbXNet\UWP\Tools.cs</Link>
     </Compile>
+    <Compile Include="../pbXNet/UWP/BinaryFormatter.cs">
+      <Link>pbXNet\UWP\BinaryFormatter.cs</Link>
+    </Compile>
     <Compile Include="..\pbXNet\pbXNet.AssemblyInfo.cs">
       <Link>Properties\pbXNet.AssemblyInfo.cs</Link>
     </Compile>

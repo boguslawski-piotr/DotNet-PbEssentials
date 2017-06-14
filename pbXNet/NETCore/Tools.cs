@@ -1,6 +1,5 @@
-﻿#if WINDOWS_UWP
-
-using System;
+﻿using System;
+using System.IO;
 
 namespace pbXNet
 {
@@ -9,9 +8,9 @@ namespace pbXNet
 		static string _Uaqpid
 		{
 			get {
-				// TODO: _Uaqpid for UWP
-				string id = "b3fea4b6-0f44-466e-96e0-ba25324671fc";
-				string id2 = "UWP";
+				// TODO: _Uaqpid for .NET Core
+				string id = ".NET Core";
+				string id2 = ".NET Core";
 				return id + id2;
 			}
 		}
@@ -20,5 +19,3 @@ namespace pbXNet
 	//[AttributeUsageAttribute(AttributeTargets.Class | AttributeTargets.Struct | AttributeTargets.Enum | AttributeTargets.Delegate, Inherited = false)]
 	//public sealed class SerializableAttribute : Attribute { }
 }
-
-#endif

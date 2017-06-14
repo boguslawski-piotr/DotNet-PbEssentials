@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp1.1</TargetFramework>
+    <AssemblyName>pbXNet</AssemblyName>
+    <RootNamespace>pbXNet</RootNamespace>
+    <Authors />
+    <Company />
+    <Product />
+    <Description />
+    <Version>1.0.0.1</Version>
+    <AssemblyVersion>1.0.0.1</AssemblyVersion>
+    <FileVersion>1.0.0.1</FileVersion>
+  </PropertyGroup>
+
+  <Import Project="..\pbXNet\pbXNet.Shared.projitems" Label="Shared" />
+
+</Project>
