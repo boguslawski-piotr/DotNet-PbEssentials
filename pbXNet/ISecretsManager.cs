@@ -43,7 +43,7 @@ namespace pbXNet
 
 		bool StartDOAuthentication(string msg, Action Succes, Action<string, bool> ErrorOrHint); // string: err/hint message, bool: this is only a hint?
 		bool CanDOAuthenticationBeCanceled();
-		void CancelDOAuthentication();
+		bool CancelDOAuthentication();
 
 		// Basic authentication based on passwords
 		// Implementation should never store any password anywhere in any form

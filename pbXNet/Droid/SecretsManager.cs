@@ -1,7 +1,6 @@
 #if __ANDROID__
 
 using System;
-using System.Diagnostics;
 using Android;
 using Android.App;
 using Android.Hardware.Fingerprints;
@@ -9,7 +8,6 @@ using Android.Security.Keystore;
 using Android.Support.V4.Content;
 using Android.Support.V4.Hardware.Fingerprint;
 using Android.Support.V4.OS;
-using Android.Support.V7.App;
 using Java.Lang;
 using Java.Security;
 using Javax.Crypto;
@@ -21,7 +19,7 @@ namespace pbXNet
 	{
 		public void Initialize(object activity)
 		{
-			_activity = activity as AppCompatActivity;
+			_activity = activity as Activity;
 		}
 
 		bool DOBiometricsAuthenticationAvailable
@@ -78,12 +76,13 @@ namespace pbXNet
 
 				_activity.RequestPermissions(new string[] { Manifest.Permission.UseFingerprint }, 0);
 				ErrorOrHint(T.Localized("FingerprintRequestPermissions"), false);
-				return true;
 
+				return true;
 			}
 
 			if (_cryptoObjectHelper == null)
 				_cryptoObjectHelper = new CryptoObjectHelper();
+			
 			_fingerprintManager = FingerprintManagerCompat.From(_activity);
 			_authenticatecallbacks = new FingerprintAuthCallbacks(Success, ErrorOrHint);
 			_cancellationSignal = new CancellationSignal();
@@ -101,14 +100,21 @@ namespace pbXNet
 			return true;
 		}
 
-		public void CancelDOAuthentication()
+		public bool CancelDOAuthentication()
 		{
+			bool rc = false;
+
 			if (_cancellationSignal != null)
+			{
 				_cancellationSignal.Cancel();
+				rc = true;
+			}
 
 			_cancellationSignal = null;
 			_fingerprintManager = null;
 			_authenticatecallbacks = null;
+
+			return rc;
 		}
 	}
 
@@ -118,7 +124,7 @@ namespace pbXNet
 	/// </summary>
 	class FingerprintAuthCallbacks : FingerprintManagerCompat.AuthenticationCallback
 	{
-		static readonly byte[] SECRET_BYTES = { 34, 12, 67, 16, 87, 62, 27, 48, 29 };
+		static readonly byte[] _secret = { 34, 12, 67, 16, 87, 62, 27, 48, 29 };
 
 		Action _Success;
 		Action<string, bool> _ErrorOrHint;
@@ -136,7 +142,7 @@ namespace pbXNet
 				try
 				{
 					// Calling DoFinal on the Cipher ensures that the encryption worked. If not then exception will be threw.
-					byte[] doFinalResult = result.CryptoObject.Cipher.DoFinal(SECRET_BYTES);
+					byte[] doFinalResult = result.CryptoObject.Cipher.DoFinal(_secret);
 					_Success();
 
 					Log.I($"DoFinal results: {Convert.ToBase64String(doFinalResult)}", this);
@@ -194,8 +200,8 @@ namespace pbXNet
 	/// If necessary a key for the cipher will be created.</remarks>
 	class CryptoObjectHelper
 	{
-		static readonly string KEY_NAME = "0948e431-20db-4b07-8635-1ae9fd50bafe";
 		static readonly string KEYSTORE_NAME = "AndroidKeyStore";
+		static readonly string KEY_NAME = "0948e431-20db-4b07-8635-1ae9fd50bafe";
 
 		static readonly string KEY_ALGORITHM = KeyProperties.KeyAlgorithmAes;
 		static readonly string BLOCK_MODE = KeyProperties.BlockModeCbc;

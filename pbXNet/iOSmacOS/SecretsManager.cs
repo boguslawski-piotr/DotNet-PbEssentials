@@ -6,6 +6,10 @@ using System.Diagnostics;
 using LocalAuthentication;
 using Foundation;
 
+#if __IOS__
+using UIKit;
+#endif
+
 namespace pbXNet
 {
 	public sealed partial class SecretsManager : ISecretsManager
@@ -33,10 +37,22 @@ namespace pbXNet
 		public DOAuthentication AvailableDOAuthentication
 		{
 			get {
+				// See: https://developer.apple.com/documentation/localauthentication/lacontext
+#if __MACOS__
+				var info = new NSProcessInfo(); 
+				var minVersion = new NSOperatingSystemVersion(10, 10, 0);
+				if (!info.IsOperatingSystemAtLeastVersion(minVersion))
+					return DOAuthentication.None;
+#else
+				if (!UIDevice.CurrentDevice.CheckSystemVersion(8, 0))
+					return DOAuthentication.None;
+#endif
+				
 				if (DOBiometricsAuthenticationAvailable)
 					return DOAuthentication.Fingerprint;
 				if (DOAuthenticationAvailable)
 					return DOAuthentication.Password;
+
 				return DOAuthentication.None;
 			}
 		}
@@ -102,8 +118,9 @@ namespace pbXNet
 			return false;
 		}
 
-		public void CancelDOAuthentication()
+		public bool CancelDOAuthentication()
 		{
+			return false;
 		}
 
 	}

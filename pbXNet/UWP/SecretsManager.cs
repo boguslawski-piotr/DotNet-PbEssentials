@@ -8,6 +8,10 @@ namespace pbXNet
 
 	public partial class SecretsManager : ISecretsManager
 	{
+
+// Documentation:
+// https://docs.microsoft.com/en-us/uwp/api/windows.security.credentials.ui.userconsentverifier
+
 		public DOAuthentication AvailableDOAuthentication => DOAuthentication.None;
 
 		public void Initialize(object param)
