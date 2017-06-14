@@ -102,7 +102,11 @@ namespace pbXForms
 			_Header.Children.Add(_HeaderText);
 			_Header.Children.Add(_HeaderDesc);
 
-			_HeaderCollapsedExpandedImage = new SettingsGroupCollapsedExpandedImage();
+			_HeaderCollapsedExpandedImage = new SettingsGroupCollapsedExpandedImage()
+			{
+				VerticalOptions = LayoutOptions.Center,
+				HorizontalOptions = LayoutOptions.Center,
+			};
 
 			_HeaderLayout.Children.Add(_Header);
 			_HeaderLayout.Children.Add(_HeaderCollapsedExpandedImage);

@@ -109,6 +109,10 @@ namespace pbXForms
 
 			SetBackgroundColor(ViewContent, typeof(SettingsGroup), GroupBackgroundColor);
 			SetBackgroundColor(ViewContent, typeof(SettingsGroupHeader), GroupHeaderBackgroundColor);
+#if WINDOWS_UWP
+			// Workaround bug(s) in TapGestureRecognizer. It doesn't work when background color is Default(Transparent).
+			SetBackgroundColor(ViewContent, typeof(SettingsGroupHeader), BackgroundColor);
+#endif
 			SetTextColor(ViewContent, typeof(SettingsGroupText), GroupTextTextColor);
 			SetTextColor(ViewContent, typeof(SettingsGroupDesc), GroupDescTextColor);
 			SetImageSource(ViewContent, typeof(SettingsGroupCollapsedExpandedImage), GroupCollapsedExpandedImage);

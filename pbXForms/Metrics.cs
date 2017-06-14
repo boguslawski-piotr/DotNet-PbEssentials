@@ -38,11 +38,11 @@ namespace pbXForms
 		public static Thickness ScreenEdgePadding = new Thickness(ScreenEdgeMargin, ScreenEdgeMargin);
 
 
-		public static double AppBarHeightPortrait = 56;
-		public static double AppBarHeightLandscape = 48;
+		public static double AppBarHeightPortrait = Device.Idiom != TargetIdiom.Phone ? 80 : 56;
+		public static double AppBarHeightLandscape = Device.Idiom != TargetIdiom.Phone ? 80 : 48;
 
-		public static double ToolBarHeightPortrait = 56;
-		public static double ToolBarHeightLandscape = 48;
+		public static double ToolBarHeightPortrait = Device.Idiom != TargetIdiom.Phone ? 64 : 56;
+		public static double ToolBarHeightLandscape = Device.Idiom != TargetIdiom.Phone ? 64 : 48;
 
 
 		public static double ToolBarItemsSpacing = 16;
@@ -54,7 +54,7 @@ namespace pbXForms
 		public static double IconHeight = 24;
 		public static double SmallIconHeight = 16;
 
-		public static double ListItemHeight = 56;
+		public static double ListItemHeight = Device.Idiom != TargetIdiom.Phone ? 64 : 56;
 		public static Int32 ListItemHeightInt32 = (Int32)ListItemHeight;
 	}
 }
