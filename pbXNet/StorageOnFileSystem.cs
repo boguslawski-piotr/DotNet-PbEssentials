@@ -44,8 +44,6 @@ namespace pbXNet
 			return Fs;
 		}
 
-		protected const string ModifiedOnSeparator = "@";
-
 		public virtual async Task StoreAsync(string thingId, T data, DateTime modifiedOn)
 		{
 			string d;
@@ -54,10 +52,10 @@ namespace pbXNet
 			else
 				d = Serializer.ToString(data);
 
-			string mod = Serializer.ToString(modifiedOn);
-
 			IFileSystem fs = await GetFsAsync().ConfigureAwait(false);
-			await fs.WriteTextAsync(thingId, mod + ModifiedOnSeparator + d).ConfigureAwait(false);
+			await fs.WriteTextAsync(thingId, d).ConfigureAwait(false);
+
+			await fs.SetFileModifiedOnAsync(thingId, modifiedOn).ConfigureAwait(false);
 		}
 
 		public virtual async Task<bool> ExistsAsync(string thingId)
@@ -77,13 +75,8 @@ namespace pbXNet
 			if (!await ExistsAsync(thingId).ConfigureAwait(false))
 				return DateTime.MinValue;
 
-			// TODO: zrobic tak aby nie odczytywac calych danych, a tylko date
-
 			IFileSystem fs = await GetFsAsync().ConfigureAwait(false);
-			string sd = await fs.ReadTextAsync(thingId).ConfigureAwait(false);
-			sd = sd.Substring(0, sd.IndexOf(ModifiedOnSeparator, StringComparison.Ordinal));
-
-			return Serializer.FromString<DateTime>(sd);
+			return await fs.GetFileModifiedOnAsync(thingId).ConfigureAwait(false);
 		}
 
 		public virtual async Task<T> GetACopyAsync(string thingId)
@@ -91,10 +84,8 @@ namespace pbXNet
 			if (!await ExistsAsync(thingId).ConfigureAwait(false))
 				return null;
 
-			// Get data from file system and skip saved modification date (is not needed here)
 			IFileSystem fs = await GetFsAsync().ConfigureAwait(false);
 			string sd = await fs.ReadTextAsync(thingId).ConfigureAwait(false);
-			sd = sd.Substring(sd.IndexOf(ModifiedOnSeparator, StringComparison.Ordinal) + ModifiedOnSeparator.Length);
 
 			// Restore object
 			object d = sd;

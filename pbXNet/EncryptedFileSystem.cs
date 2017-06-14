@@ -100,19 +100,24 @@ namespace pbXNet
 
 		public async Task SetCurrentDirectoryAsync(string dirname) => await _fs.SetCurrentDirectoryAsync(dirname).ConfigureAwait(false);
 
-		public async Task<bool> DirectoryExistsAsync(string dirname) => await _fs.DirectoryExistsAsync(dirname).ConfigureAwait(false);
-
-		public async Task<bool> FileExistsAsync(string filename) => await _fs.FileExistsAsync(filename).ConfigureAwait(false);
-
 		public async Task<IEnumerable<string>> GetDirectoriesAsync(string pattern = "") => await _fs.GetDirectoriesAsync(pattern).ConfigureAwait(false);
 
-		public async Task<IEnumerable<string>> GetFilesAsync(string pattern = "") => await _fs.GetFilesAsync(pattern).ConfigureAwait(false);
+		public async Task<bool> DirectoryExistsAsync(string dirname) => await _fs.DirectoryExistsAsync(dirname).ConfigureAwait(false);
 
 		public async Task CreateDirectoryAsync(string dirname) => await _fs.CreateDirectoryAsync(dirname).ConfigureAwait(false);
 
 		public async Task DeleteDirectoryAsync(string dirname) => await _fs.DeleteDirectoryAsync(dirname).ConfigureAwait(false);
 
+
+		public async Task<IEnumerable<string>> GetFilesAsync(string pattern = "") => await _fs.GetFilesAsync(pattern).ConfigureAwait(false);
+
+		public async Task<bool> FileExistsAsync(string filename) => await _fs.FileExistsAsync(filename).ConfigureAwait(false);
+
 		public async Task DeleteFileAsync(string filename) => await _fs.DeleteFileAsync(filename).ConfigureAwait(false);
+
+		public async Task SetFileModifiedOnAsync(string filename, DateTime modifiedOn) => await _fs.SetFileModifiedOnAsync(filename, modifiedOn).ConfigureAwait(false);
+
+		public async Task<DateTime> GetFileModifiedOnAsync(string filename) => await _fs.GetFileModifiedOnAsync(filename).ConfigureAwait(false);
 
 		public virtual async Task<string> ReadTextAsync(string filename)
 		{

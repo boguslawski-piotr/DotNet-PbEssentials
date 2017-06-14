@@ -168,6 +168,18 @@ namespace pbXNet
 			return Task.FromResult(true);
 		}
 
+		public Task SetFileModifiedOnAsync(string filename, DateTime modifiedOn)
+		{
+			File.SetLastWriteTimeUtc(GetFilePath(filename), modifiedOn.ToUniversalTime());
+			return Task.FromResult(true);
+		}
+
+		public Task<DateTime> GetFileModifiedOnAsync(string filename)
+		{
+			DateTime modifiedOn = File.GetLastWriteTimeUtc(GetFilePath(filename));
+			return Task.FromResult(modifiedOn);
+		}
+
 		public virtual async Task WriteTextAsync(string filename, string text)
 		{
 			string filepath = GetFilePath(filename);

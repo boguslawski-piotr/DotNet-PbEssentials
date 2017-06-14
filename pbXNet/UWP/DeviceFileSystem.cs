@@ -107,6 +107,16 @@ namespace pbXNet
 				_current = await _current.CreateFolderAsync(dirname, CreationCollisionOption.OpenIfExists);
 		}
 
+		public Task SetFileModifiedOnAsync(string filename, DateTime modifiedOn)
+		{
+			throw new NotImplementedException();
+		}
+
+		public Task<DateTime> GetFileModifiedOnAsync(string filename)
+		{
+			throw new NotImplementedException();
+		}
+
 		async public Task WriteTextAsync(string filename, string text)
 		{
 			IStorageFile storageFile = await _current.CreateFileAsync(filename, CreationCollisionOption.ReplaceExisting);
