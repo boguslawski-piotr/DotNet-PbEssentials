@@ -7,10 +7,10 @@
 		<value>2.0</value>
 	</resheader>
 	<resheader name="reader">
-		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=pl, PublicKeyToken=b77a5c561934e089</value>
 	</resheader>
 	<resheader name="writer">
-		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=pl, PublicKeyToken=b77a5c561934e089</value>
 	</resheader>
 	<data name="LibName" xml:space="preserve">
 		<value>pbXNet</value>
@@ -18,7 +18,7 @@
 	<data name="DeviceFileSystem.Root.Personal" xml:space="preserve">
 		<value>To urządzenie</value>
 	</data>
-	<data name="DeviceFileSystem.Root.Desktop" xml:space="preserve">
+	<data name="DeviceFileSystem.Root.PersonalDesktop" xml:space="preserve">
 		<value>Twój prywatny katalog</value>
 	</data>
 	<data name="DeviceFileSystem.Root.Documents" xml:space="preserve">
