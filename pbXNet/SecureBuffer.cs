@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Text;
 
 namespace pbXNet
 {
@@ -9,7 +10,7 @@ namespace pbXNet
 		byte[] _b;
 		byte[] _unsecureb;
 
-		public SecureBuffer(byte[] b, bool disposeSource = false)
+		public SecureBuffer(byte[] b, bool clearSource = false)
 		{
 			_l = (uint)(b == null ? 0 : b.Length);
 			using (MemoryStream sb = new MemoryStream(b))
@@ -22,8 +23,26 @@ namespace pbXNet
 				}
 			}
 
-			if (disposeSource)
+			if (clearSource && !b.IsReadOnly)
+			{
 				b.FillWith<byte>(0);
+				Array.Resize<byte>(ref b, 0);
+			}
+		}
+
+		public SecureBuffer(char[] cb, bool clearSource = false)
+			: this(Encoding.UTF8.GetBytes(cb), true)
+		{
+			if (clearSource && !cb.IsReadOnly)
+			{
+				cb.FillWith<char>('\0');
+				Array.Resize<char>(ref cb, 0);
+			}
+		}
+
+		public SecureBuffer(string sb)
+			: this(Encoding.UTF8.GetBytes(sb), true)
+		{
 		}
 
 		public uint Length => _l;
@@ -32,7 +51,7 @@ namespace pbXNet
 		{
 			if (_unsecureb != null)
 				return _unsecureb;
-			
+
 			using (MemoryStream csb = new MemoryStream(_b))
 			{
 				using (MemoryStream sb = new DeflateCompressor().Decompress<MemoryStream>(csb))
