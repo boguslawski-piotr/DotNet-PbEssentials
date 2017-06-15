@@ -16,6 +16,7 @@
 			"pbXNet.iOS/pbXNet.iOS.csproj",
 			"pbXNet.macOS/pbXNet.macOS.csproj",
 			"pbXNet.UWP/pbXNet.UWP.csproj",
+			"pbXNet.NET/pbXNet.NET.csproj",
 			"pbXNet/pbXNet.Shared.shproj",
 		],
 		"Entries": [

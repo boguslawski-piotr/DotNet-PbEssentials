@@ -1,6 +1,4 @@
-﻿#if __UNIFIED__ || __ANDROID__
-
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.IO;
 using System.Security.Cryptography;
@@ -79,5 +77,3 @@ namespace pbXNet
 		}
 	}
 }
-
-#endif

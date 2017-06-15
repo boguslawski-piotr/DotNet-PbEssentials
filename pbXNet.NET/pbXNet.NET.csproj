@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{BA60D111-A7E1-4455-B192-450846976D49}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>pbXNet</RootNamespace>
+    <AssemblyName>pbXNet</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <ReleaseVersion>1.0.0.0</ReleaseVersion>
+    <SynchReleaseVersion>false</SynchReleaseVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\pbXNet\NETStd2\AesCryptographer.cs">
+      <Link>pbXNet\NETStd2\AesCryptographer.cs</Link>
+    </Compile>
+    <Compile Include="..\pbXNet\NETStd2\BinarySerializer.cs">
+      <Link>pbXNet\NETStd2\BinarySerializer.cs</Link>
+    </Compile>
+    <Compile Include="..\pbXNet\NETStd2\DeviceFileSystem.cs">
+      <Link>pbXNet\NETStd2\DeviceFileSystem.cs</Link>
+    </Compile>
+    <Compile Include="..\pbXNet\NETStd2\RSAServices.cs">
+      <Link>pbXNet\NETStd2\RSAServices.cs</Link>
+    </Compile>
+    <Compile Include="..\pbXNet\Templates\Locale.cs">
+      <Link>pbXNet\Templates\Locale.cs</Link>
+    </Compile>
+    <Compile Include="..\pbXNet\Templates\SecretsManager.cs">
+      <Link>pbXNet\Templates\SecretsManager.cs</Link>
+    </Compile>
+    <Compile Include="..\pbXNet\Templates\Tools.cs">
+      <Link>pbXNet\Templates\Tools.cs</Link>
+    </Compile>
+    <Compile Include="..\pbXNet\pbXNet.AssemblyInfo.cs">
+      <Link>Properties\pbXNet.AssemblyInfo.cs</Link>
+    </Compile>
+  </ItemGroup>
+  <Import Project="..\pbXNet\pbXNet.Shared.projitems" Label="Shared" Condition="Exists('..\pbXNet\pbXNet.Shared.projitems')" />
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+</Project>
