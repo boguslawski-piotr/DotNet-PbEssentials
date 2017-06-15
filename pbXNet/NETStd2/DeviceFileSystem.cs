@@ -30,7 +30,7 @@ namespace pbXNet
 		{
 			switch (Root)
 			{
-#if !NETCORE1_1
+#if !NETSTANDARD1_6
 				case DeviceFileSystemRoot.Documents:
 					_root = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
 					_root = Path.Combine(_root, "Documents");
@@ -40,7 +40,7 @@ namespace pbXNet
 					break;
 #endif
 				case DeviceFileSystemRoot.Config:
-#if NETCORE1_1
+#if NETSTANDARD1_6
 					_root = Path.Combine(Environment.GetEnvironmentVariable("HOME"), ".config");
 					Directory.CreateDirectory(_root);
 #else
@@ -48,7 +48,7 @@ namespace pbXNet
 #endif
 					break;
 				default:
-#if NETCORE1_1
+#if NETSTANDARD1_6
 					_root = Environment.GetEnvironmentVariable("HOME");
 #else
 					_root = Environment.GetFolderPath(Environment.SpecialFolder.Personal);

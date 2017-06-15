@@ -1,0 +1,37 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard1.6</TargetFramework>
+    <RootNamespace>pbXNet</RootNamespace>
+    <ReleaseVersion>1.0.0.0</ReleaseVersion>
+    <SynchReleaseVersion>false</SynchReleaseVersion>
+    <AssemblyName>pbXNet</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Security.Cryptography.Csp" Version="4.3.0" />
+  </ItemGroup>
+
+  <Import Project="..\pbXNet\pbXNet.Shared.projitems" Label="Shared" Condition="Exists('..\pbXNet\pbXNet.Shared.projitems')" />
+	
+  <ItemGroup>
+    <Compile Include="..\pbXNet\NETStd2\DeviceFileSystem.cs">
+      <Link>pbXNet\NETStd2\DeviceFileSystem.cs</Link>
+    </Compile>
+    <Compile Include="..\pbXNet\NETStd2\RSAServices.cs">
+      <Link>pbXNet\NETStd2\RSAServices.cs</Link>
+    </Compile>
+    <Compile Include="..\pbXNet\Templates\AesCryptographer.cs">
+      <Link>pbXNet\Templates\AesCryptographer.cs</Link>
+    </Compile>
+    <Compile Include="..\pbXNet\Templates\Locale.cs">
+      <Link>pbXNet\Templates\Locale.cs</Link>
+    </Compile>
+    <Compile Include="..\pbXNet\Templates\SecretsManager.cs">
+      <Link>pbXNet\Templates\SecretsManager.cs</Link>
+    </Compile>
+    <Compile Include="..\pbXNet\Templates\Tools.cs">
+      <Link>pbXNet\Templates\Tools.cs</Link>
+    </Compile>
+  </ItemGroup>
+</Project>
