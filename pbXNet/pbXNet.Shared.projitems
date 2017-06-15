@@ -29,7 +29,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Obfuscator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SecretsManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ISerializer.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)BinarySerializer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)EncryptedFileSystem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Log.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Password.cs" />

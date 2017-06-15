@@ -15,6 +15,7 @@
 			"pbXForms.Droid/pbXForms.Droid.csproj",
 			"pbXForms.iOS/pbXForms.iOS.csproj",
 			"pbXForms.macOS/pbXForms.macOS.csproj",
+			"pbXForms.UWP/pbXForms.UWP.csproj",
 			"pbXForms/pbXForms.Shared.shproj",
 		],
 		"Entries": [

@@ -89,12 +89,6 @@
     <Compile Include="..\pbXNet\Droid\SecretsManager.cs">
       <Link>pbXNet\Droid\SecretsManager.cs</Link>
     </Compile>
-    <Compile Include="..\pbXNet\iOSmacOSDroid\AesCryptographer.cs">
-      <Link>pbXNet\iOSmacOSDroid\AesCryptographer.cs</Link>
-    </Compile>
-    <Compile Include="..\pbXNet\iOSmacOSDroid\DeviceFileSystem.cs">
-      <Link>pbXNet\iOSmacOSDroid\DeviceFileSystem.cs</Link>
-    </Compile>
     <Compile Include="..\pbXNet\Droid\Tools.cs">
       <Link>pbXNet\Droid\Tools.cs</Link>
     </Compile>
@@ -103,6 +97,18 @@
     </Compile>
     <Compile Include="..\pbXNet\pbXNet.AssemblyInfo.cs">
       <Link>Properties\pbXNet.AssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\pbXNet\NETStd2\AesCryptographer.cs">
+      <Link>pbXNet\NETStd2\AesCryptographer.cs</Link>
+    </Compile>
+    <Compile Include="..\pbXNet\NETStd2\BinarySerializer.cs">
+      <Link>pbXNet\NETStd2\BinarySerializer.cs</Link>
+    </Compile>
+    <Compile Include="..\pbXNet\NETStd2\DeviceFileSystem.cs">
+      <Link>pbXNet\NETStd2\DeviceFileSystem.cs</Link>
+    </Compile>
+    <Compile Include="..\pbXNet\NETStd2\RSAServices.cs">
+      <Link>pbXNet\NETStd2\RSAServices.cs</Link>
     </Compile>
   </ItemGroup>
   <ItemGroup>

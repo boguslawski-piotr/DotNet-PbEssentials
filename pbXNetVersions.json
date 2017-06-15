@@ -15,6 +15,7 @@
 			"pbXNet.Droid/pbXNet.Droid.csproj",
 			"pbXNet.iOS/pbXNet.iOS.csproj",
 			"pbXNet.macOS/pbXNet.macOS.csproj",
+			"pbXNet.UWP/pbXNet.UWP.csproj",
 			"pbXNet/pbXNet.Shared.shproj",
 		],
 		"Entries": [

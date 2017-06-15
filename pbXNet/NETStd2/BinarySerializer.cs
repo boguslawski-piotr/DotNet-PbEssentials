@@ -1,8 +1,9 @@
 ﻿using System;
 using System.IO;
-using System.Runtime.Serialization;
 using System.Text.RegularExpressions;
-#if !WINDOWS_UWP
+
+#if __UNIFIED__ || __ANDROID__
+using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 #endif
 

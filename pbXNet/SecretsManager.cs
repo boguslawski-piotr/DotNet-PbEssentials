@@ -34,7 +34,7 @@ namespace pbXNet
 		// No password is ever written anywhere
 
 		// TODO: jakas lepsza nazwa(y)
-		//[Serializable]
+		[Serializable]
 		class EncryptedPassword
 		{
 			public byte[] iv;
@@ -134,7 +134,7 @@ namespace pbXNet
 
 		// Cryptographic keys, encryption and decryption
 
-		//[Serializable]
+		[Serializable]
 		class TemporaryCKey
 		{
 			public CKeyLifeTime lifeTime;
