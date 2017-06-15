@@ -36,17 +36,19 @@ namespace pbXNet
 
 			using (MemoryStream sMsgEncrypted = new MemoryStream())
 			{
-				CryptoStream csEncrypt = new CryptoStream(sMsgEncrypted, objAlg.CreateEncryptor(), CryptoStreamMode.Write);
-				try
+				using (CryptoStream csEncrypt = new CryptoStream(sMsgEncrypted, objAlg.CreateEncryptor(), CryptoStreamMode.Write))
 				{
-					csEncrypt.Write(msg, 0, msg.Length);
-					csEncrypt.Close();
-					return sMsgEncrypted.ToArray();
-				}
-				catch (Exception ex)
-				{
-					Log.E(ex.Message, this);
-					return new byte[0];
+					try
+					{
+						csEncrypt.Write(msg, 0, msg.Length);
+						csEncrypt.Close();
+						return sMsgEncrypted.ToArray();
+					}
+					catch (Exception ex)
+					{
+						Log.E(ex.Message, this);
+						return new byte[0];
+					}
 				}
 			}
 		}
@@ -61,17 +63,19 @@ namespace pbXNet
 
 			using (MemoryStream sMsgDecrypted = new MemoryStream())
 			{
-				CryptoStream csDecrypt = new CryptoStream(sMsgDecrypted, objAlg.CreateDecryptor(), CryptoStreamMode.Write);
-				try
+				using (CryptoStream csDecrypt = new CryptoStream(sMsgDecrypted, objAlg.CreateDecryptor(), CryptoStreamMode.Write))
 				{
-					csDecrypt.Write(msg, 0, msg.Length);
-					csDecrypt.Close();
-					return sMsgDecrypted.ToArray();
-				}
-				catch (Exception ex)
-				{
-					Log.E(ex.Message, this);
-					return new byte[0];
+					try
+					{
+						csDecrypt.Write(msg, 0, msg.Length);
+						csDecrypt.Close();
+						return sMsgDecrypted.ToArray();
+					}
+					catch (Exception ex)
+					{
+						Log.E(ex.Message, this);
+						return new byte[0];
+					}
 				}
 			}
 		}
