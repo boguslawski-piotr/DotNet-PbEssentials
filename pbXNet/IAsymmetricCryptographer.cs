@@ -1,8 +1,8 @@
-﻿using System.Threading.Tasks;
+﻿using System;
 
 namespace pbXNet
 {
-	public interface IAsymmetricCryptographer
+	public interface IAsymmetricCryptographer : IDisposable
 	{
 		(IByteBuffer pbl, IByteBuffer prv) GenerateKeyPair(int length = -1);
 

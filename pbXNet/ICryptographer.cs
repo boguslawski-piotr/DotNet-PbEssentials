@@ -1,8 +1,8 @@
-﻿using System.Threading.Tasks;
+﻿using System;
 
 namespace pbXNet
 {
-	public interface ICryptographer
+	public interface ICryptographer : IDisposable
 	{
 		byte[] GenerateKey(IPassword pwd, byte[] salt, int length = 32);
 

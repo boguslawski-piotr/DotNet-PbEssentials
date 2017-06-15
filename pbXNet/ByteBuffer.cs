@@ -56,6 +56,11 @@ namespace pbXNet
 			return Encoding.UTF8.GetString(bb._b);
 		}
 
+		public override string ToString()
+		{
+			return _b?.ToHexString();
+		}
+
 		public void DisposeBytes()
 		{
 		}

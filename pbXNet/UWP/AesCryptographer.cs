@@ -81,6 +81,9 @@ pwd.Dispose();
 			}
 		}
 
+		public void Dispose()
+		{
+		}
 
 		//public static string IBufferToString(IBuffer buf)
 		//{

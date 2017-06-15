@@ -79,5 +79,9 @@ namespace pbXNet
 				}
 			}
 		}
+
+		public void Dispose()
+		{
+		}
 	}
 }

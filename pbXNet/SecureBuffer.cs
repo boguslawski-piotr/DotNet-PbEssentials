@@ -65,6 +65,11 @@ namespace pbXNet
 			return _unsecureb;
 		}
 
+		public override string ToString()
+		{
+			return _b?.ToHexString();
+		}
+
 		public void DisposeBytes()
 		{
 			_unsecureb?.FillWith<byte>(0);
