@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace pbXNet
 {
-	public class Password : IDisposable
+	public class Password : IPassword, IDisposable
 	{
 		char[] _passwd;
 		byte[] _bpasswd;
@@ -14,6 +14,12 @@ namespace pbXNet
 		public Password()
 		{
 			_passwd = new char[] { };
+		}
+
+		public Password(IPassword p)
+		{
+			_passwd = Encoding.UTF8.GetChars(p.GetBytes());
+			p.DisposeBytes();
 		}
 
 		public Password(Password p)
@@ -28,39 +34,40 @@ namespace pbXNet
 
 		public void Dispose()
 		{
-			Clear(true);
+			DisposeBytes();
+			_passwd?.FillWith<char>('\0');
+			_passwd = new char[] { };
 		}
 
-		public void Clear(bool allData)
+		public byte[] GetBytes()
+		{
+			DisposeBytes();
+			_bpasswd = Encoding.UTF8.GetBytes(_passwd);
+			return _bpasswd;
+		}
+
+		public void DisposeBytes()
 		{
 			_bpasswd?.FillWith<byte>(0);
 			_bpasswd = null;
-
-			if (allData)
-			{
-				_passwd?.FillWith<char>('\0');
-				_passwd = new char[] { };
-			}
 		}
 
 		public void Append(char c)
 		{
-			Clear(false);
+			DisposeBytes();
 			Array.Resize<char>(ref _passwd, _passwd.Length + 1);
 			_passwd[_passwd.Length - 1] = c;
 		}
 
 		public void RemoveLast()
 		{
-			Clear(false);
+			DisposeBytes();
 			Array.Resize<char>(ref _passwd, _passwd.Length - 1);
 		}
 
 		public static implicit operator byte[] (Password p)
 		{
-			p.Clear(false);
-			p._bpasswd = Encoding.UTF8.GetBytes(p._passwd);
-			return p._bpasswd;
+			return p.GetBytes();
 		}
 
 		public static Password operator +(Password d, char c)
@@ -71,7 +78,10 @@ namespace pbXNet
 
 		public override bool Equals(object obj)
 		{
-			return this.Equals(obj as Password);
+			Password p = obj as Password;
+			if (p == null)
+				return false;
+			return this.Equals(p);
 		}
 
 		public bool Equals(Password p)

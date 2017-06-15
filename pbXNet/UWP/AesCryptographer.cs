@@ -9,14 +9,14 @@ namespace pbXNet
 {
 	public partial class AesCryptographer : ICryptographer
 	{
-		public byte[] GenerateKey(Password pwd, byte[] salt, int length = 32)
+		public byte[] GenerateKey(IPassword pwd, byte[] salt, int length = 32)
 		{
 			const int iterations = 10000;
 
 			KeyDerivationAlgorithmProvider objKdfProv = KeyDerivationAlgorithmProvider.OpenAlgorithm(KeyDerivationAlgorithmNames.Pbkdf2Sha1);
 
-			IBuffer buffPwd = CryptographicBuffer.CreateFromByteArray(pwd);
-			pwd.Clear(false);
+IBuffer buffPwd = CryptographicBuffer.CreateFromByteArray(pwd.GetBytes());
+pwd.Dispose();
 			IBuffer buffSalt = CryptographicBuffer.CreateFromByteArray(salt);
 
 			KeyDerivationParameters pbkdf2Params = KeyDerivationParameters.BuildForPbkdf2(buffSalt, iterations);

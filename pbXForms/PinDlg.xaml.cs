@@ -15,8 +15,8 @@ namespace pbXForms
 		public PIButton OKBtn => _okBtn;
 		public DigitBtnsArray DigitBtns;
 
-		Password _pin = new Password();
-		public Password Pin => _pin;
+		IPassword _pin = new Password();
+		public IPassword Pin => _pin;
 
 		Grid _grid => (Content as Grid);
 
@@ -28,7 +28,7 @@ namespace pbXForms
 
 		public void Reset()
 		{
-			_pin.Clear(true);
+			_pin.Dispose();
 			UpdatePinVisualization();
 		}
 
@@ -57,7 +57,7 @@ namespace pbXForms
 		{
 			if (sender is PIButton btn)
 			{
-				_pin += ((string)btn.CommandParameter)[0];
+				_pin.Append(((string)btn.CommandParameter)[0]);
 				UpdatePinVisualization();
 			}
 		}

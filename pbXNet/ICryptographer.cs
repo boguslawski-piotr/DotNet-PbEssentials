@@ -4,7 +4,7 @@ namespace pbXNet
 {
 	public interface ICryptographer
 	{
-		byte[] GenerateKey(Password pwd, byte[] salt, int length = 32);
+		byte[] GenerateKey(IPassword pwd, byte[] salt, int length = 32);
 
 		byte[] GenerateIV(int length = 16);
 

@@ -10,7 +10,8 @@ namespace pbXNet {
 			RSA rsa = null;
 			try
 			{
-				rsa = new RSACryptoServiceProvider();
+				//rsa = new RSACryptoServiceProvider();
+				rsa = RSA.Create();
 			}
 			catch (Exception ex)
 			{
@@ -89,6 +90,8 @@ namespace pbXNet {
 		}		
 	}
 
+	/*
+	 
 	//
 	// Sample from MSDN
 
@@ -225,4 +228,6 @@ namespace pbXNet {
 			Console.WriteLine("RoundTrip: {0}", roundTrip);
 		}
 	}
+
+	*/
 }

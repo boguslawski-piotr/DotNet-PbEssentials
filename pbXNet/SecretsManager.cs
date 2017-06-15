@@ -82,27 +82,27 @@ namespace pbXNet
 			return _passwords.ContainsKey(id);
 		}
 
-		public void AddOrUpdatePassword(string id, Password passwd)
+		public void AddOrUpdatePassword(string id, IPassword passwd)
 		{
 			if (id == null)
 				return;
 
 			LoadPasswords();
 
-			EncryptedPassword _password;
-			if (!_passwords.TryGetValue(id, out _password))
+			EncryptedPassword epasswd;
+			if (!_passwords.TryGetValue(id, out epasswd))
 			{
-				_password = new EncryptedPassword()
+				epasswd = new EncryptedPassword()
 				{
 					iv = _cryptographer.GenerateIV()
 				};
 			}
 
 			byte[] ckey = _cryptographer.GenerateKey(passwd, _salt);
-			_password.data = _cryptographer.Encrypt(Encoding.UTF8.GetBytes(_phrase), ckey, _password.iv);
+			epasswd.data = _cryptographer.Encrypt(Encoding.UTF8.GetBytes(_phrase), ckey, epasswd.iv);
 			ckey.FillWithDefault();
 
-			_passwords[id] = _password;
+			_passwords[id] = epasswd;
 
 			SavePasswords();
 		}
@@ -116,16 +116,16 @@ namespace pbXNet
 			}
 		}
 
-		public bool ComparePassword(string id, Password passwd)
+		public bool ComparePassword(string id, IPassword passwd)
 		{
 			LoadPasswords();
 
-			EncryptedPassword _password;
-			if (!_passwords.TryGetValue(id, out _password))
+			EncryptedPassword epasswd;
+			if (!_passwords.TryGetValue(id, out epasswd))
 				return false;
 
 			byte[] ckey = _cryptographer.GenerateKey(passwd, _salt);
-			byte[] ddata = _cryptographer.Decrypt(_password.data, ckey, _password.iv);
+			byte[] ddata = _cryptographer.Decrypt(epasswd.data, ckey, epasswd.iv);
 			ckey.FillWithDefault();
 
 			return ddata.SequenceEqual(Encoding.UTF8.GetBytes(_phrase));
@@ -174,7 +174,7 @@ namespace pbXNet
 			_storage.StoreAsync(_ckeysDataId, d, DateTime.UtcNow);
 		}
 
-		public byte[] CreateCKey(string id, CKeyLifeTime lifeTime, Password passwd)
+		public byte[] CreateCKey(string id, CKeyLifeTime lifeTime, IPassword passwd)
 		{
 			if (id == null)
 				return null;

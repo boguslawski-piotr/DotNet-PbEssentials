@@ -32,6 +32,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)EncryptedFileSystem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Log.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Password.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IPassword.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)pbXNetT.resx">

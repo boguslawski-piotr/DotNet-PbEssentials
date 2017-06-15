@@ -37,7 +37,7 @@ namespace pbXNet
 		/// </summary>
 		public static string GetUaqpid()
 		{
-			using (Password passwd = new Password(_Uaqpid))
+			using (IPassword passwd = new Password(_Uaqpid))
 			{
 				byte[] id = new AesCryptographer().GenerateKey(passwd, new byte[] { 34, 56, 2, 34, 6, 87, 12, 34, 56, 11 });
 				return ConvertEx.ToHexString(id);

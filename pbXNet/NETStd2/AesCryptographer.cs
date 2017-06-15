@@ -8,14 +8,14 @@ namespace pbXNet
 {
 	public partial class AesCryptographer : ICryptographer
 	{
-		public byte[] GenerateKey(Password pwd, byte[] salt, int length = 32)
+		public byte[] GenerateKey(IPassword pwd, byte[] salt, int length = 32)
 		{
-			PasswordDeriveBytes pdb = new PasswordDeriveBytes(pwd, salt)
+			PasswordDeriveBytes pdb = new PasswordDeriveBytes(pwd.GetBytes(), salt)
 			{
 				IterationCount = 10000
 			};
 			byte[] key = pdb.GetBytes(length);
-			pwd.Clear(false);
+			pwd.DisposeBytes();
 			return key;
 		}
 

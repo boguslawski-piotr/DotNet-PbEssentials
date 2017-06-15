@@ -16,7 +16,7 @@ namespace pbXNet
 		IFileSystem _fs;
 		ICryptographer _cryptographer;
 
-		Password _passwd;
+		IPassword _passwd;
 		byte[] _ckey;
 		byte[] _iv;
 
@@ -35,7 +35,7 @@ namespace pbXNet
 			_cryptographer = cryptographer;
 		}
 
-		public EncryptedFileSystem(string id, IFileSystem fs, ICryptographer cryptographer, Password passwd)
+		public EncryptedFileSystem(string id, IFileSystem fs, ICryptographer cryptographer, IPassword passwd)
 		{
 			Id = id;
 			_passwd = passwd;
@@ -73,14 +73,14 @@ namespace pbXNet
 			if (_ckey == null)
 				_ckey = _cryptographer.GenerateKey(_passwd, _iv);
 
-			_passwd?.Clear(true);
+			_passwd?.Dispose();
 
 			await _fs.RestoreStateAsync().ConfigureAwait(false);
 		}
 
 		public void Dispose()
 		{
-			_passwd?.Clear(true);
+			_passwd?.Dispose();
 			_ckey?.FillWithDefault();
 			_iv?.FillWithDefault();
 			_passwd = null;

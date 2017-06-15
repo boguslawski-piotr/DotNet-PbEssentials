@@ -48,15 +48,15 @@ namespace pbXNet
 		// Basic authentication based on passwords
 		// Implementation should never store any password anywhere in any form
 
-		void AddOrUpdatePassword(string id, Password passwd);
+		void AddOrUpdatePassword(string id, IPassword passwd);
 		bool PasswordExists(string id);
 		void DeletePassword(string id);
 
-		bool ComparePassword(string id, Password passwd);
+		bool ComparePassword(string id, IPassword passwd);
 
 		// Cryptographic keys, encryption and decryption
 
-		byte[] CreateCKey(string id, CKeyLifeTime lifeTime, Password passwd);
+		byte[] CreateCKey(string id, CKeyLifeTime lifeTime, IPassword passwd);
 		byte[] GetCKey(string id);
 		void DeleteCKey(string id);
 
