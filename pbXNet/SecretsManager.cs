@@ -178,7 +178,9 @@ namespace pbXNet
 			if (id == null)
 				return;
 
-			string ckey = new SecureBuffer(_cryptographer.GenerateKey(passwd, new ByteBuffer(_salt)), true).ToHexString();
+			IByteBuffer ckeyb = new SecureBuffer(_cryptographer.GenerateKey(passwd, new ByteBuffer(_salt)), true);
+			string ckey = ckeyb.ToHexString();
+			ckeyb.Dispose();
 
 			if (lifeTime == CKeyLifeTime.Infinite)
 			{
@@ -244,6 +246,7 @@ namespace pbXNet
 		{
 			IByteBuffer ckey = GetCKey(id);
 			ByteBuffer edata = _cryptographer.Encrypt(new ByteBuffer(data, Encoding.UTF8), ckey, iv);
+			ckey.Dispose();
 			return edata.ToHexString();
 		}
 
@@ -251,6 +254,7 @@ namespace pbXNet
 		{
 			IByteBuffer ckey = GetCKey(id);
 			ByteBuffer ddata = _cryptographer.Decrypt(ByteBuffer.NewFromHexString(data), ckey, iv);
+			ckey.Dispose();
 			return ddata.ToString(Encoding.UTF8);
 		}
 	}
