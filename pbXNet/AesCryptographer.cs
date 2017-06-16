@@ -6,7 +6,7 @@ namespace pbXNet
 {
 	public partial class AesCryptographer : ICryptographer
 	{
-		public Exception LastEx;
+		public Exception LastEx { get; private set; }
 
 		// You will find the implementation in the platform directories...
 	}

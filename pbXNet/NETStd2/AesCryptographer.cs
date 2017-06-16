@@ -8,14 +8,17 @@ namespace pbXNet
 {
 	public partial class AesCryptographer : ICryptographer
 	{
+		//Aes _algImpl => new AesManaged();
+		Aes _algImpl => Aes.Create();
+
 		public IByteBuffer GenerateKey(IPassword pwd, IByteBuffer salt, int length = 32)
 		{
-			PasswordDeriveBytes pdb = new PasswordDeriveBytes(pwd.GetBytes(), salt.GetBytes())
-			{
-				IterationCount = 10000
-			};
+			//PasswordDeriveBytes pdb = new PasswordDeriveBytes(pwd.GetBytes(), salt.GetBytes());
+			//pdb.IterationCount = 10000;
+			Rfc2898DeriveBytes pdb = new Rfc2898DeriveBytes(pwd.GetBytes(), salt.GetBytes(), 10000);
 
 			SecureBuffer key = new SecureBuffer(pdb.GetBytes(length), true);
+
 			pwd.DisposeBytes();
 			salt.DisposeBytes();
 
@@ -24,76 +27,46 @@ namespace pbXNet
 
 		public IByteBuffer GenerateIV(int length = 16)
 		{
-			AesManaged objAlg = new AesManaged();
-			objAlg.GenerateIV();
-			return new SecureBuffer(objAlg.IV);
+			Aes alg = _algImpl;
+			alg.GenerateIV();
+			return new SecureBuffer(alg.IV);
 		}
 
 		public ByteBuffer Encrypt(IByteBuffer msg, IByteBuffer key, IByteBuffer iv)
 		{
-			AesManaged objAlg = new AesManaged()
-			{
-				Key = key.GetBytes(),
-				IV = iv.GetBytes()
-			};
-
-			try
-			{
-				using (MemoryStream sMsgEncrypted = new MemoryStream())
-				{
-					using (CryptoStream csEncrypt = new CryptoStream(sMsgEncrypted, objAlg.CreateEncryptor(), CryptoStreamMode.Write))
-					{
-						try
-						{
-							csEncrypt.Write(msg.GetBytes(), 0, msg.Length);
-							csEncrypt.Close();
-							return new ByteBuffer(sMsgEncrypted.ToArray());
-						}
-						catch (Exception ex)
-						{
-							Log.E(ex.Message, this);
-							LastEx = ex;
-							return new ByteBuffer();
-						}
-					}
-				}
-			}
-			finally
-			{
-				key.DisposeBytes();
-				iv.DisposeBytes();
-				msg.DisposeBytes();
-			}
+			Aes alg = _algImpl;
+			return Transform(msg, key, iv, alg, true);
 		}
 
 		public ByteBuffer Decrypt(IByteBuffer msg, IByteBuffer key, IByteBuffer iv)
 		{
-			AesManaged objAlg = new AesManaged()
-			{
-				Key = key.GetBytes(),
-				IV = iv.GetBytes()
-			};
+			Aes alg = _algImpl;
+			return Transform(msg, key, iv, alg, false);
+		}
 
+		ByteBuffer Transform(IByteBuffer msg, IByteBuffer key, IByteBuffer iv, Aes alg, bool encrypt)
+		{
 			try
 			{
-				using (MemoryStream sMsgDecrypted = new MemoryStream())
+				alg.Key = key.GetBytes();
+				alg.IV = iv.GetBytes();
+				ICryptoTransform transform = encrypt ? alg.CreateEncryptor() : alg.CreateDecryptor();
+
+				using (MemoryStream msgTransformed = new MemoryStream())
 				{
-					using (CryptoStream csDecrypt = new CryptoStream(sMsgDecrypted, objAlg.CreateDecryptor(), CryptoStreamMode.Write))
+					using (CryptoStream cs = new CryptoStream(msgTransformed, transform, CryptoStreamMode.Write))
 					{
-						try
-						{
-							csDecrypt.Write(msg.GetBytes(), 0, msg.Length);
-							csDecrypt.Close();
-							return new ByteBuffer(sMsgDecrypted.ToArray());
-						}
-						catch (Exception ex)
-						{
-							Log.E(ex.Message, this);
-							LastEx = ex;
-							return new ByteBuffer();
-						}
+						cs.Write(msg.GetBytes(), 0, msg.Length);
 					}
+
+					return new ByteBuffer(msgTransformed.ToArray());
 				}
+			}
+			catch (Exception ex)
+			{
+				Log.E(ex.Message, this);
+				LastEx = ex;
+				return new ByteBuffer();
 			}
 			finally
 			{
