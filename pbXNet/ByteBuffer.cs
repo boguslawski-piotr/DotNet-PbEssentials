@@ -1,12 +1,22 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Linq;
+using System.Collections;
 
 namespace pbXNet
 {
-	public class ByteBuffer : IByteBuffer, IDisposable
+	public class ByteBuffer : IByteBuffer, IDisposable, IEnumerable<byte>
 	{
 		byte[] _b;
+
+		public int Length => (_b == null ? 0 : _b.Length);
+
+		public ByteBuffer()
+		{
+			_b = new byte[0];
+		}
 
 		public ByteBuffer(byte[] b, bool clearSource = false)
 		{
@@ -15,57 +25,131 @@ namespace pbXNet
 			if (clearSource && !b.IsReadOnly)
 			{
 				b.FillWith<byte>(0);
-				Array.Resize<byte>(ref b, 0);
+				System.Array.Resize<byte>(ref b, 0);
 			}
 		}
 
-		public ByteBuffer(char[] cb, bool clearSource = false)
-			: this(Encoding.UTF8.GetBytes(cb), true)
+		public ByteBuffer(IByteBuffer b, bool clearSource = false)
 		{
-			if (clearSource && !cb.IsReadOnly)
+			_b = (byte[])b.GetBytes().Clone();
+			if (!clearSource)
+				b.DisposeBytes();
+			else
+				b.Dispose();
+		}
+
+		public ByteBuffer(ByteBuffer b, bool clearSource = false)
+		{
+			_b = (byte[])b._b.Clone();
+			if (clearSource)
+				b.Dispose();
+		}
+
+		public ByteBuffer(string sb, Encoding encoding)
+			: this(encoding.GetBytes(sb), true)
+		{
+		}
+
+		public ByteBuffer(IEnumerable<byte> l)
+			: this(l.ToArray(), true)
+		{
+		}
+
+		public ByteBuffer(Stream s)
+		{
+			if (s is MemoryStream)
 			{
-				cb.FillWith<char>('\0');
-				Array.Resize<char>(ref cb, 0);
+				_b = (s as MemoryStream).ToArray();
+			}
+			else
+			{
+				using (MemoryStream sm = new MemoryStream())
+				{
+					if (s.CanSeek)
+						s.Seek(0, SeekOrigin.Begin);
+					s.CopyTo(sm);
+					_b = sm.ToArray();
+				}
 			}
 		}
 
-		public ByteBuffer(string sb)
-			: this(Encoding.UTF8.GetBytes(sb), true)
+		public static ByteBuffer NewFromHexString(string d)
 		{
+			return new ByteBuffer(d.FromHexString());
 		}
 
-		public uint Length => (uint)(_b == null ? 0 : _b.Length);
+		public static ByteBuffer NewFromString(string d, Encoding encoding)
+		{
+			return new ByteBuffer(encoding.GetBytes(d));
+		}
 
-		public byte[] GetBytes()
+		public virtual byte[] GetBytes()
 		{
 			return _b;
 		}
 
 		public static implicit operator byte[] (ByteBuffer bb)
 		{
-			return bb.GetBytes();
+			return bb?.GetBytes();
 		}
 
-		public static implicit operator char[] (ByteBuffer bb)
-		{
-			return Encoding.UTF8.GetChars(bb);
-		}
-
-		public static implicit operator string(ByteBuffer bb)
-		{
-			return Encoding.UTF8.GetString(bb._b);
-		}
-
-		public override string ToString()
+		public virtual string ToHexString()
 		{
 			return _b?.ToHexString();
 		}
 
-		public void DisposeBytes()
+		public virtual string ToString(Encoding encoding)
+		{
+			return encoding.GetString(_b);
+		}
+
+		public override string ToString()
+		{
+			return ToHexString();
+		}
+
+		public override bool Equals(object obj)
+		{
+			ByteBuffer p = obj as ByteBuffer;
+			if (p == null)
+				return false;
+			return this.Equals(p);
+		}
+
+		public bool Equals(ByteBuffer b)
+		{
+			if (object.ReferenceEquals(b, null))
+				return false;
+			if (object.ReferenceEquals(this, b))
+				return true;
+			if (this.GetType() != b.GetType())
+				return false;
+			if (_b == null)
+				return b == null;
+			
+			return _b.SequenceEqual(b._b);
+		}
+
+		public override int GetHashCode()
+		{
+			return _b.GetHashCode();
+		}
+
+		public IEnumerator<byte> GetEnumerator()
+		{
+			return new ArrayExtensions.Enumerator<byte>(_b);
+		}
+
+		IEnumerator IEnumerable.GetEnumerator()
+		{
+			return _b.GetEnumerator();
+		}
+
+		public virtual void DisposeBytes()
 		{
 		}
 
-		public void Dispose()
+		public virtual void Dispose()
 		{
 			_b?.FillWith<byte>(0);
 			_b = null;

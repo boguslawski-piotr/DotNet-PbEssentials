@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 
 namespace pbXNet
 {
+	/// Id will be used as directory name in the root of file system. 
+	/// The data in this directory (and in all subdirectories) will be encrypted. 
+	/// The data in another directories (unless the Id was set to null or empty string) will not be encrypted.
 	public class EncryptedFileSystem : IFileSystem
 	{
 		public FileSystemType Type => _fs.Type;
@@ -17,30 +20,30 @@ namespace pbXNet
 		ICryptographer _cryptographer;
 
 		IPassword _passwd;
-		byte[] _ckey;
-		byte[] _iv;
+		IByteBuffer _ckey;
+		IByteBuffer _iv;
 
-		/// Id will be used as directory name in the root of file system. 
-		/// The data in this directory (and in all subdirectories) will be encrypted. 
-		/// The data in another directories (unless the Id was set to null or empty string) will not be encrypted.
-		/// 
-		/// IMPORTANT NOTE: 
-		/// Passed pwd or ckey is / can be completely cleaned (zeros) as soon as possible / at an unspecified moment.
-		/// You should not use this data anymore after it was passed to the EncryptedFileSystem class constructor.
-		public EncryptedFileSystem(string id, IFileSystem fs, ICryptographer cryptographer, byte[] ckey)
+		protected EncryptedFileSystem(string id, IFileSystem fs, ICryptographer cryptographer)
 		{
 			Id = id;
-			_ckey = ckey;
 			_fs = fs;
 			_cryptographer = cryptographer;
 		}
 
-		public EncryptedFileSystem(string id, IFileSystem fs, ICryptographer cryptographer, IPassword passwd)
+		/// IMPORTANT NOTE: 
+		/// Passed ckey can be completely cleaned (zeros) at an unspecified moment.
+		/// You should not use this data anymore after it was passed to the EncryptedFileSystem class constructor.
+		public EncryptedFileSystem(string id, IFileSystem fs, ICryptographer cryptographer, IByteBuffer ckey) : this(id, fs, cryptographer)
 		{
-			Id = id;
+			_ckey = ckey;
+		}
+
+		/// IMPORTANT NOTE: 
+		/// Passed passwd is completely cleaned (zeros) as soon as possible.
+		/// You should not use this data anymore after it was passed to the EncryptedFileSystem class constructor.
+		public EncryptedFileSystem(string id, IFileSystem fs, ICryptographer cryptographer, IPassword passwd) : this(id, fs, cryptographer)
+		{
 			_passwd = passwd;
-			_fs = fs;
-			_cryptographer = cryptographer;
 		}
 
 		public virtual async Task InitializeAsync()
@@ -59,19 +62,23 @@ namespace pbXNet
 			if (await _fs.FileExistsAsync(_configFileName).ConfigureAwait(false))
 			{
 				d = await _fs.ReadTextAsync(_configFileName).ConfigureAwait(false);
-				d = Obfuscator.DeObfuscate(d);
-				_iv = d.FromHexString();
+				_iv = SecureBuffer.NewFromHexString(d);
 			}
 			else
 			{
+				// We don't know what type (which implements IByteBuffer) will return GenerateIV from cryptographer.
+				// Therefore, to be sure, we convert to SecureBuffer before we save data.
 				_iv = _cryptographer.GenerateIV();
-				d = ConvertEx.ToHexString(_iv);
-				d = Obfuscator.Obfuscate(d);
-				await _fs.WriteTextAsync(_configFileName, d).ConfigureAwait(false);
+				await _fs.WriteTextAsync(_configFileName, new SecureBuffer(_iv.GetBytes()).ToHexString()).ConfigureAwait(false);
+				_iv.DisposeBytes();
 			}
 
 			if (_ckey == null)
+			{
+				if (_passwd == null)
+					throw new ArgumentNullException(nameof(_passwd));
 				_ckey = _cryptographer.GenerateKey(_passwd, _iv);
+			}
 
 			_passwd?.Dispose();
 
@@ -81,8 +88,8 @@ namespace pbXNet
 		public void Dispose()
 		{
 			_passwd?.Dispose();
-			_ckey?.FillWithDefault();
-			_iv?.FillWithDefault();
+			_ckey?.Dispose();
+			_iv?.Dispose();
 			_passwd = null;
 			_ckey = _iv = null;
 			_fs = null;
@@ -97,6 +104,7 @@ namespace pbXNet
 		public async Task SaveStateAsync() => await _fs.SaveStateAsync().ConfigureAwait(false);
 
 		public async Task RestoreStateAsync() => await _fs.RestoreStateAsync().ConfigureAwait(false);
+
 
 		public async Task SetCurrentDirectoryAsync(string dirname) => await _fs.SetCurrentDirectoryAsync(dirname).ConfigureAwait(false);
 
@@ -127,8 +135,8 @@ namespace pbXNet
 			if (_ckey == null || _iv == null)
 				await InitializeAsync();
 
-			byte[] dtext = _cryptographer.Decrypt(text.FromHexString(), _ckey, _iv);
-			return Encoding.UTF8.GetString(dtext, 0, dtext.Length);
+			ByteBuffer dtext = _cryptographer.Decrypt(ByteBuffer.NewFromHexString(text), _ckey, _iv);
+			return dtext.ToString(Encoding.UTF8);
 		}
 
 		public virtual async Task WriteTextAsync(string filename, string text)
@@ -138,8 +146,8 @@ namespace pbXNet
 			if (_ckey == null || _iv == null)
 				await InitializeAsync();
 
-			byte[] etext = _cryptographer.Encrypt(Encoding.UTF8.GetBytes(text), _ckey, _iv);
-			await _fs.WriteTextAsync(filename, ConvertEx.ToHexString(etext)).ConfigureAwait(false);
+			ByteBuffer etext = _cryptographer.Encrypt(new ByteBuffer(text, Encoding.UTF8), _ckey, _iv);
+			await _fs.WriteTextAsync(filename, etext.ToHexString()).ConfigureAwait(false);
 		}
 	}
 }

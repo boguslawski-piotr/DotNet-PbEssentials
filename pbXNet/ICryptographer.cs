@@ -4,12 +4,14 @@ namespace pbXNet
 {
 	public interface ICryptographer : IDisposable
 	{
-		byte[] GenerateKey(IPassword pwd, byte[] salt, int length = 32);
+		IByteBuffer GenerateKey(IPassword pwd, IByteBuffer salt, int length = 32);
 
-		byte[] GenerateIV(int length = 16);
+		IByteBuffer GenerateIV(int length = 16);
 
-		byte[] Encrypt(byte[] msg, byte[] key, byte[] iv);
+		/// When error should return empty ByteBuffer.
+		ByteBuffer Encrypt(IByteBuffer msg, IByteBuffer key, IByteBuffer iv);
 
-		byte[] Decrypt(byte[] msg, byte[] key, byte[] iv);
+		/// When error should return empty ByteBuffer.
+		ByteBuffer Decrypt(IByteBuffer msg, IByteBuffer key, IByteBuffer iv);
 	}
 }

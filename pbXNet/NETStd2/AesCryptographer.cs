@@ -8,75 +8,98 @@ namespace pbXNet
 {
 	public partial class AesCryptographer : ICryptographer
 	{
-		public byte[] GenerateKey(IPassword pwd, byte[] salt, int length = 32)
+		public IByteBuffer GenerateKey(IPassword pwd, IByteBuffer salt, int length = 32)
 		{
-			PasswordDeriveBytes pdb = new PasswordDeriveBytes(pwd.GetBytes(), salt)
+			PasswordDeriveBytes pdb = new PasswordDeriveBytes(pwd.GetBytes(), salt.GetBytes())
 			{
 				IterationCount = 10000
 			};
-			byte[] key = pdb.GetBytes(length);
+
+			SecureBuffer key = new SecureBuffer(pdb.GetBytes(length), true);
 			pwd.DisposeBytes();
+			salt.DisposeBytes();
+
 			return key;
 		}
 
-		public byte[] GenerateIV(int length = 16)
+		public IByteBuffer GenerateIV(int length = 16)
 		{
 			AesManaged objAlg = new AesManaged();
 			objAlg.GenerateIV();
-			return objAlg.IV;
+			return new SecureBuffer(objAlg.IV);
 		}
 
-		public byte[] Encrypt(byte[] msg, byte[] key, byte[] iv)
+		public ByteBuffer Encrypt(IByteBuffer msg, IByteBuffer key, IByteBuffer iv)
 		{
 			AesManaged objAlg = new AesManaged()
 			{
-				Key = key,
-				IV = iv
+				Key = key.GetBytes(),
+				IV = iv.GetBytes()
 			};
 
-			using (MemoryStream sMsgEncrypted = new MemoryStream())
+			try
 			{
-				using (CryptoStream csEncrypt = new CryptoStream(sMsgEncrypted, objAlg.CreateEncryptor(), CryptoStreamMode.Write))
+				using (MemoryStream sMsgEncrypted = new MemoryStream())
 				{
-					try
+					using (CryptoStream csEncrypt = new CryptoStream(sMsgEncrypted, objAlg.CreateEncryptor(), CryptoStreamMode.Write))
 					{
-						csEncrypt.Write(msg, 0, msg.Length);
-						csEncrypt.Close();
-						return sMsgEncrypted.ToArray();
-					}
-					catch (Exception ex)
-					{
-						Log.E(ex.Message, this);
-						return new byte[0];
+						try
+						{
+							csEncrypt.Write(msg.GetBytes(), 0, msg.Length);
+							csEncrypt.Close();
+							return new ByteBuffer(sMsgEncrypted.ToArray());
+						}
+						catch (Exception ex)
+						{
+							Log.E(ex.Message, this);
+							LastEx = ex;
+							return new ByteBuffer();
+						}
 					}
 				}
 			}
+			finally
+			{
+				key.DisposeBytes();
+				iv.DisposeBytes();
+				msg.DisposeBytes();
+			}
 		}
 
-		public byte[] Decrypt(byte[] msg, byte[] key, byte[] iv)
+		public ByteBuffer Decrypt(IByteBuffer msg, IByteBuffer key, IByteBuffer iv)
 		{
 			AesManaged objAlg = new AesManaged()
 			{
-				Key = key,
-				IV = iv
+				Key = key.GetBytes(),
+				IV = iv.GetBytes()
 			};
 
-			using (MemoryStream sMsgDecrypted = new MemoryStream())
+			try
 			{
-				using (CryptoStream csDecrypt = new CryptoStream(sMsgDecrypted, objAlg.CreateDecryptor(), CryptoStreamMode.Write))
+				using (MemoryStream sMsgDecrypted = new MemoryStream())
 				{
-					try
+					using (CryptoStream csDecrypt = new CryptoStream(sMsgDecrypted, objAlg.CreateDecryptor(), CryptoStreamMode.Write))
 					{
-						csDecrypt.Write(msg, 0, msg.Length);
-						csDecrypt.Close();
-						return sMsgDecrypted.ToArray();
-					}
-					catch (Exception ex)
-					{
-						Log.E(ex.Message, this);
-						return new byte[0];
+						try
+						{
+							csDecrypt.Write(msg.GetBytes(), 0, msg.Length);
+							csDecrypt.Close();
+							return new ByteBuffer(sMsgDecrypted.ToArray());
+						}
+						catch (Exception ex)
+						{
+							Log.E(ex.Message, this);
+							LastEx = ex;
+							return new ByteBuffer();
+						}
 					}
 				}
+			}
+			finally
+			{
+				key.DisposeBytes();
+				iv.DisposeBytes();
+				msg.DisposeBytes();
 			}
 		}
 

@@ -53,6 +53,7 @@ pwd.Dispose();
 			catch (Exception e)
 			{
 				Log.E(e.Message, this);
+							LastEx = e;
 				return new byte[0];
 			}
 		}
@@ -77,6 +78,7 @@ pwd.Dispose();
 			catch (Exception e)
 			{
 				Log.E(e.Message, this);
+							LastEx = e;
 				return new byte[0];
 			}
 		}

@@ -1,11 +1,17 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace pbXNet
 {
-	public interface IByteBuffer : IDisposable 
+	public interface IByteBuffer : IDisposable
 	{
-		uint Length { get; }
+		int Length { get; }
+
 		byte[] GetBytes();
+
 		void DisposeBytes();
+
+		string ToHexString();
 	}
 }

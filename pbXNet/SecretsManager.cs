@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -33,12 +31,11 @@ namespace pbXNet
 		// Basic authentication based on passwords
 		// No password is ever written anywhere
 
-		// TODO: jakas lepsza nazwa(y)
 		[Serializable]
 		class EncryptedPassword
 		{
-			public byte[] iv;
-			public byte[] data;
+			public string iv;
+			public string data;
 		};
 
 		IDictionary<string, EncryptedPassword> _passwords = new Dictionary<string, EncryptedPassword>();
@@ -55,6 +52,7 @@ namespace pbXNet
 			// TODO: async as sync -> sprawdzic wyjatki i czy na pewno jest to ok rozwiazanie
 			string d = Task.Run(async () => await _storage.GetACopyAsync(_passwordsDataId)).GetAwaiter().GetResult();
 			//string d = await _storage.GetACopyAsync(_passwordsDataId);
+
 			if (!string.IsNullOrEmpty(d))
 			{
 				d = Obfuscator.DeObfuscate(d);
@@ -94,13 +92,13 @@ namespace pbXNet
 			{
 				epasswd = new EncryptedPassword()
 				{
-					iv = _cryptographer.GenerateIV()
+					iv = new SecureBuffer(_cryptographer.GenerateIV(), true).ToHexString(),
 				};
 			}
 
-			byte[] ckey = _cryptographer.GenerateKey(passwd, _salt);
-			epasswd.data = _cryptographer.Encrypt(Encoding.UTF8.GetBytes(_phrase), ckey, epasswd.iv);
-			ckey.FillWithDefault();
+			IByteBuffer ckey = _cryptographer.GenerateKey(passwd, new ByteBuffer(_salt));
+			epasswd.data = _cryptographer.Encrypt(new ByteBuffer(_phrase, Encoding.UTF8), ckey, SecureBuffer.NewFromHexString(epasswd.iv)).ToHexString();
+			ckey.Dispose();
 
 			_passwords[id] = epasswd;
 
@@ -124,11 +122,11 @@ namespace pbXNet
 			if (!_passwords.TryGetValue(id, out epasswd))
 				return false;
 
-			byte[] ckey = _cryptographer.GenerateKey(passwd, _salt);
-			byte[] ddata = _cryptographer.Decrypt(epasswd.data, ckey, epasswd.iv);
-			ckey.FillWithDefault();
+			IByteBuffer ckey = _cryptographer.GenerateKey(passwd, new ByteBuffer(_salt));
+			ByteBuffer ddata = _cryptographer.Decrypt(ByteBuffer.NewFromHexString(epasswd.data), ckey, SecureBuffer.NewFromHexString(epasswd.iv));
+			ckey.Dispose();
 
-			return ddata.SequenceEqual(Encoding.UTF8.GetBytes(_phrase));
+			return ddata.Equals(new ByteBuffer(_phrase, Encoding.UTF8));
 		}
 
 
@@ -138,10 +136,10 @@ namespace pbXNet
 		class TemporaryCKey
 		{
 			public CKeyLifeTime lifeTime;
-			public byte[] ckey;
+			public string ckey;
 		}
 
-		IDictionary<string, byte[]> _ckeys = new Dictionary<string, byte[]>();
+		IDictionary<string, string> _ckeys = new Dictionary<string, string>();
 		IDictionary<string, TemporaryCKey> _temporaryCKeys = new Dictionary<string, TemporaryCKey>();
 
 		const string _ckeysDataId = ".d46ee950276f4665aefa06cb2ee6b35e";
@@ -154,10 +152,11 @@ namespace pbXNet
 			// TODO: async as sync -> sprawdzic wyjatki i czy na pewno jest to ok rozwiazanie
 			string d = Task.Run(async () => await _storage.GetACopyAsync(_ckeysDataId)).GetAwaiter().GetResult();
 			//string d = await _storage.GetACopyAsync(_ckeysDataId);
+
 			if (!string.IsNullOrEmpty(d))
 			{
 				d = Obfuscator.DeObfuscate(d);
-				_ckeys = _serializer.FromString<IDictionary<string, byte[]>>(d);
+				_ckeys = _serializer.FromString<IDictionary<string, string>>(d);
 			}
 		}
 
@@ -174,12 +173,12 @@ namespace pbXNet
 			_storage.StoreAsync(_ckeysDataId, d, DateTime.UtcNow);
 		}
 
-		public byte[] CreateCKey(string id, CKeyLifeTime lifeTime, IPassword passwd)
+		public void CreateCKey(string id, CKeyLifeTime lifeTime, IPassword passwd)
 		{
 			if (id == null)
-				return null;
+				return;
 
-			byte[] ckey = _cryptographer.GenerateKey(passwd, _salt);
+			string ckey = new SecureBuffer(_cryptographer.GenerateKey(passwd, new ByteBuffer(_salt)), true).ToHexString();
 
 			if (lifeTime == CKeyLifeTime.Infinite)
 			{
@@ -194,29 +193,22 @@ namespace pbXNet
 				if (lifeTime != CKeyLifeTime.OneTime)
 					_temporaryCKeys[id] = new TemporaryCKey() { lifeTime = lifeTime, ckey = ckey };
 			}
-
-			return ckey;
 		}
 
-		public byte[] GetCKey(string id)
+		public bool CKeyExists(string id)
 		{
-			if (_temporaryCKeys.TryGetValue(id, out TemporaryCKey ckey))
-				return ckey.ckey;
+			if (_temporaryCKeys.ContainsKey(id))
+				return true;
 
 			LoadCKeys();
 
-			ckey = new TemporaryCKey();
-			if (_ckeys.TryGetValue(id, out ckey.ckey))
-				return ckey.ckey;
-
-			return null;
+			return _ckeys.ContainsKey(id);
 		}
 
 		public void DeleteCKey(string id)
 		{
 			if (_temporaryCKeys.ContainsKey(id))
 			{
-				_temporaryCKeys[id].ckey?.FillWithDefault();
 				_temporaryCKeys.Remove(id);
 			}
 
@@ -224,27 +216,42 @@ namespace pbXNet
 
 			if (_ckeys.ContainsKey(id))
 			{
-				_ckeys[id]?.FillWithDefault();
 				_ckeys.Remove(id);
 				SaveCKeys();
 			}
 		}
 
-		public string Encrypt(string data, byte[] ckey, byte[] iv)
+		IByteBuffer GetCKey(string id)
 		{
-			byte[] edata = _cryptographer.Encrypt(Encoding.UTF8.GetBytes(data), ckey, iv);
-			return ConvertEx.ToHexString(edata);
+			if (_temporaryCKeys.TryGetValue(id, out TemporaryCKey ckey))
+				return SecureBuffer.NewFromHexString(ckey.ckey);
+
+			LoadCKeys();
+
+			ckey = new TemporaryCKey();
+			if (_ckeys.TryGetValue(id, out ckey.ckey))
+				return SecureBuffer.NewFromHexString(ckey.ckey);
+
+			return null;
 		}
 
-		public string Decrypt(string data, byte[] ckey, byte[] iv)
-		{
-			byte[] ddata = _cryptographer.Decrypt(data.FromHexString(), ckey, iv);
-			return Encoding.UTF8.GetString(ddata, 0, ddata.Length);
-		}
-
-		public byte[] GenerateIV()
+		public IByteBuffer GenerateIV()
 		{
 			return _cryptographer.GenerateIV();
+		}
+
+		public string Encrypt(string data, string id, IByteBuffer iv)
+		{
+			IByteBuffer ckey = GetCKey(id);
+			ByteBuffer edata = _cryptographer.Encrypt(new ByteBuffer(data, Encoding.UTF8), ckey, iv);
+			return edata.ToHexString();
+		}
+
+		public string Decrypt(string data, string id, IByteBuffer iv)
+		{
+			IByteBuffer ckey = GetCKey(id);
+			ByteBuffer ddata = _cryptographer.Decrypt(ByteBuffer.NewFromHexString(data), ckey, iv);
+			return ddata.ToString(Encoding.UTF8);
 		}
 	}
 }

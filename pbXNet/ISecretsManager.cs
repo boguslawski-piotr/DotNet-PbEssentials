@@ -56,13 +56,13 @@ namespace pbXNet
 
 		// Cryptographic keys, encryption and decryption
 
-		byte[] CreateCKey(string id, CKeyLifeTime lifeTime, IPassword passwd);
-		byte[] GetCKey(string id);
+		void CreateCKey(string id, CKeyLifeTime lifeTime, IPassword passwd);
+		bool CKeyExists(string id);
 		void DeleteCKey(string id);
 
-		string Encrypt(string data, byte[] ckey, byte[] iv);
-		string Decrypt(string data, byte[] ckey, byte[] iv);
+		IByteBuffer GenerateIV();
 
-		byte[] GenerateIV();
+		string Encrypt(string data, string id, IByteBuffer iv);
+		string Decrypt(string data, string id, IByteBuffer iv);
 	}
 }

@@ -1,18 +1,58 @@
 using System;
 using System.IO;
-using System.Text;
 
 namespace pbXNet
 {
 	public class SecureBuffer : IByteBuffer, IDisposable
 	{
-		uint _l;
+		int _l;
 		byte[] _b;
-		byte[] _unsecureb;
+		byte[] _nsb;
+
+		public int Length => _l;
+
+		public SecureBuffer()
+		{
+		}
 
 		public SecureBuffer(byte[] b, bool clearSource = false)
 		{
-			_l = (uint)(b == null ? 0 : b.Length);
+			Build(b);
+
+			if (clearSource && !b.IsReadOnly)
+			{
+				b.FillWith<byte>(0);
+				System.Array.Resize<byte>(ref b, 0);
+			}
+		}
+
+		public SecureBuffer(IByteBuffer b, bool clearSource = false)
+		{
+			Build(b.GetBytes());
+
+			if (!clearSource)
+				b.DisposeBytes();
+			else
+				b.Dispose();
+		}
+
+		public SecureBuffer(SecureBuffer b, bool clearSource = false)
+		{
+			_l = b._l;
+			_b = (byte[])b._b.Clone();
+
+			if (clearSource)
+				b.Dispose();
+		}
+
+		void Build(byte[] b)
+		{
+			Dispose();
+			if (b == null)
+				return;
+
+			_l = b.Length;
+
 			using (MemoryStream sb = new MemoryStream(b))
 			{
 				using (MemoryStream csb = new DeflateCompressor().Compress<MemoryStream>(sb))
@@ -22,58 +62,59 @@ namespace pbXNet
 					csb.GetBuffer().FillWith<byte>(0);
 				}
 			}
-
-			if (clearSource && !b.IsReadOnly)
-			{
-				b.FillWith<byte>(0);
-				Array.Resize<byte>(ref b, 0);
-			}
 		}
 
-		public SecureBuffer(char[] cb, bool clearSource = false)
-			: this(Encoding.UTF8.GetBytes(cb), true)
+		public SecureBuffer FromHexString(string d)
 		{
-			if (clearSource && !cb.IsReadOnly)
+			Dispose();
+			_b = d?.FromHexString();
+			if (_b != null)
 			{
-				cb.FillWith<char>('\0');
-				Array.Resize<char>(ref cb, 0);
+				_l = GetBytes().Length;
+				DisposeBytes();
 			}
+			return this;
 		}
 
-		public SecureBuffer(string sb)
-			: this(Encoding.UTF8.GetBytes(sb), true)
+		public static SecureBuffer NewFromHexString(string d)
 		{
+			return new SecureBuffer().FromHexString(d);
 		}
-
-		public uint Length => _l;
 
 		public byte[] GetBytes()
 		{
-			if (_unsecureb != null)
-				return _unsecureb;
+			if (_nsb != null)
+				return _nsb;
+			if (_b == null)
+				return null;
 
 			using (MemoryStream csb = new MemoryStream(_b))
 			{
 				using (MemoryStream sb = new DeflateCompressor().Decompress<MemoryStream>(csb))
 				{
 					sb.Position = 0;
-					_unsecureb = sb.ToArray();
+					_nsb = sb.ToArray();
 					sb.GetBuffer().FillWith<byte>(0);
 				}
 			}
 
-			return _unsecureb;
+			return _nsb;
 		}
 
-		public override string ToString()
+		public string ToHexString()
 		{
 			return _b?.ToHexString();
 		}
 
+		public override string ToString()
+		{
+			return ToHexString();
+		}
+
 		public void DisposeBytes()
 		{
-			_unsecureb?.FillWith<byte>(0);
-			_unsecureb = null;
+			_nsb?.FillWith<byte>(0);
+			_nsb = null;
 		}
 
 		public void Dispose()
