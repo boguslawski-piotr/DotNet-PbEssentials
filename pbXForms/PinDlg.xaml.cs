@@ -15,8 +15,8 @@ namespace pbXForms
 		public PIButton OKBtn => _okBtn;
 		public DigitBtnsArray DigitBtns;
 
-		IPassword _pin = new Password();
-		public IPassword Pin => _pin;
+		Password _pin = new Password();
+		public Password Pin => _pin;
 
 		Grid _grid => (Content as Grid);
 

@@ -16,12 +16,6 @@ namespace pbXNet
 			_passwd = new char[] { };
 		}
 
-		public Password(IPassword p)
-		{
-			_passwd = Encoding.UTF8.GetChars(p.GetBytes());
-			p.DisposeBytes();
-		}
-
 		public Password(Password p)
 		{
 			_passwd = (char[])p._passwd.Clone();
@@ -30,13 +24,7 @@ namespace pbXNet
 		public Password(string passwd)
 		{
 			_passwd = passwd.ToCharArray();
-		}
-
-		public void Dispose()
-		{
-			DisposeBytes();
-			_passwd?.FillWith<char>('\0');
-			_passwd = new char[] { };
+			Obfuscate();
 		}
 
 		public byte[] GetBytes()
@@ -46,23 +34,18 @@ namespace pbXNet
 			return _bpasswd;
 		}
 
-		public void DisposeBytes()
-		{
-			_bpasswd?.FillWith<byte>(0);
-			_bpasswd = null;
-		}
-
 		public void Append(char c)
 		{
 			DisposeBytes();
-			Array.Resize<char>(ref _passwd, _passwd.Length + 1);
+			System.Array.Resize<char>(ref _passwd, _passwd.Length + 1);
+			Obfuscate(ref c);
 			_passwd[_passwd.Length - 1] = c;
 		}
 
 		public void RemoveLast()
 		{
 			DisposeBytes();
-			Array.Resize<char>(ref _passwd, _passwd.Length - 1);
+			System.Array.Resize<char>(ref _passwd, _passwd.Length - 1);
 		}
 
 		public static implicit operator byte[] (Password p)
@@ -75,6 +58,34 @@ namespace pbXNet
 			d.Append(c);
 			return d;
 		}
+
+		void Obfuscate(ref char c)
+		{
+			int i = (int)c;
+			i = ~i;
+			c = (char)i;
+		}
+
+		//void DeObfuscate(ref char c)
+		//{
+		//	int i = (int)c;
+		//	i = ~i;
+		//	c = (char)i;
+		//}
+
+		void Obfuscate()
+		{
+			for (int i = 0; i < Length; i++)
+				Obfuscate(ref _passwd[i]);
+		}
+
+		//char[] DeObfuscate()
+		//{
+		//	char[] p = (char[])_passwd.Clone();
+		//	for (int i = 0; i < Length; i++)
+		//		DeObfuscate(ref p[i]);
+		//	return p;
+		//}
 
 		public override bool Equals(object obj)
 		{
@@ -92,7 +103,9 @@ namespace pbXNet
 				return true;
 			if (this.GetType() != p.GetType())
 				return false;
-
+			if (_passwd == null)
+				return p == null;
+			
 			return _passwd.SequenceEqual(p._passwd);
 		}
 
@@ -119,7 +132,20 @@ namespace pbXNet
 
 		public override string ToString()
 		{
-			return string.Format($"[Length={Length}] {_passwd?.ToHexString()}");
+			return _passwd?.ToHexString();
+		}
+
+		public void DisposeBytes()
+		{
+			_bpasswd?.FillWith<byte>(0);
+			_bpasswd = null;
+		}
+
+		public void Dispose()
+		{
+			DisposeBytes();
+			_passwd?.FillWith<char>('\0');
+			_passwd = new char[] { };
 		}
 	}
 }
