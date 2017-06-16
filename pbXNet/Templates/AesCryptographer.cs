@@ -8,22 +8,22 @@ namespace pbXNet
 {
 	public partial class AesCryptographer : ICryptographer
 	{
-		public byte[] GenerateKey(Password pwd, byte[] salt, int length = 32)
+		public IByteBuffer GenerateKey(Password pwd, IByteBuffer salt, int length = 32)
 		{
 			throw new NotImplementedException();
 		}
 
-		public byte[] GenerateIV(int length = 16)
+		public IByteBuffer GenerateIV(int length = 16)
 		{
 			throw new NotImplementedException();
 		}
 
-		public byte[] Encrypt(byte[] msg, byte[] key, byte[] iv)
+		public ByteBuffer Encrypt(IByteBuffer msg, IByteBuffer key, IByteBuffer iv)
 		{
 			throw new NotImplementedException();
 		}
 
-		public byte[] Decrypt(byte[] msg, byte[] key, byte[] iv)
+		public ByteBuffer Decrypt(IByteBuffer msg, IByteBuffer key, IByteBuffer iv)
 		{
 			throw new NotImplementedException();
 		}
