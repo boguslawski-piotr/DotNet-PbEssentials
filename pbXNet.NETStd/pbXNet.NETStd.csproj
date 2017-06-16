@@ -22,8 +22,8 @@
     <Compile Include="..\pbXNet\NETStd2\RSAServices.cs">
       <Link>pbXNet\NETStd2\RSAServices.cs</Link>
     </Compile>
-    <Compile Include="..\pbXNet\Templates\AesCryptographer.cs">
-      <Link>pbXNet\Templates\AesCryptographer.cs</Link>
+    <Compile Include="..\pbXNet\NETStd2\AesCryptographer.cs">
+      <Link>pbXNet\NETStd2\AesCryptographer.cs</Link>
     </Compile>
     <Compile Include="..\pbXNet\Templates\Locale.cs">
       <Link>pbXNet\Templates\Locale.cs</Link>

@@ -9,31 +9,41 @@ namespace pbXNet
 {
 	public partial class AesCryptographer : ICryptographer
 	{
-		public byte[] GenerateKey(IPassword pwd, byte[] salt, int length = 32)
+		public IByteBuffer GenerateKey(IPassword pwd, IByteBuffer salt, int length = 32)
 		{
 			const int iterations = 10000;
 
 			KeyDerivationAlgorithmProvider objKdfProv = KeyDerivationAlgorithmProvider.OpenAlgorithm(KeyDerivationAlgorithmNames.Pbkdf2Sha1);
 
-IBuffer buffPwd = CryptographicBuffer.CreateFromByteArray(pwd.GetBytes());
-pwd.Dispose();
-			IBuffer buffSalt = CryptographicBuffer.CreateFromByteArray(salt);
+			IBuffer buffPwd = CryptographicBuffer.CreateFromByteArray(pwd.GetBytes());
+			pwd.Dispose();
+			IBuffer buffSalt = CryptographicBuffer.CreateFromByteArray(salt.GetBytes());
+			salt.DisposeBytes();
 
 			KeyDerivationParameters pbkdf2Params = KeyDerivationParameters.BuildForPbkdf2(buffSalt, iterations);
 			CryptographicKey keyOriginal = objKdfProv.CreateKey(buffPwd);
 			IBuffer buffKey = CryptographicEngine.DeriveKeyMaterial(keyOriginal, pbkdf2Params, (uint)length);
-			return IBufferToByteArray(buffKey);
+
+			return new SecureBuffer(IBufferToByteArray(buffKey));
 		}
 
-		public byte[] GenerateIV(int length = 16)
+		public IByteBuffer GenerateIV(int length = 16)
 		{
 			IBuffer buff = CryptographicBuffer.GenerateRandom((uint)length);
-			return IBufferToByteArray(buff);
+			return new SecureBuffer(IBufferToByteArray(buff));
 		}
 
-		//
+		public ByteBuffer Encrypt(IByteBuffer msg, IByteBuffer key, IByteBuffer iv)
+		{
+			return Transform(msg, key, iv, true);
+		}
 
-		public byte[] Encrypt(byte[] msg, byte[] key, byte[] iv)
+		public ByteBuffer Decrypt(IByteBuffer msg, IByteBuffer key, IByteBuffer iv)
+		{
+			return Transform(msg, key, iv, false);
+		}
+
+		ByteBuffer Transform(IByteBuffer msg, IByteBuffer key, IByteBuffer iv, bool encrypt)
 		{
 			try
 			{
@@ -41,71 +51,38 @@ pwd.Dispose();
 				SymmetricKeyAlgorithmProvider objAlg = SymmetricKeyAlgorithmProvider.OpenAlgorithm(SymmetricAlgorithmNames.AesCbcPkcs7);
 
 				// prepare
-				IBuffer buffKey = CryptographicBuffer.CreateFromByteArray(key);
+				IBuffer buffKey = CryptographicBuffer.CreateFromByteArray(key.GetBytes());
+				key.DisposeBytes();
 				CryptographicKey ckey = objAlg.CreateSymmetricKey(buffKey);
-				IBuffer buffMsg = CryptographicBuffer.CreateFromByteArray(msg);
-				IBuffer buffIv = CryptographicBuffer.CreateFromByteArray(iv);
 
-				// encrypt
-				IBuffer buffMsgEncrypted = CryptographicEngine.Encrypt(ckey, buffMsg, buffIv);
-				return IBufferToByteArray(buffMsgEncrypted);
+				IBuffer buffMsg = CryptographicBuffer.CreateFromByteArray(msg.GetBytes());
+				msg.DisposeBytes();
+
+				IBuffer buffIv = CryptographicBuffer.CreateFromByteArray(iv.GetBytes());
+				iv.DisposeBytes();
+
+				// encrypt/decrypt
+				IBuffer buffMsgTransformed = encrypt ? CryptographicEngine.Encrypt(ckey, buffMsg, buffIv) : CryptographicEngine.Decrypt(ckey, buffMsg, buffIv);
+				return new ByteBuffer(IBufferToByteArray(buffMsgTransformed));
 			}
 			catch (Exception e)
 			{
 				Log.E(e.Message, this);
-							LastEx = e;
-				return new byte[0];
+				LastEx = e;
+				return new ByteBuffer();
 			}
 		}
-
-		public byte[] Decrypt(byte[] msg, byte[] key, byte[] iv)
-		{
-			try
-			{
-				// algoritm
-				SymmetricKeyAlgorithmProvider objAlg = SymmetricKeyAlgorithmProvider.OpenAlgorithm(SymmetricAlgorithmNames.AesCbcPkcs7);
-
-				// prepare
-				IBuffer buffKey = CryptographicBuffer.CreateFromByteArray(key);
-				CryptographicKey ckey = objAlg.CreateSymmetricKey(buffKey);
-				IBuffer buffMsg = CryptographicBuffer.CreateFromByteArray(msg);
-				IBuffer buffIv = CryptographicBuffer.CreateFromByteArray(iv);
-
-				// decrypt
-				IBuffer buffMsgDecrypted = CryptographicEngine.Decrypt(ckey, buffMsg, buffIv);
-				return IBufferToByteArray(buffMsgDecrypted);
-			}
-			catch (Exception e)
-			{
-				Log.E(e.Message, this);
-							LastEx = e;
-				return new byte[0];
-			}
-		}
-
-		public void Dispose()
-		{
-		}
-
-		//public static string IBufferToString(IBuffer buf)
-		//{
-		//    byte[] rawBytes = new byte[buf.Length];
-		//    using (var reader = DataReader.FromBuffer(buf))
-		//    {
-		//        reader.ReadBytes(rawBytes);
-		//    }
-		//    var encoding = Encoding.UTF8;
-		//    return encoding.GetString(rawBytes, 0, rawBytes.Length);
-		//}
 
 		private static byte[] IBufferToByteArray(IBuffer buf)
 		{
 			byte[] rawBytes = new byte[buf.Length];
 			using (var reader = DataReader.FromBuffer(buf))
-			{
 				reader.ReadBytes(rawBytes);
-			}
 			return rawBytes;
+		}
+
+		public void Dispose()
+		{
 		}
 	}
 }

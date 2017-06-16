@@ -22,7 +22,11 @@ namespace pbXNet
 		{
 			_b = (byte[])b.Clone();
 
-			if (clearSource && !b.IsReadOnly)
+			if (clearSource
+#if !WINDOWS_UWP && !NETSTANDARD1_6
+				&& !b.IsReadOnly
+#endif
+				)
 			{
 				b.FillWith<byte>(0);
 				System.Array.Resize<byte>(ref b, 0);

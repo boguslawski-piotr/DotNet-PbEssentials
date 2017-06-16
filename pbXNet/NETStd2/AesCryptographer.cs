@@ -13,15 +13,10 @@ namespace pbXNet
 
 		public IByteBuffer GenerateKey(IPassword pwd, IByteBuffer salt, int length = 32)
 		{
-			//PasswordDeriveBytes pdb = new PasswordDeriveBytes(pwd.GetBytes(), salt.GetBytes());
-			//pdb.IterationCount = 10000;
 			Rfc2898DeriveBytes pdb = new Rfc2898DeriveBytes(pwd.GetBytes(), salt.GetBytes(), 10000);
-
 			SecureBuffer key = new SecureBuffer(pdb.GetBytes(length), true);
-
 			pwd.DisposeBytes();
 			salt.DisposeBytes();
-
 			return key;
 		}
 

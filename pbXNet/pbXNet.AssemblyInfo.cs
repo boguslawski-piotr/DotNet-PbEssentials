@@ -1,4 +1,5 @@
 using System.Reflection;
+using System.Resources;
 
 [assembly: AssemblyTitle("pbXNet")]
 [assembly: AssemblyDescription("")]
@@ -7,7 +8,7 @@ using System.Reflection;
 [assembly: AssemblyProduct("")]
 [assembly: AssemblyCopyright("")]
 [assembly: AssemblyTrademark("")]
-[assembly: AssemblyCulture("")]
+[assembly: NeutralResourcesLanguage("en-US")]
 
 // The assembly version has the format "{Major}.{Minor}.{Build}.{Revision}".
 // The form "{Major}.{Minor}.*" will automatically update the build and revision,

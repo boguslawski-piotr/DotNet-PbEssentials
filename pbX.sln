@@ -44,6 +44,7 @@ Global
 		pbXForms\pbXForms.Shared.projitems*{55400609-5fb0-4825-9104-4d8c586688d5}*SharedItemsImports = 4
 		pbXForms\pbXForms.Shared.projitems*{6fe2db7d-4fb5-4a33-ac48-41c22dea02a5}*SharedItemsImports = 4
 		pbXNet\pbXNet.Shared.projitems*{885c3bd5-106c-47fa-83d1-b86217610c25}*SharedItemsImports = 4
+		pbXNet\pbXNet.Shared.projitems*{ba60d111-a7e1-4455-b192-450846976d49}*SharedItemsImports = 4
 		pbXForms\pbXForms.Shared.projitems*{d4dee17b-27b9-4bf3-8868-76197f53eb6d}*SharedItemsImports = 4
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

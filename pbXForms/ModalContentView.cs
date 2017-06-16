@@ -62,19 +62,9 @@ namespace pbXForms
 			DisappearingWhenModal?.Invoke(this, null);
 		}
 
-		public void OK_Clicked(object sender, System.EventArgs e)
-		{
-			OnOK();
-		}
-
 		public virtual void OnOK()
 		{
 			OK?.Invoke(this, null);
-		}
-
-		public void Cancel_Clicked(object sender, System.EventArgs e)
-		{
-			OnCancel();
 		}
 
 		public virtual void OnCancel()

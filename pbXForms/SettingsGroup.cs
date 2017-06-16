@@ -15,7 +15,7 @@ namespace pbXForms
 
 	public class SettingsGroupCollapsedExpandedImage : Image { }
 
-	[ContentProperty("_Content")]
+	[ContentProperty("Content")]
 	public class SettingsGroup : StackLayout
 	{
 		protected SettingsGroupHeader _HeaderLayout;
@@ -25,7 +25,7 @@ namespace pbXForms
 		protected SettingsGroupCollapsedExpandedImage _HeaderCollapsedExpandedImage;
 
 		protected SettingsGroupContent _ContentLayout;
-		protected IList<View> _Content => _ContentLayout.Children;
+		public IList<View> Content => _ContentLayout.Children;
 
 		protected SettingsLineSeparator _Separator;
 
