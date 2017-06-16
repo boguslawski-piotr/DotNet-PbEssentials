@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -40,6 +41,38 @@ namespace pbXNet
 		{
 			string d = ConvertEx.ToHexString(src);
 			return d;
+		}
+
+		public class Enumerator<T> : IEnumerator<T>
+		{
+			T[] _l;
+			int _i;
+			T _v;
+
+			public Enumerator(T[] l)
+			{
+				_l = l;
+				_i = -1;
+				_v = default(T);
+			}
+
+			public bool MoveNext()
+			{
+				if (++_i >= _l.Length)
+					return false;
+				_v = _l[_i];
+				return true;
+			}
+
+			public void Reset() => _i = -1;
+
+			public T Current => _v;
+
+			object IEnumerator.Current => _v;
+
+			void IDisposable.Dispose()
+			{
+			}
 		}
 	}
 
