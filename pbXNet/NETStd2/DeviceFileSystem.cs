@@ -33,7 +33,8 @@ namespace pbXNet
 #if !NETSTANDARD1_6
 				case DeviceFileSystemRoot.Documents:
 					_root = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-					_root = Path.Combine(_root, "Documents");
+					if(!Os.IsWindows)
+						_root = Path.Combine(_root, "Documents");
 					break;
 				case DeviceFileSystemRoot.Desktop:
 					_root = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
@@ -51,7 +52,10 @@ namespace pbXNet
 #if NETSTANDARD1_6
 					_root = Environment.GetEnvironmentVariable("HOME");
 #else
-					_root = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+					if(Os.IsWindows)
+						_root = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+					else
+						_root = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
 #endif
 					break;
 			}
