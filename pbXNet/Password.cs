@@ -48,11 +48,6 @@ namespace pbXNet
 			System.Array.Resize<char>(ref _passwd, _passwd.Length - 1);
 		}
 
-		public static implicit operator byte[] (Password p)
-		{
-			return p.GetBytes();
-		}
-
 		public static Password operator +(Password d, char c)
 		{
 			d.Append(c);
@@ -66,26 +61,11 @@ namespace pbXNet
 			c = (char)i;
 		}
 
-		//void DeObfuscate(ref char c)
-		//{
-		//	int i = (int)c;
-		//	i = ~i;
-		//	c = (char)i;
-		//}
-
 		void Obfuscate()
 		{
 			for (int i = 0; i < Length; i++)
 				Obfuscate(ref _passwd[i]);
 		}
-
-		//char[] DeObfuscate()
-		//{
-		//	char[] p = (char[])_passwd.Clone();
-		//	for (int i = 0; i < Length; i++)
-		//		DeObfuscate(ref p[i]);
-		//	return p;
-		//}
 
 		public override bool Equals(object obj)
 		{
