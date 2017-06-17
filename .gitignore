@@ -42,3 +42,4 @@ UpgradeLog.htm
 *.sqlite
 
 _site
+docsSource/api/.manifest
