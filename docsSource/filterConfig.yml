@@ -1,0 +1,7 @@
+apiRules:
+  - exclude:
+      uidRegex: ^pbXNet\.Resource
+      type: Type
+  - exclude:
+      uidRegex: ^pbXForms\.Resource
+      type: Type      

@@ -40,3 +40,5 @@ Thumbs.db
 *.dotCover
 UpgradeLog.htm
 *.sqlite
+
+_site
