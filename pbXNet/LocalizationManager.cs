@@ -101,7 +101,10 @@ namespace pbXNet
 
 	/// <summary>
 	/// An auxiliary class used to the intuitive use of localized text in the code.
-	/// Example: string s = T.Localized("text id");
+	/// <para>Example:</para>
+	/// <example>
+	/// <code>string s = T.Localized("text id");</code>
+	/// </example>
 	/// </summary>
 	public static class T
 	{

@@ -192,8 +192,7 @@ namespace pbXNet
 			}
 			else
 			{
-				if (lifeTime != CKeyLifeTime.OneTime)
-					_temporaryCKeys[id] = new TemporaryCKey() { lifeTime = lifeTime, ckey = ckey };
+				_temporaryCKeys[id] = new TemporaryCKey() { lifeTime = lifeTime, ckey = ckey };
 			}
 		}
 

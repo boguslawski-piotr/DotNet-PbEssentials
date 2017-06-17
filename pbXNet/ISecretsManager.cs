@@ -14,18 +14,29 @@ namespace pbXNet
 	}
 
 	/// <summary>
-	/// Cryptographic keys life time definitions 
-	/// used in ISecretsManager.CreateCKeyAsync.
-	/// WARNING: Do not change constants values order.
-	/// If needed add new value(s) at the end.
+	/// Cryptographic key life time definitions used 
+	/// in <see cref="ISecretsManager.CreateCKey"><c>ISecretsManager.CreateCKey</c></see>.
 	/// </summary>
 	public enum CKeyLifeTime
 	{
-		Undefined,
+		// WARNING: Do not change constants values order.
+		// If needed add new value(s) at the end.
+
+		/// <summary>
+		/// Ckey should be stored (in a safe way!) and should be available 
+		/// throughout the life of the application on device.
+		/// </summary>
 		Infinite,
+
+		/// <summary>
+		///
+		/// </summary>
 		WhileAppRunning,
+
+		/// <summary>
+		///
+		/// </summary>
 		WhileAppIsOnTop,
-		OneTime
 	};
 
 	/// <summary>
