@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Text;
-
 using NUnit.Framework;
 
 namespace pbXNet.Tests
@@ -13,39 +11,38 @@ namespace pbXNet.Tests
 		public void BasicEncryptDecrypt()
 		{
 			string smsg = "jakis test do zaszyfrowania, ąęśćłó, !@#$%^&*()_+, jakis test do zaszyfrowania, jakis test do zaszyfrowania, ąęśćłó, jakis test do zaszyfrowania";
-			byte[] msg = Encoding.UTF8.GetBytes(smsg);
+			ByteBuffer msg = new ByteBuffer(smsg, Encoding.UTF8);
 
 			string spwd = "ala ma kota";
-			byte[] pwd = Encoding.UTF8.GetBytes(spwd);
+			Password pwd = new Password(spwd);
 
-			byte[] salt = new byte[] { 0x43, 0x87, 0x23, 0x72, 0x45, 0x56, 0x68, 0x14, 0x62, 0x84 };
+			ByteBuffer salt = new ByteBuffer(new byte[] { 0x43, 0x87, 0x23, 0x72, 0x45, 0x56, 0x68, 0x14, 0x62, 0x84 });
 
 			//
 
 			AesCryptographer C = new AesCryptographer();
-			byte[] iv = C.GenerateIV();
+			IByteBuffer iv = C.GenerateIV();
 
 			//
 
-			byte[] key = C.GenerateKey(pwd, salt);
-			string skey = Convert.ToBase64String(key);
-			byte[] msgEncrypted = C.Encrypt(msg, key, iv);
-			string smsgEncrypted = Convert.ToBase64String(msgEncrypted);
+			IByteBuffer ekey = C.GenerateKey(pwd, salt);
+			string sekey = ekey.ToHexString();
+			ByteBuffer emsg = C.Encrypt(msg, ekey, iv);
 
 			//
 
-			byte[] dkey = C.GenerateKey(pwd, salt);
-			string sdkey = Convert.ToBase64String(dkey);
-
-			byte[] msgEncrypted2 = Convert.FromBase64String(smsgEncrypted);
-
-			byte[] msgDecrypted = C.Decrypt(msgEncrypted2, dkey, iv);
-			string smsgDecrypted = Encoding.UTF8.GetString(msgDecrypted, 0, msgDecrypted.Length);
+			IByteBuffer dkey = C.GenerateKey(pwd, salt);
+			string sdkey = dkey.ToHexString();
+			ByteBuffer dmsg = C.Decrypt(emsg, dkey, iv);
+			string sdmsg = dmsg.ToString(Encoding.UTF8);
 
 			//
 
-			Assert.AreEqual(smsg, smsgDecrypted);
-			//Assert.True(smsg == smsgDecrypted);
+			Assert.AreEqual(ekey.GetBytes(), dkey.GetBytes(), "key");
+			Assert.AreEqual(sekey, sdkey, "skey");
+
+			Assert.AreEqual(msg, dmsg, "msg");
+			Assert.AreEqual(smsg, sdmsg, "smsg");
 		}
 	}
 }
