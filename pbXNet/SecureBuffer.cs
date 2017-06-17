@@ -64,7 +64,7 @@ namespace pbXNet
 					csb.Position = 0;
 					_b = csb.ToArray();
 #if !WINDOWS_UWP && !NETSTANDARD1_6
-					csb.GetBuffer().FillWith<byte>(0);
+					csb.GetBuffer()?.FillWith<byte>(0);
 #endif
 				}
 			}
@@ -101,7 +101,7 @@ namespace pbXNet
 					sb.Position = 0;
 					_nsb = sb.ToArray();
 #if !WINDOWS_UWP && !NETSTANDARD1_6
-					sb.GetBuffer().FillWith<byte>(0);
+					sb.GetBuffer()?.FillWith<byte>(0);
 #endif
 				}
 			}

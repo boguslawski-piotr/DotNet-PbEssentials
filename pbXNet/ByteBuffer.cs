@@ -9,7 +9,7 @@ namespace pbXNet
 {
 	public class ByteBuffer : IByteBuffer, IDisposable, IEnumerable<byte>
 	{
-		byte[] _b;
+		readonly byte[] _b;
 
 		public int Length => (_b == null ? 0 : _b.Length);
 
@@ -128,8 +128,9 @@ namespace pbXNet
 				return true;
 			if (this.GetType() != b.GetType())
 				return false;
-			if (_b == null)
-				return b == null;
+
+			if (_b == null || b._b == null)
+				return _b == null && b._b == null;
 			
 			return _b.SequenceEqual(b._b);
 		}
@@ -156,7 +157,6 @@ namespace pbXNet
 		public virtual void Dispose()
 		{
 			_b?.FillWith<byte>(0);
-			_b = null;
 		}
 	}
 }

@@ -31,6 +31,8 @@ namespace pbXNet
 		{
 			DisposeBytes();
 			_bpasswd = Encoding.UTF8.GetBytes(_passwd);
+			for (int i = 0; i < _bpasswd.Length; i++)
+				_bpasswd[i] = (byte)~_bpasswd[i];
 			return _bpasswd;
 		}
 
@@ -57,7 +59,7 @@ namespace pbXNet
 		void Obfuscate(ref char c)
 		{
 			int i = (int)c;
-			i = ~i;
+			i <<= 1;
 			c = (char)i;
 		}
 
@@ -83,9 +85,10 @@ namespace pbXNet
 				return true;
 			if (this.GetType() != p.GetType())
 				return false;
-			if (_passwd == null)
-				return p == null;
-			
+
+			if (_passwd == null || p._passwd == null)
+				return _passwd == null && p._passwd == null;
+
 			return _passwd.SequenceEqual(p._passwd);
 		}
 
