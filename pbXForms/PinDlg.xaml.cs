@@ -79,6 +79,12 @@ namespace pbXForms
 				base.OnOK();
 		}
 
+		void OK_Clicked(object sender, System.EventArgs e)
+		{
+			OnOK();
+		}
+
+
 		//
 
 		public class DigitBtnsArray
