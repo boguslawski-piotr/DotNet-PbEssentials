@@ -1,6 +1,7 @@
 ﻿#if WINDOWS_UWP
 
 using System;
+using Windows.Security.Credentials;
 
 namespace pbXNet
 {
@@ -9,22 +10,29 @@ namespace pbXNet
 		static string _Uaqpid
 		{
 			get {
-				// MAX 10 passwords in valut per app
-				// can be used as SecureStorage? -> jeden passwd, w ktorym jest zapisane cale storage :)
+				// WARNING: MAX 10 passwords in valut per app.
+				// TODO: can be used as SecureStorage? -> jeden passwd, w ktorym jest zapisane cale storage :)
+
+				const string resource = ".8bf336b952fd4e8d97e17b7c7e96b73a";
+				const string userName = "0";
 
 				var vault = new PasswordVault();
-
-				PasswordCredential cred = vault.Retrieve(resource, userName);
+				PasswordCredential cred = null;
+				try
+				{ 
+					cred = vault.Retrieve(resource, userName);
+				}
+				catch { }
 				if (cred == null)
 				{
-					var cred = new PasswordCredential(resource, userName, new Password(Tools.CreateGuid()));
+					cred = new PasswordCredential(resource, userName, Tools.CreateGuid());
 					vault.Add(cred);
 				}
 
 				cred.RetrievePassword();
+
 				string id = cred.Password;
-				
-string id2 = "fd5d013709f94b4494fdeda98535fd32";
+				string id2 = "UWP";
 
 				return id + id2;
 			}

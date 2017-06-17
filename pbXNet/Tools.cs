@@ -28,13 +28,24 @@ namespace pbXNet
 		}
 
 		/// <summary>
-		/// Gets the Uaqpid (Unique And Quite Permanent IDentifier ;)) (should be really unique accross all devices with the same operating system). 
-		/// which will be quite constant but there is no guarantee that this Id will be the same for all eternity.
+		/// Gets the Uaqpid (Unique And Quite Permanent IDentifier ;))
+		/// which will be quite permanent and really unique accross all devices with the same operating system,
+		/// but there is no guarantee that this Id will be the same for all eternity.
+		/// </summary>
+		/// <remarks>
+		/// Uaqpid is different for different applications that use this library.
 		/// It may change after uninstalling the application or after reinstalling the operating system.
 		/// It is different for different users on some systems.
-		/// It is different for different applications that use this library.
 		/// TIP: This function could be slow and it is recommended to store the results in a local/class variable.
-		/// </summary>
+		/// <para>
+		/// Default implementation:
+		///   Android: <c>AndroidKeyStore + key created using HmacSha256</c>, 
+		///   iOS: <c>UIDevice.CurrentDevice.IdentifierForVendor</c>,
+		///   UWP: <c>Windows.Security.Credentials.PasswordVault + Guid</c>,
+		///   macOS: <c>Keychain + Guid</c>,
+		///   .NET: TODO...
+		/// </para>
+		/// </remarks>
 		public static string GetUaqpid()
 		{
 			using (IPassword passwd = new Password(_Uaqpid))
