@@ -5,8 +5,7 @@
         {
           "src": "..",
           "files": [
-            "pbXNet.iOS/pbXNet.iOS.csproj",
-            "pbXForms.iOS/pbXForms.iOS.csproj",
+            "pbXdocs.csproj"
           ],
           "exclude": [
             "**/obj/**",
@@ -61,6 +60,10 @@
           "_site/**"
         ]
       }
+    ],
+    "xref": [
+      "xref/net/types/xrefmap.yml",
+      "xref/net/namespaces/xrefmap.yml"
     ],
     "dest": "../docs",
     "globalMetadataFiles": [],
