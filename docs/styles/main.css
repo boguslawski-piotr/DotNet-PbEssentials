@@ -20,7 +20,7 @@
 body .toc,
 .sidefilter,
 .sidetoggle { 
-  background-color: #ffffff; 
+  background-color:#fdfdfd
 }
 
 .sidenav,
@@ -260,3 +260,96 @@ article h4 {
     background-color: #02735f;
   }
 }
+
+
+@media (min-width: 768px) {
+  body { 
+    margin-left: 50px;
+    margin-right: 100px;
+  }
+
+  #navbar,
+  .breadcrumb {
+    margin-left: 35px;
+    border: 0;
+  }
+  
+  .breadcrumb #navbar {
+    background-color: #fafafa;
+  }
+
+  #autocollapse .navbar-brand {
+    margin-left: 25px;
+  }
+
+}
+
+.footer {
+  background-color: transparent;
+}
+
+.sidefilter {
+  background-color: #fafafa;
+}
+
+article h1 {
+  margin-top: 0px;
+}
+
+article h2 {
+  margin-top: 35px;
+  /*padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: #fafafa*/
+}
+
+article h3 {
+  margin-top: 35px;
+  /*padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: #fafafa*/
+}
+
+article h4 {
+  margin-top: 35px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #ccc;
+}
+
+.inheritance .level6:before,
+.inheritance .level7:before,
+.inheritance .level8:before,
+.inheritance .level9:before,
+.inheritance .level10:before,
+.inheritance .level11:before {
+    content: '↳';
+    margin-right: 5px;
+}
+
+.inheritance .level6 {
+    margin-left: 6em;
+}
+.inheritance .level7 {
+    margin-left: 7em;
+}
+.inheritance .level8 {
+    margin-left: 8em;
+}
+.inheritance .level9 {
+    margin-left: 9em;
+}
+.inheritance .level10 {
+    margin-left: 10em;
+}
+.inheritance .level11 {
+    margin-left: 11em;
+}
+
+/*.inheritedMembers, .inheritedMembers a {
+  position: fixed;
+  top: 0;
+  width: 0;
+  height: 0;  
+  color: transparent;
+  visibility: false;
+}*/

@@ -55,3 +55,26 @@ $(function () {
         work($(this), 0);
     });
 })
+
+  // Show footer
+  function renderFooter() {
+    initFooter();
+    $(window).on("scroll", showFooterCore);
+
+    function initFooter() {
+        resetBottomCss();
+        $("footer").hide();
+    }
+
+    function showFooterCore() {
+        $("footer").hide();
+    }
+
+    function needFooter() {
+    }
+
+    function resetBottomCss() {
+      $(".sidetoc").removeClass("shiftup");
+      $(".sideaffix").removeClass("shiftup");
+    }
+  }
