@@ -61,10 +61,10 @@
         ]
       }
     ],
-    // "xref": [
-    //   "xref/net/types/xrefmap.yml",
-    //   "xref/net/namespaces/xrefmap.yml"
-    // ],
+    "xref": [
+      "msdn.4.5.2.zip",
+      "namespaces.4.5.2.zip"
+    ],
     "dest": "../docs",
     "globalMetadataFiles": [],
     "fileMetadataFiles": [],
