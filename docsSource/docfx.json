@@ -61,10 +61,10 @@
         ]
       }
     ],
-    "xref": [
-      "xref/net/types/xrefmap.yml",
-      "xref/net/namespaces/xrefmap.yml"
-    ],
+    // "xref": [
+    //   "xref/net/types/xrefmap.yml",
+    //   "xref/net/namespaces/xrefmap.yml"
+    // ],
     "dest": "../docs",
     "globalMetadataFiles": [],
     "fileMetadataFiles": [],
