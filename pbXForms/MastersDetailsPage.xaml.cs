@@ -7,6 +7,11 @@ using Xamarin.Forms;
 
 namespace pbXForms
 {
+	// All code that is included in the #if WINDOWS_UWP conditional build 
+	// is a workaround for a bug in AbsoluteLayout.RaiseChild/LowerChild on the UWP platform.
+	// On this platform, these features behave completely different than on iOS, MacOS or Android.
+	// To be completely honest - they do not work at all.
+
 	public class MastersDetailsPageViewsLayout : AbsoluteLayout { }
 
 	public partial class MastersDetailsPage : Xamarin.Forms.ContentPage
@@ -224,6 +229,12 @@ namespace pbXForms
 
 				if (previousDetailView != DetailView)
 					await AnimateAsync(false, previousDetailView, DetailView, animation);
+#if WINDOWS_UWP
+				else
+				{
+					DetailView.IsVisible = true;
+				}
+#endif
 			}
 			else
 			{
@@ -240,6 +251,10 @@ namespace pbXForms
 
 		protected async Task AnimateAsync(bool mastersPane, View from, View to, ViewsSwitchingAnimation animation)
 		{
+#if WINDOWS_UWP
+			animation = ViewsSwitchingAnimation.NoAnimation;
+#endif
+
 			BatchBegin();
 
 			Rectangle vb = _ViewsLayout.Bounds;
@@ -258,11 +273,20 @@ namespace pbXForms
 				}
 			}
 
+#if WINDOWS_UWP
+			to.IsVisible = true;
+			from.IsVisible = true;
+#endif
+
 			Rectangle fromTo = SetupFromForAnimate(vb, from, animation);
 			Rectangle toTo = SetupToForAnimate(vb, to, animation);
 
 			if (animation != ViewsSwitchingAnimation.NoAnimation)
 				await AnimateAsync(from, fromTo, to, toTo);
+
+#if WINDOWS_UWP
+			from.IsVisible = false;
+#endif
 
 			BatchCommit();
 		}
@@ -336,7 +360,7 @@ namespace pbXForms
 					for (int i = 0; i < Views.Count; i++)
 					{
 						View view = Views[i];
-						if (view != MasterView)
+						if (!MasterViews.Contains(view))
 						{
 							AbsoluteLayout.SetLayoutFlags(view, flags);
 							AbsoluteLayout.SetLayoutBounds(view, bounds);
@@ -347,10 +371,22 @@ namespace pbXForms
 
 			BatchBegin();
 
+			void CalcMasterViewWidthInSplitView()
+			{
+				double rwidth = width;
+				if (!IsSplitView)
+					rwidth = Math.Max(width, height);
+
+				MasterViewWidthInSplitView = DetailView != null ? Math.Max(MasterViewMinimumWidth, rwidth * MasterViewRelativeWidth) : width;
+
+				if (rwidth < MasterViewMinimumWidth * 2)
+					MasterViewWidthInSplitView = Math.Min(rwidth * 0.5, MasterViewWidthInSplitView);
+			}
+
 			if (!IsSplitView)
 			{
 				// Calculate master page width in split mode regardless of whether the device at this time is in landscape or portait
-				MasterViewWidthInSplitView = DetailView != null ? Math.Max(MasterViewMinimumWidth, Math.Max(width, height) * MasterViewRelativeWidth) : width;
+				CalcMasterViewWidthInSplitView();
 
 				_MasterViewIsVisible = Views.IndexOf(MasterView) == Views.Count - 1;
 
@@ -359,9 +395,14 @@ namespace pbXForms
 			}
 			else
 			{
-				MasterViewWidthInSplitView = DetailView != null ? Math.Max(MasterViewMinimumWidth, width * MasterViewRelativeWidth) : width;
+				CalcMasterViewWidthInSplitView();
 
 				_MasterViewIsVisible = true;
+#if WINDOWS_UWP
+				MasterView.IsVisible = true;
+				if(DetailView != null)
+					DetailView.IsVisible = true;
+#endif
 
 				MasterViewsSetLayout(AbsoluteLayoutFlags.None, new Rectangle(0, 0, MasterViewWidthInSplitView, height));
 				DetailViewsSetLayout(AbsoluteLayoutFlags.None, new Rectangle(MasterViewWidthInSplitView, 0, width - MasterViewWidthInSplitView, height));
