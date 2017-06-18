@@ -5,7 +5,7 @@
         {
           "src": "..",
           "files": [
-            "pbXdocs.csproj"
+            "pbXdocs.sln"
           ],
           "exclude": [
             "**/obj/**",

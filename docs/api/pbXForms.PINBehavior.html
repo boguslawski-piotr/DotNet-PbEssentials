@@ -75,18 +75,105 @@
   
   <div class="inheritance">
     <h5>Inheritance</h5>
-    <div class="level0"><span class="xref">System.Object</span></div>
-    <div class="level1"><span class="xref">PINBehavior</span></div>
+    <div class="level0"><a class="xref" href="https://msdn.microsoft.com/en-us/library/system.object(v=vs.110).aspx">Object</a></div>
+    <div class="level1"><span class="xref">Xamarin.Forms.BindableObject</span></div>
+    <div class="level2"><span class="xref">Xamarin.Forms.Behavior</span></div>
+    <div class="level3"><span class="xref">Xamarin.Forms.Behavior</span>&lt;<span class="xref">Xamarin.Forms.Entry</span>&gt;</div>
+    <div class="level4"><span class="xref">PINBehavior</span></div>
   </div>
   
   
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <span class="xref">Xamarin.Forms.Behavior&lt;Xamarin.Forms.Entry&gt;.OnAttachedTo(Xamarin.Forms.BindableObject)</span>
+    </div>
+    <div>
+      <span class="xref">Xamarin.Forms.Behavior&lt;Xamarin.Forms.Entry&gt;.OnDetachingFrom(Xamarin.Forms.BindableObject)</span>
+    </div>
+    <div>
+      <span class="xref">Xamarin.Forms.Behavior.AssociatedType</span>
+    </div>
+    <div>
+      <span class="xref">Xamarin.Forms.BindableObject.BindingContextProperty</span>
+    </div>
+    <div>
+      <span class="xref">Xamarin.Forms.BindableObject.ClearValue(Xamarin.Forms.BindableProperty)</span>
+    </div>
+    <div>
+      <span class="xref">Xamarin.Forms.BindableObject.ClearValue(Xamarin.Forms.BindablePropertyKey)</span>
+    </div>
+    <div>
+      <span class="xref">Xamarin.Forms.BindableObject.GetValue(Xamarin.Forms.BindableProperty)</span>
+    </div>
+    <div>
+      <span class="xref">Xamarin.Forms.BindableObject.RemoveBinding(Xamarin.Forms.BindableProperty)</span>
+    </div>
+    <div>
+      <span class="xref">Xamarin.Forms.BindableObject.SetBinding(Xamarin.Forms.BindableProperty, Xamarin.Forms.BindingBase)</span>
+    </div>
+    <div>
+      <span class="xref">Xamarin.Forms.BindableObject.SetValue(Xamarin.Forms.BindableProperty, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">Xamarin.Forms.BindableObject.SetValue(Xamarin.Forms.BindablePropertyKey, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">Xamarin.Forms.BindableObject.ApplyBindings()</span>
+    </div>
+    <div>
+      <span class="xref">Xamarin.Forms.BindableObject.OnBindingContextChanged()</span>
+    </div>
+    <div>
+      <span class="xref">Xamarin.Forms.BindableObject.OnPropertyChanged(System.String)</span>
+    </div>
+    <div>
+      <span class="xref">Xamarin.Forms.BindableObject.OnPropertyChanging(System.String)</span>
+    </div>
+    <div>
+      <span class="xref">Xamarin.Forms.BindableObject.UnapplyBindings()</span>
+    </div>
+    <div>
+      <span class="xref">Xamarin.Forms.BindableObject.BindingContext</span>
+    </div>
+    <div>
+      <span class="xref">Xamarin.Forms.BindableObject.PropertyChanged</span>
+    </div>
+    <div>
+      <span class="xref">Xamarin.Forms.BindableObject.BindingContextChanged</span>
+    </div>
+    <div>
+      <span class="xref">Xamarin.Forms.BindableObject.PropertyChanging</span>
+    </div>
+    <div>
+      <a class="xref" href="https://msdn.microsoft.com/en-us/library/bsc2ak47(v=vs.110).aspx">Object.Equals(Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://msdn.microsoft.com/en-us/library/w4hkze5k(v=vs.110).aspx">Object.Equals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://msdn.microsoft.com/en-us/library/zdee4b3y(v=vs.110).aspx">Object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://msdn.microsoft.com/en-us/library/dfwy45w9(v=vs.110).aspx">Object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://msdn.microsoft.com/en-us/library/57ctke0a(v=vs.110).aspx">Object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://msdn.microsoft.com/en-us/library/hz2a0b8x(v=vs.110).aspx">Object.ReferenceEquals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://msdn.microsoft.com/en-us/library/7bxwbwt2(v=vs.110).aspx">Object.ToString()</a>
+    </div>
+  </div>
   
   <h6><strong>Namespace</strong>: System.Dynamic.ExpandoObject</h6>
   <h6><strong>Assembly</strong>: pbXdocs.dll</h6>
   
   <h5 id="pbXForms_PINBehavior_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class PINBehavior : Behavior&lt;Entry&gt;</code></pre>
+    <pre><code class="lang-csharp hljs">public class PINBehavior : Behavior&lt;Entry&gt;, INotifyPropertyChanged, IDynamicResourceHandler, IAttachedObject</code></pre>
   </div>
   
   
@@ -125,7 +212,7 @@
   <table>
     <tr>
       <td>
-        <span class="xref">System.String</span>
+        <a class="xref" href="https://msdn.microsoft.com/en-us/library/system.string(v=vs.110).aspx">String</a>
         <p>
       </td>
     </tr>
@@ -143,7 +230,7 @@
   
   <span class="small pull-right mobile-hide">
     <span class="divider"> </span>
-    <a href="https://github.com/boguslawski-piotr/pbX/new/master/apiSpec/new?filename=pbXForms_PINBehavior_OnAttachedTo_Entry_.md&amp;value=---%0Auid%3A%20pbXForms.PINBehavior.OnAttachedTo(Entry)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+    <a href="https://github.com/boguslawski-piotr/pbX/new/master/apiSpec/new?filename=pbXForms_PINBehavior_OnAttachedTo_Xamarin_Forms_Entry_.md&amp;value=---%0Auid%3A%20pbXForms.PINBehavior.OnAttachedTo(Xamarin.Forms.Entry)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
     <a href="https://github.com/boguslawski-piotr/pbX/blob/master/pbXForms/PINBehavior.cs/#L8" title="View Source"><i class="fa fa-code"></i></a>
@@ -151,9 +238,9 @@
   
   <a id="pbXForms_PINBehavior_OnAttachedTo_" data-uid="pbXForms.PINBehavior.OnAttachedTo*"></a>
   
-  <h4 id="pbXForms_PINBehavior_OnAttachedTo_Entry_" data-uid="pbXForms.PINBehavior.OnAttachedTo(Entry)"><a href="#collapsible-pbXForms_PINBehavior_OnAttachedTo_Entry_" class="expander" data-toggle="collapse">OnAttachedTo(Entry)</a></h4>
+  <h4 id="pbXForms_PINBehavior_OnAttachedTo_Xamarin_Forms_Entry_" data-uid="pbXForms.PINBehavior.OnAttachedTo(Xamarin.Forms.Entry)"><a href="#collapsible-pbXForms_PINBehavior_OnAttachedTo_Xamarin_Forms_Entry_" class="expander" data-toggle="collapse">OnAttachedTo(Entry)</a></h4>
   
-  <div id="collapsible-pbXForms_PINBehavior_OnAttachedTo_Entry_" class="collapse in">
+  <div id="collapsible-pbXForms_PINBehavior_OnAttachedTo_Xamarin_Forms_Entry_" class="collapse in">
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -166,7 +253,7 @@
   <table>
     <tr>
       <td>
-        <span class="pull-right"><span class="xref">Entry</span></span>
+        <span class="pull-right"><span class="xref">Xamarin.Forms.Entry</span></span>
         <span class="parametername">entry</span>
         <p>
       </td>
@@ -178,6 +265,8 @@
   
   
   
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">Xamarin.Forms.Behavior&lt;Xamarin.Forms.Entry&gt;.OnAttachedTo(Xamarin.Forms.Entry)</span></div>
   
   
   
@@ -187,7 +276,7 @@
   
   <span class="small pull-right mobile-hide">
     <span class="divider"> </span>
-    <a href="https://github.com/boguslawski-piotr/pbX/new/master/apiSpec/new?filename=pbXForms_PINBehavior_OnDetachingFrom_Entry_.md&amp;value=---%0Auid%3A%20pbXForms.PINBehavior.OnDetachingFrom(Entry)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+    <a href="https://github.com/boguslawski-piotr/pbX/new/master/apiSpec/new?filename=pbXForms_PINBehavior_OnDetachingFrom_Xamarin_Forms_Entry_.md&amp;value=---%0Auid%3A%20pbXForms.PINBehavior.OnDetachingFrom(Xamarin.Forms.Entry)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
     <a href="https://github.com/boguslawski-piotr/pbX/blob/master/pbXForms/PINBehavior.cs/#L14" title="View Source"><i class="fa fa-code"></i></a>
@@ -195,9 +284,9 @@
   
   <a id="pbXForms_PINBehavior_OnDetachingFrom_" data-uid="pbXForms.PINBehavior.OnDetachingFrom*"></a>
   
-  <h4 id="pbXForms_PINBehavior_OnDetachingFrom_Entry_" data-uid="pbXForms.PINBehavior.OnDetachingFrom(Entry)"><a href="#collapsible-pbXForms_PINBehavior_OnDetachingFrom_Entry_" class="expander" data-toggle="collapse">OnDetachingFrom(Entry)</a></h4>
+  <h4 id="pbXForms_PINBehavior_OnDetachingFrom_Xamarin_Forms_Entry_" data-uid="pbXForms.PINBehavior.OnDetachingFrom(Xamarin.Forms.Entry)"><a href="#collapsible-pbXForms_PINBehavior_OnDetachingFrom_Xamarin_Forms_Entry_" class="expander" data-toggle="collapse">OnDetachingFrom(Entry)</a></h4>
   
-  <div id="collapsible-pbXForms_PINBehavior_OnDetachingFrom_Entry_" class="collapse in">
+  <div id="collapsible-pbXForms_PINBehavior_OnDetachingFrom_Xamarin_Forms_Entry_" class="collapse in">
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -210,7 +299,7 @@
   <table>
     <tr>
       <td>
-        <span class="pull-right"><span class="xref">Entry</span></span>
+        <span class="pull-right"><span class="xref">Xamarin.Forms.Entry</span></span>
         <span class="parametername">entry</span>
         <p>
       </td>
@@ -222,6 +311,8 @@
   
   
   
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">Xamarin.Forms.Behavior&lt;Xamarin.Forms.Entry&gt;.OnDetachingFrom(Xamarin.Forms.Entry)</span></div>
   
   
   

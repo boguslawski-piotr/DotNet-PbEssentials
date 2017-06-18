@@ -12,7 +12,6 @@ namespace pbXNet
 	/// Represents a dynamic data collection that provides notifications when items get added, removed, or when the whole list is refreshed. 
 	/// </summary> 
 	/// <typeparam name="T"></typeparam> 
-	/// <seealso cref="System.Collections.ObjectModel"/>
 	public class ObservableCollectionEx<T> : ObservableCollection<T>
 	{
 		/// <summary> 
@@ -103,8 +102,7 @@ namespace pbXNet
 		/// <summary>
 		/// Searches for an element that matches the conditions defined by the specified predicate, and returns the first occurrence within the entire collection.
 		/// </summary>
-		/// <param name="match">The <see cref="System.Predicate`1">Predicate</see> delegate that defines the conditions of the element to search for.</param>
-		/// <seealso cref="System.Collections.Generic.List`1"/>
+		/// <param name="match">The Predicate delegate that defines the conditions of the element to search for.</param>
 		public T Find(Predicate<T> match)
 		{
 			List<T> items = Items as List<T>;
@@ -116,8 +114,7 @@ namespace pbXNet
 		/// <summary>
 		/// Sorts the elements in the entire collection.
 		/// </summary>
-		/// <param name="comparison">The <see cref="System.Comparison`1">Comparison</see> to use when comparing elements, or null to use the default comparer.</param>
-		/// <seealso cref="System.Collections.Generic.List`1"/>
+		/// <param name="comparison">The Comparison to use when comparing elements, or null to use the default comparer.</param>
 		public void Sort(Comparison<T> comparison = null)
 		{
 			List<T> items = new List<T>(Items);
@@ -131,8 +128,7 @@ namespace pbXNet
 		/// <summary>
 		/// Sorts the elements in the entire collection.
 		/// </summary>
-		/// <param name="comparer">The <see cref="System.Collections.Generic.IComparer`1">IComparer</see> implementation to use when comparing elements, or null to use the default comparer Comparer.Default.</param>
-		/// <seealso cref="System.Collections.Generic.List`1"/>
+		/// <param name="comparer">The IComparer implementation to use when comparing elements, or null to use the default comparer.</param>
 		public void Sort(IComparer<T> comparer = null)
 		{
 			Sort(0, Count, comparer);
@@ -143,8 +139,7 @@ namespace pbXNet
 		/// </summary>
 		/// <param name="index">The zero-based starting index of the range to sort.</param>
 		/// <param name="count">The length of the range to sort.</param>
-		/// <param name="comparer">The <see cref="System.Collections.Generic.IComparer`1">IComparer</see> implementation to use when comparing elements, or null to use the default comparer Comparer.Default.</param>
-		/// <seealso cref="System.Collections.Generic.List`1"/>
+		/// <param name="comparer">The IComparer implementation to use when comparing elements, or null to use the default comparer.</param>
 		public void Sort(int index, int count, IComparer<T> comparer = null)
 		{
 			List<T> items = new List<T>(Items);

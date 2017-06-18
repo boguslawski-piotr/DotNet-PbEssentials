@@ -157,11 +157,11 @@ references:
   commentId: T:pbXForms.ColorExtensions
   fullName: pbXForms.ColorExtensions
   nameWithType: ColorExtensions
-- uid: pbXForms.ColorExtensions.ToHex(Color)
+- uid: pbXForms.ColorExtensions.ToHex(Xamarin.Forms.Color)
   name: ToHex(Color)
-  href: api/pbXForms.ColorExtensions.html#pbXForms_ColorExtensions_ToHex_Color_
-  commentId: M:pbXForms.ColorExtensions.ToHex(Color)
-  fullName: pbXForms.ColorExtensions.ToHex(Color)
+  href: api/pbXForms.ColorExtensions.html#pbXForms_ColorExtensions_ToHex_Xamarin_Forms_Color_
+  commentId: M:pbXForms.ColorExtensions.ToHex(Xamarin.Forms.Color)
+  fullName: pbXForms.ColorExtensions.ToHex(Xamarin.Forms.Color)
   nameWithType: ColorExtensions.ToHex(Color)
 - uid: pbXForms.ColorExtensions.ToHex*
   name: ToHex
@@ -625,17 +625,17 @@ references:
   commentId: Overload:pbXForms.MastersDetailsPage.#ctor
   fullName: pbXForms.MastersDetailsPage.MastersDetailsPage
   nameWithType: MastersDetailsPage.MastersDetailsPage
-- uid: pbXForms.MastersDetailsPage.AnimateAsync(System.Boolean,View,View,pbXForms.MastersDetailsPage.ViewsSwitchingAnimation)
+- uid: pbXForms.MastersDetailsPage.AnimateAsync(System.Boolean,Xamarin.Forms.View,Xamarin.Forms.View,pbXForms.MastersDetailsPage.ViewsSwitchingAnimation)
   name: AnimateAsync(Boolean, View, View, MastersDetailsPage.ViewsSwitchingAnimation)
-  href: api/pbXForms.MastersDetailsPage.html#pbXForms_MastersDetailsPage_AnimateAsync_System_Boolean_View_View_pbXForms_MastersDetailsPage_ViewsSwitchingAnimation_
-  commentId: M:pbXForms.MastersDetailsPage.AnimateAsync(System.Boolean,View,View,pbXForms.MastersDetailsPage.ViewsSwitchingAnimation)
-  fullName: pbXForms.MastersDetailsPage.AnimateAsync(System.Boolean, View, View, pbXForms.MastersDetailsPage.ViewsSwitchingAnimation)
+  href: api/pbXForms.MastersDetailsPage.html#pbXForms_MastersDetailsPage_AnimateAsync_System_Boolean_Xamarin_Forms_View_Xamarin_Forms_View_pbXForms_MastersDetailsPage_ViewsSwitchingAnimation_
+  commentId: M:pbXForms.MastersDetailsPage.AnimateAsync(System.Boolean,Xamarin.Forms.View,Xamarin.Forms.View,pbXForms.MastersDetailsPage.ViewsSwitchingAnimation)
+  fullName: pbXForms.MastersDetailsPage.AnimateAsync(System.Boolean, Xamarin.Forms.View, Xamarin.Forms.View, pbXForms.MastersDetailsPage.ViewsSwitchingAnimation)
   nameWithType: MastersDetailsPage.AnimateAsync(Boolean, View, View, MastersDetailsPage.ViewsSwitchingAnimation)
-- uid: pbXForms.MastersDetailsPage.AnimateAsync(View,Rectangle,View,Rectangle)
+- uid: pbXForms.MastersDetailsPage.AnimateAsync(Xamarin.Forms.View,Xamarin.Forms.Rectangle,Xamarin.Forms.View,Xamarin.Forms.Rectangle)
   name: AnimateAsync(View, Rectangle, View, Rectangle)
-  href: api/pbXForms.MastersDetailsPage.html#pbXForms_MastersDetailsPage_AnimateAsync_View_Rectangle_View_Rectangle_
-  commentId: M:pbXForms.MastersDetailsPage.AnimateAsync(View,Rectangle,View,Rectangle)
-  fullName: pbXForms.MastersDetailsPage.AnimateAsync(View, Rectangle, View, Rectangle)
+  href: api/pbXForms.MastersDetailsPage.html#pbXForms_MastersDetailsPage_AnimateAsync_Xamarin_Forms_View_Xamarin_Forms_Rectangle_Xamarin_Forms_View_Xamarin_Forms_Rectangle_
+  commentId: M:pbXForms.MastersDetailsPage.AnimateAsync(Xamarin.Forms.View,Xamarin.Forms.Rectangle,Xamarin.Forms.View,Xamarin.Forms.Rectangle)
+  fullName: pbXForms.MastersDetailsPage.AnimateAsync(Xamarin.Forms.View, Xamarin.Forms.Rectangle, Xamarin.Forms.View, Xamarin.Forms.Rectangle)
   nameWithType: MastersDetailsPage.AnimateAsync(View, Rectangle, View, Rectangle)
 - uid: pbXForms.MastersDetailsPage.AnimateAsync*
   name: AnimateAsync
@@ -817,11 +817,11 @@ references:
   commentId: Overload:pbXForms.MastersDetailsPage.OnSizeAllocated
   fullName: pbXForms.MastersDetailsPage.OnSizeAllocated
   nameWithType: MastersDetailsPage.OnSizeAllocated
-- uid: pbXForms.MastersDetailsPage.SetupFromForAnimate(Rectangle,View,pbXForms.MastersDetailsPage.ViewsSwitchingAnimation)
+- uid: pbXForms.MastersDetailsPage.SetupFromForAnimate(Xamarin.Forms.Rectangle,Xamarin.Forms.View,pbXForms.MastersDetailsPage.ViewsSwitchingAnimation)
   name: SetupFromForAnimate(Rectangle, View, MastersDetailsPage.ViewsSwitchingAnimation)
-  href: api/pbXForms.MastersDetailsPage.html#pbXForms_MastersDetailsPage_SetupFromForAnimate_Rectangle_View_pbXForms_MastersDetailsPage_ViewsSwitchingAnimation_
-  commentId: M:pbXForms.MastersDetailsPage.SetupFromForAnimate(Rectangle,View,pbXForms.MastersDetailsPage.ViewsSwitchingAnimation)
-  fullName: pbXForms.MastersDetailsPage.SetupFromForAnimate(Rectangle, View, pbXForms.MastersDetailsPage.ViewsSwitchingAnimation)
+  href: api/pbXForms.MastersDetailsPage.html#pbXForms_MastersDetailsPage_SetupFromForAnimate_Xamarin_Forms_Rectangle_Xamarin_Forms_View_pbXForms_MastersDetailsPage_ViewsSwitchingAnimation_
+  commentId: M:pbXForms.MastersDetailsPage.SetupFromForAnimate(Xamarin.Forms.Rectangle,Xamarin.Forms.View,pbXForms.MastersDetailsPage.ViewsSwitchingAnimation)
+  fullName: pbXForms.MastersDetailsPage.SetupFromForAnimate(Xamarin.Forms.Rectangle, Xamarin.Forms.View, pbXForms.MastersDetailsPage.ViewsSwitchingAnimation)
   nameWithType: MastersDetailsPage.SetupFromForAnimate(Rectangle, View, MastersDetailsPage.ViewsSwitchingAnimation)
 - uid: pbXForms.MastersDetailsPage.SetupFromForAnimate*
   name: SetupFromForAnimate
@@ -829,11 +829,11 @@ references:
   commentId: Overload:pbXForms.MastersDetailsPage.SetupFromForAnimate
   fullName: pbXForms.MastersDetailsPage.SetupFromForAnimate
   nameWithType: MastersDetailsPage.SetupFromForAnimate
-- uid: pbXForms.MastersDetailsPage.SetupToForAnimate(Rectangle,View,pbXForms.MastersDetailsPage.ViewsSwitchingAnimation)
+- uid: pbXForms.MastersDetailsPage.SetupToForAnimate(Xamarin.Forms.Rectangle,Xamarin.Forms.View,pbXForms.MastersDetailsPage.ViewsSwitchingAnimation)
   name: SetupToForAnimate(Rectangle, View, MastersDetailsPage.ViewsSwitchingAnimation)
-  href: api/pbXForms.MastersDetailsPage.html#pbXForms_MastersDetailsPage_SetupToForAnimate_Rectangle_View_pbXForms_MastersDetailsPage_ViewsSwitchingAnimation_
-  commentId: M:pbXForms.MastersDetailsPage.SetupToForAnimate(Rectangle,View,pbXForms.MastersDetailsPage.ViewsSwitchingAnimation)
-  fullName: pbXForms.MastersDetailsPage.SetupToForAnimate(Rectangle, View, pbXForms.MastersDetailsPage.ViewsSwitchingAnimation)
+  href: api/pbXForms.MastersDetailsPage.html#pbXForms_MastersDetailsPage_SetupToForAnimate_Xamarin_Forms_Rectangle_Xamarin_Forms_View_pbXForms_MastersDetailsPage_ViewsSwitchingAnimation_
+  commentId: M:pbXForms.MastersDetailsPage.SetupToForAnimate(Xamarin.Forms.Rectangle,Xamarin.Forms.View,pbXForms.MastersDetailsPage.ViewsSwitchingAnimation)
+  fullName: pbXForms.MastersDetailsPage.SetupToForAnimate(Xamarin.Forms.Rectangle, Xamarin.Forms.View, pbXForms.MastersDetailsPage.ViewsSwitchingAnimation)
   nameWithType: MastersDetailsPage.SetupToForAnimate(Rectangle, View, MastersDetailsPage.ViewsSwitchingAnimation)
 - uid: pbXForms.MastersDetailsPage.SetupToForAnimate*
   name: SetupToForAnimate
@@ -841,11 +841,11 @@ references:
   commentId: Overload:pbXForms.MastersDetailsPage.SetupToForAnimate
   fullName: pbXForms.MastersDetailsPage.SetupToForAnimate
   nameWithType: MastersDetailsPage.SetupToForAnimate
-- uid: pbXForms.MastersDetailsPage.ShowDetailViewAsync(View,pbXForms.MastersDetailsPage.ViewsSwitchingAnimation,System.Object)
+- uid: pbXForms.MastersDetailsPage.ShowDetailViewAsync(Xamarin.Forms.View,pbXForms.MastersDetailsPage.ViewsSwitchingAnimation,System.Object)
   name: ShowDetailViewAsync(View, MastersDetailsPage.ViewsSwitchingAnimation, Object)
-  href: api/pbXForms.MastersDetailsPage.html#pbXForms_MastersDetailsPage_ShowDetailViewAsync_View_pbXForms_MastersDetailsPage_ViewsSwitchingAnimation_System_Object_
-  commentId: M:pbXForms.MastersDetailsPage.ShowDetailViewAsync(View,pbXForms.MastersDetailsPage.ViewsSwitchingAnimation,System.Object)
-  fullName: pbXForms.MastersDetailsPage.ShowDetailViewAsync(View, pbXForms.MastersDetailsPage.ViewsSwitchingAnimation, System.Object)
+  href: api/pbXForms.MastersDetailsPage.html#pbXForms_MastersDetailsPage_ShowDetailViewAsync_Xamarin_Forms_View_pbXForms_MastersDetailsPage_ViewsSwitchingAnimation_System_Object_
+  commentId: M:pbXForms.MastersDetailsPage.ShowDetailViewAsync(Xamarin.Forms.View,pbXForms.MastersDetailsPage.ViewsSwitchingAnimation,System.Object)
+  fullName: pbXForms.MastersDetailsPage.ShowDetailViewAsync(Xamarin.Forms.View, pbXForms.MastersDetailsPage.ViewsSwitchingAnimation, System.Object)
   nameWithType: MastersDetailsPage.ShowDetailViewAsync(View, MastersDetailsPage.ViewsSwitchingAnimation, Object)
 - uid: pbXForms.MastersDetailsPage.ShowDetailViewAsync*
   name: ShowDetailViewAsync
@@ -877,11 +877,11 @@ references:
   commentId: M:pbXForms.MastersDetailsPage.ShowMasterViewAsync(pbXForms.MastersDetailsPage.ViewsSwitchingAnimation,System.Object)
   fullName: pbXForms.MastersDetailsPage.ShowMasterViewAsync(pbXForms.MastersDetailsPage.ViewsSwitchingAnimation, System.Object)
   nameWithType: MastersDetailsPage.ShowMasterViewAsync(MastersDetailsPage.ViewsSwitchingAnimation, Object)
-- uid: pbXForms.MastersDetailsPage.ShowMasterViewAsync(View,pbXForms.MastersDetailsPage.ViewsSwitchingAnimation,System.Object)
+- uid: pbXForms.MastersDetailsPage.ShowMasterViewAsync(Xamarin.Forms.View,pbXForms.MastersDetailsPage.ViewsSwitchingAnimation,System.Object)
   name: ShowMasterViewAsync(View, MastersDetailsPage.ViewsSwitchingAnimation, Object)
-  href: api/pbXForms.MastersDetailsPage.html#pbXForms_MastersDetailsPage_ShowMasterViewAsync_View_pbXForms_MastersDetailsPage_ViewsSwitchingAnimation_System_Object_
-  commentId: M:pbXForms.MastersDetailsPage.ShowMasterViewAsync(View,pbXForms.MastersDetailsPage.ViewsSwitchingAnimation,System.Object)
-  fullName: pbXForms.MastersDetailsPage.ShowMasterViewAsync(View, pbXForms.MastersDetailsPage.ViewsSwitchingAnimation, System.Object)
+  href: api/pbXForms.MastersDetailsPage.html#pbXForms_MastersDetailsPage_ShowMasterViewAsync_Xamarin_Forms_View_pbXForms_MastersDetailsPage_ViewsSwitchingAnimation_System_Object_
+  commentId: M:pbXForms.MastersDetailsPage.ShowMasterViewAsync(Xamarin.Forms.View,pbXForms.MastersDetailsPage.ViewsSwitchingAnimation,System.Object)
+  fullName: pbXForms.MastersDetailsPage.ShowMasterViewAsync(Xamarin.Forms.View, pbXForms.MastersDetailsPage.ViewsSwitchingAnimation, System.Object)
   nameWithType: MastersDetailsPage.ShowMasterViewAsync(View, MastersDetailsPage.ViewsSwitchingAnimation, Object)
 - uid: pbXForms.MastersDetailsPage.ShowMasterViewAsync*
   name: ShowMasterViewAsync
@@ -1345,11 +1345,11 @@ references:
   commentId: Overload:pbXForms.ModalViewsManager.DisplayModalAsync
   fullName: pbXForms.ModalViewsManager.DisplayModalAsync
   nameWithType: ModalViewsManager.DisplayModalAsync
-- uid: pbXForms.ModalViewsManager.InitializeComponent(AbsoluteLayout)
+- uid: pbXForms.ModalViewsManager.InitializeComponent(Xamarin.Forms.AbsoluteLayout)
   name: InitializeComponent(AbsoluteLayout)
-  href: api/pbXForms.ModalViewsManager.html#pbXForms_ModalViewsManager_InitializeComponent_AbsoluteLayout_
-  commentId: M:pbXForms.ModalViewsManager.InitializeComponent(AbsoluteLayout)
-  fullName: pbXForms.ModalViewsManager.InitializeComponent(AbsoluteLayout)
+  href: api/pbXForms.ModalViewsManager.html#pbXForms_ModalViewsManager_InitializeComponent_Xamarin_Forms_AbsoluteLayout_
+  commentId: M:pbXForms.ModalViewsManager.InitializeComponent(Xamarin.Forms.AbsoluteLayout)
+  fullName: pbXForms.ModalViewsManager.InitializeComponent(Xamarin.Forms.AbsoluteLayout)
   nameWithType: ModalViewsManager.InitializeComponent(AbsoluteLayout)
 - uid: pbXForms.ModalViewsManager.InitializeComponent*
   name: InitializeComponent
@@ -1753,11 +1753,11 @@ references:
   commentId: T:pbXForms.PINBehavior
   fullName: pbXForms.PINBehavior
   nameWithType: PINBehavior
-- uid: pbXForms.PINBehavior.OnAttachedTo(Entry)
+- uid: pbXForms.PINBehavior.OnAttachedTo(Xamarin.Forms.Entry)
   name: OnAttachedTo(Entry)
-  href: api/pbXForms.PINBehavior.html#pbXForms_PINBehavior_OnAttachedTo_Entry_
-  commentId: M:pbXForms.PINBehavior.OnAttachedTo(Entry)
-  fullName: pbXForms.PINBehavior.OnAttachedTo(Entry)
+  href: api/pbXForms.PINBehavior.html#pbXForms_PINBehavior_OnAttachedTo_Xamarin_Forms_Entry_
+  commentId: M:pbXForms.PINBehavior.OnAttachedTo(Xamarin.Forms.Entry)
+  fullName: pbXForms.PINBehavior.OnAttachedTo(Xamarin.Forms.Entry)
   nameWithType: PINBehavior.OnAttachedTo(Entry)
 - uid: pbXForms.PINBehavior.OnAttachedTo*
   name: OnAttachedTo
@@ -1765,11 +1765,11 @@ references:
   commentId: Overload:pbXForms.PINBehavior.OnAttachedTo
   fullName: pbXForms.PINBehavior.OnAttachedTo
   nameWithType: PINBehavior.OnAttachedTo
-- uid: pbXForms.PINBehavior.OnDetachingFrom(Entry)
+- uid: pbXForms.PINBehavior.OnDetachingFrom(Xamarin.Forms.Entry)
   name: OnDetachingFrom(Entry)
-  href: api/pbXForms.PINBehavior.html#pbXForms_PINBehavior_OnDetachingFrom_Entry_
-  commentId: M:pbXForms.PINBehavior.OnDetachingFrom(Entry)
-  fullName: pbXForms.PINBehavior.OnDetachingFrom(Entry)
+  href: api/pbXForms.PINBehavior.html#pbXForms_PINBehavior_OnDetachingFrom_Xamarin_Forms_Entry_
+  commentId: M:pbXForms.PINBehavior.OnDetachingFrom(Xamarin.Forms.Entry)
+  fullName: pbXForms.PINBehavior.OnDetachingFrom(Xamarin.Forms.Entry)
   nameWithType: PINBehavior.OnDetachingFrom(Entry)
 - uid: pbXForms.PINBehavior.OnDetachingFrom*
   name: OnDetachingFrom
@@ -1831,11 +1831,11 @@ references:
   commentId: T:pbXForms.PinDlg.DigitBtnsArray
   fullName: pbXForms.PinDlg.DigitBtnsArray
   nameWithType: PinDlg.DigitBtnsArray
-- uid: pbXForms.PinDlg.DigitBtnsArray.#ctor(Grid)
+- uid: pbXForms.PinDlg.DigitBtnsArray.#ctor(Xamarin.Forms.Grid)
   name: DigitBtnsArray(Grid)
-  href: api/pbXForms.PinDlg.DigitBtnsArray.html#pbXForms_PinDlg_DigitBtnsArray__ctor_Grid_
-  commentId: M:pbXForms.PinDlg.DigitBtnsArray.#ctor(Grid)
-  fullName: pbXForms.PinDlg.DigitBtnsArray.DigitBtnsArray(Grid)
+  href: api/pbXForms.PinDlg.DigitBtnsArray.html#pbXForms_PinDlg_DigitBtnsArray__ctor_Xamarin_Forms_Grid_
+  commentId: M:pbXForms.PinDlg.DigitBtnsArray.#ctor(Xamarin.Forms.Grid)
+  fullName: pbXForms.PinDlg.DigitBtnsArray.DigitBtnsArray(Xamarin.Forms.Grid)
   nameWithType: PinDlg.DigitBtnsArray.DigitBtnsArray(Grid)
 - uid: pbXForms.PinDlg.DigitBtnsArray.#ctor*
   name: DigitBtnsArray
@@ -2566,11 +2566,11 @@ references:
   commentId: F:pbXForms.SettingsSwitch.IsToggledProperty
   fullName: pbXForms.SettingsSwitch.IsToggledProperty
   nameWithType: SettingsSwitch.IsToggledProperty
-- uid: pbXForms.SettingsSwitch.OnInnerSwitchToggled(System.Object,ToggledEventArgs)
+- uid: pbXForms.SettingsSwitch.OnInnerSwitchToggled(System.Object,Xamarin.Forms.ToggledEventArgs)
   name: OnInnerSwitchToggled(Object, ToggledEventArgs)
-  href: api/pbXForms.SettingsSwitch.html#pbXForms_SettingsSwitch_OnInnerSwitchToggled_System_Object_ToggledEventArgs_
-  commentId: M:pbXForms.SettingsSwitch.OnInnerSwitchToggled(System.Object,ToggledEventArgs)
-  fullName: pbXForms.SettingsSwitch.OnInnerSwitchToggled(System.Object, ToggledEventArgs)
+  href: api/pbXForms.SettingsSwitch.html#pbXForms_SettingsSwitch_OnInnerSwitchToggled_System_Object_Xamarin_Forms_ToggledEventArgs_
+  commentId: M:pbXForms.SettingsSwitch.OnInnerSwitchToggled(System.Object,Xamarin.Forms.ToggledEventArgs)
+  fullName: pbXForms.SettingsSwitch.OnInnerSwitchToggled(System.Object, Xamarin.Forms.ToggledEventArgs)
   nameWithType: SettingsSwitch.OnInnerSwitchToggled(Object, ToggledEventArgs)
 - uid: pbXForms.SettingsSwitch.OnInnerSwitchToggled*
   name: OnInnerSwitchToggled
@@ -3220,13 +3220,13 @@ references:
   commentId: Overload:pbXNet.CollectionExtensions.Sort
   fullName: pbXNet.CollectionExtensions.Sort
   nameWithType: CollectionExtensions.Sort
-- uid: pbXNet.CollectionExtensions.Sort``1(ObservableCollection{``0},System.Comparison{``0})
+- uid: pbXNet.CollectionExtensions.Sort``1(System.Collections.ObjectModel.ObservableCollection{``0},System.Comparison{``0})
   name: Sort<T>(ObservableCollection<T>, Comparison<T>)
-  href: api/pbXNet.CollectionExtensions.html#pbXNet_CollectionExtensions_Sort__1_ObservableCollection___0__System_Comparison___0__
-  commentId: M:pbXNet.CollectionExtensions.Sort``1(ObservableCollection{``0},System.Comparison{``0})
+  href: api/pbXNet.CollectionExtensions.html#pbXNet_CollectionExtensions_Sort__1_System_Collections_ObjectModel_ObservableCollection___0__System_Comparison___0__
+  commentId: M:pbXNet.CollectionExtensions.Sort``1(System.Collections.ObjectModel.ObservableCollection{``0},System.Comparison{``0})
   name.vb: Sort(Of T)(ObservableCollection(Of T), Comparison(Of T))
-  fullName: pbXNet.CollectionExtensions.Sort<T>(ObservableCollection<T>, System.Comparison<T>)
-  fullName.vb: pbXNet.CollectionExtensions.Sort(Of T)(ObservableCollection(Of T), System.Comparison(Of T))
+  fullName: pbXNet.CollectionExtensions.Sort<T>(System.Collections.ObjectModel.ObservableCollection<T>, System.Comparison<T>)
+  fullName.vb: pbXNet.CollectionExtensions.Sort(Of T)(System.Collections.ObjectModel.ObservableCollection(Of T), System.Comparison(Of T))
   nameWithType: CollectionExtensions.Sort<T>(ObservableCollection<T>, Comparison<T>)
   nameWithType.vb: CollectionExtensions.Sort(Of T)(ObservableCollection(Of T), Comparison(Of T))
 - uid: pbXNet.ConvertEx
@@ -5344,13 +5344,13 @@ references:
   fullName.vb: pbXNet.ObservableCollectionEx(Of T).ObservableCollectionEx
   nameWithType: ObservableCollectionEx<T>.ObservableCollectionEx
   nameWithType.vb: ObservableCollectionEx(Of T).ObservableCollectionEx
-- uid: pbXNet.ObservableCollectionEx`1.AddRange(System.Collections.Generic.IEnumerable{`0},NotifyCollectionChangedAction)
+- uid: pbXNet.ObservableCollectionEx`1.AddRange(System.Collections.Generic.IEnumerable{`0},System.Collections.Specialized.NotifyCollectionChangedAction)
   name: AddRange(IEnumerable<T>, NotifyCollectionChangedAction)
-  href: api/pbXNet.ObservableCollectionEx-1.html#pbXNet_ObservableCollectionEx_1_AddRange_System_Collections_Generic_IEnumerable__0__NotifyCollectionChangedAction_
-  commentId: M:pbXNet.ObservableCollectionEx`1.AddRange(System.Collections.Generic.IEnumerable{`0},NotifyCollectionChangedAction)
+  href: api/pbXNet.ObservableCollectionEx-1.html#pbXNet_ObservableCollectionEx_1_AddRange_System_Collections_Generic_IEnumerable__0__System_Collections_Specialized_NotifyCollectionChangedAction_
+  commentId: M:pbXNet.ObservableCollectionEx`1.AddRange(System.Collections.Generic.IEnumerable{`0},System.Collections.Specialized.NotifyCollectionChangedAction)
   name.vb: AddRange(IEnumerable(Of T), NotifyCollectionChangedAction)
-  fullName: pbXNet.ObservableCollectionEx<T>.AddRange(System.Collections.Generic.IEnumerable<T>, NotifyCollectionChangedAction)
-  fullName.vb: pbXNet.ObservableCollectionEx(Of T).AddRange(System.Collections.Generic.IEnumerable(Of T), NotifyCollectionChangedAction)
+  fullName: pbXNet.ObservableCollectionEx<T>.AddRange(System.Collections.Generic.IEnumerable<T>, System.Collections.Specialized.NotifyCollectionChangedAction)
+  fullName.vb: pbXNet.ObservableCollectionEx(Of T).AddRange(System.Collections.Generic.IEnumerable(Of T), System.Collections.Specialized.NotifyCollectionChangedAction)
   nameWithType: ObservableCollectionEx<T>.AddRange(IEnumerable<T>, NotifyCollectionChangedAction)
   nameWithType.vb: ObservableCollectionEx(Of T).AddRange(IEnumerable(Of T), NotifyCollectionChangedAction)
 - uid: pbXNet.ObservableCollectionEx`1.AddRange*
