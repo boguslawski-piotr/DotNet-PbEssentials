@@ -17,7 +17,7 @@ namespace pbXNet
 
 	public sealed partial class SecretsManager : ISecretsManager
 	{
-		public void Initialize(object activity)
+		void _Initialize(object activity)
 		{
 			_activity = activity as Activity;
 		}
@@ -46,7 +46,7 @@ namespace pbXNet
 			}
 		}
 
-		public DOAuthentication AvailableDOAuthentication
+		DOAuthentication _AvailableDOAuthentication
 		{
 			get {
 				if (DOBiometricsAuthenticationAvailable)
@@ -61,7 +61,7 @@ namespace pbXNet
 		FingerprintAuthCallbacks _authenticatecallbacks;
 		CancellationSignal _cancellationSignal;
 
-		public bool StartDOAuthentication(string msg, Action Success, Action<string, bool> ErrorOrHint)
+		bool _StartDOAuthentication(string msg, Action Success, Action<string, bool> ErrorOrHint)
 		{
 			if (!DOBiometricsAuthenticationAvailable)
 				return false;
@@ -95,12 +95,12 @@ namespace pbXNet
 			return true;
 		}
 
-		public bool CanDOAuthenticationBeCanceled()
+		bool _CanDOAuthenticationBeCanceled()
 		{
 			return true;
 		}
 
-		public bool CancelDOAuthentication()
+		bool _CancelDOAuthentication()
 		{
 			bool rc = false;
 

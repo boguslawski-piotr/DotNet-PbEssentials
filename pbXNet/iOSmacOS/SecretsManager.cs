@@ -14,7 +14,7 @@ namespace pbXNet
 {
 	public sealed partial class SecretsManager : ISecretsManager
 	{
-		public void Initialize(object param)
+		public void _Initialize(object param)
 		{
 		}
 
@@ -34,7 +34,7 @@ namespace pbXNet
 			}
 		}
 
-		public DOAuthentication AvailableDOAuthentication
+		DOAuthentication _AvailableDOAuthentication
 		{
 			get {
 				// See: https://developer.apple.com/documentation/localauthentication/lacontext
@@ -101,7 +101,7 @@ namespace pbXNet
 			return false;
 		}
 
-		public bool StartDOAuthentication(string msg, Action Success, Action<string, bool> ErrorOrHint)
+		bool _StartDOAuthentication(string msg, Action Success, Action<string, bool> ErrorOrHint)
 		{
 			// It seems that the call with parameter LAPolicy.DeviceOwnerAuthentication automatically uses biometrics authentication when it is set in the system settings.
 			// TODO: check StartDOAuthentication on a real device(s)
@@ -113,12 +113,12 @@ namespace pbXNet
 			//    return _AuthenticateDeviceOwner(context, LAPolicy.DeviceOwnerAuthenticationWithBiometrics, msg, Success, Error);
 		}
 
-		public bool CanDOAuthenticationBeCanceled()
+		bool _CanDOAuthenticationBeCanceled()
 		{
 			return false;
 		}
 
-		public bool CancelDOAuthentication()
+		bool _CancelDOAuthentication()
 		{
 			return false;
 		}

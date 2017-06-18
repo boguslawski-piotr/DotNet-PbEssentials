@@ -9,6 +9,19 @@ namespace pbXNet
 		void SetLocale(CultureInfo ci);
 	}
 
+	public partial class Locale : ILocale
+	{
+		public CultureInfo GetCurrentCultureInfo()
+		{
+			return _GetCurrentCultureInfo();
+		}
+
+		public void SetLocale(CultureInfo ci)
+		{
+			_SetLocale(ci);
+		}
+	}
+
 	internal class PlatformCulture
 	{
 		public PlatformCulture(string platformCultureString)
@@ -41,11 +54,6 @@ namespace pbXNet
 		{
 			return PlatformString;
 		}
-	}
-
-	public partial class Locale : ILocale
-	{
-		// You will find the implementation in the platform directories...
 	}
 }
 

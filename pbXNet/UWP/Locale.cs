@@ -9,12 +9,12 @@ namespace pbXNet
 	{
         // Windows 8.1 and Universal Windows Platform (UWP) projects do not require the dependency service – these platforms automatically set the resource's culture correctly.
 
-		public CultureInfo GetCurrentCultureInfo()
+		CultureInfo _GetCurrentCultureInfo()
 		{
 			return null;
 		}
 
-		public void SetLocale(CultureInfo ci)
+		void _SetLocale(CultureInfo ci)
 		{
 		}
 	}

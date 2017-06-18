@@ -5,12 +5,12 @@ namespace pbXNet
 {
 	public partial class Locale : ILocale
 	{
-		public void SetLocale(CultureInfo ci)
+		public void _SetLocale(CultureInfo ci)
 		{
 			throw new NotImplementedException();
 		}
 
-		public CultureInfo GetCurrentCultureInfo()
+		public CultureInfo _GetCurrentCultureInfo()
 		{
 			throw new NotImplementedException();
 		}

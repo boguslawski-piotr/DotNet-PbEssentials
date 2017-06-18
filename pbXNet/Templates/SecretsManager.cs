@@ -4,12 +4,12 @@ namespace pbXNet
 {
 	public sealed partial class SecretsManager : ISecretsManager
 	{
-		public void Initialize(object activity)
+		public void _Initialize(object activity)
 		{
 			throw new NotImplementedException();
 		}
 
-		public DOAuthentication AvailableDOAuthentication
+		public DOAuthentication _AvailableDOAuthentication
 		{
 			get
 			{
@@ -17,17 +17,17 @@ namespace pbXNet
 			}
 		}
 
-		public bool StartDOAuthentication(string msg, Action Success, Action<string, bool> ErrorOrHint)
+		public bool _StartDOAuthentication(string msg, Action Success, Action<string, bool> ErrorOrHint)
 		{
 			throw new NotImplementedException();
 		}
 
-		public bool CanDOAuthenticationBeCanceled()
+		public bool _CanDOAuthenticationBeCanceled()
 		{
 			throw new NotImplementedException();
 		}
 
-		public bool CancelDOAuthentication()
+		public bool _CancelDOAuthentication()
 		{
 			throw new NotImplementedException();
 		}

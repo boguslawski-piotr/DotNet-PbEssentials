@@ -1,6 +1,5 @@
 ﻿using System;
 
-//
 // Based on book Creating Mobile Apps with Xamarin.Forms by Charles Petzold
 
 namespace pbXNet
@@ -56,7 +55,9 @@ namespace pbXNet
 			Initialize();
 		}
 
-		// You will find the rest of implementation in the platform directories...
-
+		// Implementation in:
+		//
+		// UWP: pbXNet\UWP\
+		// iOS, macOS, Android, .NET: pbXNet\NETStd2\
 	}
 }

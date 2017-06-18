@@ -22,6 +22,8 @@ namespace pbXNet
 		// WARNING: Do not change constants values order.
 		// If needed add new value(s) at the end.
 
+		Undefined,
+
 		/// <summary>
 		/// Ckey should be stored (in a safe way!) and should be available 
 		/// throughout the life of the application on device.

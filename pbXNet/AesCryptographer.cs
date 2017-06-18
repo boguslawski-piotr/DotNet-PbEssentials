@@ -8,6 +8,9 @@ namespace pbXNet
 	{
 		public Exception LastEx { get; private set; }
 
-		// You will find the implementation in the platform directories...
+		// Implementation in:
+		//
+		// UWP: pbXNet\UWP\
+		// iOS, macOS, Android, .NET: pbXNet\NETStd2\
 	}
 }

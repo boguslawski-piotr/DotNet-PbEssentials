@@ -8,7 +8,7 @@ namespace pbXNet
 {
 	public partial class SecretsManager : ISecretsManager
 	{
-		public void Initialize(object param)
+		public void _Initialize(object param)
 		{
 		}
 
@@ -31,12 +31,12 @@ namespace pbXNet
 			return DOAuthentication.None;
 		}
 
-		public DOAuthentication AvailableDOAuthentication
+		DOAuthentication _AvailableDOAuthentication
 		{
 			get {
 				// TODO: this is ugly, try to find better solution
 				DOAuthentication rc = DOAuthentication.None;
-				Task.Run(async () => rc = await CheckConsentAvailabilityAsync()).Wait(5000);
+				Task.Run(async () => rc = await CheckConsentAvailabilityAsync()).GetAwaiter().GetResult();
 				return rc;
 			}
 		}
@@ -89,7 +89,7 @@ namespace pbXNet
 			}
 		}
 
-		public bool StartDOAuthentication(string msg, Action Succes, Action<string, bool> ErrorOrHint)
+		bool _StartDOAuthentication(string msg, Action Succes, Action<string, bool> ErrorOrHint)
 		{
 			if(AvailableDOAuthentication != DOAuthentication.None)
 			{
@@ -102,12 +102,12 @@ namespace pbXNet
 			return false;
 		}
 
-		public bool CanDOAuthenticationBeCanceled()
+		bool _CanDOAuthenticationBeCanceled()
 		{
 			return false;
 		}
 
-		public bool CancelDOAuthentication()
+		bool _CancelDOAuthentication()
 		{
 			return false;
 		}

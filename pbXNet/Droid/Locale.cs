@@ -7,7 +7,7 @@ namespace pbXNet
 {
 	public partial class Locale : ILocale
 	{
-		public void SetLocale(CultureInfo ci)
+		void _SetLocale(CultureInfo ci)
 		{
 			Thread.CurrentThread.CurrentCulture = ci;
 			Thread.CurrentThread.CurrentUICulture = ci;
@@ -15,7 +15,7 @@ namespace pbXNet
 
 #pragma warning disable CS0168
 
-		public CultureInfo GetCurrentCultureInfo()
+		CultureInfo _GetCurrentCultureInfo()
 		{
 			var netLanguage = "en";
 			var androidLocale = Java.Util.Locale.Default;

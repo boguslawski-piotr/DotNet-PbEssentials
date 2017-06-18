@@ -23,10 +23,33 @@ namespace pbXNet
 			_serializer = serializer;
 		}
 
+		public void Initialize(object param)
+		{
+			_Initialize(param);
+		}
 
 		// Basic device owner authentication (pin, passkey, biometrics, etc.)
 		// You will find the implementation in the platform directories...
 
+		public DOAuthentication AvailableDOAuthentication
+		{
+			get => _AvailableDOAuthentication;
+		}
+
+		public bool StartDOAuthentication(string msg, Action Succes, Action<string, bool> ErrorOrHint)
+		{
+			return _StartDOAuthentication(msg, Succes, ErrorOrHint);
+		}
+
+		public bool CanDOAuthenticationBeCanceled()
+		{
+			return _CanDOAuthenticationBeCanceled();
+		}
+
+		public bool CancelDOAuthentication()
+		{
+			return _CancelDOAuthentication();
+		}
 
 		// Basic authentication based on passwords
 		// No password is ever written anywhere
