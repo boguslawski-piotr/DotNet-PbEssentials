@@ -1,5 +1,9 @@
+- name: pbX Library
+  homepage: index.md
 - name: Articles
   href: articles/
-- name: Api Documentation
+- name: Api
   href: api/
   homepage: api/index.md
+- name: pb's blog
+  href: https://boguslawski-piotr.github.io/
