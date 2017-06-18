@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <ItemGroup>
+    <Compile Include="pbXNet\iOSmacOS\Log.cs">
+      <Link>pbXNet\iOSmacOS\Log.cs</Link>
+    </Compile>
+    <Compile Include="pbXNet\Droid\Log.cs">
+      <Link>pbXNet\Droid\Log.cs</Link>
+    </Compile>
+    <Compile Include="pbXNet\NETStd2\AesCryptographer.cs">
+      <Link>pbXNet\NETStd2\AesCryptographer.cs</Link>
+    </Compile>
+    <Compile Include="pbXNet\NETStd2\BinarySerializer.cs">
+      <Link>pbXNet\NETStd2\BinarySerializer.cs</Link>
+    </Compile>
+    <Compile Include="pbXNet\NETStd2\DeviceFileSystem.cs">
+      <Link>pbXNet\NETStd2\DeviceFileSystem.cs</Link>
+    </Compile>
+  </ItemGroup>
+  <Import Project="pbXNet\pbXNet.Shared.projitems" Label="Shared2" Condition="Exists('pbXNet\pbXNet.Shared.projitems')" />
+  <Import Project="pbXForms\pbXForms.Shared.projitems" Label="Shared1" Condition="Exists('pbXForms\pbXForms.Shared.projitems')" />
+</Project>
