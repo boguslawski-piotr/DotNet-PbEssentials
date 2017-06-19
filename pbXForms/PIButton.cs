@@ -142,6 +142,27 @@ namespace pbXForms
 			this.GestureRecognizers.Add(tgr);
 		}
 
+		protected override void OnParentSet()
+		{
+#if WINDOWS_UWP
+			// Workaround bug(s) in TapGestureRecognizer. It doesn't work when background color is Default(Transparent).
+			if (BackgroundColor == Color.Default)
+			{
+				Element parent = Parent;
+				while (parent != null)
+				{
+					if (Parent is VisualElement p && p.BackgroundColor != Color.Default)
+					{
+						BackgroundColor = p.BackgroundColor;
+						break;
+					}
+
+					parent = parent.Parent;
+				}
+			}
+#endif
+		}
+
 		protected override void OnPropertyChanging(string propertyName = null)
 		{
 			if (propertyName == CommandProperty.PropertyName)
