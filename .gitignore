@@ -46,3 +46,4 @@ docsSource/api/.manifest
 docsSource/xref
 docsSource/.vs
 
+Samples/.vs/config/applicationhost.config

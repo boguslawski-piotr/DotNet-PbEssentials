@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<pbXForms:ContentView
+	xmlns="http://xamarin.com/schemas/2014/forms"
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	xmlns:pbXForms="clr-namespace:pbXForms;assembly=pbXForms"
+	xmlns:local="clr-namespace:MDP"
+	x:Class="MDP.DetailView2"
+	BackgroundColor="#cacaca">
+
+	<pbXForms:ContentView.ViewContent>
+
+		<StackLayout
+			Orientation="Vertical"
+			VerticalOptions="CenterAndExpand">
+
+			<Label
+				HorizontalTextAlignment="Center"
+				Text="Detail view number 2" />
+
+			<Button
+				Text="Back master view 1"
+				Clicked="master1" />
+
+			<Button
+				Text="Back master view 2"
+				Clicked="master2" />
+
+			<Button
+				Text="Back to detail view 1"
+				Clicked="detail1" />
+
+		</StackLayout>
+
+	</pbXForms:ContentView.ViewContent>
+
+</pbXForms:ContentView>

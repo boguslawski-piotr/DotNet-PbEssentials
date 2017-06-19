@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<pbXForms:MastersDetailsPage
+	xmlns="http://xamarin.com/schemas/2014/forms"
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	xmlns:pbXForms="clr-namespace:pbXForms;assembly=pbXForms"
+	xmlns:local="clr-namespace:MDP"
+	x:Class="MDP.MainPage">
+
+	<pbXForms:MastersDetailsPage.MasterViews>
+
+		<local:MasterView1 />
+		<local:MasterView2 />
+
+	</pbXForms:MastersDetailsPage.MasterViews>
+
+	<pbXForms:MastersDetailsPage.DetailViews>
+
+		<local:DetailView1 />
+		<local:DetailView2 />
+
+	</pbXForms:MastersDetailsPage.DetailViews>
+
+</pbXForms:MastersDetailsPage>
