@@ -11,6 +11,20 @@ namespace pbXNet
 		/// Compares a with b and if they are identical then it returns false doing nothing. 
 		/// When a and b are different then b becomes equal to a and the function returns true.
 		/// </summary>
+		/// <example>
+		/// <code>
+		/// Size _osa;
+		/// protected override void OnSizeAllocated(double width, double height)
+		/// {
+		///		base.OnSizeAllocated(width, height);
+		///
+		///		if (!Tools.MakeIdenticalIfDifferent(new Size(width, height), ref _osa))
+		///			return;
+		///		
+		///		...handle OnSizeAllocated...
+		///	 }
+		/// </code>
+		/// </example>
 		public static bool MakeIdenticalIfDifferent<T>(T a, ref T b)
 		{
 			if (Equals(a, b))
@@ -36,15 +50,12 @@ namespace pbXNet
 		/// Uaqpid is different for different applications that use this library.
 		/// It may change after uninstalling the application or after reinstalling the operating system.
 		/// It is different for different users on some systems.
-		/// TIP: This function could be slow and it is recommended to store the results in a local/class variable.
-		/// <para>
-		/// Default implementation:
-		///   Android: <c>AndroidKeyStore + key created using HmacSha256</c>, 
-		///   iOS: <c>UIDevice.CurrentDevice.IdentifierForVendor</c>,
-		///   UWP: <c>Windows.Security.Credentials.PasswordVault + Guid</c>,
-		///   macOS: <c>Keychain + Guid</c>,
-		///   .NET: TODO...
-		/// </para>
+		/// <para>Default implementation uses:</para>
+		/// <para>• iOS: <c>UIDevice.CurrentDevice.IdentifierForVendor</c></para>
+		/// <para>• UWP: <c>Windows.Security.Credentials.PasswordVault</c> + <c>Guid</c></para>
+		/// <para>• macOS: <c>Keychain</c> + <c>Guid</c></para>
+		/// <para>• Android: <c>AndroidKeyStore</c> + key created using <c>HmacSha256</c></para>
+		/// <para>TIP: This function could be slow and it is recommended to store the results in a local/class variable.</para>
 		/// </remarks>
 		public static string GetUaqpid()
 		{

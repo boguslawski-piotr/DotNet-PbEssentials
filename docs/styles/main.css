@@ -414,11 +414,7 @@ article h4 {
 	margin-top: 15px;
 }
 
-/*.inheritedMembers, .inheritedMembers a {
-  position: fixed;
-  top: 0;
-  width: 0;
-  height: 0;  
-  color: transparent;
-  visibility: false;
-}*/
+.nav .level2 {
+	font-weight: normal;
+	font-size: 11px;
+}
