@@ -9,27 +9,59 @@ namespace pbXForms
 {
 	// All code that is included in the #if WINDOWS_UWP conditional build 
 	// is a workaround for a bug in AbsoluteLayout.RaiseChild/LowerChild on the UWP platform.
-	// On this platform, these features behave completely different than on iOS, MacOS or Android.
+	// On this platform, these features behave completely different than on iOS, macOS or Android.
 	// To be completely honest - they do not work at all.
 
 	public class MastersDetailsPageViewsLayout : AbsoluteLayout { }
 
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <example>
+	/// 
+	/// </example>
 	public partial class MastersDetailsPage : Xamarin.Forms.ContentPage
 	{
+		/// <summary>
+		/// Relative (to screen/application main window) width of master view(s) in a split view. Available also in XAML. Default: 0.3
+		/// </summary>
 		public double MasterViewRelativeWidth { get; set; } = 0.3;
+
+		/// <summary>
+		/// Minimum width of master view(s) in a split view. Available also in XAML. Default: 240 for phones and tablets and 320 for desktops.
+		/// </summary>
 		public double MasterViewMinimumWidth { get; set; } = Device.Idiom != TargetIdiom.Desktop ? 240 : 320;
 
+		/// <summary>
+		/// Allows you to set whether split view is available on phones. Available also in XAML. Default: true
+		/// </summary>
+		public bool AllowSplitViewOnPhone { get; set; } = true;
+
+		/// <summary>
+		/// List of master views. Available both in code and XAML files.
+		/// </summary>
+		public IList<View> MasterViews { get; set; } = new List<View>();
+
+		/// <summary>
+		/// List of detail views. Available both in code and XAML files.
+		/// </summary>
+		public IList<View> DetailViews => _ViewsLayout?.Children;
+
+		/// <summary>
+		/// Gives the width of the panel with master view(s) in a split view.
+		/// </summary>
 		public double MasterViewWidthInSplitView { get; protected set; }
 
-		public IList<View> MasterViews { get; set; } = new List<View>();
-		public IList<View> DetailViews => _ViewsLayout?.Children;
+		/// <summary>
+		/// Manager for modal views that can be displayed on masters/details page.
+		/// </summary>
+		/// <seealso cref="ModalViewsManager"/>
+		public ModalViewsManager ModalManager = new ModalViewsManager();
 
 		protected View MasterView;
 		protected View DetailView;
 
 		protected IList<View> Views => _ViewsLayout?.Children;
-
-		public ModalViewsManager ModalManager = new ModalViewsManager();
 
 		public MastersDetailsPage()
 		{
@@ -67,12 +99,14 @@ namespace pbXForms
 		int _IsSplitView = -1;
 		public virtual bool IsSplitView
 		{
-			//get { return !(Device.Idiom == TargetIdiom.Phone || (DeviceEx.Orientation == DeviceOrientations.Portrait)); }
 			get {
 				if (_IsSplitView > -1)
 					return _IsSplitView == 1;
 
-				return DeviceEx.Orientation != DeviceOrientation.Portrait /*|| Device.Idiom == TargetIdiom.Desktop*/;
+				if (!AllowSplitViewOnPhone && Device.Idiom == TargetIdiom.Phone)
+					return false;
+
+				return DeviceEx.Orientation != DeviceOrientation.Portrait;
 			}
 			set {
 				_IsSplitView = value ? 1 : 0;
@@ -86,9 +120,7 @@ namespace pbXForms
 		bool _MasterViewIsVisible = true;
 		public virtual bool MasterViewIsVisible
 		{
-			get {
-				return _MasterViewIsVisible;
-			}
+			get => _MasterViewIsVisible;
 			set {
 				if (value)
 					ShowMasterViewAsync(ViewsSwitchingAnimation.Back);

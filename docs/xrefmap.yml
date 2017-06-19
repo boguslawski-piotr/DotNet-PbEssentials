@@ -625,6 +625,18 @@ references:
   commentId: Overload:pbXForms.MastersDetailsPage.#ctor
   fullName: pbXForms.MastersDetailsPage.MastersDetailsPage
   nameWithType: MastersDetailsPage.MastersDetailsPage
+- uid: pbXForms.MastersDetailsPage.AllowSplitViewOnPhone
+  name: AllowSplitViewOnPhone
+  href: api/pbXForms.MastersDetailsPage.html#pbXForms_MastersDetailsPage_AllowSplitViewOnPhone
+  commentId: P:pbXForms.MastersDetailsPage.AllowSplitViewOnPhone
+  fullName: pbXForms.MastersDetailsPage.AllowSplitViewOnPhone
+  nameWithType: MastersDetailsPage.AllowSplitViewOnPhone
+- uid: pbXForms.MastersDetailsPage.AllowSplitViewOnPhone*
+  name: AllowSplitViewOnPhone
+  href: api/pbXForms.MastersDetailsPage.html#pbXForms_MastersDetailsPage_AllowSplitViewOnPhone_
+  commentId: Overload:pbXForms.MastersDetailsPage.AllowSplitViewOnPhone
+  fullName: pbXForms.MastersDetailsPage.AllowSplitViewOnPhone
+  nameWithType: MastersDetailsPage.AllowSplitViewOnPhone
 - uid: pbXForms.MastersDetailsPage.AnimateAsync(System.Boolean,Xamarin.Forms.View,Xamarin.Forms.View,pbXForms.MastersDetailsPage.ViewsSwitchingAnimation)
   name: AnimateAsync(Boolean, View, View, MastersDetailsPage.ViewsSwitchingAnimation)
   href: api/pbXForms.MastersDetailsPage.html#pbXForms_MastersDetailsPage_AnimateAsync_System_Boolean_Xamarin_Forms_View_Xamarin_Forms_View_pbXForms_MastersDetailsPage_ViewsSwitchingAnimation_
