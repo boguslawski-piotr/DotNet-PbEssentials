@@ -1699,6 +1699,18 @@ references:
   commentId: Overload:pbXForms.PIButton.LineBreakMode
   fullName: pbXForms.PIButton.LineBreakMode
   nameWithType: PIButton.LineBreakMode
+- uid: pbXForms.PIButton.OnParentSet
+  name: OnParentSet()
+  href: api/pbXForms.PIButton.html#pbXForms_PIButton_OnParentSet
+  commentId: M:pbXForms.PIButton.OnParentSet
+  fullName: pbXForms.PIButton.OnParentSet()
+  nameWithType: PIButton.OnParentSet()
+- uid: pbXForms.PIButton.OnParentSet*
+  name: OnParentSet
+  href: api/pbXForms.PIButton.html#pbXForms_PIButton_OnParentSet_
+  commentId: Overload:pbXForms.PIButton.OnParentSet
+  fullName: pbXForms.PIButton.OnParentSet
+  nameWithType: PIButton.OnParentSet
 - uid: pbXForms.PIButton.OnPropertyChanging(System.String)
   name: OnPropertyChanging(String)
   href: api/pbXForms.PIButton.html#pbXForms_PIButton_OnPropertyChanging_System_String_

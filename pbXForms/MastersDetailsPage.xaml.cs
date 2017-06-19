@@ -18,7 +18,8 @@ namespace pbXForms
 	/// 
 	/// </summary>
 	/// <example>
-	/// 
+	/// <para>A complete example showing MastersDetailsPage in action can be found here:</para>
+	/// <para>https://github.com/boguslawski-piotr/pbX/tree/master/Samples/MDP/MDP</para>
 	/// </example>
 	public partial class MastersDetailsPage : Xamarin.Forms.ContentPage
 	{
