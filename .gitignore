@@ -41,9 +41,13 @@ Thumbs.db
 UpgradeLog.htm
 *.sqlite
 
+#others
 _site
 docsSource/api/.manifest
 docsSource/xref
 docsSource/.vs
 
-Samples/.vs/config/applicationhost.config
+Samples/.vs
+
+pbXForms/Droid/Resources/Resource.designer.cs
+pbXNet/Droid/Resources/Resource.designer.cs
