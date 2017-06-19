@@ -9,7 +9,7 @@
     <RootNamespace>pbXForms</RootNamespace>
     <AssemblyName>pbXForms</AssemblyName>
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
-    <ReleaseVersion>1.0.0.17</ReleaseVersion>
+    <ReleaseVersion>1.0.0.19</ReleaseVersion>
     <SynchReleaseVersion>false</SynchReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
