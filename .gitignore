@@ -49,5 +49,5 @@ docsSource/.vs
 
 Samples/.vs
 
-pbXForms/Droid/Resources/Resource.designer.cs
-pbXNet/Droid/Resources/Resource.designer.cs
+pbXForms.Droid/Resources/Resource.designer.cs
+pbXNet.Droid/Resources/Resource.designer.cs
