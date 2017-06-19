@@ -2,7 +2,7 @@
   homepage: index.md
 - name: Articles
   href: articles/
-- name: Api
+- name: API
   href: api/
   homepage: api/index.md
 - name: pb's blog

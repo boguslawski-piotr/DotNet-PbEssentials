@@ -16,27 +16,6 @@
     <div class="level{{index}}">{{{specName.0.value}}}</div>
 {{/derivedClasses}}
 
-{{#inheritedMembers.0}}
-<div class="inheritedMembers">
-  <h5>{{__global.inheritedMembers}}</h5>
-{{/inheritedMembers.0}}
-{{#inheritedMembers}}
-  <div>
-  {{#definition}}
-    <xref uid="{{definition}}" text="{{nameWithType.0.value}}" alt="{{fullName.0.value}}"/>
-  {{/definition}}
-  {{^definition}}
-    <xref uid="{{uid}}" text="{{nameWithType.0.value}}" alt="{{fullName.0.value}}"/>
-  {{/definition}}
-  </div>
-{{/inheritedMembers}}
-{{#inheritedMembers.0}}
-</div>
-{{/inheritedMembers.0}}
-
-<h6><strong>{{__global.namespace}}</strong>: {{namespace}}</h6>
-<h6><strong>{{__global.assembly}}</strong>: {{assemblies.0}}.dll</h6>
-
 <h5 id="{{id}}_syntax">{{__global.syntax}}</h5>
 <div class="codewrapper">
   <pre><code class="lang-{{_lang}} hljs">{{syntax.content.0.value}}</code></pre>
@@ -88,12 +67,12 @@
 {{/syntax.typeParameters.0}}
 
 {{#remarks}}
-<h5 id="{{id}}_remarks"><strong>{{__global.remarks}}</strong></h5>
+<h3 id="{{id}}_remarks">{{__global.remarks}}</h3>
 <div class="markdown level0 remarks">{{{remarks}}}</div>
 {{/remarks}}
 
 {{#example.0}}
-<h5 id="{{id}}_examples"><strong>{{__global.examples}}</strong></h5>
+<h3 id="{{id}}_examples">{{__global.examples}}</h3>
 {{/example.0}}
 {{#example}}
 {{{.}}}

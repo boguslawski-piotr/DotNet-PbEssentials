@@ -410,6 +410,9 @@ article h4 {
     margin-left: 11em;
 }
 
+.inheritance {
+	margin-top: 15px;
+}
 
 /*.inheritedMembers, .inheritedMembers a {
   position: fixed;

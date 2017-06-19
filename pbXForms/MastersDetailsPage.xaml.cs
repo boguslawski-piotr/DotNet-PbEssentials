@@ -15,8 +15,11 @@ namespace pbXForms
 	public class MastersDetailsPageViewsLayout : AbsoluteLayout { }
 
 	/// <summary>
-	/// 
+	/// TODO: summary
 	/// </summary>
+	/// <remarks>
+	/// TODO: remarks
+	/// </remarks>
 	/// <example>
 	/// <para>A complete example showing MastersDetailsPage in action can be found here:</para>
 	/// <para>https://github.com/boguslawski-piotr/pbX/tree/master/Samples/MDP/MDP</para>

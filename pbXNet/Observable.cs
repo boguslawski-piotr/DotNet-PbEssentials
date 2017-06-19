@@ -4,8 +4,9 @@ using System.Runtime.CompilerServices;
 namespace pbXNet
 {
 	/// <summary>
-	/// ObservableAsync.
+	/// TODO: summary
 	/// </summary>
+	/// <seealso cref="System.ComponentModel.INotifyPropertyChanged"/>
 	public class Observable : INotifyPropertyChanged
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
