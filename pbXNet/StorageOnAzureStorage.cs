@@ -33,6 +33,8 @@ namespace pbXNet
 		protected CloudBlobClient Client;
 		protected CloudBlobContainer Container;
 
+		/// Id will be used as container name in Azure Blob Storage
+		/// See here: https://azure.microsoft.com/en-us/services/storage/blobs/
 		public StorageOnAzureStorage(string id, AzureStorageSettings settings, ISerializer serializer)
 			: base(id, serializer)
 		{
@@ -42,22 +44,47 @@ namespace pbXNet
 		public static async Task<StorageOnAzureStorage<T>> NewAsync(string id, AzureStorageSettings settings, ISerializer serializer)
 		{
 			StorageOnAzureStorage<T> o = new StorageOnAzureStorage<T>(id, settings, serializer);
-			await o.InitializeAsync().ConfigureAwait(false);
+			if (!await o.InitializeAsync())
+				return null;
 			return o;
 		}
 
 		const string _modifiedOnAttribute = "modifiedOn";
 
-		public override async Task InitializeAsync()
+		public override async Task<bool> InitializeAsync()
 		{
-			Account = CloudStorageAccount.Parse(Settings.ConnectionString);
-			Client = Account.CreateCloudBlobClient();
+			try
+			{
+				Account = CloudStorageAccount.Parse(Settings.ConnectionString);
+				Client = Account.CreateCloudBlobClient();
 
-			string containerId = Regex.Replace(Id.ToLower(), "[^a-z0-9]", "").ToLower();
-			Container = Client.GetContainerReference(containerId);
+				/*
+					A container name must be a valid DNS name, conforming to the following naming rules:
+					  - Container names must start with a letter or number, and can contain only 
+					    letters, numbers, and the dash (-) character.
+					  - Every dash (-) character must be immediately preceded and followed 
+					    by a letter or number; consecutive dashes are not permitted in container names.
+					  - All letters in a container name must be lowercase.
+					  - Container names must be from 3 through 63 characters long.
+				*/
+				// TODO: dostosowac przygotowanie nazwy to w.w. regul
+				string containerId = Regex.Replace(Id.ToLower(), "[^a-z0-9]", "").ToLower();
+				Container = Client.GetContainerReference(containerId);
 
-			await Container.CreateIfNotExistsAsync();
+				await Container.CreateIfNotExistsAsync();
+			}
+			catch (Exception ex)
+			{
+				Log.E(ex.Message, this);
+				throw ex;
+			}
+
+			return true;
 		}
+
+		// TODO: sprobowac zmienic na uzywanie PageBlob (bardziej efektywne)
+		// Powinna wystarczyc tylko zmiana w StoreAsync: GetPageBlobReference + CreateAsync
+		// await pageBlob.CreateAsync(512 * (bdata.Length / 512 + 1)); // size needs to be multiple of 512 bytes
 
 		public override async Task StoreAsync(string thingId, T data, DateTime modifiedOn)
 		{

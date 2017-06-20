@@ -19,7 +19,7 @@ namespace pbXNet
 			Serializer = new StringOptimizedSerializer(serializer);
 		}
 
-		public abstract Task InitializeAsync();
+		public abstract Task<bool> InitializeAsync();
 
 		public abstract Task StoreAsync(string thingId, T data, DateTime modifiedOn);
 

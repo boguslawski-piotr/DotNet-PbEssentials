@@ -23,13 +23,15 @@ namespace pbXNet
 		public static async Task<StorageOnFileSystem<T>> NewAsync(string id, IFileSystem fs, ISerializer serializer)
 		{
 			StorageOnFileSystem<T> o = new StorageOnFileSystem<T>(id, fs, serializer);
-			await o.InitializeAsync().ConfigureAwait(false);
+			if (!await o.InitializeAsync())
+				return null;
 			return o;
 		}
 
-		public override async Task InitializeAsync()
+		public override async Task<bool> InitializeAsync()
 		{
-			await Fs.SetCurrentDirectoryAsync(null).ConfigureAwait(false);
+			await Fs.SetCurrentDirectoryAsync(null);
+			return true;
 		}
 
 		protected virtual async Task<IFileSystem> GetFsAsync()
