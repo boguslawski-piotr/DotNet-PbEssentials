@@ -11,13 +11,13 @@ namespace pbXNet
 			_serializer = serializer;
 		}
 
-		public virtual string Serialize<T>(T data, string id = null)
+		public virtual string Serialize<T>(T o, string id = null)
 		{
 			string d;
 			if (id == null && typeof(T).Equals(typeof(string)))
-				d = data.ToString();
+				d = o.ToString();
 			else
-				d = _serializer.Serialize(data, id);
+				d = _serializer.Serialize(o, id);
 
 			return d;
 		}
