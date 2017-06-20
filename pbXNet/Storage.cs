@@ -16,7 +16,7 @@ namespace pbXNet
 		protected Storage(string id, ISerializer serializer)
 		{
 			Id = id;
-			Serializer = new OptimizedForStringSerializer(serializer);
+			Serializer = new StringOptimizedSerializer(serializer);
 		}
 
 		public abstract Task InitializeAsync();

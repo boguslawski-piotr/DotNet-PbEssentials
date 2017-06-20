@@ -2,11 +2,11 @@ using System;
 
 namespace pbXNet
 {
-	public class OptimizedForStringSerializer : ISerializer
+	public class StringOptimizedSerializer : ISerializer
 	{
 		ISerializer _serializer;
 
-		public OptimizedForStringSerializer(ISerializer serializer)
+		public StringOptimizedSerializer(ISerializer serializer)
 		{
 			_serializer = serializer;
 		}
