@@ -8,7 +8,7 @@ namespace pbXNet
 	/// Id will be used as directory name in the root of file system. 
 	/// The data in this directory (and in all subdirectories) will be encrypted. 
 	/// The data in another directories (unless the Id was set to null or empty string) will not be encrypted.
-	public class EncryptedFileSystem : IFileSystem
+	public class EncryptedFileSystem : IFileSystem, IDisposable
 	{
 		public FileSystemType Type => _fs.Type;
 
@@ -16,24 +16,24 @@ namespace pbXNet
 
 		public string Name => _fs.Name;
 
+		ICryptographer _cryptographer = new AesCryptographer();
+
 		IFileSystem _fs;
-		ICryptographer _cryptographer;
 
 		IPassword _passwd;
 		IByteBuffer _ckey;
 		IByteBuffer _iv;
 
-		protected EncryptedFileSystem(string id, IFileSystem fs, ICryptographer cryptographer)
+		protected EncryptedFileSystem(string id, IFileSystem fs)
 		{
 			Id = id;
 			_fs = fs;
-			_cryptographer = cryptographer;
 		}
 
 		/// IMPORTANT NOTE: 
 		/// Passed ckey can be completely cleaned (zeros) at an unspecified moment.
 		/// You should not use this data anymore after it was passed to the EncryptedFileSystem class constructor.
-		public EncryptedFileSystem(string id, IFileSystem fs, ICryptographer cryptographer, IByteBuffer ckey) : this(id, fs, cryptographer)
+		public EncryptedFileSystem(string id, IFileSystem fs, IByteBuffer ckey) : this(id, fs)
 		{
 			_ckey = ckey;
 		}
@@ -41,7 +41,7 @@ namespace pbXNet
 		/// IMPORTANT NOTE: 
 		/// Passed passwd is completely cleaned (zeros) as soon as possible.
 		/// You should not use this data anymore after it was passed to the EncryptedFileSystem class constructor.
-		public EncryptedFileSystem(string id, IFileSystem fs, ICryptographer cryptographer, IPassword passwd) : this(id, fs, cryptographer)
+		public EncryptedFileSystem(string id, IFileSystem fs, IPassword passwd) : this(id, fs)
 		{
 			_passwd = passwd;
 		}
@@ -51,26 +51,21 @@ namespace pbXNet
 			if (_ckey != null && _iv != null)
 				return;
 
-			const string _configFileName = ".929b653c172a4002b3072e4f5dacf955";
-			string d;
-
 			await _fs.SaveStateAsync().ConfigureAwait(false);
 
 			await _fs.SetCurrentDirectoryAsync(null).ConfigureAwait(false);
 			await _fs.CreateDirectoryAsync(Id).ConfigureAwait(false);
 
+			const string _configFileName = ".929b653c172a4002b3072e4f5dacf955";
+
 			if (await _fs.FileExistsAsync(_configFileName).ConfigureAwait(false))
 			{
-				d = await _fs.ReadTextAsync(_configFileName).ConfigureAwait(false);
-				_iv = SecureBuffer.NewFromHexString(d);
+				_iv = SecureBuffer.NewFromHexString(await _fs.ReadTextAsync(_configFileName).ConfigureAwait(false));
 			}
 			else
 			{
-				// We don't know what type (which implements IByteBuffer) will return GenerateIV from cryptographer.
-				// Therefore, to be sure, we convert to SecureBuffer before we save data.
 				_iv = _cryptographer.GenerateIV();
-				await _fs.WriteTextAsync(_configFileName, new SecureBuffer(_iv.GetBytes()).ToHexString()).ConfigureAwait(false);
-				_iv.DisposeBytes();
+				await _fs.WriteTextAsync(_configFileName, _iv.ToHexString()).ConfigureAwait(false);
 			}
 
 			if (_ckey == null)
