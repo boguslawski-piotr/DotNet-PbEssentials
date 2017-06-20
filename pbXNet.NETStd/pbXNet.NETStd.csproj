@@ -11,10 +11,10 @@
   <ItemGroup>
     <PackageReference Include="System.Security.Cryptography.Csp" Version="4.3.0" />
     <PackageReference Include="System.ValueTuple" Version="4.3.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
+    <PackageReference Include="WindowsAzure.Storage" Version="8.1.4" />
   </ItemGroup>
 
-  <Import Project="..\pbXNet\pbXNet.Shared.projitems" Label="Shared" Condition="Exists('..\pbXNet\pbXNet.Shared.projitems')" />
-	
   <ItemGroup>
     <Compile Include="..\pbXNet\NETStd2\DeviceFileSystem.cs">
       <Link>pbXNet\NETStd2\DeviceFileSystem.cs</Link>
@@ -35,4 +35,5 @@
       <Link>pbXNet\Templates\Tools.cs</Link>
     </Compile>
   </ItemGroup>
+  <Import Project="..\pbXNet\pbXNet.Shared.projitems" Label="Shared" Condition="Exists('..\pbXNet\pbXNet.Shared.projitems')" />
 </Project>
