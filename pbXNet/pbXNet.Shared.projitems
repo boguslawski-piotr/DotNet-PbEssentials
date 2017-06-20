@@ -38,6 +38,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)SecureBuffer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IAsymmetricCryptographer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ByteBuffer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Storage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)StorageOnAzureStorage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)OptimizedForStringSerializer.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)pbXNetT.resx">
