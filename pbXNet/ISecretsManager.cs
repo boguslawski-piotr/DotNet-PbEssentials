@@ -15,9 +15,9 @@ namespace pbXNet
 
 	/// <summary>
 	/// Secret life time definitions used in
-	/// <see cref="ISecretsManager.CreateCKey"><c>ISecretsManager.CreateCKey</c></see>,
+	/// <see cref="ISecretsManager.CreateCKey"/>,
 	/// and
-	/// <see cref="ISecretsManager.AddSecret{T}"><c>ISecretsManager.AddSecret{T}</c></see>.
+	/// <see cref="ISecretsManager.AddOrUpdateSecret{T}"/>.
 	/// </summary>
 	public enum SecretLifeTime
 	{
@@ -83,17 +83,17 @@ namespace pbXNet
 		// Common secrets
 
 		/// <summary>
-		/// Adds or updates a secret under the given <c>id</c>.
+		/// Adds or updates a secret under the given <paramref name="id"/>.
 		/// </summary>
 		void AddOrUpdateSecret<T>(string id, SecretLifeTime lifeTime, T data);
 
 		/// <summary>
-		/// Checks if a secret with the specified <c>id</c> does exist.
+		/// Checks if a secret with the specified <paramref name="id"/> does exist.
 		/// </summary>
 		bool SecretExists(string id);
 
 		/// <summary>
-		/// Gets a secret with the specified <c>id</c>.
+		/// Gets a secret with the specified <paramref name="id"/>.
 		/// </summary>
 		/// <exception cref="System.Collections.Generic.KeyNotFoundException">
 		/// Should be thrown when a secret with the specified <c>id</c> does not exist.
@@ -101,7 +101,7 @@ namespace pbXNet
 		T GetSecret<T>(string id);
 
 		/// <summary>
-		/// Deletes a secret with the specified <c>id</c>.
+		/// Deletes a secret with the specified <paramref name="id"/>.
 		/// </summary>
 		void DeleteSecret(string id);
 	}

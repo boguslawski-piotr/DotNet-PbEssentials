@@ -76,13 +76,14 @@
   <div class="inheritance">
     <h5>Inheritance</h5>
     <div class="level0"><a class="xref" href="https://msdn.microsoft.com/en-us/library/system.object(v=vs.110).aspx">Object</a></div>
-    <div class="level1"><span class="xref">StorageOnFileSystem&lt;T&gt;</span></div>
+    <div class="level1"><a class="xref" href="pbXNet.Storage-1.html">Storage</a>&lt;T&gt;</div>
+    <div class="level2"><span class="xref">StorageOnFileSystem&lt;T&gt;</span></div>
   </div>
   
   
   <h5 id="pbXNet_StorageOnFileSystem_1_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class StorageOnFileSystem&lt;T&gt; : ISearchableStorage&lt;T&gt;, IStorage&lt;T&gt; where T : class</code></pre>
+    <pre><code class="lang-csharp hljs">public class StorageOnFileSystem&lt;T&gt; : Storage&lt;T&gt;, ISearchableStorage&lt;T&gt;, IStorage&lt;T&gt; where T : class</code></pre>
   </div>
   
   
@@ -106,7 +107,7 @@
     <a href="https://github.com/boguslawski-piotr/pbX/new/master/apiSpec/new?filename=pbXNet_StorageOnFileSystem_1__ctor_System_String_pbXNet_IFileSystem_pbXNet_ISerializer_.md&amp;value=---%0Auid%3A%20pbXNet.StorageOnFileSystem%601.%23ctor(System.String%2CpbXNet.IFileSystem%2CpbXNet.ISerializer)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/boguslawski-piotr/pbX/blob/master/pbXNet/StorageOnFileSystem.cs/#L21" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/boguslawski-piotr/pbX/blob/master/pbXNet/StorageOnFileSystem.cs/#L17" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="pbXNet_StorageOnFileSystem_1__ctor_" data-uid="pbXNet.StorageOnFileSystem`1.#ctor*"></a>
@@ -166,7 +167,7 @@
     <a href="https://github.com/boguslawski-piotr/pbX/new/master/apiSpec/new?filename=pbXNet_StorageOnFileSystem_1_Fs.md&amp;value=---%0Auid%3A%20pbXNet.StorageOnFileSystem%601.Fs%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/boguslawski-piotr/pbX/blob/master/pbXNet/StorageOnFileSystem.cs/#L15" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/boguslawski-piotr/pbX/blob/master/pbXNet/StorageOnFileSystem.cs/#L13" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   
@@ -202,102 +203,15 @@
   
   
   </div>
-  
-  <span class="small pull-right mobile-hide">
-    <span class="divider"> </span>
-    <a href="https://github.com/boguslawski-piotr/pbX/new/master/apiSpec/new?filename=pbXNet_StorageOnFileSystem_1_Serializer.md&amp;value=---%0Auid%3A%20pbXNet.StorageOnFileSystem%601.Serializer%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/boguslawski-piotr/pbX/blob/master/pbXNet/StorageOnFileSystem.cs/#L17" title="View Source"><i class="fa fa-code"></i></a>
-  </span>
-  
-  
-  <h4 id="pbXNet_StorageOnFileSystem_1_Serializer" data-uid="pbXNet.StorageOnFileSystem`1.Serializer"><a href="#collapsible-pbXNet_StorageOnFileSystem_1_Serializer" class="expander" data-toggle="collapse">Serializer</a></h4>
-  
-  <div id="collapsible-pbXNet_StorageOnFileSystem_1_Serializer" class="collapse in">
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected ISerializer Serializer</code></pre>
-  </div>
-  
-  
-  
-  
-  <h5 class="fieldValue">Field Value</h5>
-  <table>
-    <tr>
-      <td>
-        <a class="xref" href="pbXNet.ISerializer.html">ISerializer</a>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
-  
-  
-  
-  
-  
-  
-  
-  </div>
   <h3 id="properties">Properties
   </h3>
-  
-  <span class="small pull-right mobile-hide">
-    <span class="divider"> </span>
-    <a href="https://github.com/boguslawski-piotr/pbX/new/master/apiSpec/new?filename=pbXNet_StorageOnFileSystem_1_Id.md&amp;value=---%0Auid%3A%20pbXNet.StorageOnFileSystem%601.Id%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/boguslawski-piotr/pbX/blob/master/pbXNet/StorageOnFileSystem.cs/#L11" title="View Source"><i class="fa fa-code"></i></a>
-  </span>
-  
-  <a id="pbXNet_StorageOnFileSystem_1_Id_" data-uid="pbXNet.StorageOnFileSystem`1.Id*"></a>
-  
-  <h4 id="pbXNet_StorageOnFileSystem_1_Id" data-uid="pbXNet.StorageOnFileSystem`1.Id"><a href="#collapsible-pbXNet_StorageOnFileSystem_1_Id" class="expander" data-toggle="collapse">Id</a></h4>
-  
-  <div id="collapsible-pbXNet_StorageOnFileSystem_1_Id" class="collapse in">
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public string Id { get; }</code></pre>
-  </div>
-  
-  
-  
-  
-  
-  <h5 class="propertyValue">Property Value</h5>
-  <table>
-    <tr>
-      <td>
-        <a class="xref" href="https://msdn.microsoft.com/en-us/library/system.string(v=vs.110).aspx">String</a>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
-  
-  
-  <h5 class="implements">Implements</h5>
-      <div><a class="xref" href="pbXNet.IStorage-1.html#pbXNet_IStorage_1_Id">IStorage&lt;T&gt;.Id</a></div>
-  
-  
-  
-  
-  </div>
   
   <span class="small pull-right mobile-hide">
     <span class="divider"> </span>
     <a href="https://github.com/boguslawski-piotr/pbX/new/master/apiSpec/new?filename=pbXNet_StorageOnFileSystem_1_Name.md&amp;value=---%0Auid%3A%20pbXNet.StorageOnFileSystem%601.Name%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/boguslawski-piotr/pbX/blob/master/pbXNet/StorageOnFileSystem.cs/#L13" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/boguslawski-piotr/pbX/blob/master/pbXNet/StorageOnFileSystem.cs/#L11" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="pbXNet_StorageOnFileSystem_1_Name_" data-uid="pbXNet.StorageOnFileSystem`1.Name*"></a>
@@ -310,7 +224,7 @@
   <h5 class="decalaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual string Name { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">public override string Name { get; }</code></pre>
   </div>
   
   
@@ -328,6 +242,8 @@
   </table>
   
   
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">pbXNet.Storage&lt;T&gt;.Name</span></div>
   
   <h5 class="implements">Implements</h5>
       <div><a class="xref" href="pbXNet.IStorage-1.html#pbXNet_IStorage_1_Name">IStorage&lt;T&gt;.Name</a></div>
@@ -355,7 +271,7 @@
   <h5 class="decalaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public StorageType Type { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">public override StorageType Type { get; }</code></pre>
   </div>
   
   
@@ -373,6 +289,8 @@
   </table>
   
   
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">pbXNet.Storage&lt;T&gt;.Type</span></div>
   
   <h5 class="implements">Implements</h5>
       <div><a class="xref" href="pbXNet.IStorage-1.html#pbXNet_IStorage_1_Type">IStorage&lt;T&gt;.Type</a></div>
@@ -389,7 +307,7 @@
     <a href="https://github.com/boguslawski-piotr/pbX/new/master/apiSpec/new?filename=pbXNet_StorageOnFileSystem_1_DiscardAsync_System_String_.md&amp;value=---%0Auid%3A%20pbXNet.StorageOnFileSystem%601.DiscardAsync(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/boguslawski-piotr/pbX/blob/master/pbXNet/StorageOnFileSystem.cs/#L106" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/boguslawski-piotr/pbX/blob/master/pbXNet/StorageOnFileSystem.cs/#L82" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="pbXNet_StorageOnFileSystem_1_DiscardAsync_" data-uid="pbXNet.StorageOnFileSystem`1.DiscardAsync*"></a>
@@ -402,7 +320,7 @@
   <h5 class="decalaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual Task DiscardAsync(string thingId)</code></pre>
+    <pre><code class="lang-csharp hljs">public override Task DiscardAsync(string thingId)</code></pre>
   </div>
   
   <h5 class="parameters">Parameters</h5>
@@ -430,6 +348,8 @@
   
   
   
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">pbXNet.Storage&lt;T&gt;.DiscardAsync(System.String)</span></div>
   
   <h5 class="implements">Implements</h5>
       <div><a class="xref" href="pbXNet.IStorage-1.html#pbXNet_IStorage_1_DiscardAsync_System_String_">IStorage&lt;T&gt;.DiscardAsync(String)</a></div>
@@ -444,7 +364,7 @@
     <a href="https://github.com/boguslawski-piotr/pbX/new/master/apiSpec/new?filename=pbXNet_StorageOnFileSystem_1_ExistsAsync_System_String_.md&amp;value=---%0Auid%3A%20pbXNet.StorageOnFileSystem%601.ExistsAsync(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/boguslawski-piotr/pbX/blob/master/pbXNet/StorageOnFileSystem.cs/#L61" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/boguslawski-piotr/pbX/blob/master/pbXNet/StorageOnFileSystem.cs/#L51" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="pbXNet_StorageOnFileSystem_1_ExistsAsync_" data-uid="pbXNet.StorageOnFileSystem`1.ExistsAsync*"></a>
@@ -457,7 +377,7 @@
   <h5 class="decalaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual Task&lt;bool&gt; ExistsAsync(string thingId)</code></pre>
+    <pre><code class="lang-csharp hljs">public override Task&lt;bool&gt; ExistsAsync(string thingId)</code></pre>
   </div>
   
   <h5 class="parameters">Parameters</h5>
@@ -485,6 +405,8 @@
   
   
   
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">pbXNet.Storage&lt;T&gt;.ExistsAsync(System.String)</span></div>
   
   <h5 class="implements">Implements</h5>
       <div><a class="xref" href="pbXNet.IStorage-1.html#pbXNet_IStorage_1_ExistsAsync_System_String_">IStorage&lt;T&gt;.ExistsAsync(String)</a></div>
@@ -499,7 +421,7 @@
     <a href="https://github.com/boguslawski-piotr/pbX/new/master/apiSpec/new?filename=pbXNet_StorageOnFileSystem_1_FindIdsAsync_System_String_.md&amp;value=---%0Auid%3A%20pbXNet.StorageOnFileSystem%601.FindIdsAsync(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/boguslawski-piotr/pbX/blob/master/pbXNet/StorageOnFileSystem.cs/#L115" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/boguslawski-piotr/pbX/blob/master/pbXNet/StorageOnFileSystem.cs/#L88" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="pbXNet_StorageOnFileSystem_1_FindIdsAsync_" data-uid="pbXNet.StorageOnFileSystem`1.FindIdsAsync*"></a>
@@ -554,7 +476,7 @@
     <a href="https://github.com/boguslawski-piotr/pbX/new/master/apiSpec/new?filename=pbXNet_StorageOnFileSystem_1_GetACopyAsync_System_String_.md&amp;value=---%0Auid%3A%20pbXNet.StorageOnFileSystem%601.GetACopyAsync(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/boguslawski-piotr/pbX/blob/master/pbXNet/StorageOnFileSystem.cs/#L82" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/boguslawski-piotr/pbX/blob/master/pbXNet/StorageOnFileSystem.cs/#L72" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="pbXNet_StorageOnFileSystem_1_GetACopyAsync_" data-uid="pbXNet.StorageOnFileSystem`1.GetACopyAsync*"></a>
@@ -567,7 +489,7 @@
   <h5 class="decalaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual Task&lt;T&gt; GetACopyAsync(string thingId)</code></pre>
+    <pre><code class="lang-csharp hljs">public override Task&lt;T&gt; GetACopyAsync(string thingId)</code></pre>
   </div>
   
   <h5 class="parameters">Parameters</h5>
@@ -595,6 +517,8 @@
   
   
   
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">pbXNet.Storage&lt;T&gt;.GetACopyAsync(System.String)</span></div>
   
   <h5 class="implements">Implements</h5>
       <div><a class="xref" href="pbXNet.IStorage-1.html#pbXNet_IStorage_1_GetACopyAsync_System_String_">IStorage&lt;T&gt;.GetACopyAsync(String)</a></div>
@@ -609,7 +533,7 @@
     <a href="https://github.com/boguslawski-piotr/pbX/new/master/apiSpec/new?filename=pbXNet_StorageOnFileSystem_1_GetFsAsync.md&amp;value=---%0Auid%3A%20pbXNet.StorageOnFileSystem%601.GetFsAsync%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/boguslawski-piotr/pbX/blob/master/pbXNet/StorageOnFileSystem.cs/#L40" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/boguslawski-piotr/pbX/blob/master/pbXNet/StorageOnFileSystem.cs/#L35" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="pbXNet_StorageOnFileSystem_1_GetFsAsync_" data-uid="pbXNet.StorageOnFileSystem`1.GetFsAsync*"></a>
@@ -652,7 +576,7 @@
     <a href="https://github.com/boguslawski-piotr/pbX/new/master/apiSpec/new?filename=pbXNet_StorageOnFileSystem_1_GetModifiedOnAsync_System_String_.md&amp;value=---%0Auid%3A%20pbXNet.StorageOnFileSystem%601.GetModifiedOnAsync(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/boguslawski-piotr/pbX/blob/master/pbXNet/StorageOnFileSystem.cs/#L73" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/boguslawski-piotr/pbX/blob/master/pbXNet/StorageOnFileSystem.cs/#L63" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="pbXNet_StorageOnFileSystem_1_GetModifiedOnAsync_" data-uid="pbXNet.StorageOnFileSystem`1.GetModifiedOnAsync*"></a>
@@ -665,7 +589,7 @@
   <h5 class="decalaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual Task&lt;DateTime&gt; GetModifiedOnAsync(string thingId)</code></pre>
+    <pre><code class="lang-csharp hljs">public override Task&lt;DateTime&gt; GetModifiedOnAsync(string thingId)</code></pre>
   </div>
   
   <h5 class="parameters">Parameters</h5>
@@ -693,6 +617,8 @@
   
   
   
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">pbXNet.Storage&lt;T&gt;.GetModifiedOnAsync(System.String)</span></div>
   
   <h5 class="implements">Implements</h5>
       <div><a class="xref" href="pbXNet.IStorage-1.html#pbXNet_IStorage_1_GetModifiedOnAsync_System_String_">IStorage&lt;T&gt;.GetModifiedOnAsync(String)</a></div>
@@ -707,7 +633,7 @@
     <a href="https://github.com/boguslawski-piotr/pbX/new/master/apiSpec/new?filename=pbXNet_StorageOnFileSystem_1_InitializeAsync.md&amp;value=---%0Auid%3A%20pbXNet.StorageOnFileSystem%601.InitializeAsync%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/boguslawski-piotr/pbX/blob/master/pbXNet/StorageOnFileSystem.cs/#L35" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/boguslawski-piotr/pbX/blob/master/pbXNet/StorageOnFileSystem.cs/#L30" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="pbXNet_StorageOnFileSystem_1_InitializeAsync_" data-uid="pbXNet.StorageOnFileSystem`1.InitializeAsync*"></a>
@@ -720,7 +646,7 @@
   <h5 class="decalaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual Task InitializeAsync()</code></pre>
+    <pre><code class="lang-csharp hljs">public override Task InitializeAsync()</code></pre>
   </div>
   
   
@@ -738,6 +664,8 @@
   
   
   
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">pbXNet.Storage&lt;T&gt;.InitializeAsync()</span></div>
   
   <h5 class="implements">Implements</h5>
       <div><a class="xref" href="pbXNet.IStorage-1.html#pbXNet_IStorage_1_InitializeAsync">IStorage&lt;T&gt;.InitializeAsync()</a></div>
@@ -752,7 +680,7 @@
     <a href="https://github.com/boguslawski-piotr/pbX/new/master/apiSpec/new?filename=pbXNet_StorageOnFileSystem_1_NewAsync_System_String_pbXNet_IFileSystem_pbXNet_ISerializer_.md&amp;value=---%0Auid%3A%20pbXNet.StorageOnFileSystem%601.NewAsync(System.String%2CpbXNet.IFileSystem%2CpbXNet.ISerializer)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/boguslawski-piotr/pbX/blob/master/pbXNet/StorageOnFileSystem.cs/#L28" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/boguslawski-piotr/pbX/blob/master/pbXNet/StorageOnFileSystem.cs/#L23" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="pbXNet_StorageOnFileSystem_1_NewAsync_" data-uid="pbXNet.StorageOnFileSystem`1.NewAsync*"></a>
@@ -816,65 +744,10 @@
   
   <span class="small pull-right mobile-hide">
     <span class="divider"> </span>
-    <a href="https://github.com/boguslawski-piotr/pbX/new/master/apiSpec/new?filename=pbXNet_StorageOnFileSystem_1_RetrieveAsync_System_String_.md&amp;value=---%0Auid%3A%20pbXNet.StorageOnFileSystem%601.RetrieveAsync(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/boguslawski-piotr/pbX/blob/master/pbXNet/StorageOnFileSystem.cs/#L98" title="View Source"><i class="fa fa-code"></i></a>
-  </span>
-  
-  <a id="pbXNet_StorageOnFileSystem_1_RetrieveAsync_" data-uid="pbXNet.StorageOnFileSystem`1.RetrieveAsync*"></a>
-  
-  <h4 id="pbXNet_StorageOnFileSystem_1_RetrieveAsync_System_String_" data-uid="pbXNet.StorageOnFileSystem`1.RetrieveAsync(System.String)"><a href="#collapsible-pbXNet_StorageOnFileSystem_1_RetrieveAsync_System_String_" class="expander" data-toggle="collapse">RetrieveAsync(String)</a></h4>
-  
-  <div id="collapsible-pbXNet_StorageOnFileSystem_1_RetrieveAsync_System_String_" class="collapse in">
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual Task&lt;T&gt; RetrieveAsync(string thingId)</code></pre>
-  </div>
-  
-  <h5 class="parameters">Parameters</h5>
-  <table>
-    <tr>
-      <td>
-        <span class="pull-right"><a class="xref" href="https://msdn.microsoft.com/en-us/library/system.string(v=vs.110).aspx">String</a></span>
-        <span class="parametername">thingId</span>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
-  <h5 class="returns">Returns</h5>
-  <table>
-    <tr>
-      <td>
-        <a class="xref" href="https://msdn.microsoft.com/en-us/library/dd321424(v=vs.110).aspx">Task</a>&lt;T&gt;
-        <p>
-      </td>
-    </tr>
-  </table>
-  
-  
-  
-  
-  
-  
-  <h5 class="implements">Implements</h5>
-      <div><a class="xref" href="pbXNet.IStorage-1.html#pbXNet_IStorage_1_RetrieveAsync_System_String_">IStorage&lt;T&gt;.RetrieveAsync(String)</a></div>
-  
-  
-  
-  
-  </div>
-  
-  <span class="small pull-right mobile-hide">
-    <span class="divider"> </span>
     <a href="https://github.com/boguslawski-piotr/pbX/new/master/apiSpec/new?filename=pbXNet_StorageOnFileSystem_1_StoreAsync_System_String__0_System_DateTime_.md&amp;value=---%0Auid%3A%20pbXNet.StorageOnFileSystem%601.StoreAsync(System.String%2C%600%2CSystem.DateTime)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/boguslawski-piotr/pbX/blob/master/pbXNet/StorageOnFileSystem.cs/#L47" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/boguslawski-piotr/pbX/blob/master/pbXNet/StorageOnFileSystem.cs/#L42" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="pbXNet_StorageOnFileSystem_1_StoreAsync_" data-uid="pbXNet.StorageOnFileSystem`1.StoreAsync*"></a>
@@ -887,7 +760,7 @@
   <h5 class="decalaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual Task StoreAsync(string thingId, T data, DateTime modifiedOn)</code></pre>
+    <pre><code class="lang-csharp hljs">public override Task StoreAsync(string thingId, T data, DateTime modifiedOn)</code></pre>
   </div>
   
   <h5 class="parameters">Parameters</h5>
@@ -929,6 +802,8 @@
   
   
   
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">pbXNet.Storage&lt;T&gt;.StoreAsync(System.String, T, System.DateTime)</span></div>
   
   <h5 class="implements">Implements</h5>
       <div><a class="xref" href="pbXNet.IStorage-1.html#pbXNet_IStorage_1_StoreAsync_System_String__0_System_DateTime_">IStorage&lt;T&gt;.StoreAsync(String, T, DateTime)</a></div>
@@ -941,6 +816,15 @@
   
   <div class="inheritedMembers">
   	<h3 id="inheritedmembers">Inherited Members</h3>
+  	<div>
+  		<a class="xref" href="pbXNet.Storage-1.html#pbXNet_Storage_1_Id">Storage&lt;T&gt;.Id</a>
+  	</div>
+  	<div>
+  		<a class="xref" href="pbXNet.Storage-1.html#pbXNet_Storage_1_Serializer">Storage&lt;T&gt;.Serializer</a>
+  	</div>
+  	<div>
+  		<a class="xref" href="pbXNet.Storage-1.html#pbXNet_Storage_1_RetrieveAsync_System_String_">Storage&lt;T&gt;.RetrieveAsync(String)</a>
+  	</div>
   	<div>
   		<a class="xref" href="https://msdn.microsoft.com/en-us/library/bsc2ak47(v=vs.110).aspx">Object.Equals(Object)</a>
   	</div>

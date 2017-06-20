@@ -2931,39 +2931,54 @@ references:
   commentId: Overload:pbXNet.ArrayExtensions.ToHexString
   fullName: pbXNet.ArrayExtensions.ToHexString
   nameWithType: ArrayExtensions.ToHexString
+- uid: pbXNet.AzureStorageSettings
+  name: AzureStorageSettings
+  href: api/pbXNet.AzureStorageSettings.html
+  commentId: T:pbXNet.AzureStorageSettings
+  fullName: pbXNet.AzureStorageSettings
+  nameWithType: AzureStorageSettings
+- uid: pbXNet.AzureStorageSettings.ConnectionString
+  name: ConnectionString
+  href: api/pbXNet.AzureStorageSettings.html#pbXNet_AzureStorageSettings_ConnectionString
+  commentId: F:pbXNet.AzureStorageSettings.ConnectionString
+  fullName: pbXNet.AzureStorageSettings.ConnectionString
+  nameWithType: AzureStorageSettings.ConnectionString
 - uid: pbXNet.BinarySerializer
   name: BinarySerializer
   href: api/pbXNet.BinarySerializer.html
   commentId: T:pbXNet.BinarySerializer
   fullName: pbXNet.BinarySerializer
   nameWithType: BinarySerializer
-- uid: pbXNet.BinarySerializer.FromString*
-  name: FromString
-  href: api/pbXNet.BinarySerializer.html#pbXNet_BinarySerializer_FromString_
-  commentId: Overload:pbXNet.BinarySerializer.FromString
-  fullName: pbXNet.BinarySerializer.FromString
-  nameWithType: BinarySerializer.FromString
-- uid: pbXNet.BinarySerializer.FromString``1(System.String,System.String)
-  name: FromString<T>(String, String)
-  href: api/pbXNet.BinarySerializer.html#pbXNet_BinarySerializer_FromString__1_System_String_System_String_
-  commentId: M:pbXNet.BinarySerializer.FromString``1(System.String,System.String)
-  name.vb: FromString(Of T)(String, String)
-  fullName: pbXNet.BinarySerializer.FromString<T>(System.String, System.String)
-  fullName.vb: pbXNet.BinarySerializer.FromString(Of T)(System.String, System.String)
-  nameWithType: BinarySerializer.FromString<T>(String, String)
-  nameWithType.vb: BinarySerializer.FromString(Of T)(String, String)
-- uid: pbXNet.BinarySerializer.ToString(System.Object,System.String)
-  name: ToString(Object, String)
-  href: api/pbXNet.BinarySerializer.html#pbXNet_BinarySerializer_ToString_System_Object_System_String_
-  commentId: M:pbXNet.BinarySerializer.ToString(System.Object,System.String)
-  fullName: pbXNet.BinarySerializer.ToString(System.Object, System.String)
-  nameWithType: BinarySerializer.ToString(Object, String)
-- uid: pbXNet.BinarySerializer.ToString*
-  name: ToString
-  href: api/pbXNet.BinarySerializer.html#pbXNet_BinarySerializer_ToString_
-  commentId: Overload:pbXNet.BinarySerializer.ToString
-  fullName: pbXNet.BinarySerializer.ToString
-  nameWithType: BinarySerializer.ToString
+- uid: pbXNet.BinarySerializer.Deserialize*
+  name: Deserialize
+  href: api/pbXNet.BinarySerializer.html#pbXNet_BinarySerializer_Deserialize_
+  commentId: Overload:pbXNet.BinarySerializer.Deserialize
+  fullName: pbXNet.BinarySerializer.Deserialize
+  nameWithType: BinarySerializer.Deserialize
+- uid: pbXNet.BinarySerializer.Deserialize``1(System.String,System.String)
+  name: Deserialize<T>(String, String)
+  href: api/pbXNet.BinarySerializer.html#pbXNet_BinarySerializer_Deserialize__1_System_String_System_String_
+  commentId: M:pbXNet.BinarySerializer.Deserialize``1(System.String,System.String)
+  name.vb: Deserialize(Of T)(String, String)
+  fullName: pbXNet.BinarySerializer.Deserialize<T>(System.String, System.String)
+  fullName.vb: pbXNet.BinarySerializer.Deserialize(Of T)(System.String, System.String)
+  nameWithType: BinarySerializer.Deserialize<T>(String, String)
+  nameWithType.vb: BinarySerializer.Deserialize(Of T)(String, String)
+- uid: pbXNet.BinarySerializer.Serialize*
+  name: Serialize
+  href: api/pbXNet.BinarySerializer.html#pbXNet_BinarySerializer_Serialize_
+  commentId: Overload:pbXNet.BinarySerializer.Serialize
+  fullName: pbXNet.BinarySerializer.Serialize
+  nameWithType: BinarySerializer.Serialize
+- uid: pbXNet.BinarySerializer.Serialize``1(``0,System.String)
+  name: Serialize<T>(T, String)
+  href: api/pbXNet.BinarySerializer.html#pbXNet_BinarySerializer_Serialize__1___0_System_String_
+  commentId: M:pbXNet.BinarySerializer.Serialize``1(``0,System.String)
+  name.vb: Serialize(Of T)(T, String)
+  fullName: pbXNet.BinarySerializer.Serialize<T>(T, System.String)
+  fullName.vb: pbXNet.BinarySerializer.Serialize(Of T)(T, System.String)
+  nameWithType: BinarySerializer.Serialize<T>(T, String)
+  nameWithType.vb: BinarySerializer.Serialize(Of T)(T, String)
 - uid: pbXNet.ByteBuffer
   name: ByteBuffer
   href: api/pbXNet.ByteBuffer.html
@@ -3757,24 +3772,24 @@ references:
   commentId: T:pbXNet.EncryptedFileSystem
   fullName: pbXNet.EncryptedFileSystem
   nameWithType: EncryptedFileSystem
-- uid: pbXNet.EncryptedFileSystem.#ctor(System.String,pbXNet.IFileSystem,pbXNet.ICryptographer)
-  name: EncryptedFileSystem(String, IFileSystem, ICryptographer)
-  href: api/pbXNet.EncryptedFileSystem.html#pbXNet_EncryptedFileSystem__ctor_System_String_pbXNet_IFileSystem_pbXNet_ICryptographer_
-  commentId: M:pbXNet.EncryptedFileSystem.#ctor(System.String,pbXNet.IFileSystem,pbXNet.ICryptographer)
-  fullName: pbXNet.EncryptedFileSystem.EncryptedFileSystem(System.String, pbXNet.IFileSystem, pbXNet.ICryptographer)
-  nameWithType: EncryptedFileSystem.EncryptedFileSystem(String, IFileSystem, ICryptographer)
-- uid: pbXNet.EncryptedFileSystem.#ctor(System.String,pbXNet.IFileSystem,pbXNet.ICryptographer,pbXNet.IByteBuffer)
-  name: EncryptedFileSystem(String, IFileSystem, ICryptographer, IByteBuffer)
-  href: api/pbXNet.EncryptedFileSystem.html#pbXNet_EncryptedFileSystem__ctor_System_String_pbXNet_IFileSystem_pbXNet_ICryptographer_pbXNet_IByteBuffer_
-  commentId: M:pbXNet.EncryptedFileSystem.#ctor(System.String,pbXNet.IFileSystem,pbXNet.ICryptographer,pbXNet.IByteBuffer)
-  fullName: pbXNet.EncryptedFileSystem.EncryptedFileSystem(System.String, pbXNet.IFileSystem, pbXNet.ICryptographer, pbXNet.IByteBuffer)
-  nameWithType: EncryptedFileSystem.EncryptedFileSystem(String, IFileSystem, ICryptographer, IByteBuffer)
-- uid: pbXNet.EncryptedFileSystem.#ctor(System.String,pbXNet.IFileSystem,pbXNet.ICryptographer,pbXNet.IPassword)
-  name: EncryptedFileSystem(String, IFileSystem, ICryptographer, IPassword)
-  href: api/pbXNet.EncryptedFileSystem.html#pbXNet_EncryptedFileSystem__ctor_System_String_pbXNet_IFileSystem_pbXNet_ICryptographer_pbXNet_IPassword_
-  commentId: M:pbXNet.EncryptedFileSystem.#ctor(System.String,pbXNet.IFileSystem,pbXNet.ICryptographer,pbXNet.IPassword)
-  fullName: pbXNet.EncryptedFileSystem.EncryptedFileSystem(System.String, pbXNet.IFileSystem, pbXNet.ICryptographer, pbXNet.IPassword)
-  nameWithType: EncryptedFileSystem.EncryptedFileSystem(String, IFileSystem, ICryptographer, IPassword)
+- uid: pbXNet.EncryptedFileSystem.#ctor(System.String,pbXNet.IFileSystem)
+  name: EncryptedFileSystem(String, IFileSystem)
+  href: api/pbXNet.EncryptedFileSystem.html#pbXNet_EncryptedFileSystem__ctor_System_String_pbXNet_IFileSystem_
+  commentId: M:pbXNet.EncryptedFileSystem.#ctor(System.String,pbXNet.IFileSystem)
+  fullName: pbXNet.EncryptedFileSystem.EncryptedFileSystem(System.String, pbXNet.IFileSystem)
+  nameWithType: EncryptedFileSystem.EncryptedFileSystem(String, IFileSystem)
+- uid: pbXNet.EncryptedFileSystem.#ctor(System.String,pbXNet.IFileSystem,pbXNet.IByteBuffer)
+  name: EncryptedFileSystem(String, IFileSystem, IByteBuffer)
+  href: api/pbXNet.EncryptedFileSystem.html#pbXNet_EncryptedFileSystem__ctor_System_String_pbXNet_IFileSystem_pbXNet_IByteBuffer_
+  commentId: M:pbXNet.EncryptedFileSystem.#ctor(System.String,pbXNet.IFileSystem,pbXNet.IByteBuffer)
+  fullName: pbXNet.EncryptedFileSystem.EncryptedFileSystem(System.String, pbXNet.IFileSystem, pbXNet.IByteBuffer)
+  nameWithType: EncryptedFileSystem.EncryptedFileSystem(String, IFileSystem, IByteBuffer)
+- uid: pbXNet.EncryptedFileSystem.#ctor(System.String,pbXNet.IFileSystem,pbXNet.IPassword)
+  name: EncryptedFileSystem(String, IFileSystem, IPassword)
+  href: api/pbXNet.EncryptedFileSystem.html#pbXNet_EncryptedFileSystem__ctor_System_String_pbXNet_IFileSystem_pbXNet_IPassword_
+  commentId: M:pbXNet.EncryptedFileSystem.#ctor(System.String,pbXNet.IFileSystem,pbXNet.IPassword)
+  fullName: pbXNet.EncryptedFileSystem.EncryptedFileSystem(System.String, pbXNet.IFileSystem, pbXNet.IPassword)
+  nameWithType: EncryptedFileSystem.EncryptedFileSystem(String, IFileSystem, IPassword)
 - uid: pbXNet.EncryptedFileSystem.#ctor*
   name: EncryptedFileSystem
   href: api/pbXNet.EncryptedFileSystem.html#pbXNet_EncryptedFileSystem__ctor_
@@ -4658,18 +4673,33 @@ references:
   commentId: T:pbXNet.ISecretsManager
   fullName: pbXNet.ISecretsManager
   nameWithType: ISecretsManager
-- uid: pbXNet.ISecretsManager.AddOrUpdatePassword(System.String,pbXNet.IPassword)
-  name: AddOrUpdatePassword(String, IPassword)
-  href: api/pbXNet.ISecretsManager.html#pbXNet_ISecretsManager_AddOrUpdatePassword_System_String_pbXNet_IPassword_
-  commentId: M:pbXNet.ISecretsManager.AddOrUpdatePassword(System.String,pbXNet.IPassword)
-  fullName: pbXNet.ISecretsManager.AddOrUpdatePassword(System.String, pbXNet.IPassword)
-  nameWithType: ISecretsManager.AddOrUpdatePassword(String, IPassword)
+- uid: pbXNet.ISecretsManager.AddOrUpdatePassword(System.String,pbXNet.SecretLifeTime,pbXNet.IPassword)
+  name: AddOrUpdatePassword(String, SecretLifeTime, IPassword)
+  href: api/pbXNet.ISecretsManager.html#pbXNet_ISecretsManager_AddOrUpdatePassword_System_String_pbXNet_SecretLifeTime_pbXNet_IPassword_
+  commentId: M:pbXNet.ISecretsManager.AddOrUpdatePassword(System.String,pbXNet.SecretLifeTime,pbXNet.IPassword)
+  fullName: pbXNet.ISecretsManager.AddOrUpdatePassword(System.String, pbXNet.SecretLifeTime, pbXNet.IPassword)
+  nameWithType: ISecretsManager.AddOrUpdatePassword(String, SecretLifeTime, IPassword)
 - uid: pbXNet.ISecretsManager.AddOrUpdatePassword*
   name: AddOrUpdatePassword
   href: api/pbXNet.ISecretsManager.html#pbXNet_ISecretsManager_AddOrUpdatePassword_
   commentId: Overload:pbXNet.ISecretsManager.AddOrUpdatePassword
   fullName: pbXNet.ISecretsManager.AddOrUpdatePassword
   nameWithType: ISecretsManager.AddOrUpdatePassword
+- uid: pbXNet.ISecretsManager.AddOrUpdateSecret*
+  name: AddOrUpdateSecret
+  href: api/pbXNet.ISecretsManager.html#pbXNet_ISecretsManager_AddOrUpdateSecret_
+  commentId: Overload:pbXNet.ISecretsManager.AddOrUpdateSecret
+  fullName: pbXNet.ISecretsManager.AddOrUpdateSecret
+  nameWithType: ISecretsManager.AddOrUpdateSecret
+- uid: pbXNet.ISecretsManager.AddOrUpdateSecret``1(System.String,pbXNet.SecretLifeTime,``0)
+  name: AddOrUpdateSecret<T>(String, SecretLifeTime, T)
+  href: api/pbXNet.ISecretsManager.html#pbXNet_ISecretsManager_AddOrUpdateSecret__1_System_String_pbXNet_SecretLifeTime___0_
+  commentId: M:pbXNet.ISecretsManager.AddOrUpdateSecret``1(System.String,pbXNet.SecretLifeTime,``0)
+  name.vb: AddOrUpdateSecret(Of T)(String, SecretLifeTime, T)
+  fullName: pbXNet.ISecretsManager.AddOrUpdateSecret<T>(System.String, pbXNet.SecretLifeTime, T)
+  fullName.vb: pbXNet.ISecretsManager.AddOrUpdateSecret(Of T)(System.String, pbXNet.SecretLifeTime, T)
+  nameWithType: ISecretsManager.AddOrUpdateSecret<T>(String, SecretLifeTime, T)
+  nameWithType.vb: ISecretsManager.AddOrUpdateSecret(Of T)(String, SecretLifeTime, T)
 - uid: pbXNet.ISecretsManager.AvailableDOAuthentication
   name: AvailableDOAuthentication
   href: api/pbXNet.ISecretsManager.html#pbXNet_ISecretsManager_AvailableDOAuthentication
@@ -4730,12 +4760,12 @@ references:
   commentId: Overload:pbXNet.ISecretsManager.ComparePassword
   fullName: pbXNet.ISecretsManager.ComparePassword
   nameWithType: ISecretsManager.ComparePassword
-- uid: pbXNet.ISecretsManager.CreateCKey(System.String,pbXNet.CKeyLifeTime,pbXNet.IPassword)
-  name: CreateCKey(String, CKeyLifeTime, IPassword)
-  href: api/pbXNet.ISecretsManager.html#pbXNet_ISecretsManager_CreateCKey_System_String_pbXNet_CKeyLifeTime_pbXNet_IPassword_
-  commentId: M:pbXNet.ISecretsManager.CreateCKey(System.String,pbXNet.CKeyLifeTime,pbXNet.IPassword)
-  fullName: pbXNet.ISecretsManager.CreateCKey(System.String, pbXNet.CKeyLifeTime, pbXNet.IPassword)
-  nameWithType: ISecretsManager.CreateCKey(String, CKeyLifeTime, IPassword)
+- uid: pbXNet.ISecretsManager.CreateCKey(System.String,pbXNet.SecretLifeTime,pbXNet.IPassword)
+  name: CreateCKey(String, SecretLifeTime, IPassword)
+  href: api/pbXNet.ISecretsManager.html#pbXNet_ISecretsManager_CreateCKey_System_String_pbXNet_SecretLifeTime_pbXNet_IPassword_
+  commentId: M:pbXNet.ISecretsManager.CreateCKey(System.String,pbXNet.SecretLifeTime,pbXNet.IPassword)
+  fullName: pbXNet.ISecretsManager.CreateCKey(System.String, pbXNet.SecretLifeTime, pbXNet.IPassword)
+  nameWithType: ISecretsManager.CreateCKey(String, SecretLifeTime, IPassword)
 - uid: pbXNet.ISecretsManager.CreateCKey*
   name: CreateCKey
   href: api/pbXNet.ISecretsManager.html#pbXNet_ISecretsManager_CreateCKey_
@@ -4778,6 +4808,18 @@ references:
   commentId: Overload:pbXNet.ISecretsManager.DeletePassword
   fullName: pbXNet.ISecretsManager.DeletePassword
   nameWithType: ISecretsManager.DeletePassword
+- uid: pbXNet.ISecretsManager.DeleteSecret(System.String)
+  name: DeleteSecret(String)
+  href: api/pbXNet.ISecretsManager.html#pbXNet_ISecretsManager_DeleteSecret_System_String_
+  commentId: M:pbXNet.ISecretsManager.DeleteSecret(System.String)
+  fullName: pbXNet.ISecretsManager.DeleteSecret(System.String)
+  nameWithType: ISecretsManager.DeleteSecret(String)
+- uid: pbXNet.ISecretsManager.DeleteSecret*
+  name: DeleteSecret
+  href: api/pbXNet.ISecretsManager.html#pbXNet_ISecretsManager_DeleteSecret_
+  commentId: Overload:pbXNet.ISecretsManager.DeleteSecret
+  fullName: pbXNet.ISecretsManager.DeleteSecret
+  nameWithType: ISecretsManager.DeleteSecret
 - uid: pbXNet.ISecretsManager.Encrypt(System.String,System.String,pbXNet.IByteBuffer)
   name: Encrypt(String, String, IByteBuffer)
   href: api/pbXNet.ISecretsManager.html#pbXNet_ISecretsManager_Encrypt_System_String_System_String_pbXNet_IByteBuffer_
@@ -4802,6 +4844,21 @@ references:
   commentId: Overload:pbXNet.ISecretsManager.GenerateIV
   fullName: pbXNet.ISecretsManager.GenerateIV
   nameWithType: ISecretsManager.GenerateIV
+- uid: pbXNet.ISecretsManager.GetSecret*
+  name: GetSecret
+  href: api/pbXNet.ISecretsManager.html#pbXNet_ISecretsManager_GetSecret_
+  commentId: Overload:pbXNet.ISecretsManager.GetSecret
+  fullName: pbXNet.ISecretsManager.GetSecret
+  nameWithType: ISecretsManager.GetSecret
+- uid: pbXNet.ISecretsManager.GetSecret``1(System.String)
+  name: GetSecret<T>(String)
+  href: api/pbXNet.ISecretsManager.html#pbXNet_ISecretsManager_GetSecret__1_System_String_
+  commentId: M:pbXNet.ISecretsManager.GetSecret``1(System.String)
+  name.vb: GetSecret(Of T)(String)
+  fullName: pbXNet.ISecretsManager.GetSecret<T>(System.String)
+  fullName.vb: pbXNet.ISecretsManager.GetSecret(Of T)(System.String)
+  nameWithType: ISecretsManager.GetSecret<T>(String)
+  nameWithType.vb: ISecretsManager.GetSecret(Of T)(String)
 - uid: pbXNet.ISecretsManager.Id
   name: Id
   href: api/pbXNet.ISecretsManager.html#pbXNet_ISecretsManager_Id
@@ -4838,6 +4895,18 @@ references:
   commentId: Overload:pbXNet.ISecretsManager.PasswordExists
   fullName: pbXNet.ISecretsManager.PasswordExists
   nameWithType: ISecretsManager.PasswordExists
+- uid: pbXNet.ISecretsManager.SecretExists(System.String)
+  name: SecretExists(String)
+  href: api/pbXNet.ISecretsManager.html#pbXNet_ISecretsManager_SecretExists_System_String_
+  commentId: M:pbXNet.ISecretsManager.SecretExists(System.String)
+  fullName: pbXNet.ISecretsManager.SecretExists(System.String)
+  nameWithType: ISecretsManager.SecretExists(String)
+- uid: pbXNet.ISecretsManager.SecretExists*
+  name: SecretExists
+  href: api/pbXNet.ISecretsManager.html#pbXNet_ISecretsManager_SecretExists_
+  commentId: Overload:pbXNet.ISecretsManager.SecretExists
+  fullName: pbXNet.ISecretsManager.SecretExists
+  nameWithType: ISecretsManager.SecretExists
 - uid: pbXNet.ISecretsManager.StartDOAuthentication(System.String,System.Action,System.Action{System.String,System.Boolean})
   name: StartDOAuthentication(String, Action, Action<String, Boolean>)
   href: api/pbXNet.ISecretsManager.html#pbXNet_ISecretsManager_StartDOAuthentication_System_String_System_Action_System_Action_System_String_System_Boolean__
@@ -4859,33 +4928,36 @@ references:
   commentId: T:pbXNet.ISerializer
   fullName: pbXNet.ISerializer
   nameWithType: ISerializer
-- uid: pbXNet.ISerializer.FromString*
-  name: FromString
-  href: api/pbXNet.ISerializer.html#pbXNet_ISerializer_FromString_
-  commentId: Overload:pbXNet.ISerializer.FromString
-  fullName: pbXNet.ISerializer.FromString
-  nameWithType: ISerializer.FromString
-- uid: pbXNet.ISerializer.FromString``1(System.String,System.String)
-  name: FromString<T>(String, String)
-  href: api/pbXNet.ISerializer.html#pbXNet_ISerializer_FromString__1_System_String_System_String_
-  commentId: M:pbXNet.ISerializer.FromString``1(System.String,System.String)
-  name.vb: FromString(Of T)(String, String)
-  fullName: pbXNet.ISerializer.FromString<T>(System.String, System.String)
-  fullName.vb: pbXNet.ISerializer.FromString(Of T)(System.String, System.String)
-  nameWithType: ISerializer.FromString<T>(String, String)
-  nameWithType.vb: ISerializer.FromString(Of T)(String, String)
-- uid: pbXNet.ISerializer.ToString(System.Object,System.String)
-  name: ToString(Object, String)
-  href: api/pbXNet.ISerializer.html#pbXNet_ISerializer_ToString_System_Object_System_String_
-  commentId: M:pbXNet.ISerializer.ToString(System.Object,System.String)
-  fullName: pbXNet.ISerializer.ToString(System.Object, System.String)
-  nameWithType: ISerializer.ToString(Object, String)
-- uid: pbXNet.ISerializer.ToString*
-  name: ToString
-  href: api/pbXNet.ISerializer.html#pbXNet_ISerializer_ToString_
-  commentId: Overload:pbXNet.ISerializer.ToString
-  fullName: pbXNet.ISerializer.ToString
-  nameWithType: ISerializer.ToString
+- uid: pbXNet.ISerializer.Deserialize*
+  name: Deserialize
+  href: api/pbXNet.ISerializer.html#pbXNet_ISerializer_Deserialize_
+  commentId: Overload:pbXNet.ISerializer.Deserialize
+  fullName: pbXNet.ISerializer.Deserialize
+  nameWithType: ISerializer.Deserialize
+- uid: pbXNet.ISerializer.Deserialize``1(System.String,System.String)
+  name: Deserialize<T>(String, String)
+  href: api/pbXNet.ISerializer.html#pbXNet_ISerializer_Deserialize__1_System_String_System_String_
+  commentId: M:pbXNet.ISerializer.Deserialize``1(System.String,System.String)
+  name.vb: Deserialize(Of T)(String, String)
+  fullName: pbXNet.ISerializer.Deserialize<T>(System.String, System.String)
+  fullName.vb: pbXNet.ISerializer.Deserialize(Of T)(System.String, System.String)
+  nameWithType: ISerializer.Deserialize<T>(String, String)
+  nameWithType.vb: ISerializer.Deserialize(Of T)(String, String)
+- uid: pbXNet.ISerializer.Serialize*
+  name: Serialize
+  href: api/pbXNet.ISerializer.html#pbXNet_ISerializer_Serialize_
+  commentId: Overload:pbXNet.ISerializer.Serialize
+  fullName: pbXNet.ISerializer.Serialize
+  nameWithType: ISerializer.Serialize
+- uid: pbXNet.ISerializer.Serialize``1(``0,System.String)
+  name: Serialize<T>(T, String)
+  href: api/pbXNet.ISerializer.html#pbXNet_ISerializer_Serialize__1___0_System_String_
+  commentId: M:pbXNet.ISerializer.Serialize``1(``0,System.String)
+  name.vb: Serialize(Of T)(T, String)
+  fullName: pbXNet.ISerializer.Serialize<T>(T, System.String)
+  fullName.vb: pbXNet.ISerializer.Serialize(Of T)(T, System.String)
+  nameWithType: ISerializer.Serialize<T>(T, String)
+  nameWithType.vb: ISerializer.Serialize(Of T)(T, String)
 - uid: pbXNet.IStorage`1
   name: IStorage<T>
   href: api/pbXNet.IStorage-1.html
@@ -5727,39 +5799,84 @@ references:
   commentId: Overload:pbXNet.RSAServices.TestRSA
   fullName: pbXNet.RSAServices.TestRSA
   nameWithType: RSAServices.TestRSA
+- uid: pbXNet.SecretLifeTime
+  name: SecretLifeTime
+  href: api/pbXNet.SecretLifeTime.html
+  commentId: T:pbXNet.SecretLifeTime
+  fullName: pbXNet.SecretLifeTime
+  nameWithType: SecretLifeTime
+- uid: pbXNet.SecretLifeTime.Infinite
+  name: Infinite
+  href: api/pbXNet.SecretLifeTime.html#pbXNet_SecretLifeTime_Infinite
+  commentId: F:pbXNet.SecretLifeTime.Infinite
+  fullName: pbXNet.SecretLifeTime.Infinite
+  nameWithType: SecretLifeTime.Infinite
+- uid: pbXNet.SecretLifeTime.Undefined
+  name: Undefined
+  href: api/pbXNet.SecretLifeTime.html#pbXNet_SecretLifeTime_Undefined
+  commentId: F:pbXNet.SecretLifeTime.Undefined
+  fullName: pbXNet.SecretLifeTime.Undefined
+  nameWithType: SecretLifeTime.Undefined
+- uid: pbXNet.SecretLifeTime.WhileAppIsOnTop
+  name: WhileAppIsOnTop
+  href: api/pbXNet.SecretLifeTime.html#pbXNet_SecretLifeTime_WhileAppIsOnTop
+  commentId: F:pbXNet.SecretLifeTime.WhileAppIsOnTop
+  fullName: pbXNet.SecretLifeTime.WhileAppIsOnTop
+  nameWithType: SecretLifeTime.WhileAppIsOnTop
+- uid: pbXNet.SecretLifeTime.WhileAppRunning
+  name: WhileAppRunning
+  href: api/pbXNet.SecretLifeTime.html#pbXNet_SecretLifeTime_WhileAppRunning
+  commentId: F:pbXNet.SecretLifeTime.WhileAppRunning
+  fullName: pbXNet.SecretLifeTime.WhileAppRunning
+  nameWithType: SecretLifeTime.WhileAppRunning
 - uid: pbXNet.SecretsManager
   name: SecretsManager
   href: api/pbXNet.SecretsManager.html
   commentId: T:pbXNet.SecretsManager
   fullName: pbXNet.SecretsManager
   nameWithType: SecretsManager
-- uid: pbXNet.SecretsManager.#ctor(System.String,pbXNet.ICryptographer,pbXNet.IStorage{System.String},pbXNet.ISerializer)
-  name: SecretsManager(String, ICryptographer, IStorage<String>, ISerializer)
-  href: api/pbXNet.SecretsManager.html#pbXNet_SecretsManager__ctor_System_String_pbXNet_ICryptographer_pbXNet_IStorage_System_String__pbXNet_ISerializer_
-  commentId: M:pbXNet.SecretsManager.#ctor(System.String,pbXNet.ICryptographer,pbXNet.IStorage{System.String},pbXNet.ISerializer)
-  name.vb: SecretsManager(String, ICryptographer, IStorage(Of String), ISerializer)
-  fullName: pbXNet.SecretsManager.SecretsManager(System.String, pbXNet.ICryptographer, pbXNet.IStorage<System.String>, pbXNet.ISerializer)
-  fullName.vb: pbXNet.SecretsManager.SecretsManager(System.String, pbXNet.ICryptographer, pbXNet.IStorage(Of System.String), pbXNet.ISerializer)
-  nameWithType: SecretsManager.SecretsManager(String, ICryptographer, IStorage<String>, ISerializer)
-  nameWithType.vb: SecretsManager.SecretsManager(String, ICryptographer, IStorage(Of String), ISerializer)
+- uid: pbXNet.SecretsManager.#ctor(System.String,pbXNet.ISerializer,pbXNet.IStorage{System.String},pbXNet.IPassword)
+  name: SecretsManager(String, ISerializer, IStorage<String>, IPassword)
+  href: api/pbXNet.SecretsManager.html#pbXNet_SecretsManager__ctor_System_String_pbXNet_ISerializer_pbXNet_IStorage_System_String__pbXNet_IPassword_
+  commentId: M:pbXNet.SecretsManager.#ctor(System.String,pbXNet.ISerializer,pbXNet.IStorage{System.String},pbXNet.IPassword)
+  name.vb: SecretsManager(String, ISerializer, IStorage(Of String), IPassword)
+  fullName: pbXNet.SecretsManager.SecretsManager(System.String, pbXNet.ISerializer, pbXNet.IStorage<System.String>, pbXNet.IPassword)
+  fullName.vb: pbXNet.SecretsManager.SecretsManager(System.String, pbXNet.ISerializer, pbXNet.IStorage(Of System.String), pbXNet.IPassword)
+  nameWithType: SecretsManager.SecretsManager(String, ISerializer, IStorage<String>, IPassword)
+  nameWithType.vb: SecretsManager.SecretsManager(String, ISerializer, IStorage(Of String), IPassword)
 - uid: pbXNet.SecretsManager.#ctor*
   name: SecretsManager
   href: api/pbXNet.SecretsManager.html#pbXNet_SecretsManager__ctor_
   commentId: Overload:pbXNet.SecretsManager.#ctor
   fullName: pbXNet.SecretsManager.SecretsManager
   nameWithType: SecretsManager.SecretsManager
-- uid: pbXNet.SecretsManager.AddOrUpdatePassword(System.String,pbXNet.IPassword)
-  name: AddOrUpdatePassword(String, IPassword)
-  href: api/pbXNet.SecretsManager.html#pbXNet_SecretsManager_AddOrUpdatePassword_System_String_pbXNet_IPassword_
-  commentId: M:pbXNet.SecretsManager.AddOrUpdatePassword(System.String,pbXNet.IPassword)
-  fullName: pbXNet.SecretsManager.AddOrUpdatePassword(System.String, pbXNet.IPassword)
-  nameWithType: SecretsManager.AddOrUpdatePassword(String, IPassword)
+- uid: pbXNet.SecretsManager.AddOrUpdatePassword(System.String,pbXNet.SecretLifeTime,pbXNet.IPassword)
+  name: AddOrUpdatePassword(String, SecretLifeTime, IPassword)
+  href: api/pbXNet.SecretsManager.html#pbXNet_SecretsManager_AddOrUpdatePassword_System_String_pbXNet_SecretLifeTime_pbXNet_IPassword_
+  commentId: M:pbXNet.SecretsManager.AddOrUpdatePassword(System.String,pbXNet.SecretLifeTime,pbXNet.IPassword)
+  fullName: pbXNet.SecretsManager.AddOrUpdatePassword(System.String, pbXNet.SecretLifeTime, pbXNet.IPassword)
+  nameWithType: SecretsManager.AddOrUpdatePassword(String, SecretLifeTime, IPassword)
 - uid: pbXNet.SecretsManager.AddOrUpdatePassword*
   name: AddOrUpdatePassword
   href: api/pbXNet.SecretsManager.html#pbXNet_SecretsManager_AddOrUpdatePassword_
   commentId: Overload:pbXNet.SecretsManager.AddOrUpdatePassword
   fullName: pbXNet.SecretsManager.AddOrUpdatePassword
   nameWithType: SecretsManager.AddOrUpdatePassword
+- uid: pbXNet.SecretsManager.AddOrUpdateSecret*
+  name: AddOrUpdateSecret
+  href: api/pbXNet.SecretsManager.html#pbXNet_SecretsManager_AddOrUpdateSecret_
+  commentId: Overload:pbXNet.SecretsManager.AddOrUpdateSecret
+  fullName: pbXNet.SecretsManager.AddOrUpdateSecret
+  nameWithType: SecretsManager.AddOrUpdateSecret
+- uid: pbXNet.SecretsManager.AddOrUpdateSecret``1(System.String,pbXNet.SecretLifeTime,``0)
+  name: AddOrUpdateSecret<T>(String, SecretLifeTime, T)
+  href: api/pbXNet.SecretsManager.html#pbXNet_SecretsManager_AddOrUpdateSecret__1_System_String_pbXNet_SecretLifeTime___0_
+  commentId: M:pbXNet.SecretsManager.AddOrUpdateSecret``1(System.String,pbXNet.SecretLifeTime,``0)
+  name.vb: AddOrUpdateSecret(Of T)(String, SecretLifeTime, T)
+  fullName: pbXNet.SecretsManager.AddOrUpdateSecret<T>(System.String, pbXNet.SecretLifeTime, T)
+  fullName.vb: pbXNet.SecretsManager.AddOrUpdateSecret(Of T)(System.String, pbXNet.SecretLifeTime, T)
+  nameWithType: SecretsManager.AddOrUpdateSecret<T>(String, SecretLifeTime, T)
+  nameWithType.vb: SecretsManager.AddOrUpdateSecret(Of T)(String, SecretLifeTime, T)
 - uid: pbXNet.SecretsManager.AvailableDOAuthentication
   name: AvailableDOAuthentication
   href: api/pbXNet.SecretsManager.html#pbXNet_SecretsManager_AvailableDOAuthentication
@@ -5820,12 +5937,12 @@ references:
   commentId: Overload:pbXNet.SecretsManager.ComparePassword
   fullName: pbXNet.SecretsManager.ComparePassword
   nameWithType: SecretsManager.ComparePassword
-- uid: pbXNet.SecretsManager.CreateCKey(System.String,pbXNet.CKeyLifeTime,pbXNet.IPassword)
-  name: CreateCKey(String, CKeyLifeTime, IPassword)
-  href: api/pbXNet.SecretsManager.html#pbXNet_SecretsManager_CreateCKey_System_String_pbXNet_CKeyLifeTime_pbXNet_IPassword_
-  commentId: M:pbXNet.SecretsManager.CreateCKey(System.String,pbXNet.CKeyLifeTime,pbXNet.IPassword)
-  fullName: pbXNet.SecretsManager.CreateCKey(System.String, pbXNet.CKeyLifeTime, pbXNet.IPassword)
-  nameWithType: SecretsManager.CreateCKey(String, CKeyLifeTime, IPassword)
+- uid: pbXNet.SecretsManager.CreateCKey(System.String,pbXNet.SecretLifeTime,pbXNet.IPassword)
+  name: CreateCKey(String, SecretLifeTime, IPassword)
+  href: api/pbXNet.SecretsManager.html#pbXNet_SecretsManager_CreateCKey_System_String_pbXNet_SecretLifeTime_pbXNet_IPassword_
+  commentId: M:pbXNet.SecretsManager.CreateCKey(System.String,pbXNet.SecretLifeTime,pbXNet.IPassword)
+  fullName: pbXNet.SecretsManager.CreateCKey(System.String, pbXNet.SecretLifeTime, pbXNet.IPassword)
+  nameWithType: SecretsManager.CreateCKey(String, SecretLifeTime, IPassword)
 - uid: pbXNet.SecretsManager.CreateCKey*
   name: CreateCKey
   href: api/pbXNet.SecretsManager.html#pbXNet_SecretsManager_CreateCKey_
@@ -5868,6 +5985,30 @@ references:
   commentId: Overload:pbXNet.SecretsManager.DeletePassword
   fullName: pbXNet.SecretsManager.DeletePassword
   nameWithType: SecretsManager.DeletePassword
+- uid: pbXNet.SecretsManager.DeleteSecret(System.String)
+  name: DeleteSecret(String)
+  href: api/pbXNet.SecretsManager.html#pbXNet_SecretsManager_DeleteSecret_System_String_
+  commentId: M:pbXNet.SecretsManager.DeleteSecret(System.String)
+  fullName: pbXNet.SecretsManager.DeleteSecret(System.String)
+  nameWithType: SecretsManager.DeleteSecret(String)
+- uid: pbXNet.SecretsManager.DeleteSecret*
+  name: DeleteSecret
+  href: api/pbXNet.SecretsManager.html#pbXNet_SecretsManager_DeleteSecret_
+  commentId: Overload:pbXNet.SecretsManager.DeleteSecret
+  fullName: pbXNet.SecretsManager.DeleteSecret
+  nameWithType: SecretsManager.DeleteSecret
+- uid: pbXNet.SecretsManager.Dispose
+  name: Dispose()
+  href: api/pbXNet.SecretsManager.html#pbXNet_SecretsManager_Dispose
+  commentId: M:pbXNet.SecretsManager.Dispose
+  fullName: pbXNet.SecretsManager.Dispose()
+  nameWithType: SecretsManager.Dispose()
+- uid: pbXNet.SecretsManager.Dispose*
+  name: Dispose
+  href: api/pbXNet.SecretsManager.html#pbXNet_SecretsManager_Dispose_
+  commentId: Overload:pbXNet.SecretsManager.Dispose
+  fullName: pbXNet.SecretsManager.Dispose
+  nameWithType: SecretsManager.Dispose
 - uid: pbXNet.SecretsManager.Encrypt(System.String,System.String,pbXNet.IByteBuffer)
   name: Encrypt(String, String, IByteBuffer)
   href: api/pbXNet.SecretsManager.html#pbXNet_SecretsManager_Encrypt_System_String_System_String_pbXNet_IByteBuffer_
@@ -5892,6 +6033,21 @@ references:
   commentId: Overload:pbXNet.SecretsManager.GenerateIV
   fullName: pbXNet.SecretsManager.GenerateIV
   nameWithType: SecretsManager.GenerateIV
+- uid: pbXNet.SecretsManager.GetSecret*
+  name: GetSecret
+  href: api/pbXNet.SecretsManager.html#pbXNet_SecretsManager_GetSecret_
+  commentId: Overload:pbXNet.SecretsManager.GetSecret
+  fullName: pbXNet.SecretsManager.GetSecret
+  nameWithType: SecretsManager.GetSecret
+- uid: pbXNet.SecretsManager.GetSecret``1(System.String)
+  name: GetSecret<T>(String)
+  href: api/pbXNet.SecretsManager.html#pbXNet_SecretsManager_GetSecret__1_System_String_
+  commentId: M:pbXNet.SecretsManager.GetSecret``1(System.String)
+  name.vb: GetSecret(Of T)(String)
+  fullName: pbXNet.SecretsManager.GetSecret<T>(System.String)
+  fullName.vb: pbXNet.SecretsManager.GetSecret(Of T)(System.String)
+  nameWithType: SecretsManager.GetSecret<T>(String)
+  nameWithType.vb: SecretsManager.GetSecret(Of T)(String)
 - uid: pbXNet.SecretsManager.Id
   name: Id
   href: api/pbXNet.SecretsManager.html#pbXNet_SecretsManager_Id
@@ -5928,6 +6084,18 @@ references:
   commentId: Overload:pbXNet.SecretsManager.PasswordExists
   fullName: pbXNet.SecretsManager.PasswordExists
   nameWithType: SecretsManager.PasswordExists
+- uid: pbXNet.SecretsManager.SecretExists(System.String)
+  name: SecretExists(String)
+  href: api/pbXNet.SecretsManager.html#pbXNet_SecretsManager_SecretExists_System_String_
+  commentId: M:pbXNet.SecretsManager.SecretExists(System.String)
+  fullName: pbXNet.SecretsManager.SecretExists(System.String)
+  nameWithType: SecretsManager.SecretExists(String)
+- uid: pbXNet.SecretsManager.SecretExists*
+  name: SecretExists
+  href: api/pbXNet.SecretsManager.html#pbXNet_SecretsManager_SecretExists_
+  commentId: Overload:pbXNet.SecretsManager.SecretExists
+  fullName: pbXNet.SecretsManager.SecretExists
+  nameWithType: SecretsManager.SecretExists
 - uid: pbXNet.SecretsManager.StartDOAuthentication(System.String,System.Action,System.Action{System.String,System.Boolean})
   name: StartDOAuthentication(String, Action, Action<String, Boolean>)
   href: api/pbXNet.SecretsManager.html#pbXNet_SecretsManager_StartDOAuthentication_System_String_System_Action_System_Action_System_String_System_Boolean__
@@ -6084,6 +6252,416 @@ references:
   commentId: T:pbXNet.SerializableAttribute
   fullName: pbXNet.SerializableAttribute
   nameWithType: SerializableAttribute
+- uid: pbXNet.Storage`1
+  name: Storage<T>
+  href: api/pbXNet.Storage-1.html
+  commentId: T:pbXNet.Storage`1
+  name.vb: Storage(Of T)
+  fullName: pbXNet.Storage<T>
+  fullName.vb: pbXNet.Storage(Of T)
+  nameWithType: Storage<T>
+  nameWithType.vb: Storage(Of T)
+- uid: pbXNet.Storage`1.#ctor(System.String,pbXNet.ISerializer)
+  name: Storage(String, ISerializer)
+  href: api/pbXNet.Storage-1.html#pbXNet_Storage_1__ctor_System_String_pbXNet_ISerializer_
+  commentId: M:pbXNet.Storage`1.#ctor(System.String,pbXNet.ISerializer)
+  fullName: pbXNet.Storage<T>.Storage(System.String, pbXNet.ISerializer)
+  fullName.vb: pbXNet.Storage(Of T).Storage(System.String, pbXNet.ISerializer)
+  nameWithType: Storage<T>.Storage(String, ISerializer)
+  nameWithType.vb: Storage(Of T).Storage(String, ISerializer)
+- uid: pbXNet.Storage`1.#ctor*
+  name: Storage
+  href: api/pbXNet.Storage-1.html#pbXNet_Storage_1__ctor_
+  commentId: Overload:pbXNet.Storage`1.#ctor
+  fullName: pbXNet.Storage<T>.Storage
+  fullName.vb: pbXNet.Storage(Of T).Storage
+  nameWithType: Storage<T>.Storage
+  nameWithType.vb: Storage(Of T).Storage
+- uid: pbXNet.Storage`1.DiscardAsync(System.String)
+  name: DiscardAsync(String)
+  href: api/pbXNet.Storage-1.html#pbXNet_Storage_1_DiscardAsync_System_String_
+  commentId: M:pbXNet.Storage`1.DiscardAsync(System.String)
+  fullName: pbXNet.Storage<T>.DiscardAsync(System.String)
+  fullName.vb: pbXNet.Storage(Of T).DiscardAsync(System.String)
+  nameWithType: Storage<T>.DiscardAsync(String)
+  nameWithType.vb: Storage(Of T).DiscardAsync(String)
+- uid: pbXNet.Storage`1.DiscardAsync*
+  name: DiscardAsync
+  href: api/pbXNet.Storage-1.html#pbXNet_Storage_1_DiscardAsync_
+  commentId: Overload:pbXNet.Storage`1.DiscardAsync
+  fullName: pbXNet.Storage<T>.DiscardAsync
+  fullName.vb: pbXNet.Storage(Of T).DiscardAsync
+  nameWithType: Storage<T>.DiscardAsync
+  nameWithType.vb: Storage(Of T).DiscardAsync
+- uid: pbXNet.Storage`1.ExistsAsync(System.String)
+  name: ExistsAsync(String)
+  href: api/pbXNet.Storage-1.html#pbXNet_Storage_1_ExistsAsync_System_String_
+  commentId: M:pbXNet.Storage`1.ExistsAsync(System.String)
+  fullName: pbXNet.Storage<T>.ExistsAsync(System.String)
+  fullName.vb: pbXNet.Storage(Of T).ExistsAsync(System.String)
+  nameWithType: Storage<T>.ExistsAsync(String)
+  nameWithType.vb: Storage(Of T).ExistsAsync(String)
+- uid: pbXNet.Storage`1.ExistsAsync*
+  name: ExistsAsync
+  href: api/pbXNet.Storage-1.html#pbXNet_Storage_1_ExistsAsync_
+  commentId: Overload:pbXNet.Storage`1.ExistsAsync
+  fullName: pbXNet.Storage<T>.ExistsAsync
+  fullName.vb: pbXNet.Storage(Of T).ExistsAsync
+  nameWithType: Storage<T>.ExistsAsync
+  nameWithType.vb: Storage(Of T).ExistsAsync
+- uid: pbXNet.Storage`1.GetACopyAsync(System.String)
+  name: GetACopyAsync(String)
+  href: api/pbXNet.Storage-1.html#pbXNet_Storage_1_GetACopyAsync_System_String_
+  commentId: M:pbXNet.Storage`1.GetACopyAsync(System.String)
+  fullName: pbXNet.Storage<T>.GetACopyAsync(System.String)
+  fullName.vb: pbXNet.Storage(Of T).GetACopyAsync(System.String)
+  nameWithType: Storage<T>.GetACopyAsync(String)
+  nameWithType.vb: Storage(Of T).GetACopyAsync(String)
+- uid: pbXNet.Storage`1.GetACopyAsync*
+  name: GetACopyAsync
+  href: api/pbXNet.Storage-1.html#pbXNet_Storage_1_GetACopyAsync_
+  commentId: Overload:pbXNet.Storage`1.GetACopyAsync
+  fullName: pbXNet.Storage<T>.GetACopyAsync
+  fullName.vb: pbXNet.Storage(Of T).GetACopyAsync
+  nameWithType: Storage<T>.GetACopyAsync
+  nameWithType.vb: Storage(Of T).GetACopyAsync
+- uid: pbXNet.Storage`1.GetModifiedOnAsync(System.String)
+  name: GetModifiedOnAsync(String)
+  href: api/pbXNet.Storage-1.html#pbXNet_Storage_1_GetModifiedOnAsync_System_String_
+  commentId: M:pbXNet.Storage`1.GetModifiedOnAsync(System.String)
+  fullName: pbXNet.Storage<T>.GetModifiedOnAsync(System.String)
+  fullName.vb: pbXNet.Storage(Of T).GetModifiedOnAsync(System.String)
+  nameWithType: Storage<T>.GetModifiedOnAsync(String)
+  nameWithType.vb: Storage(Of T).GetModifiedOnAsync(String)
+- uid: pbXNet.Storage`1.GetModifiedOnAsync*
+  name: GetModifiedOnAsync
+  href: api/pbXNet.Storage-1.html#pbXNet_Storage_1_GetModifiedOnAsync_
+  commentId: Overload:pbXNet.Storage`1.GetModifiedOnAsync
+  fullName: pbXNet.Storage<T>.GetModifiedOnAsync
+  fullName.vb: pbXNet.Storage(Of T).GetModifiedOnAsync
+  nameWithType: Storage<T>.GetModifiedOnAsync
+  nameWithType.vb: Storage(Of T).GetModifiedOnAsync
+- uid: pbXNet.Storage`1.Id
+  name: Id
+  href: api/pbXNet.Storage-1.html#pbXNet_Storage_1_Id
+  commentId: P:pbXNet.Storage`1.Id
+  fullName: pbXNet.Storage<T>.Id
+  fullName.vb: pbXNet.Storage(Of T).Id
+  nameWithType: Storage<T>.Id
+  nameWithType.vb: Storage(Of T).Id
+- uid: pbXNet.Storage`1.Id*
+  name: Id
+  href: api/pbXNet.Storage-1.html#pbXNet_Storage_1_Id_
+  commentId: Overload:pbXNet.Storage`1.Id
+  fullName: pbXNet.Storage<T>.Id
+  fullName.vb: pbXNet.Storage(Of T).Id
+  nameWithType: Storage<T>.Id
+  nameWithType.vb: Storage(Of T).Id
+- uid: pbXNet.Storage`1.InitializeAsync
+  name: InitializeAsync()
+  href: api/pbXNet.Storage-1.html#pbXNet_Storage_1_InitializeAsync
+  commentId: M:pbXNet.Storage`1.InitializeAsync
+  fullName: pbXNet.Storage<T>.InitializeAsync()
+  fullName.vb: pbXNet.Storage(Of T).InitializeAsync()
+  nameWithType: Storage<T>.InitializeAsync()
+  nameWithType.vb: Storage(Of T).InitializeAsync()
+- uid: pbXNet.Storage`1.InitializeAsync*
+  name: InitializeAsync
+  href: api/pbXNet.Storage-1.html#pbXNet_Storage_1_InitializeAsync_
+  commentId: Overload:pbXNet.Storage`1.InitializeAsync
+  fullName: pbXNet.Storage<T>.InitializeAsync
+  fullName.vb: pbXNet.Storage(Of T).InitializeAsync
+  nameWithType: Storage<T>.InitializeAsync
+  nameWithType.vb: Storage(Of T).InitializeAsync
+- uid: pbXNet.Storage`1.Name
+  name: Name
+  href: api/pbXNet.Storage-1.html#pbXNet_Storage_1_Name
+  commentId: P:pbXNet.Storage`1.Name
+  fullName: pbXNet.Storage<T>.Name
+  fullName.vb: pbXNet.Storage(Of T).Name
+  nameWithType: Storage<T>.Name
+  nameWithType.vb: Storage(Of T).Name
+- uid: pbXNet.Storage`1.Name*
+  name: Name
+  href: api/pbXNet.Storage-1.html#pbXNet_Storage_1_Name_
+  commentId: Overload:pbXNet.Storage`1.Name
+  fullName: pbXNet.Storage<T>.Name
+  fullName.vb: pbXNet.Storage(Of T).Name
+  nameWithType: Storage<T>.Name
+  nameWithType.vb: Storage(Of T).Name
+- uid: pbXNet.Storage`1.RetrieveAsync(System.String)
+  name: RetrieveAsync(String)
+  href: api/pbXNet.Storage-1.html#pbXNet_Storage_1_RetrieveAsync_System_String_
+  commentId: M:pbXNet.Storage`1.RetrieveAsync(System.String)
+  fullName: pbXNet.Storage<T>.RetrieveAsync(System.String)
+  fullName.vb: pbXNet.Storage(Of T).RetrieveAsync(System.String)
+  nameWithType: Storage<T>.RetrieveAsync(String)
+  nameWithType.vb: Storage(Of T).RetrieveAsync(String)
+- uid: pbXNet.Storage`1.RetrieveAsync*
+  name: RetrieveAsync
+  href: api/pbXNet.Storage-1.html#pbXNet_Storage_1_RetrieveAsync_
+  commentId: Overload:pbXNet.Storage`1.RetrieveAsync
+  fullName: pbXNet.Storage<T>.RetrieveAsync
+  fullName.vb: pbXNet.Storage(Of T).RetrieveAsync
+  nameWithType: Storage<T>.RetrieveAsync
+  nameWithType.vb: Storage(Of T).RetrieveAsync
+- uid: pbXNet.Storage`1.Serializer
+  name: Serializer
+  href: api/pbXNet.Storage-1.html#pbXNet_Storage_1_Serializer
+  commentId: F:pbXNet.Storage`1.Serializer
+  fullName: pbXNet.Storage<T>.Serializer
+  fullName.vb: pbXNet.Storage(Of T).Serializer
+  nameWithType: Storage<T>.Serializer
+  nameWithType.vb: Storage(Of T).Serializer
+- uid: pbXNet.Storage`1.StoreAsync(System.String,`0,System.DateTime)
+  name: StoreAsync(String, T, DateTime)
+  href: api/pbXNet.Storage-1.html#pbXNet_Storage_1_StoreAsync_System_String__0_System_DateTime_
+  commentId: M:pbXNet.Storage`1.StoreAsync(System.String,`0,System.DateTime)
+  fullName: pbXNet.Storage<T>.StoreAsync(System.String, T, System.DateTime)
+  fullName.vb: pbXNet.Storage(Of T).StoreAsync(System.String, T, System.DateTime)
+  nameWithType: Storage<T>.StoreAsync(String, T, DateTime)
+  nameWithType.vb: Storage(Of T).StoreAsync(String, T, DateTime)
+- uid: pbXNet.Storage`1.StoreAsync*
+  name: StoreAsync
+  href: api/pbXNet.Storage-1.html#pbXNet_Storage_1_StoreAsync_
+  commentId: Overload:pbXNet.Storage`1.StoreAsync
+  fullName: pbXNet.Storage<T>.StoreAsync
+  fullName.vb: pbXNet.Storage(Of T).StoreAsync
+  nameWithType: Storage<T>.StoreAsync
+  nameWithType.vb: Storage(Of T).StoreAsync
+- uid: pbXNet.Storage`1.Type
+  name: Type
+  href: api/pbXNet.Storage-1.html#pbXNet_Storage_1_Type
+  commentId: P:pbXNet.Storage`1.Type
+  fullName: pbXNet.Storage<T>.Type
+  fullName.vb: pbXNet.Storage(Of T).Type
+  nameWithType: Storage<T>.Type
+  nameWithType.vb: Storage(Of T).Type
+- uid: pbXNet.Storage`1.Type*
+  name: Type
+  href: api/pbXNet.Storage-1.html#pbXNet_Storage_1_Type_
+  commentId: Overload:pbXNet.Storage`1.Type
+  fullName: pbXNet.Storage<T>.Type
+  fullName.vb: pbXNet.Storage(Of T).Type
+  nameWithType: Storage<T>.Type
+  nameWithType.vb: Storage(Of T).Type
+- uid: pbXNet.StorageOnAzureStorage`1
+  name: StorageOnAzureStorage<T>
+  href: api/pbXNet.StorageOnAzureStorage-1.html
+  commentId: T:pbXNet.StorageOnAzureStorage`1
+  name.vb: StorageOnAzureStorage(Of T)
+  fullName: pbXNet.StorageOnAzureStorage<T>
+  fullName.vb: pbXNet.StorageOnAzureStorage(Of T)
+  nameWithType: StorageOnAzureStorage<T>
+  nameWithType.vb: StorageOnAzureStorage(Of T)
+- uid: pbXNet.StorageOnAzureStorage`1.#ctor(System.String,pbXNet.AzureStorageSettings,pbXNet.ISerializer)
+  name: StorageOnAzureStorage(String, AzureStorageSettings, ISerializer)
+  href: api/pbXNet.StorageOnAzureStorage-1.html#pbXNet_StorageOnAzureStorage_1__ctor_System_String_pbXNet_AzureStorageSettings_pbXNet_ISerializer_
+  commentId: M:pbXNet.StorageOnAzureStorage`1.#ctor(System.String,pbXNet.AzureStorageSettings,pbXNet.ISerializer)
+  fullName: pbXNet.StorageOnAzureStorage<T>.StorageOnAzureStorage(System.String, pbXNet.AzureStorageSettings, pbXNet.ISerializer)
+  fullName.vb: pbXNet.StorageOnAzureStorage(Of T).StorageOnAzureStorage(System.String, pbXNet.AzureStorageSettings, pbXNet.ISerializer)
+  nameWithType: StorageOnAzureStorage<T>.StorageOnAzureStorage(String, AzureStorageSettings, ISerializer)
+  nameWithType.vb: StorageOnAzureStorage(Of T).StorageOnAzureStorage(String, AzureStorageSettings, ISerializer)
+- uid: pbXNet.StorageOnAzureStorage`1.#ctor*
+  name: StorageOnAzureStorage
+  href: api/pbXNet.StorageOnAzureStorage-1.html#pbXNet_StorageOnAzureStorage_1__ctor_
+  commentId: Overload:pbXNet.StorageOnAzureStorage`1.#ctor
+  fullName: pbXNet.StorageOnAzureStorage<T>.StorageOnAzureStorage
+  fullName.vb: pbXNet.StorageOnAzureStorage(Of T).StorageOnAzureStorage
+  nameWithType: StorageOnAzureStorage<T>.StorageOnAzureStorage
+  nameWithType.vb: StorageOnAzureStorage(Of T).StorageOnAzureStorage
+- uid: pbXNet.StorageOnAzureStorage`1.Account
+  name: Account
+  href: api/pbXNet.StorageOnAzureStorage-1.html#pbXNet_StorageOnAzureStorage_1_Account
+  commentId: F:pbXNet.StorageOnAzureStorage`1.Account
+  fullName: pbXNet.StorageOnAzureStorage<T>.Account
+  fullName.vb: pbXNet.StorageOnAzureStorage(Of T).Account
+  nameWithType: StorageOnAzureStorage<T>.Account
+  nameWithType.vb: StorageOnAzureStorage(Of T).Account
+- uid: pbXNet.StorageOnAzureStorage`1.Client
+  name: Client
+  href: api/pbXNet.StorageOnAzureStorage-1.html#pbXNet_StorageOnAzureStorage_1_Client
+  commentId: F:pbXNet.StorageOnAzureStorage`1.Client
+  fullName: pbXNet.StorageOnAzureStorage<T>.Client
+  fullName.vb: pbXNet.StorageOnAzureStorage(Of T).Client
+  nameWithType: StorageOnAzureStorage<T>.Client
+  nameWithType.vb: StorageOnAzureStorage(Of T).Client
+- uid: pbXNet.StorageOnAzureStorage`1.Container
+  name: Container
+  href: api/pbXNet.StorageOnAzureStorage-1.html#pbXNet_StorageOnAzureStorage_1_Container
+  commentId: F:pbXNet.StorageOnAzureStorage`1.Container
+  fullName: pbXNet.StorageOnAzureStorage<T>.Container
+  fullName.vb: pbXNet.StorageOnAzureStorage(Of T).Container
+  nameWithType: StorageOnAzureStorage<T>.Container
+  nameWithType.vb: StorageOnAzureStorage(Of T).Container
+- uid: pbXNet.StorageOnAzureStorage`1.DiscardAsync(System.String)
+  name: DiscardAsync(String)
+  href: api/pbXNet.StorageOnAzureStorage-1.html#pbXNet_StorageOnAzureStorage_1_DiscardAsync_System_String_
+  commentId: M:pbXNet.StorageOnAzureStorage`1.DiscardAsync(System.String)
+  fullName: pbXNet.StorageOnAzureStorage<T>.DiscardAsync(System.String)
+  fullName.vb: pbXNet.StorageOnAzureStorage(Of T).DiscardAsync(System.String)
+  nameWithType: StorageOnAzureStorage<T>.DiscardAsync(String)
+  nameWithType.vb: StorageOnAzureStorage(Of T).DiscardAsync(String)
+- uid: pbXNet.StorageOnAzureStorage`1.DiscardAsync*
+  name: DiscardAsync
+  href: api/pbXNet.StorageOnAzureStorage-1.html#pbXNet_StorageOnAzureStorage_1_DiscardAsync_
+  commentId: Overload:pbXNet.StorageOnAzureStorage`1.DiscardAsync
+  fullName: pbXNet.StorageOnAzureStorage<T>.DiscardAsync
+  fullName.vb: pbXNet.StorageOnAzureStorage(Of T).DiscardAsync
+  nameWithType: StorageOnAzureStorage<T>.DiscardAsync
+  nameWithType.vb: StorageOnAzureStorage(Of T).DiscardAsync
+- uid: pbXNet.StorageOnAzureStorage`1.ExistsAsync(System.String)
+  name: ExistsAsync(String)
+  href: api/pbXNet.StorageOnAzureStorage-1.html#pbXNet_StorageOnAzureStorage_1_ExistsAsync_System_String_
+  commentId: M:pbXNet.StorageOnAzureStorage`1.ExistsAsync(System.String)
+  fullName: pbXNet.StorageOnAzureStorage<T>.ExistsAsync(System.String)
+  fullName.vb: pbXNet.StorageOnAzureStorage(Of T).ExistsAsync(System.String)
+  nameWithType: StorageOnAzureStorage<T>.ExistsAsync(String)
+  nameWithType.vb: StorageOnAzureStorage(Of T).ExistsAsync(String)
+- uid: pbXNet.StorageOnAzureStorage`1.ExistsAsync*
+  name: ExistsAsync
+  href: api/pbXNet.StorageOnAzureStorage-1.html#pbXNet_StorageOnAzureStorage_1_ExistsAsync_
+  commentId: Overload:pbXNet.StorageOnAzureStorage`1.ExistsAsync
+  fullName: pbXNet.StorageOnAzureStorage<T>.ExistsAsync
+  fullName.vb: pbXNet.StorageOnAzureStorage(Of T).ExistsAsync
+  nameWithType: StorageOnAzureStorage<T>.ExistsAsync
+  nameWithType.vb: StorageOnAzureStorage(Of T).ExistsAsync
+- uid: pbXNet.StorageOnAzureStorage`1.FindIdsAsync(System.String)
+  name: FindIdsAsync(String)
+  href: api/pbXNet.StorageOnAzureStorage-1.html#pbXNet_StorageOnAzureStorage_1_FindIdsAsync_System_String_
+  commentId: M:pbXNet.StorageOnAzureStorage`1.FindIdsAsync(System.String)
+  fullName: pbXNet.StorageOnAzureStorage<T>.FindIdsAsync(System.String)
+  fullName.vb: pbXNet.StorageOnAzureStorage(Of T).FindIdsAsync(System.String)
+  nameWithType: StorageOnAzureStorage<T>.FindIdsAsync(String)
+  nameWithType.vb: StorageOnAzureStorage(Of T).FindIdsAsync(String)
+- uid: pbXNet.StorageOnAzureStorage`1.FindIdsAsync*
+  name: FindIdsAsync
+  href: api/pbXNet.StorageOnAzureStorage-1.html#pbXNet_StorageOnAzureStorage_1_FindIdsAsync_
+  commentId: Overload:pbXNet.StorageOnAzureStorage`1.FindIdsAsync
+  fullName: pbXNet.StorageOnAzureStorage<T>.FindIdsAsync
+  fullName.vb: pbXNet.StorageOnAzureStorage(Of T).FindIdsAsync
+  nameWithType: StorageOnAzureStorage<T>.FindIdsAsync
+  nameWithType.vb: StorageOnAzureStorage(Of T).FindIdsAsync
+- uid: pbXNet.StorageOnAzureStorage`1.GetACopyAsync(System.String)
+  name: GetACopyAsync(String)
+  href: api/pbXNet.StorageOnAzureStorage-1.html#pbXNet_StorageOnAzureStorage_1_GetACopyAsync_System_String_
+  commentId: M:pbXNet.StorageOnAzureStorage`1.GetACopyAsync(System.String)
+  fullName: pbXNet.StorageOnAzureStorage<T>.GetACopyAsync(System.String)
+  fullName.vb: pbXNet.StorageOnAzureStorage(Of T).GetACopyAsync(System.String)
+  nameWithType: StorageOnAzureStorage<T>.GetACopyAsync(String)
+  nameWithType.vb: StorageOnAzureStorage(Of T).GetACopyAsync(String)
+- uid: pbXNet.StorageOnAzureStorage`1.GetACopyAsync*
+  name: GetACopyAsync
+  href: api/pbXNet.StorageOnAzureStorage-1.html#pbXNet_StorageOnAzureStorage_1_GetACopyAsync_
+  commentId: Overload:pbXNet.StorageOnAzureStorage`1.GetACopyAsync
+  fullName: pbXNet.StorageOnAzureStorage<T>.GetACopyAsync
+  fullName.vb: pbXNet.StorageOnAzureStorage(Of T).GetACopyAsync
+  nameWithType: StorageOnAzureStorage<T>.GetACopyAsync
+  nameWithType.vb: StorageOnAzureStorage(Of T).GetACopyAsync
+- uid: pbXNet.StorageOnAzureStorage`1.GetModifiedOnAsync(System.String)
+  name: GetModifiedOnAsync(String)
+  href: api/pbXNet.StorageOnAzureStorage-1.html#pbXNet_StorageOnAzureStorage_1_GetModifiedOnAsync_System_String_
+  commentId: M:pbXNet.StorageOnAzureStorage`1.GetModifiedOnAsync(System.String)
+  fullName: pbXNet.StorageOnAzureStorage<T>.GetModifiedOnAsync(System.String)
+  fullName.vb: pbXNet.StorageOnAzureStorage(Of T).GetModifiedOnAsync(System.String)
+  nameWithType: StorageOnAzureStorage<T>.GetModifiedOnAsync(String)
+  nameWithType.vb: StorageOnAzureStorage(Of T).GetModifiedOnAsync(String)
+- uid: pbXNet.StorageOnAzureStorage`1.GetModifiedOnAsync*
+  name: GetModifiedOnAsync
+  href: api/pbXNet.StorageOnAzureStorage-1.html#pbXNet_StorageOnAzureStorage_1_GetModifiedOnAsync_
+  commentId: Overload:pbXNet.StorageOnAzureStorage`1.GetModifiedOnAsync
+  fullName: pbXNet.StorageOnAzureStorage<T>.GetModifiedOnAsync
+  fullName.vb: pbXNet.StorageOnAzureStorage(Of T).GetModifiedOnAsync
+  nameWithType: StorageOnAzureStorage<T>.GetModifiedOnAsync
+  nameWithType.vb: StorageOnAzureStorage(Of T).GetModifiedOnAsync
+- uid: pbXNet.StorageOnAzureStorage`1.InitializeAsync
+  name: InitializeAsync()
+  href: api/pbXNet.StorageOnAzureStorage-1.html#pbXNet_StorageOnAzureStorage_1_InitializeAsync
+  commentId: M:pbXNet.StorageOnAzureStorage`1.InitializeAsync
+  fullName: pbXNet.StorageOnAzureStorage<T>.InitializeAsync()
+  fullName.vb: pbXNet.StorageOnAzureStorage(Of T).InitializeAsync()
+  nameWithType: StorageOnAzureStorage<T>.InitializeAsync()
+  nameWithType.vb: StorageOnAzureStorage(Of T).InitializeAsync()
+- uid: pbXNet.StorageOnAzureStorage`1.InitializeAsync*
+  name: InitializeAsync
+  href: api/pbXNet.StorageOnAzureStorage-1.html#pbXNet_StorageOnAzureStorage_1_InitializeAsync_
+  commentId: Overload:pbXNet.StorageOnAzureStorage`1.InitializeAsync
+  fullName: pbXNet.StorageOnAzureStorage<T>.InitializeAsync
+  fullName.vb: pbXNet.StorageOnAzureStorage(Of T).InitializeAsync
+  nameWithType: StorageOnAzureStorage<T>.InitializeAsync
+  nameWithType.vb: StorageOnAzureStorage(Of T).InitializeAsync
+- uid: pbXNet.StorageOnAzureStorage`1.Name
+  name: Name
+  href: api/pbXNet.StorageOnAzureStorage-1.html#pbXNet_StorageOnAzureStorage_1_Name
+  commentId: P:pbXNet.StorageOnAzureStorage`1.Name
+  fullName: pbXNet.StorageOnAzureStorage<T>.Name
+  fullName.vb: pbXNet.StorageOnAzureStorage(Of T).Name
+  nameWithType: StorageOnAzureStorage<T>.Name
+  nameWithType.vb: StorageOnAzureStorage(Of T).Name
+- uid: pbXNet.StorageOnAzureStorage`1.Name*
+  name: Name
+  href: api/pbXNet.StorageOnAzureStorage-1.html#pbXNet_StorageOnAzureStorage_1_Name_
+  commentId: Overload:pbXNet.StorageOnAzureStorage`1.Name
+  fullName: pbXNet.StorageOnAzureStorage<T>.Name
+  fullName.vb: pbXNet.StorageOnAzureStorage(Of T).Name
+  nameWithType: StorageOnAzureStorage<T>.Name
+  nameWithType.vb: StorageOnAzureStorage(Of T).Name
+- uid: pbXNet.StorageOnAzureStorage`1.NewAsync(System.String,pbXNet.AzureStorageSettings,pbXNet.ISerializer)
+  name: NewAsync(String, AzureStorageSettings, ISerializer)
+  href: api/pbXNet.StorageOnAzureStorage-1.html#pbXNet_StorageOnAzureStorage_1_NewAsync_System_String_pbXNet_AzureStorageSettings_pbXNet_ISerializer_
+  commentId: M:pbXNet.StorageOnAzureStorage`1.NewAsync(System.String,pbXNet.AzureStorageSettings,pbXNet.ISerializer)
+  fullName: pbXNet.StorageOnAzureStorage<T>.NewAsync(System.String, pbXNet.AzureStorageSettings, pbXNet.ISerializer)
+  fullName.vb: pbXNet.StorageOnAzureStorage(Of T).NewAsync(System.String, pbXNet.AzureStorageSettings, pbXNet.ISerializer)
+  nameWithType: StorageOnAzureStorage<T>.NewAsync(String, AzureStorageSettings, ISerializer)
+  nameWithType.vb: StorageOnAzureStorage(Of T).NewAsync(String, AzureStorageSettings, ISerializer)
+- uid: pbXNet.StorageOnAzureStorage`1.NewAsync*
+  name: NewAsync
+  href: api/pbXNet.StorageOnAzureStorage-1.html#pbXNet_StorageOnAzureStorage_1_NewAsync_
+  commentId: Overload:pbXNet.StorageOnAzureStorage`1.NewAsync
+  fullName: pbXNet.StorageOnAzureStorage<T>.NewAsync
+  fullName.vb: pbXNet.StorageOnAzureStorage(Of T).NewAsync
+  nameWithType: StorageOnAzureStorage<T>.NewAsync
+  nameWithType.vb: StorageOnAzureStorage(Of T).NewAsync
+- uid: pbXNet.StorageOnAzureStorage`1.Settings
+  name: Settings
+  href: api/pbXNet.StorageOnAzureStorage-1.html#pbXNet_StorageOnAzureStorage_1_Settings
+  commentId: F:pbXNet.StorageOnAzureStorage`1.Settings
+  fullName: pbXNet.StorageOnAzureStorage<T>.Settings
+  fullName.vb: pbXNet.StorageOnAzureStorage(Of T).Settings
+  nameWithType: StorageOnAzureStorage<T>.Settings
+  nameWithType.vb: StorageOnAzureStorage(Of T).Settings
+- uid: pbXNet.StorageOnAzureStorage`1.StoreAsync(System.String,`0,System.DateTime)
+  name: StoreAsync(String, T, DateTime)
+  href: api/pbXNet.StorageOnAzureStorage-1.html#pbXNet_StorageOnAzureStorage_1_StoreAsync_System_String__0_System_DateTime_
+  commentId: M:pbXNet.StorageOnAzureStorage`1.StoreAsync(System.String,`0,System.DateTime)
+  fullName: pbXNet.StorageOnAzureStorage<T>.StoreAsync(System.String, T, System.DateTime)
+  fullName.vb: pbXNet.StorageOnAzureStorage(Of T).StoreAsync(System.String, T, System.DateTime)
+  nameWithType: StorageOnAzureStorage<T>.StoreAsync(String, T, DateTime)
+  nameWithType.vb: StorageOnAzureStorage(Of T).StoreAsync(String, T, DateTime)
+- uid: pbXNet.StorageOnAzureStorage`1.StoreAsync*
+  name: StoreAsync
+  href: api/pbXNet.StorageOnAzureStorage-1.html#pbXNet_StorageOnAzureStorage_1_StoreAsync_
+  commentId: Overload:pbXNet.StorageOnAzureStorage`1.StoreAsync
+  fullName: pbXNet.StorageOnAzureStorage<T>.StoreAsync
+  fullName.vb: pbXNet.StorageOnAzureStorage(Of T).StoreAsync
+  nameWithType: StorageOnAzureStorage<T>.StoreAsync
+  nameWithType.vb: StorageOnAzureStorage(Of T).StoreAsync
+- uid: pbXNet.StorageOnAzureStorage`1.Type
+  name: Type
+  href: api/pbXNet.StorageOnAzureStorage-1.html#pbXNet_StorageOnAzureStorage_1_Type
+  commentId: P:pbXNet.StorageOnAzureStorage`1.Type
+  fullName: pbXNet.StorageOnAzureStorage<T>.Type
+  fullName.vb: pbXNet.StorageOnAzureStorage(Of T).Type
+  nameWithType: StorageOnAzureStorage<T>.Type
+  nameWithType.vb: StorageOnAzureStorage(Of T).Type
+- uid: pbXNet.StorageOnAzureStorage`1.Type*
+  name: Type
+  href: api/pbXNet.StorageOnAzureStorage-1.html#pbXNet_StorageOnAzureStorage_1_Type_
+  commentId: Overload:pbXNet.StorageOnAzureStorage`1.Type
+  fullName: pbXNet.StorageOnAzureStorage<T>.Type
+  fullName.vb: pbXNet.StorageOnAzureStorage(Of T).Type
+  nameWithType: StorageOnAzureStorage<T>.Type
+  nameWithType.vb: StorageOnAzureStorage(Of T).Type
 - uid: pbXNet.StorageOnFileSystem`1
   name: StorageOnFileSystem<T>
   href: api/pbXNet.StorageOnFileSystem-1.html
@@ -6213,22 +6791,6 @@ references:
   fullName.vb: pbXNet.StorageOnFileSystem(Of T).GetModifiedOnAsync
   nameWithType: StorageOnFileSystem<T>.GetModifiedOnAsync
   nameWithType.vb: StorageOnFileSystem(Of T).GetModifiedOnAsync
-- uid: pbXNet.StorageOnFileSystem`1.Id
-  name: Id
-  href: api/pbXNet.StorageOnFileSystem-1.html#pbXNet_StorageOnFileSystem_1_Id
-  commentId: P:pbXNet.StorageOnFileSystem`1.Id
-  fullName: pbXNet.StorageOnFileSystem<T>.Id
-  fullName.vb: pbXNet.StorageOnFileSystem(Of T).Id
-  nameWithType: StorageOnFileSystem<T>.Id
-  nameWithType.vb: StorageOnFileSystem(Of T).Id
-- uid: pbXNet.StorageOnFileSystem`1.Id*
-  name: Id
-  href: api/pbXNet.StorageOnFileSystem-1.html#pbXNet_StorageOnFileSystem_1_Id_
-  commentId: Overload:pbXNet.StorageOnFileSystem`1.Id
-  fullName: pbXNet.StorageOnFileSystem<T>.Id
-  fullName.vb: pbXNet.StorageOnFileSystem(Of T).Id
-  nameWithType: StorageOnFileSystem<T>.Id
-  nameWithType.vb: StorageOnFileSystem(Of T).Id
 - uid: pbXNet.StorageOnFileSystem`1.InitializeAsync
   name: InitializeAsync()
   href: api/pbXNet.StorageOnFileSystem-1.html#pbXNet_StorageOnFileSystem_1_InitializeAsync
@@ -6277,30 +6839,6 @@ references:
   fullName.vb: pbXNet.StorageOnFileSystem(Of T).NewAsync
   nameWithType: StorageOnFileSystem<T>.NewAsync
   nameWithType.vb: StorageOnFileSystem(Of T).NewAsync
-- uid: pbXNet.StorageOnFileSystem`1.RetrieveAsync(System.String)
-  name: RetrieveAsync(String)
-  href: api/pbXNet.StorageOnFileSystem-1.html#pbXNet_StorageOnFileSystem_1_RetrieveAsync_System_String_
-  commentId: M:pbXNet.StorageOnFileSystem`1.RetrieveAsync(System.String)
-  fullName: pbXNet.StorageOnFileSystem<T>.RetrieveAsync(System.String)
-  fullName.vb: pbXNet.StorageOnFileSystem(Of T).RetrieveAsync(System.String)
-  nameWithType: StorageOnFileSystem<T>.RetrieveAsync(String)
-  nameWithType.vb: StorageOnFileSystem(Of T).RetrieveAsync(String)
-- uid: pbXNet.StorageOnFileSystem`1.RetrieveAsync*
-  name: RetrieveAsync
-  href: api/pbXNet.StorageOnFileSystem-1.html#pbXNet_StorageOnFileSystem_1_RetrieveAsync_
-  commentId: Overload:pbXNet.StorageOnFileSystem`1.RetrieveAsync
-  fullName: pbXNet.StorageOnFileSystem<T>.RetrieveAsync
-  fullName.vb: pbXNet.StorageOnFileSystem(Of T).RetrieveAsync
-  nameWithType: StorageOnFileSystem<T>.RetrieveAsync
-  nameWithType.vb: StorageOnFileSystem(Of T).RetrieveAsync
-- uid: pbXNet.StorageOnFileSystem`1.Serializer
-  name: Serializer
-  href: api/pbXNet.StorageOnFileSystem-1.html#pbXNet_StorageOnFileSystem_1_Serializer
-  commentId: F:pbXNet.StorageOnFileSystem`1.Serializer
-  fullName: pbXNet.StorageOnFileSystem<T>.Serializer
-  fullName.vb: pbXNet.StorageOnFileSystem(Of T).Serializer
-  nameWithType: StorageOnFileSystem<T>.Serializer
-  nameWithType.vb: StorageOnFileSystem(Of T).Serializer
 - uid: pbXNet.StorageOnFileSystem`1.StoreAsync(System.String,`0,System.DateTime)
   name: StoreAsync(String, T, DateTime)
   href: api/pbXNet.StorageOnFileSystem-1.html#pbXNet_StorageOnFileSystem_1_StoreAsync_System_String__0_System_DateTime_
@@ -6423,6 +6961,54 @@ references:
   commentId: Overload:pbXNet.StringExtensions.ToMemoryStream
   fullName: pbXNet.StringExtensions.ToMemoryStream
   nameWithType: StringExtensions.ToMemoryStream
+- uid: pbXNet.StringOptimizedSerializer
+  name: StringOptimizedSerializer
+  href: api/pbXNet.StringOptimizedSerializer.html
+  commentId: T:pbXNet.StringOptimizedSerializer
+  fullName: pbXNet.StringOptimizedSerializer
+  nameWithType: StringOptimizedSerializer
+- uid: pbXNet.StringOptimizedSerializer.#ctor(pbXNet.ISerializer)
+  name: StringOptimizedSerializer(ISerializer)
+  href: api/pbXNet.StringOptimizedSerializer.html#pbXNet_StringOptimizedSerializer__ctor_pbXNet_ISerializer_
+  commentId: M:pbXNet.StringOptimizedSerializer.#ctor(pbXNet.ISerializer)
+  fullName: pbXNet.StringOptimizedSerializer.StringOptimizedSerializer(pbXNet.ISerializer)
+  nameWithType: StringOptimizedSerializer.StringOptimizedSerializer(ISerializer)
+- uid: pbXNet.StringOptimizedSerializer.#ctor*
+  name: StringOptimizedSerializer
+  href: api/pbXNet.StringOptimizedSerializer.html#pbXNet_StringOptimizedSerializer__ctor_
+  commentId: Overload:pbXNet.StringOptimizedSerializer.#ctor
+  fullName: pbXNet.StringOptimizedSerializer.StringOptimizedSerializer
+  nameWithType: StringOptimizedSerializer.StringOptimizedSerializer
+- uid: pbXNet.StringOptimizedSerializer.Deserialize*
+  name: Deserialize
+  href: api/pbXNet.StringOptimizedSerializer.html#pbXNet_StringOptimizedSerializer_Deserialize_
+  commentId: Overload:pbXNet.StringOptimizedSerializer.Deserialize
+  fullName: pbXNet.StringOptimizedSerializer.Deserialize
+  nameWithType: StringOptimizedSerializer.Deserialize
+- uid: pbXNet.StringOptimizedSerializer.Deserialize``1(System.String,System.String)
+  name: Deserialize<T>(String, String)
+  href: api/pbXNet.StringOptimizedSerializer.html#pbXNet_StringOptimizedSerializer_Deserialize__1_System_String_System_String_
+  commentId: M:pbXNet.StringOptimizedSerializer.Deserialize``1(System.String,System.String)
+  name.vb: Deserialize(Of T)(String, String)
+  fullName: pbXNet.StringOptimizedSerializer.Deserialize<T>(System.String, System.String)
+  fullName.vb: pbXNet.StringOptimizedSerializer.Deserialize(Of T)(System.String, System.String)
+  nameWithType: StringOptimizedSerializer.Deserialize<T>(String, String)
+  nameWithType.vb: StringOptimizedSerializer.Deserialize(Of T)(String, String)
+- uid: pbXNet.StringOptimizedSerializer.Serialize*
+  name: Serialize
+  href: api/pbXNet.StringOptimizedSerializer.html#pbXNet_StringOptimizedSerializer_Serialize_
+  commentId: Overload:pbXNet.StringOptimizedSerializer.Serialize
+  fullName: pbXNet.StringOptimizedSerializer.Serialize
+  nameWithType: StringOptimizedSerializer.Serialize
+- uid: pbXNet.StringOptimizedSerializer.Serialize``1(``0,System.String)
+  name: Serialize<T>(T, String)
+  href: api/pbXNet.StringOptimizedSerializer.html#pbXNet_StringOptimizedSerializer_Serialize__1___0_System_String_
+  commentId: M:pbXNet.StringOptimizedSerializer.Serialize``1(``0,System.String)
+  name.vb: Serialize(Of T)(T, String)
+  fullName: pbXNet.StringOptimizedSerializer.Serialize<T>(T, System.String)
+  fullName.vb: pbXNet.StringOptimizedSerializer.Serialize(Of T)(T, System.String)
+  nameWithType: StringOptimizedSerializer.Serialize<T>(T, String)
+  nameWithType.vb: StringOptimizedSerializer.Serialize(Of T)(T, String)
 - uid: pbXNet.SystemDiagnosticsDebugLogger
   name: SystemDiagnosticsDebugLogger
   href: api/pbXNet.SystemDiagnosticsDebugLogger.html

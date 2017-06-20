@@ -39,7 +39,6 @@ namespace pbXNet
 			return Fs;
 		}
 
-		/// <see cref="IStorage{T}.StoreAsync"/>
 		public override async Task StoreAsync(string thingId, T data, DateTime modifiedOn)
 		{
 			IFileSystem fs = await GetFsAsync().ConfigureAwait(false);
