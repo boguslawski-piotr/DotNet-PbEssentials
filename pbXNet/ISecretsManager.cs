@@ -14,10 +14,12 @@ namespace pbXNet
 	}
 
 	/// <summary>
-	/// Cryptographic key life time definitions used 
-	/// in <see cref="ISecretsManager.CreateCKey"><c>ISecretsManager.CreateCKey</c></see>.
+	/// Secret life time definitions used in
+	/// <see cref="ISecretsManager.CreateCKey"><c>ISecretsManager.CreateCKey</c></see>,
+	/// and
+	/// <see cref="ISecretsManager.AddSecret{T}"><c>ISecretsManager.AddSecret{T}</c></see>.
 	/// </summary>
-	public enum CKeyLifeTime
+	public enum SecretLifeTime
 	{
 		// WARNING: Do not change constants values order.
 		// If needed add new value(s) at the end.
@@ -25,13 +27,13 @@ namespace pbXNet
 		Undefined,
 
 		/// <summary>
-		/// Ckey should be stored (in a safe way!) and should be available 
+		/// Secret should be stored (in a safe way!) and should be available 
 		/// throughout the life of the application on device.
 		/// </summary>
 		Infinite,
 
 		/// <summary>
-		///
+		/// Secret should be available whie app is running.
 		/// </summary>
 		WhileAppRunning,
 
@@ -61,7 +63,7 @@ namespace pbXNet
 		// Basic authentication based on passwords
 		// Implementation should never store any password anywhere in any form
 
-		void AddOrUpdatePassword(string id, IPassword passwd);
+		void AddOrUpdatePassword(string id, SecretLifeTime lifeTime, IPassword passwd);
 		bool PasswordExists(string id);
 		void DeletePassword(string id);
 
@@ -69,7 +71,7 @@ namespace pbXNet
 
 		// Cryptographic keys, encryption and decryption
 
-		void CreateCKey(string id, CKeyLifeTime lifeTime, IPassword passwd);
+		void CreateCKey(string id, SecretLifeTime lifeTime, IPassword passwd);
 		bool CKeyExists(string id);
 		void DeleteCKey(string id);
 
@@ -77,5 +79,30 @@ namespace pbXNet
 
 		string Encrypt(string data, string id, IByteBuffer iv);
 		string Decrypt(string data, string id, IByteBuffer iv);
+
+		// Common secrets
+
+		/// <summary>
+		/// Adds or updates a secret under the given <c>id</c>.
+		/// </summary>
+		void AddOrUpdateSecret<T>(string id, SecretLifeTime lifeTime, T data);
+
+		/// <summary>
+		/// Checks if a secret with the specified <c>id</c> does exist.
+		/// </summary>
+		bool SecretExists(string id);
+
+		/// <summary>
+		/// Gets a secret with the specified <c>id</c>.
+		/// </summary>
+		/// <exception cref="System.Collections.Generic.KeyNotFoundException">
+		/// Should be thrown when a secret with the specified <c>id</c> does not exist.
+		/// </exception>
+		T GetSecret<T>(string id);
+
+		/// <summary>
+		/// Deletes a secret with the specified <c>id</c>.
+		/// </summary>
+		void DeleteSecret(string id);
 	}
 }
