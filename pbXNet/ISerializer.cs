@@ -4,7 +4,7 @@ namespace pbXNet
 {
 	public interface ISerializer
 	{
-		string ToString(object o, string id = null);
-		T FromString<T>(string d, string id = null);
+		string Serialize<T>(T o, string id = null);
+		T Deserialize<T>(string d, string id = null);
 	}
 }

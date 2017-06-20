@@ -10,7 +10,7 @@ namespace pbXNet
 	{
 		static readonly Lazy<IFormatter> _formatter = new Lazy<IFormatter>(() => new BinaryFormatter());
 
-		public string ToString(object o, string id = null)
+		public string Serialize<T>(T o, string id = null)
 		{
 			using (MemoryStream stream = new MemoryStream())
 			{
@@ -26,7 +26,7 @@ namespace pbXNet
 			}
 		}
 
-		public T FromString<T>(string d, string id = null)
+		public T Deserialize<T>(string d, string id = null)
 		{
 			if (id != null)
 			{
