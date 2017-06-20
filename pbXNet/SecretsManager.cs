@@ -5,25 +5,28 @@ using System.Threading.Tasks;
 
 namespace pbXNet
 {
-	public sealed partial class SecretsManager : ISecretsManager
+	public sealed partial class SecretsManager : ISecretsManager, IDisposable
 	{
 		public string Id { get; }
 
-		ICryptographer _cryptographer { get; }
+		ICryptographer _cryptographer = new AesCryptographer();
 
-		ISerializer _serializer { get; }
+		ISerializer _serializer;
 
-		IStorage<string> _storage { get; }
+		IStorage<string> _storage;
 
-		public SecretsManager(string id, ICryptographer cryptographer, ISerializer serializer, IStorage<string> storage = null)
+		/// IMPORTANT NOTE: 
+		/// Passed passwd is completely cleaned (zeros) as soon as possible.
+		/// You should not use this data anymore after it was passed to the EncryptedFileSystem class constructor.
+		public SecretsManager(string id, ISerializer serializer, IStorage<string> storage = null, IPassword passwd = null)
 		{
-			if (id == null || cryptographer == null || serializer == null)
-				throw new ArgumentException($"{nameof(id)}, {nameof(cryptographer)} and {nameof(serializer)} must be valid objects.");
+			if (id == null || serializer == null)
+				throw new ArgumentException($"{nameof(id)} and {nameof(serializer)} must be valid objects.");
 
 			Id = id;
-			_cryptographer = cryptographer;
-			_serializer = new OptimizedForStringSerializer(serializer);
+			_serializer = new StringOptimizedSerializer(serializer);
 			_storage = storage;
+			_CreateCKey(passwd);
 		}
 
 		public void Initialize(object param)
@@ -34,25 +37,13 @@ namespace pbXNet
 		// Basic device owner authentication (pin, passkey, biometrics, etc.)
 		// You will find the implementation in the platform directories...
 
-		public DOAuthentication AvailableDOAuthentication
-		{
-			get => _AvailableDOAuthentication;
-		}
+		public DOAuthentication AvailableDOAuthentication => _AvailableDOAuthentication;
 
-		public bool StartDOAuthentication(string msg, Action Succes, Action<string, bool> ErrorOrHint)
-		{
-			return _StartDOAuthentication(msg, Succes, ErrorOrHint);
-		}
+		public bool StartDOAuthentication(string msg, Action Succes, Action<string, bool> ErrorOrHint) => _StartDOAuthentication(msg, Succes, ErrorOrHint);
 
-		public bool CanDOAuthenticationBeCanceled()
-		{
-			return _CanDOAuthenticationBeCanceled();
-		}
+		public bool CanDOAuthenticationBeCanceled() => _CanDOAuthenticationBeCanceled();
 
-		public bool CancelDOAuthentication()
-		{
-			return _CancelDOAuthentication();
-		}
+		public bool CancelDOAuthentication() => _CancelDOAuthentication();
 
 		// Common code for passwords, ckeys and other secrets
 
@@ -63,11 +54,26 @@ namespace pbXNet
 			public string secret;
 		}
 
+		readonly byte[] _salt = { 0x43, 0x87, 0x23, 0x72, 0x45, 0x56, 0x68, 0x14, 0x62, 0x84 };
+
 		IDictionary<string, string> _secrets = new Dictionary<string, string>();
 
 		IDictionary<string, TemporarySecret> _temporarySecrets = new Dictionary<string, TemporarySecret>();
 
 		const string _secretsDataId = ".d46ee950276f4665aefa06cb2ee6b35e";
+
+		SecureBuffer _secretsDataIV = SecureBuffer.NewFromHexString("F36A0B7F6D95F16089EBB4A3EC196F0D960300");
+
+		IByteBuffer _secretsDataCKey;
+
+		void _CreateCKey(IPassword passwd = null)
+		{
+			if (passwd != null)
+			{
+				_secretsDataCKey = _cryptographer.GenerateKey(passwd, new ByteBuffer(_salt));
+				passwd.Dispose();
+			}
+		}
 
 		void _LoadSecrets()
 		{
@@ -80,7 +86,11 @@ namespace pbXNet
 
 			if (!string.IsNullOrEmpty(d))
 			{
+				if (_secretsDataCKey != null)
+					d = _cryptographer.Decrypt(ByteBuffer.NewFromHexString(d), _secretsDataCKey, _secretsDataIV).ToString(Encoding.UTF8);
+
 				d = Obfuscator.DeObfuscate(d);
+
 				_secrets = _serializer.Deserialize<IDictionary<string, string>>(d);
 			}
 		}
@@ -91,15 +101,19 @@ namespace pbXNet
 				return;
 
 			string d = _serializer.Serialize(_secrets);
+
 			d = Obfuscator.Obfuscate(d);
 
-			// TODO: dodac szyfrowanie; haslem powinno byc cos co mozna pobrac z systemu, jest niezmienne i nie da sie wyczytac z kodu programu bez doglebnego debugowania
+			if (_secretsDataCKey != null)
+				d = _cryptographer.Encrypt(new ByteBuffer(d, Encoding.UTF8), _secretsDataCKey, _secretsDataIV).ToHexString();
 
 			_storage.StoreAsync(_secretsDataId, d, DateTime.UtcNow);
 		}
 
 		void _AddOrUpdateSecret(string id, SecretLifeTime lifeTime, string s)
 		{
+			s = Obfuscator.Obfuscate(s);
+
 			if (lifeTime == SecretLifeTime.Infinite)
 			{
 				if (_storage == null)
@@ -130,16 +144,21 @@ namespace pbXNet
 
 		string _GetSecret(string id)
 		{
-			if (_temporarySecrets.TryGetValue(id, out TemporarySecret s))
-				return s.secret;
+			string __GetSecret()
+			{
+				if (_temporarySecrets.TryGetValue(id, out TemporarySecret s))
+					return s.secret;
 
-			_LoadSecrets();
+				_LoadSecrets();
 
-			s = new TemporarySecret();
-			if (_secrets.TryGetValue(id, out s.secret))
-				return s.secret;
+				s = new TemporarySecret();
+				if (_secrets.TryGetValue(id, out s.secret))
+					return s.secret;
 
-			throw new KeyNotFoundException();
+				throw new KeyNotFoundException();
+			}
+
+			return Obfuscator.DeObfuscate(__GetSecret());
 		}
 
 		void _DeleteSecret(string id)
@@ -166,7 +185,6 @@ namespace pbXNet
 		};
 
 		const string _phrase = "Life is short. Smile while you still have teeth :)";
-		readonly byte[] _salt = { 0x43, 0x87, 0x23, 0x72, 0x45, 0x56, 0x68, 0x14, 0x62, 0x84 };
 
 		const string _passwordIdPrefix = "_p_";
 
@@ -274,5 +292,22 @@ namespace pbXNet
 		public T GetSecret<T>(string id) => _serializer.Deserialize<T>(_GetSecret(_secretIdPrefix + id));
 
 		public void DeleteSecret(string id) => _DeleteSecret(_secretIdPrefix + id);
+
+		//
+
+		public void Dispose()
+		{
+			_cryptographer = null;
+			_serializer = null;
+			_storage = null;
+
+			_secretsDataCKey?.Dispose();
+			_secretsDataIV.Dispose();
+
+			_temporarySecrets.Clear();
+			_temporarySecrets = null;
+			_secrets.Clear();
+			_secrets = null;
+		}
 	}
 }
