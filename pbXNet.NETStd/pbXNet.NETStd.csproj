@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard1.6</TargetFramework>
     <RootNamespace>pbXNet</RootNamespace>
-    <ReleaseVersion>1.0.0.12</ReleaseVersion>
+    <ReleaseVersion>1.0.0.13</ReleaseVersion>
     <SynchReleaseVersion>false</SynchReleaseVersion>
     <AssemblyName>pbXNet</AssemblyName>
   </PropertyGroup>

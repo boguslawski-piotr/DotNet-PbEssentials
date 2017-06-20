@@ -8,7 +8,7 @@
     <RootNamespace>pbXNet</RootNamespace>
     <AssemblyName>pbXNet</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
-    <ReleaseVersion>1.0.0.13</ReleaseVersion>
+    <ReleaseVersion>1.0.0.14</ReleaseVersion>
     <SynchReleaseVersion>false</SynchReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
