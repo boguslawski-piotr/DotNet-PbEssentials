@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using pbXNet;
 
-namespace SafeNotebooks
+namespace pbXNet
 {
 	public class NewtonsoftJsonSerializer : ISerializer
 	{

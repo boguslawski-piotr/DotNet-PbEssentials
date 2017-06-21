@@ -30,6 +30,9 @@
 	<data name="DeviceFileSystem.Root.Config" xml:space="preserve">
 		<value>Katalog ustawień</value>
 	</data>
+	<data name="DeviceFileSystem.Root.Roaming" xml:space="preserve">
+		<value>Synchronizowany katalog</value>
+	</data>
 	<data name="DeviceFileSystem.Root.External" xml:space="preserve">
 		<value>Nośnik zewnętrzny (np. karta SD, dysk USB, itp.)</value>
 	</data>
