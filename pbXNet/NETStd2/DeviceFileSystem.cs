@@ -22,6 +22,9 @@ namespace pbXNet
 		string _current;
 		Stack<string> _previous = new Stack<string>();
 
+		public string RootPath => _root;
+		public string CurrentPath => _current;
+
 		protected virtual void Initialize(string userDefinedRootPath)
 		{
 			switch (Root)

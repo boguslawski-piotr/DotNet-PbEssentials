@@ -16,6 +16,10 @@ namespace pbXNet
 
 		public string Name => _fs.Name;
 
+		public string RootPath => _fs.RootPath;
+
+		public string CurrentPath => _fs.CurrentPath;
+
 		ICryptographer _cryptographer;
 
 		IFileSystem _fs;

@@ -22,6 +22,10 @@ namespace pbXNet
 
 		string Name { get; }
 
+		string RootPath { get; }
+
+		string CurrentPath { get; }
+
 		/// <summary>
 		/// Should be super, super fast!
 		/// </summary>

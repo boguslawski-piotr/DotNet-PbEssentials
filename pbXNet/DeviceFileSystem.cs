@@ -39,7 +39,7 @@ namespace pbXNet
 						return T.Localized("DeviceFileSystem.Root.RoamingConfig");
 
 					default:
-						return _root;
+						return RootPath;
 				}
 			}
 		}

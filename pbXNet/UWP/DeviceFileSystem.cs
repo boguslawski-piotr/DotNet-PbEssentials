@@ -29,12 +29,15 @@ namespace pbXNet
 	{
 		public static readonly IEnumerable<DeviceFileSystemRoot> AvailableRootsForEndUser = new List<DeviceFileSystemRoot>()
 		{
-			DeviceFileSystemRoot.Personal,
+			DeviceFileSystemRoot.Local,
 			DeviceFileSystemRoot.Roaming,
 		};
 
 		StorageFolder _root;
 		StorageFolder _current;
+
+		public string RootPath => _root?.Path;
+		public string CurrentPath => _current?.Path;
 
 #pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
 
