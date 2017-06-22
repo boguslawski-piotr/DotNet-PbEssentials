@@ -16,7 +16,7 @@ namespace pbXNet
 
 		public string Name => _fs.Name;
 
-		ICryptographer _cryptographer = new AesCryptographer();
+		ICryptographer _cryptographer;
 
 		IFileSystem _fs;
 
@@ -24,25 +24,37 @@ namespace pbXNet
 		IByteBuffer _ckey;
 		IByteBuffer _iv;
 
-		protected EncryptedFileSystem(string id, IFileSystem fs)
+		protected EncryptedFileSystem(string id, IFileSystem fs, ICryptographer cryptographer = null)
 		{
+			if (id == null || fs == null)
+				throw new ArgumentException($"{nameof(id)} and {nameof(fs)} must be valid objects.");
+
 			Id = id;
 			_fs = fs;
+			_cryptographer = cryptographer ?? new AesCryptographer();
 		}
 
 		/// IMPORTANT NOTE: 
 		/// Passed ckey can be completely cleaned (zeros) at an unspecified moment.
 		/// You should not use this data anymore after it was passed to the EncryptedFileSystem class constructor.
-		public EncryptedFileSystem(string id, IFileSystem fs, IByteBuffer ckey) : this(id, fs)
+		public EncryptedFileSystem(string id, IFileSystem fs, IByteBuffer ckey, ICryptographer cryptographer = null) 
+			: this(id, fs, cryptographer)
 		{
+			if (ckey == null)
+				throw new ArgumentException($"{nameof(ckey)} must be valid object.");
+
 			_ckey = ckey;
 		}
 
 		/// IMPORTANT NOTE: 
 		/// Passed passwd is completely cleaned (zeros) as soon as possible.
 		/// You should not use this data anymore after it was passed to the EncryptedFileSystem class constructor.
-		public EncryptedFileSystem(string id, IFileSystem fs, IPassword passwd) : this(id, fs)
+		public EncryptedFileSystem(string id, IFileSystem fs, IPassword passwd, ICryptographer cryptographer = null) 
+			: this(id, fs, cryptographer)
 		{
+			if (passwd == null)
+				throw new ArgumentException($"{nameof(passwd)} must be valid object.");
+
 			_passwd = passwd;
 		}
 
@@ -70,8 +82,6 @@ namespace pbXNet
 
 			if (_ckey == null)
 			{
-				if (_passwd == null)
-					throw new ArgumentNullException(nameof(_passwd));
 				_ckey = _cryptographer.GenerateKey(_passwd, _iv);
 			}
 

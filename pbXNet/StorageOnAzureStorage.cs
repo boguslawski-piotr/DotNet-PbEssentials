@@ -22,7 +22,7 @@ namespace pbXNet
 
 		/// Id will be used as container name in Azure Blob Storage
 		/// See here: https://azure.microsoft.com/en-us/services/storage/blobs/
-		public StorageOnAzureStorage(string id, AzureStorageSettings settings, ISerializer serializer)
+		public StorageOnAzureStorage(string id, AzureStorageSettings settings, ISerializer serializer = null)
 			: base(id, serializer)
 		{
 			if (settings.Type != AzureStorageSettings.StorageType.BlockBlob && settings.Type != AzureStorageSettings.StorageType.PageBlob)
@@ -31,7 +31,7 @@ namespace pbXNet
 			Settings = settings;
 		}
 
-		public static async Task<StorageOnAzureStorage<T>> NewAsync(string id, AzureStorageSettings settings, ISerializer serializer)
+		public static async Task<StorageOnAzureStorage<T>> NewAsync(string id, AzureStorageSettings settings, ISerializer serializer = null)
 		{
 			StorageOnAzureStorage<T> o = new StorageOnAzureStorage<T>(id, settings, serializer);
 			if (!await o.InitializeAsync())

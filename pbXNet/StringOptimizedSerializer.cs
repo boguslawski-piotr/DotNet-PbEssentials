@@ -8,6 +8,9 @@ namespace pbXNet
 
 		public StringOptimizedSerializer(ISerializer serializer)
 		{
+			if (serializer == null)
+				throw new ArgumentException($"{nameof(serializer)} must be valid object.");
+
 			_serializer = serializer;
 		}
 

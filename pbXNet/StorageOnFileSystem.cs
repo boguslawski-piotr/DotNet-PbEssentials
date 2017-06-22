@@ -14,13 +14,13 @@ namespace pbXNet
 
 		/// Id will be used as directory name in the root of file system.
 		/// In this directory all data will be stored.
-		public StorageOnFileSystem(string id, IFileSystem fs, ISerializer serializer)
+		public StorageOnFileSystem(string id, IFileSystem fs, ISerializer serializer = null)
 			: base(id, serializer)
 		{
 			Fs = fs;
 		}
 
-		public static async Task<StorageOnFileSystem<T>> NewAsync(string id, IFileSystem fs, ISerializer serializer)
+		public static async Task<StorageOnFileSystem<T>> NewAsync(string id, IFileSystem fs, ISerializer serializer = null)
 		{
 			StorageOnFileSystem<T> o = new StorageOnFileSystem<T>(id, fs, serializer);
 			if (!await o.InitializeAsync())

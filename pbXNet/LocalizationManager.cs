@@ -71,7 +71,7 @@ namespace pbXNet
 			_resources.Add(resource);
 		}
 
-		public static string GetText(string name)
+		public static string Localized(string name)
 		{
 			if (name == null)
 				return "";
@@ -110,7 +110,7 @@ namespace pbXNet
 	{
 		public static string Localized(string name)
 		{
-			return LocalizationManager.GetText(name);
+			return LocalizationManager.Localized(name);
 		}
 	}
 }

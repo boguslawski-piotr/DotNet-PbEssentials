@@ -18,13 +18,13 @@ namespace pbXNet
 		/// IMPORTANT NOTE: 
 		/// Passed passwd is completely cleaned (zeros) as soon as possible.
 		/// You should not use this data anymore after it was passed to the EncryptedFileSystem class constructor.
-		public SecretsManager(string id, ISerializer serializer, IStorage<string> storage = null, IPassword passwd = null)
+		public SecretsManager(string id, ISerializer serializer = null, IStorage<string> storage = null, IPassword passwd = null)
 		{
-			if (id == null || serializer == null)
-				throw new ArgumentException($"{nameof(id)} and {nameof(serializer)} must be valid objects.");
+			if (id == null)
+				throw new ArgumentException($"{nameof(id)} must be valid object.");
 
 			Id = id;
-			_serializer = new StringOptimizedSerializer(serializer);
+			_serializer = new StringOptimizedSerializer(serializer ?? new NewtonsoftJsonSerializer());
 			_storage = storage;
 			_CreateCKey(passwd);
 		}

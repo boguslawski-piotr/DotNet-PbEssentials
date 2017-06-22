@@ -31,13 +31,11 @@ namespace pbXNet
 
 		public string Compress(string d, bool returnAsBase64 = false)
 		{
-			// Compress stream...
 			MemoryStream dcs = Compress<MemoryStream>(ConvertEx.ToMemoryStream(d));
 			dcs.Position = 0;
 			byte[] dca = dcs.ToArray();
 			dcs.Dispose();
 
-			// Build string from byte array...
 			if (!returnAsBase64)
 				d = ConvertEx.ToHexString(dca);
 			else
@@ -47,11 +45,9 @@ namespace pbXNet
 
 		public string Decompress(string d, bool fromBase64 = false)
 		{
-			// Decompress...
 			MemoryStream dms = new MemoryStream(!fromBase64 ? ConvertEx.FromHexString(d) : Convert.FromBase64String(d));
 			MemoryStream dcs = Decompress<MemoryStream>(dms);
 
-			// Build string to return...
 			dcs.Position = 0;
 			d = ConvertEx.ToString(dcs);
 

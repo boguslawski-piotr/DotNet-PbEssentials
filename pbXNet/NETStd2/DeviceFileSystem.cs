@@ -83,9 +83,9 @@ namespace pbXNet
 
 		class State
 		{
-			string savedRoot;
-			string savedCurrent;
-			Stack<string> savedPrevious;
+			public string savedRoot;
+			public string savedCurrent;
+			public Stack<string> savedPrevious;
 		}
 
 		Stack<State> _stateStack = new Stack<State>();

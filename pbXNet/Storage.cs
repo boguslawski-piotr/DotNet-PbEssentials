@@ -13,10 +13,13 @@ namespace pbXNet
 
 		protected ISerializer Serializer;
 
-		protected Storage(string id, ISerializer serializer)
+		protected Storage(string id, ISerializer serializer = null)
 		{
+			if (id == null)
+				throw new ArgumentException($"{nameof(id)} must be valid object.");
+			
 			Id = id;
-			Serializer = new StringOptimizedSerializer(serializer);
+			Serializer = new StringOptimizedSerializer(serializer ?? new NewtonsoftJsonSerializer());
 		}
 
 		public abstract Task<bool> InitializeAsync();

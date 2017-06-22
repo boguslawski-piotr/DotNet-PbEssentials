@@ -6,8 +6,6 @@ namespace pbXNet
 {
 	public partial class AesCryptographer : ICryptographer
 	{
-		public Exception LastEx { get; private set; }
-
 		// Implementation in:
 		//
 		// UWP: pbXNet\UWP\

@@ -68,7 +68,6 @@ namespace pbXNet
 			catch (Exception e)
 			{
 				Log.E(e.Message, this);
-				LastEx = e;
 				return new ByteBuffer();
 			}
 		}
