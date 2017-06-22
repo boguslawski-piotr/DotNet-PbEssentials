@@ -1081,6 +1081,18 @@ references:
   commentId: F:pbXForms.Metrics.StatusBarHeight
   fullName: pbXForms.Metrics.StatusBarHeight
   nameWithType: Metrics.StatusBarHeight
+- uid: pbXForms.Metrics.TallListItemHeight
+  name: TallListItemHeight
+  href: api/pbXForms.Metrics.html#pbXForms_Metrics_TallListItemHeight
+  commentId: F:pbXForms.Metrics.TallListItemHeight
+  fullName: pbXForms.Metrics.TallListItemHeight
+  nameWithType: Metrics.TallListItemHeight
+- uid: pbXForms.Metrics.TallListItemHeightInt32
+  name: TallListItemHeightInt32
+  href: api/pbXForms.Metrics.html#pbXForms_Metrics_TallListItemHeightInt32
+  commentId: F:pbXForms.Metrics.TallListItemHeightInt32
+  fullName: pbXForms.Metrics.TallListItemHeightInt32
+  nameWithType: Metrics.TallListItemHeightInt32
 - uid: pbXForms.Metrics.ToolBarHeightLandscape
   name: ToolBarHeightLandscape
   href: api/pbXForms.Metrics.html#pbXForms_Metrics_ToolBarHeightLandscape
@@ -2704,18 +2716,6 @@ references:
   commentId: Overload:pbXNet.AesCryptographer.GenerateKey
   fullName: pbXNet.AesCryptographer.GenerateKey
   nameWithType: AesCryptographer.GenerateKey
-- uid: pbXNet.AesCryptographer.LastEx
-  name: LastEx
-  href: api/pbXNet.AesCryptographer.html#pbXNet_AesCryptographer_LastEx
-  commentId: P:pbXNet.AesCryptographer.LastEx
-  fullName: pbXNet.AesCryptographer.LastEx
-  nameWithType: AesCryptographer.LastEx
-- uid: pbXNet.AesCryptographer.LastEx*
-  name: LastEx
-  href: api/pbXNet.AesCryptographer.html#pbXNet_AesCryptographer_LastEx_
-  commentId: Overload:pbXNet.AesCryptographer.LastEx
-  fullName: pbXNet.AesCryptographer.LastEx
-  nameWithType: AesCryptographer.LastEx
 - uid: pbXNet.AndroidUtilLogLogger
   name: AndroidUtilLogLogger
   href: api/pbXNet.AndroidUtilLogLogger.html
@@ -2943,6 +2943,30 @@ references:
   commentId: F:pbXNet.AzureStorageSettings.ConnectionString
   fullName: pbXNet.AzureStorageSettings.ConnectionString
   nameWithType: AzureStorageSettings.ConnectionString
+- uid: pbXNet.AzureStorageSettings.StorageType
+  name: AzureStorageSettings.StorageType
+  href: api/pbXNet.AzureStorageSettings.StorageType.html
+  commentId: T:pbXNet.AzureStorageSettings.StorageType
+  fullName: pbXNet.AzureStorageSettings.StorageType
+  nameWithType: AzureStorageSettings.StorageType
+- uid: pbXNet.AzureStorageSettings.StorageType.BlockBlob
+  name: BlockBlob
+  href: api/pbXNet.AzureStorageSettings.StorageType.html#pbXNet_AzureStorageSettings_StorageType_BlockBlob
+  commentId: F:pbXNet.AzureStorageSettings.StorageType.BlockBlob
+  fullName: pbXNet.AzureStorageSettings.StorageType.BlockBlob
+  nameWithType: AzureStorageSettings.StorageType.BlockBlob
+- uid: pbXNet.AzureStorageSettings.StorageType.PageBlob
+  name: PageBlob
+  href: api/pbXNet.AzureStorageSettings.StorageType.html#pbXNet_AzureStorageSettings_StorageType_PageBlob
+  commentId: F:pbXNet.AzureStorageSettings.StorageType.PageBlob
+  fullName: pbXNet.AzureStorageSettings.StorageType.PageBlob
+  nameWithType: AzureStorageSettings.StorageType.PageBlob
+- uid: pbXNet.AzureStorageSettings.Type
+  name: Type
+  href: api/pbXNet.AzureStorageSettings.html#pbXNet_AzureStorageSettings_Type
+  commentId: F:pbXNet.AzureStorageSettings.Type
+  fullName: pbXNet.AzureStorageSettings.Type
+  nameWithType: AzureStorageSettings.Type
 - uid: pbXNet.BinarySerializer
   name: BinarySerializer
   href: api/pbXNet.BinarySerializer.html
@@ -3724,6 +3748,12 @@ references:
   commentId: F:pbXNet.DeviceFileSystemRoot.Personal
   fullName: pbXNet.DeviceFileSystemRoot.Personal
   nameWithType: DeviceFileSystemRoot.Personal
+- uid: pbXNet.DeviceFileSystemRoot.Roaming
+  name: Roaming
+  href: api/pbXNet.DeviceFileSystemRoot.html#pbXNet_DeviceFileSystemRoot_Roaming
+  commentId: F:pbXNet.DeviceFileSystemRoot.Roaming
+  fullName: pbXNet.DeviceFileSystemRoot.Roaming
+  nameWithType: DeviceFileSystemRoot.Roaming
 - uid: pbXNet.DOAuthentication
   name: DOAuthentication
   href: api/pbXNet.DOAuthentication.html
@@ -3772,24 +3802,24 @@ references:
   commentId: T:pbXNet.EncryptedFileSystem
   fullName: pbXNet.EncryptedFileSystem
   nameWithType: EncryptedFileSystem
-- uid: pbXNet.EncryptedFileSystem.#ctor(System.String,pbXNet.IFileSystem)
-  name: EncryptedFileSystem(String, IFileSystem)
-  href: api/pbXNet.EncryptedFileSystem.html#pbXNet_EncryptedFileSystem__ctor_System_String_pbXNet_IFileSystem_
-  commentId: M:pbXNet.EncryptedFileSystem.#ctor(System.String,pbXNet.IFileSystem)
-  fullName: pbXNet.EncryptedFileSystem.EncryptedFileSystem(System.String, pbXNet.IFileSystem)
-  nameWithType: EncryptedFileSystem.EncryptedFileSystem(String, IFileSystem)
-- uid: pbXNet.EncryptedFileSystem.#ctor(System.String,pbXNet.IFileSystem,pbXNet.IByteBuffer)
-  name: EncryptedFileSystem(String, IFileSystem, IByteBuffer)
-  href: api/pbXNet.EncryptedFileSystem.html#pbXNet_EncryptedFileSystem__ctor_System_String_pbXNet_IFileSystem_pbXNet_IByteBuffer_
-  commentId: M:pbXNet.EncryptedFileSystem.#ctor(System.String,pbXNet.IFileSystem,pbXNet.IByteBuffer)
-  fullName: pbXNet.EncryptedFileSystem.EncryptedFileSystem(System.String, pbXNet.IFileSystem, pbXNet.IByteBuffer)
-  nameWithType: EncryptedFileSystem.EncryptedFileSystem(String, IFileSystem, IByteBuffer)
-- uid: pbXNet.EncryptedFileSystem.#ctor(System.String,pbXNet.IFileSystem,pbXNet.IPassword)
-  name: EncryptedFileSystem(String, IFileSystem, IPassword)
-  href: api/pbXNet.EncryptedFileSystem.html#pbXNet_EncryptedFileSystem__ctor_System_String_pbXNet_IFileSystem_pbXNet_IPassword_
-  commentId: M:pbXNet.EncryptedFileSystem.#ctor(System.String,pbXNet.IFileSystem,pbXNet.IPassword)
-  fullName: pbXNet.EncryptedFileSystem.EncryptedFileSystem(System.String, pbXNet.IFileSystem, pbXNet.IPassword)
-  nameWithType: EncryptedFileSystem.EncryptedFileSystem(String, IFileSystem, IPassword)
+- uid: pbXNet.EncryptedFileSystem.#ctor(System.String,pbXNet.IFileSystem,pbXNet.IByteBuffer,pbXNet.ICryptographer)
+  name: EncryptedFileSystem(String, IFileSystem, IByteBuffer, ICryptographer)
+  href: api/pbXNet.EncryptedFileSystem.html#pbXNet_EncryptedFileSystem__ctor_System_String_pbXNet_IFileSystem_pbXNet_IByteBuffer_pbXNet_ICryptographer_
+  commentId: M:pbXNet.EncryptedFileSystem.#ctor(System.String,pbXNet.IFileSystem,pbXNet.IByteBuffer,pbXNet.ICryptographer)
+  fullName: pbXNet.EncryptedFileSystem.EncryptedFileSystem(System.String, pbXNet.IFileSystem, pbXNet.IByteBuffer, pbXNet.ICryptographer)
+  nameWithType: EncryptedFileSystem.EncryptedFileSystem(String, IFileSystem, IByteBuffer, ICryptographer)
+- uid: pbXNet.EncryptedFileSystem.#ctor(System.String,pbXNet.IFileSystem,pbXNet.ICryptographer)
+  name: EncryptedFileSystem(String, IFileSystem, ICryptographer)
+  href: api/pbXNet.EncryptedFileSystem.html#pbXNet_EncryptedFileSystem__ctor_System_String_pbXNet_IFileSystem_pbXNet_ICryptographer_
+  commentId: M:pbXNet.EncryptedFileSystem.#ctor(System.String,pbXNet.IFileSystem,pbXNet.ICryptographer)
+  fullName: pbXNet.EncryptedFileSystem.EncryptedFileSystem(System.String, pbXNet.IFileSystem, pbXNet.ICryptographer)
+  nameWithType: EncryptedFileSystem.EncryptedFileSystem(String, IFileSystem, ICryptographer)
+- uid: pbXNet.EncryptedFileSystem.#ctor(System.String,pbXNet.IFileSystem,pbXNet.IPassword,pbXNet.ICryptographer)
+  name: EncryptedFileSystem(String, IFileSystem, IPassword, ICryptographer)
+  href: api/pbXNet.EncryptedFileSystem.html#pbXNet_EncryptedFileSystem__ctor_System_String_pbXNet_IFileSystem_pbXNet_IPassword_pbXNet_ICryptographer_
+  commentId: M:pbXNet.EncryptedFileSystem.#ctor(System.String,pbXNet.IFileSystem,pbXNet.IPassword,pbXNet.ICryptographer)
+  fullName: pbXNet.EncryptedFileSystem.EncryptedFileSystem(System.String, pbXNet.IFileSystem, pbXNet.IPassword, pbXNet.ICryptographer)
+  nameWithType: EncryptedFileSystem.EncryptedFileSystem(String, IFileSystem, IPassword, ICryptographer)
 - uid: pbXNet.EncryptedFileSystem.#ctor*
   name: EncryptedFileSystem
   href: api/pbXNet.EncryptedFileSystem.html#pbXNet_EncryptedFileSystem__ctor_
@@ -5199,18 +5229,18 @@ references:
   commentId: Overload:pbXNet.LocalizationManager.CurrentCultureInfo
   fullName: pbXNet.LocalizationManager.CurrentCultureInfo
   nameWithType: LocalizationManager.CurrentCultureInfo
-- uid: pbXNet.LocalizationManager.GetText(System.String)
-  name: GetText(String)
-  href: api/pbXNet.LocalizationManager.html#pbXNet_LocalizationManager_GetText_System_String_
-  commentId: M:pbXNet.LocalizationManager.GetText(System.String)
-  fullName: pbXNet.LocalizationManager.GetText(System.String)
-  nameWithType: LocalizationManager.GetText(String)
-- uid: pbXNet.LocalizationManager.GetText*
-  name: GetText
-  href: api/pbXNet.LocalizationManager.html#pbXNet_LocalizationManager_GetText_
-  commentId: Overload:pbXNet.LocalizationManager.GetText
-  fullName: pbXNet.LocalizationManager.GetText
-  nameWithType: LocalizationManager.GetText
+- uid: pbXNet.LocalizationManager.Localized(System.String)
+  name: Localized(String)
+  href: api/pbXNet.LocalizationManager.html#pbXNet_LocalizationManager_Localized_System_String_
+  commentId: M:pbXNet.LocalizationManager.Localized(System.String)
+  fullName: pbXNet.LocalizationManager.Localized(System.String)
+  nameWithType: LocalizationManager.Localized(String)
+- uid: pbXNet.LocalizationManager.Localized*
+  name: Localized
+  href: api/pbXNet.LocalizationManager.html#pbXNet_LocalizationManager_Localized_
+  commentId: Overload:pbXNet.LocalizationManager.Localized
+  fullName: pbXNet.LocalizationManager.Localized
+  nameWithType: LocalizationManager.Localized
 - uid: pbXNet.Log
   name: Log
   href: api/pbXNet.Log.html
@@ -5319,6 +5349,54 @@ references:
   commentId: F:pbXNet.LogType.Warning
   fullName: pbXNet.LogType.Warning
   nameWithType: LogType.Warning
+- uid: pbXNet.NewtonsoftJsonSerializer
+  name: NewtonsoftJsonSerializer
+  href: api/pbXNet.NewtonsoftJsonSerializer.html
+  commentId: T:pbXNet.NewtonsoftJsonSerializer
+  fullName: pbXNet.NewtonsoftJsonSerializer
+  nameWithType: NewtonsoftJsonSerializer
+- uid: pbXNet.NewtonsoftJsonSerializer.Deserialize*
+  name: Deserialize
+  href: api/pbXNet.NewtonsoftJsonSerializer.html#pbXNet_NewtonsoftJsonSerializer_Deserialize_
+  commentId: Overload:pbXNet.NewtonsoftJsonSerializer.Deserialize
+  fullName: pbXNet.NewtonsoftJsonSerializer.Deserialize
+  nameWithType: NewtonsoftJsonSerializer.Deserialize
+- uid: pbXNet.NewtonsoftJsonSerializer.Deserialize``1(System.String,System.String)
+  name: Deserialize<T>(String, String)
+  href: api/pbXNet.NewtonsoftJsonSerializer.html#pbXNet_NewtonsoftJsonSerializer_Deserialize__1_System_String_System_String_
+  commentId: M:pbXNet.NewtonsoftJsonSerializer.Deserialize``1(System.String,System.String)
+  name.vb: Deserialize(Of T)(String, String)
+  fullName: pbXNet.NewtonsoftJsonSerializer.Deserialize<T>(System.String, System.String)
+  fullName.vb: pbXNet.NewtonsoftJsonSerializer.Deserialize(Of T)(System.String, System.String)
+  nameWithType: NewtonsoftJsonSerializer.Deserialize<T>(String, String)
+  nameWithType.vb: NewtonsoftJsonSerializer.Deserialize(Of T)(String, String)
+- uid: pbXNet.NewtonsoftJsonSerializer.Serialize*
+  name: Serialize
+  href: api/pbXNet.NewtonsoftJsonSerializer.html#pbXNet_NewtonsoftJsonSerializer_Serialize_
+  commentId: Overload:pbXNet.NewtonsoftJsonSerializer.Serialize
+  fullName: pbXNet.NewtonsoftJsonSerializer.Serialize
+  nameWithType: NewtonsoftJsonSerializer.Serialize
+- uid: pbXNet.NewtonsoftJsonSerializer.Serialize``1(``0,System.String)
+  name: Serialize<T>(T, String)
+  href: api/pbXNet.NewtonsoftJsonSerializer.html#pbXNet_NewtonsoftJsonSerializer_Serialize__1___0_System_String_
+  commentId: M:pbXNet.NewtonsoftJsonSerializer.Serialize``1(``0,System.String)
+  name.vb: Serialize(Of T)(T, String)
+  fullName: pbXNet.NewtonsoftJsonSerializer.Serialize<T>(T, System.String)
+  fullName.vb: pbXNet.NewtonsoftJsonSerializer.Serialize(Of T)(T, System.String)
+  nameWithType: NewtonsoftJsonSerializer.Serialize<T>(T, String)
+  nameWithType.vb: NewtonsoftJsonSerializer.Serialize(Of T)(T, String)
+- uid: pbXNet.NewtonsoftJsonSerializer.Settings
+  name: Settings
+  href: api/pbXNet.NewtonsoftJsonSerializer.html#pbXNet_NewtonsoftJsonSerializer_Settings
+  commentId: P:pbXNet.NewtonsoftJsonSerializer.Settings
+  fullName: pbXNet.NewtonsoftJsonSerializer.Settings
+  nameWithType: NewtonsoftJsonSerializer.Settings
+- uid: pbXNet.NewtonsoftJsonSerializer.Settings*
+  name: Settings
+  href: api/pbXNet.NewtonsoftJsonSerializer.html#pbXNet_NewtonsoftJsonSerializer_Settings_
+  commentId: Overload:pbXNet.NewtonsoftJsonSerializer.Settings
+  fullName: pbXNet.NewtonsoftJsonSerializer.Settings
+  nameWithType: NewtonsoftJsonSerializer.Settings
 - uid: pbXNet.NSLogLogger
   name: NSLogLogger
   href: api/pbXNet.NSLogLogger.html
@@ -5432,6 +5510,15 @@ references:
   fullName.vb: pbXNet.ObservableCollectionEx(Of T).ObservableCollectionEx(System.Collections.Generic.IEnumerable(Of T))
   nameWithType: ObservableCollectionEx<T>.ObservableCollectionEx(IEnumerable<T>)
   nameWithType.vb: ObservableCollectionEx(Of T).ObservableCollectionEx(IEnumerable(Of T))
+- uid: pbXNet.ObservableCollectionEx`1.#ctor(System.Collections.Generic.List{`0})
+  name: ObservableCollectionEx(List<T>)
+  href: api/pbXNet.ObservableCollectionEx-1.html#pbXNet_ObservableCollectionEx_1__ctor_System_Collections_Generic_List__0__
+  commentId: M:pbXNet.ObservableCollectionEx`1.#ctor(System.Collections.Generic.List{`0})
+  name.vb: ObservableCollectionEx(List(Of T))
+  fullName: pbXNet.ObservableCollectionEx<T>.ObservableCollectionEx(System.Collections.Generic.List<T>)
+  fullName.vb: pbXNet.ObservableCollectionEx(Of T).ObservableCollectionEx(System.Collections.Generic.List(Of T))
+  nameWithType: ObservableCollectionEx<T>.ObservableCollectionEx(List<T>)
+  nameWithType.vb: ObservableCollectionEx(Of T).ObservableCollectionEx(List(Of T))
 - uid: pbXNet.ObservableCollectionEx`1.#ctor*
   name: ObservableCollectionEx
   href: api/pbXNet.ObservableCollectionEx-1.html#pbXNet_ObservableCollectionEx_1__ctor_

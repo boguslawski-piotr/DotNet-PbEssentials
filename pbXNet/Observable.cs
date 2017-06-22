@@ -21,15 +21,17 @@ namespace pbXNet
 	/// class HomeControl {
 	///   ...
 	///   bool _armed;
-	///   List<Window> _windows = new List<Window>();
+	///   List{Window} _windows = new List{Window}();
 	///   ...
 	///   public AddWindow(Window window) {
 	///     _windows.Add(window);
 	///     window.PropertyChanged += OnWindowPropertyChanged;
 	///   }
 	///   public OnWindowPropertyChanged(object sender, PropertyChangedEventArgs a) {
+	///     if(!_armed)
+	///       return;
 	///     if(a.PropertyName == "Open")
-	///       if((sender as Window).Open && _armed)
+	///       if((sender as Window).Open)
 	///         FireAlarm(...);
 	///   }
 	///   ...

@@ -3,12 +3,16 @@ using Newtonsoft.Json.Linq;
 
 namespace pbXNet
 {
+	/// <summary>
+	/// A serializer that uses the Newtonsoft.Json library.
+	/// <para>See: http://www.newtonsoft.com/json </para>
+	/// </summary>
 	public class NewtonsoftJsonSerializer : ISerializer
 	{
 		JsonSerializerSettings _settings;
 
 		/// <summary>
-		/// Settings to use with <see cref="NewtonsoftJsonSerializer.Serialize{T}"/>and <see cref="NewtonsoftJsonSerializer.Deserialize{T}"/> methods.
+		/// Settings to use with <see cref="NewtonsoftJsonSerializer.Serialize{T}"/> and <see cref="NewtonsoftJsonSerializer.Deserialize{T}"/> methods.
 		/// </summary>
 		public virtual JsonSerializerSettings Settings
 		{
