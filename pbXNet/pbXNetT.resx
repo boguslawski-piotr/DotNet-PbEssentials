@@ -30,6 +30,9 @@
 	<data name="DeviceFileSystem.Root.Config" xml:space="preserve">
 		<value>Preferences folder</value>
 	</data>
+	<data name="DeviceFileSystem.Root.Roaming" xml:space="preserve">
+		<value>Synced (roaming) folder</value>
+	</data>
 	<data name="DeviceFileSystem.Root.External" xml:space="preserve">
 		<value>External storage (SDcard, USB stick, etc.)</value>
 	</data>

@@ -9,6 +9,7 @@
     <Import_RootNamespace>pbXNet</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)AzureTools.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)NewtonsoftJsonSerializer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ObservableCollectionEx.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Os.cs" />

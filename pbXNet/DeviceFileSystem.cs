@@ -10,6 +10,7 @@ namespace pbXNet
 		Documents,
 		Desktop,
 		Config,
+		Roaming,
 		External, // SDCard, USB drive, etc.
 	}
 
@@ -40,6 +41,8 @@ namespace pbXNet
 						return T.Localized("DeviceFileSystem.Root.Desktop");
 					case DeviceFileSystemRoot.Config:
 						return T.Localized("DeviceFileSystem.Root.Config");
+					case DeviceFileSystemRoot.Roaming:
+						return T.Localized("DeviceFileSystem.Root.Roaming");
 					case DeviceFileSystemRoot.External:
 						return T.Localized("DeviceFileSystem.Root.External");
 					default:

@@ -48,6 +48,7 @@ namespace pbXNet
 
 		Task DeleteDirectoryAsync(string dirname);
 
+
 		Task<IEnumerable<string>> GetFilesAsync(string pattern = "");
 
 		Task<bool> FileExistsAsync(string filename);

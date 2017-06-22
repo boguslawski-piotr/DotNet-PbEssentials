@@ -33,7 +33,7 @@ namespace pbXNet
 #if !NETSTANDARD1_6
 				case DeviceFileSystemRoot.Documents:
 					_root = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-					if(!Os.IsWindows)
+					if (!Os.IsWindows)
 						_root = Path.Combine(_root, "Documents");
 					break;
 				case DeviceFileSystemRoot.Desktop:
@@ -52,7 +52,7 @@ namespace pbXNet
 #if NETSTANDARD1_6
 					_root = Environment.GetEnvironmentVariable("HOME");
 #else
-					if(Os.IsWindows)
+					if (Os.IsWindows)
 						_root = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
 					else
 						_root = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
@@ -81,25 +81,36 @@ namespace pbXNet
 			return Task.FromResult<IFileSystem>(fs);
 		}
 
-		string _savedRoot;
-		string _SavedCurrent;
-		Stack<string> _savedPrevious;
+		class State
+		{
+			string savedRoot;
+			string savedCurrent;
+			Stack<string> savedPrevious;
+		}
+
+		Stack<State> _stateStack = new Stack<State>();
 
 		public virtual Task SaveStateAsync()
 		{
-			// TODO: zaimplementowac pelny stos
-			_savedRoot = _root;
-			_SavedCurrent = _current;
-			_savedPrevious = new Stack<string>(_previous.AsEnumerable());
+			_stateStack.Push(new State
+			{
+				savedRoot = _root,
+				savedCurrent = _current,
+				savedPrevious = new Stack<string>(_previous.AsEnumerable()),
+			});
 
 			return Task.FromResult(true);
 		}
 
 		public virtual Task RestoreStateAsync()
 		{
-			_root = _savedRoot;
-			_current = _SavedCurrent;
-			_previous = _savedPrevious;
+			if (_stateStack.Count > 0)
+			{
+				State state = _stateStack.Pop();
+				_root = state.savedRoot;
+				_current = state.savedCurrent;
+				_previous = state.savedPrevious;
+			}
 
 			return Task.FromResult(true);
 		}
