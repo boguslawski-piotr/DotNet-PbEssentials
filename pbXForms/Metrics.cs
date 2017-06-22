@@ -57,7 +57,7 @@ namespace pbXForms
 		public static double ListItemHeight = Device.Idiom != TargetIdiom.Phone ? 64 : 56;
 		public static Int32 ListItemHeightInt32 = (Int32)ListItemHeight;
 
-		public static double TallListItemHeight = Device.Idiom != TargetIdiom.Phone ? 72 : 64;
+		public static double TallListItemHeight = Device.Idiom != TargetIdiom.Phone ? 80 : 72;
 		public static Int32 TallListItemHeightInt32 = (Int32)TallListItemHeight;
 	}
 }
