@@ -12,11 +12,7 @@ namespace pbXNet
 	public partial class DeviceFileSystem : IFileSystem, IDisposable
 	{
 		public static readonly IEnumerable<DeviceFileSystemRoot> AvailableRootsForEndUser = new List<DeviceFileSystemRoot>() {
-			DeviceFileSystemRoot.Personal,
-#if __MACOS__
-			DeviceFileSystemRoot.Documents,
-			DeviceFileSystemRoot.Desktop,
-#endif
+			DeviceFileSystemRoot.Local,
 #if DEBUG
 			//DeviceFileSystemRoot.Config, // only for testing
 #endif
@@ -26,21 +22,36 @@ namespace pbXNet
 		string _current;
 		Stack<string> _previous = new Stack<string>();
 
-		protected virtual void Initialize()
+		protected virtual void Initialize(string userDefinedRootPath)
 		{
 			switch (Root)
 			{
-#if !NETSTANDARD1_6
-				case DeviceFileSystemRoot.Documents:
-					_root = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-					if (!Os.IsWindows)
-						_root = Path.Combine(_root, "Documents");
-					break;
-				case DeviceFileSystemRoot.Desktop:
-					_root = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-					break;
+				case DeviceFileSystemRoot.UserDefined:
+					if (userDefinedRootPath == null)
+						throw new ArgumentNullException(nameof(userDefinedRootPath));
+
+					if (userDefinedRootPath.StartsWith("~", StringComparison.Ordinal))
+					{
+#if NETSTANDARD1_6 || __MACOS__
+						string home = Environment.GetEnvironmentVariable("HOME");
+#else
+						string home = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
 #endif
-				case DeviceFileSystemRoot.Config:
+						userDefinedRootPath = Path.Combine(home, userDefinedRootPath.Replace("~/", "").Replace("~", ""));
+					}
+
+					if (!Directory.Exists(userDefinedRootPath))
+					{
+						Exception ex = new DirectoryNotFoundException($"Directory {userDefinedRootPath} not found.");
+						Log.E(ex.Message, this);
+						throw ex;
+					}
+
+					_root = userDefinedRootPath;
+					break;
+
+				case DeviceFileSystemRoot.RoamingConfig:
+				case DeviceFileSystemRoot.LocalConfig:
 #if NETSTANDARD1_6
 					_root = Path.Combine(Environment.GetEnvironmentVariable("HOME"), ".config");
 					Directory.CreateDirectory(_root);
@@ -48,14 +59,17 @@ namespace pbXNet
 					_root = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
 #endif
 					break;
+
+				case DeviceFileSystemRoot.Roaming:
+				case DeviceFileSystemRoot.Local:
 				default:
-#if NETSTANDARD1_6
+#if NETSTANDARD1_6 || __MACOS__
 					_root = Environment.GetEnvironmentVariable("HOME");
+					_root = Path.Combine(_root, "Documents");
+					if (!Directory.Exists(_root))
+						Directory.CreateDirectory(_root);
 #else
-					if (Os.IsWindows)
-						_root = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
-					else
-						_root = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+					_root = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
 #endif
 					break;
 			}
@@ -72,7 +86,7 @@ namespace pbXNet
 
 		public virtual Task<IFileSystem> MakeCopyAsync()
 		{
-			DeviceFileSystem fs = new DeviceFileSystem(this.Root)
+			DeviceFileSystem fs = new DeviceFileSystem(this.Root, _root)
 			{
 				_root = this._root,
 				_current = this._current,

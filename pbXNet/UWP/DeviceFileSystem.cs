@@ -1,4 +1,4 @@
-﻿#if WINDOWS_UWP
+﻿//#if WINDOWS_UWP
 
 using System;
 using System.Collections.Generic;
@@ -38,15 +38,20 @@ namespace pbXNet
 
 #pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
 
-		protected void Initialize()
+		protected void Initialize(string userDefinedRootPath)
 		{
 			switch (Root)
 			{
+				case DeviceFileSystemRoot.UserDefined:
+					throw new NotSupportedException();
+
+				case DeviceFileSystemRoot.RoamingConfig:
 				case DeviceFileSystemRoot.Roaming:
 					_root = ApplicationData.Current.RoamingFolder;
 					break;
 
-				case DeviceFileSystemRoot.Config:
+				case DeviceFileSystemRoot.LocalConfig:
+				case DeviceFileSystemRoot.Local:
 				default:
 					_root = ApplicationData.Current.LocalFolder;
 					break;
@@ -54,7 +59,7 @@ namespace pbXNet
 
 			_current = _root;
 
-			if (Root == DeviceFileSystemRoot.Config)
+			if (Root == DeviceFileSystemRoot.LocalConfig || Root == DeviceFileSystemRoot.RoamingConfig)
 				InitializeConfigRootAsync();
 			else
 				InitializeAsync();
@@ -332,4 +337,4 @@ namespace pbXNet
 	}
 }
 
-#endif
+//#endif

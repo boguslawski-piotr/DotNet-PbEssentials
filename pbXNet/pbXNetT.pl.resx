@@ -15,26 +15,17 @@
 	<data name="LibName" xml:space="preserve">
 		<value>pbXNet</value>
 	</data>
-	<data name="DeviceFileSystem.Root.Personal" xml:space="preserve">
-		<value>To urządzenie</value>
-	</data>
-	<data name="DeviceFileSystem.Root.PersonalDesktop" xml:space="preserve">
-		<value>Twój prywatny katalog</value>
-	</data>
-	<data name="DeviceFileSystem.Root.Documents" xml:space="preserve">
+	<data name="DeviceFileSystem.Root.Local" xml:space="preserve">
 		<value>Katalog dokumentów</value>
 	</data>
-	<data name="DeviceFileSystem.Root.Desktop" xml:space="preserve">
-		<value>Pulpit</value>
-	</data>
-	<data name="DeviceFileSystem.Root.Config" xml:space="preserve">
+	<data name="DeviceFileSystem.Root.LocalConfig" xml:space="preserve">
 		<value>Katalog ustawień</value>
 	</data>
 	<data name="DeviceFileSystem.Root.Roaming" xml:space="preserve">
-		<value>Synchronizowany katalog</value>
+		<value>Konto Microsoft</value>
 	</data>
-	<data name="DeviceFileSystem.Root.External" xml:space="preserve">
-		<value>Nośnik zewnętrzny (np. karta SD, dysk USB, itp.)</value>
+	<data name="DeviceFileSystem.Root.RoamingConfig" xml:space="preserve">
+		<value>Konto Microsoft (ustawienia)</value>
 	</data>
 	<data name="folder" xml:space="preserve">
 		<value>katalog</value>

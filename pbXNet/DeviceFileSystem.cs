@@ -6,15 +6,12 @@ namespace pbXNet
 {
 	public enum DeviceFileSystemRoot
 	{
-		Personal,
-		Documents,
-		Desktop,
-		Config,
+		Local,
+		LocalConfig,
 		Roaming,
-		External, // SDCard, USB drive, etc.
+		RoamingConfig,
+		UserDefined,
 	}
-
-	// TODO: implement support for DeviceFileSystemRoot.External 
 
 	public partial class DeviceFileSystem : IFileSystem, IDisposable
 	{
@@ -29,33 +26,30 @@ namespace pbXNet
 			get {
 				switch (Root)
 				{
-					case DeviceFileSystemRoot.Personal:
-#if __MACOS__ || WINDOWS_UWP
-                        return T.Localized("DeviceFileSystem.Root.PersonalDesktop");
-#else
-						return T.Localized("DeviceFileSystem.Root.Personal");
-#endif
-					case DeviceFileSystemRoot.Documents:
-						return T.Localized("DeviceFileSystem.Root.Documents");
-					case DeviceFileSystemRoot.Desktop:
-						return T.Localized("DeviceFileSystem.Root.Desktop");
-					case DeviceFileSystemRoot.Config:
-						return T.Localized("DeviceFileSystem.Root.Config");
+					case DeviceFileSystemRoot.Local:
+						return T.Localized("DeviceFileSystem.Root.Local");
+
+					case DeviceFileSystemRoot.LocalConfig:
+						return T.Localized("DeviceFileSystem.Root.LocalConfig");
+
 					case DeviceFileSystemRoot.Roaming:
 						return T.Localized("DeviceFileSystem.Root.Roaming");
-					case DeviceFileSystemRoot.External:
-						return T.Localized("DeviceFileSystem.Root.External");
-					default:
-						return $"{Root.ToString()} {T.Localized("folder")}";
 
+					case DeviceFileSystemRoot.RoamingConfig:
+						return T.Localized("DeviceFileSystem.Root.RoamingConfig");
+
+					default:
+						return _root;
 				}
 			}
 		}
 
-		public DeviceFileSystem(DeviceFileSystemRoot root = DeviceFileSystemRoot.Personal)
+		// TODO: dodac Description
+
+		public DeviceFileSystem(DeviceFileSystemRoot root = DeviceFileSystemRoot.Local, string userDefinedRootPath = null)
 		{
 			Root = root;
-			Initialize();
+			Initialize(userDefinedRootPath);
 		}
 
 		// Implementation in:

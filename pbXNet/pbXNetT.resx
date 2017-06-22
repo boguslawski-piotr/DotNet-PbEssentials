@@ -15,26 +15,17 @@
 	<data name="LibName" xml:space="preserve">
 		<value>pbXNet</value>
 	</data>
-	<data name="DeviceFileSystem.Root.Personal" xml:space="preserve">
-		<value>This device</value>
-	</data>
-	<data name="DeviceFileSystem.Root.PersonalDesktop" xml:space="preserve">
-		<value>Your personal folder</value>
-	</data>
-	<data name="DeviceFileSystem.Root.Documents" xml:space="preserve">
+	<data name="DeviceFileSystem.Root.Local" xml:space="preserve">
 		<value>Documents folder</value>
 	</data>
-	<data name="DeviceFileSystem.Root.Desktop" xml:space="preserve">
-		<value>Desktop folder</value>
-	</data>
-	<data name="DeviceFileSystem.Root.Config" xml:space="preserve">
+	<data name="DeviceFileSystem.Root.LocalConfig" xml:space="preserve">
 		<value>Preferences folder</value>
 	</data>
 	<data name="DeviceFileSystem.Root.Roaming" xml:space="preserve">
-		<value>Synced (roaming) folder</value>
+		<value>Microsoft account</value>
 	</data>
-	<data name="DeviceFileSystem.Root.External" xml:space="preserve">
-		<value>External storage (SDcard, USB stick, etc.)</value>
+	<data name="DeviceFileSystem.Root.RoamingConfig" xml:space="preserve">
+		<value>Microsoft account (preferences)</value>
 	</data>
 	<data name="folder" xml:space="preserve">
 		<value>folder</value>
