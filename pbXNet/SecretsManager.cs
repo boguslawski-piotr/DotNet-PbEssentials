@@ -29,11 +29,6 @@ namespace pbXNet
 			_CreateCKey(passwd);
 		}
 
-		public void Initialize(object param)
-		{
-			_Initialize(param);
-		}
-
 		// Basic device owner authentication (pin, passkey, biometrics, etc.)
 		// You will find the implementation in the platform directories...
 

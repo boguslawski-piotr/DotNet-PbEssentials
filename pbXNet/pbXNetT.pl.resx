@@ -30,6 +30,9 @@
 	<data name="folder" xml:space="preserve">
 		<value>katalog</value>
 	</data>
+    <data name = "AuthenticationFailed" xml:space = "preserve">
+		<value>Autentykacja nie powiodła się.</value>
+	</data>
 	<data name="FingerprintAuthenticationFailed" xml:space = "preserve">
 		<value>Odcisk palca zeskanowany, ale nie rozpoznany.</value>
 	</data>

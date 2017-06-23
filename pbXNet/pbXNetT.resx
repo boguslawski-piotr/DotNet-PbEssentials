@@ -30,6 +30,9 @@
 	<data name="folder" xml:space="preserve">
 		<value>folder</value>
 	</data>
+    <data name = "AuthenticationFailed" xml:space = "preserve">
+		<value>Authentication failed.</value>
+	</data>
     <data name = "FingerprintAuthenticationFailed" xml:space = "preserve">
 		<value>Fingerprint scanned but not recognized.</value>
 	</data>

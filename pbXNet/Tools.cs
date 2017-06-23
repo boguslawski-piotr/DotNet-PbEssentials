@@ -54,7 +54,7 @@ namespace pbXNet
 		/// <para>• iOS: <c>UIDevice.CurrentDevice.IdentifierForVendor</c></para>
 		/// <para>• UWP: <c>Windows.Security.Credentials.PasswordVault</c> + <c>Guid</c></para>
 		/// <para>• macOS: <c>Keychain</c> + <c>Guid</c></para>
-		/// <para>• Android: <c>AndroidKeyStore</c> + key created using <c>HmacSha256</c></para>
+		/// <para>• Android: <c>Android.Provider.Settings.Secure.AndroidId</c> + <c>AndroidKeyStore</c> + key created using <c>HmacSha256</c></para>
 		/// <para>TIP: This function could be slow and it is recommended to store the results in a local/class variable.</para>
 		/// </remarks>
 		public static string GetUaqpid()

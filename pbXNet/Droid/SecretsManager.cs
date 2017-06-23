@@ -3,38 +3,55 @@
 using System;
 using Android;
 using Android.App;
+using Android.Content;
 using Android.Hardware.Fingerprints;
 using Android.Security.Keystore;
 using Android.Support.V4.Content;
 using Android.Support.V4.Hardware.Fingerprint;
 using Android.Support.V4.OS;
+using Android.Views;
 using Java.Lang;
 using Java.Security;
 using Javax.Crypto;
 
 namespace pbXNet
 {
-
 	public sealed partial class SecretsManager : ISecretsManager
 	{
-		void _Initialize(object activity)
+		public static Activity MainActivity;
+		static SecretsManager _current;
+
+		bool DOAuthenticationAvailable
 		{
-			_activity = activity as Activity;
+			get {
+				if (MainActivity != null && Android.OS.Build.VERSION.SdkInt >= Android.OS.BuildVersionCodes.Lollipop)
+				{
+					try
+					{
+						KeyguardManager keyguardManager = (KeyguardManager)MainActivity.GetSystemService(Android.Content.Context.KeyguardService);
+						if (keyguardManager != null)
+							return keyguardManager.IsKeyguardSecure;
+					}
+					catch (System.Exception ex)
+					{
+						Log.E(ex.Message, this);
+					}
+				}
+				return false;
+			}
 		}
 
 		bool DOBiometricsAuthenticationAvailable
 		{
 			get {
-				if (_activity != null)
+				if (MainActivity != null && Android.OS.Build.VERSION.SdkInt >= Android.OS.BuildVersionCodes.M)
 				{
-					_fingerprintManager = FingerprintManagerCompat.From(_activity);
 					try
 					{
+						_fingerprintManager = FingerprintManagerCompat.From(MainActivity);
 						if (_fingerprintManager.IsHardwareDetected && _fingerprintManager.HasEnrolledFingerprints)
 						{
-							KeyguardManager keyguardManager = (KeyguardManager)_activity.GetSystemService(Android.Content.Context.KeyguardService);
-							if (keyguardManager.IsKeyguardSecure)
-								return true;
+							return DOAuthenticationAvailable;
 						}
 					}
 					catch (System.Exception ex)
@@ -51,53 +68,115 @@ namespace pbXNet
 			get {
 				if (DOBiometricsAuthenticationAvailable)
 					return DOAuthentication.Fingerprint;
+				if (DOAuthenticationAvailable)
+					return DOAuthentication.UserSelection;
 				return DOAuthentication.None;
 			}
 		}
 
-		Activity _activity;
-		CryptoObjectHelper _cryptoObjectHelper;
-		FingerprintManagerCompat _fingerprintManager;
-		FingerprintAuthCallbacks _authenticatecallbacks;
-		CancellationSignal _cancellationSignal;
-
 		bool _StartDOAuthentication(string msg, Action Success, Action<string, bool> ErrorOrHint)
 		{
-			if (!DOBiometricsAuthenticationAvailable)
+			if (DOBiometricsAuthenticationAvailable)
+				return __StartDOBiometricsAuthentication(msg, Success, ErrorOrHint);
+
+			if (DOAuthenticationAvailable)
+				return __StartDOAuthentication(msg, Success, ErrorOrHint);
+
+			return false;
+		}
+
+		CryptoObjectHelper _cryptoObjectHelper;
+		AuthenticationCallbacks _authenticationCallbacks;
+
+		const int REQUEST_CODE_CONFIRM_DEVICE_CREDENTIALS = 63213;
+
+		bool __StartDOAuthentication(string msg, Action Success, Action<string, bool> ErrorOrHint)
+		{
+			if (MainActivity != null)
+			{
+				try
+				{
+					KeyguardManager keyguardManager = (KeyguardManager)MainActivity.GetSystemService(Android.Content.Context.KeyguardService);
+					if (keyguardManager != null && keyguardManager.IsKeyguardSecure)
+					{
+						Intent intent = keyguardManager.CreateConfirmDeviceCredentialIntent((string)null, msg);
+						if (intent != null)
+						{
+							_authenticationCallbacks = new AuthenticationCallbacks(Success, ErrorOrHint);
+							_cancellationSignal = null;
+
+							_current = this;
+
+							MainActivity.StartActivityForResult(intent, REQUEST_CODE_CONFIRM_DEVICE_CREDENTIALS);
+							return true;
+						}
+					}
+				}
+				catch (System.Exception ex)
+				{
+					Log.E(ex.Message, this);
+				}
+			}
+			return false;
+		}
+
+		public static bool OnActivityResult(int requestCode, Result resultCode, Intent data)
+		{
+			if (_current == null || _current._authenticationCallbacks == null || requestCode != REQUEST_CODE_CONFIRM_DEVICE_CREDENTIALS)
 				return false;
 
-			Android.Content.PM.Permission permissionResult = ContextCompat.CheckSelfPermission(_activity, Manifest.Permission.UseFingerprint);
-			if (permissionResult != Android.Content.PM.Permission.Granted)
+			_current._authenticationCallbacks.OnAuthenticationFinished(resultCode);
+
+			_current._authenticationCallbacks = null;
+			_current = null;
+			return true;
+		}
+
+		FingerprintManagerCompat _fingerprintManager;
+		CancellationSignal _cancellationSignal;
+
+		bool __StartDOBiometricsAuthentication(string msg, Action Success, Action<string, bool> ErrorOrHint)
+		{
+			try
 			{
-				// If the system did not allow the use of fingerprint scanner then we send 
-				// a request to show a dialog that allows the user to decide what to do with it.
-				//
-				// See: https://developer.android.com/training/permissions/requesting.html
+				Android.Content.PM.Permission permissionResult = ContextCompat.CheckSelfPermission(MainActivity, Manifest.Permission.UseFingerprint);
+				if (permissionResult != Android.Content.PM.Permission.Granted)
+				{
+					// If the system did not allow the use of fingerprint scanner then we send 
+					// a request to show a dialog that allows the user to decide what to do with it.
+					//
+					// See: https://developer.android.com/training/permissions/requesting.html
 
-				_activity.RequestPermissions(new string[] { Manifest.Permission.UseFingerprint }, 0);
-				ErrorOrHint(T.Localized("FingerprintRequestPermissions"), false);
+					MainActivity.RequestPermissions(new string[] { Manifest.Permission.UseFingerprint }, 0);
+					ErrorOrHint(T.Localized("FingerprintRequestPermissions"), false);
 
+					return true;
+				}
+
+				if (_cryptoObjectHelper == null)
+					_cryptoObjectHelper = new CryptoObjectHelper();
+
+				_fingerprintManager = FingerprintManagerCompat.From(MainActivity);
+				_authenticationCallbacks = new AuthenticationCallbacks(Success, ErrorOrHint);
+				_cancellationSignal = new CancellationSignal();
+
+				_fingerprintManager.Authenticate(_cryptoObjectHelper.BuildCryptoObject(),
+												 (int)FingerprintAuthenticationFlags.None,
+												 _cancellationSignal,
+												 _authenticationCallbacks,
+												 null);
 				return true;
 			}
-
-			if (_cryptoObjectHelper == null)
-				_cryptoObjectHelper = new CryptoObjectHelper();
-			
-			_fingerprintManager = FingerprintManagerCompat.From(_activity);
-			_authenticatecallbacks = new FingerprintAuthCallbacks(Success, ErrorOrHint);
-			_cancellationSignal = new CancellationSignal();
-
-			_fingerprintManager.Authenticate(_cryptoObjectHelper.BuildCryptoObject(),
-											 (int)FingerprintAuthenticationFlags.None,
-											 _cancellationSignal,
-											 _authenticatecallbacks,
-											 null);
-			return true;
+			catch (System.Exception ex)
+			{
+				Log.E(ex.Message, this);
+			}
+			return false;
 		}
 
 		bool _CanDOAuthenticationBeCanceled()
 		{
-			return true;
+			return _cancellationSignal != null;
 		}
 
 		bool _CancelDOAuthentication()
@@ -112,7 +191,7 @@ namespace pbXNet
 
 			_cancellationSignal = null;
 			_fingerprintManager = null;
-			_authenticatecallbacks = null;
+			_authenticationCallbacks = null;
 
 			return rc;
 		}
@@ -120,19 +199,29 @@ namespace pbXNet
 
 
 	/// <summary>
-	/// Fingerprint authentication callbacks.
+	/// Authentication callbacks.
 	/// </summary>
-	class FingerprintAuthCallbacks : FingerprintManagerCompat.AuthenticationCallback
+	class AuthenticationCallbacks : FingerprintManagerCompat.AuthenticationCallback
 	{
-		static readonly byte[] _secret = { 34, 12, 67, 16, 87, 62, 27, 48, 29 };
-
 		Action _Success;
 		Action<string, bool> _ErrorOrHint;
 
-		public FingerprintAuthCallbacks(Action Success, Action<string, bool> ErrorOrHint)
+		public AuthenticationCallbacks(Action Success, Action<string, bool> ErrorOrHint)
 		{
 			_Success = Success;
 			_ErrorOrHint = ErrorOrHint;
+		}
+
+		public void OnAuthenticationFinished(Result resultCode)
+		{
+			if (resultCode == Result.Ok)
+			{
+				_Success();
+			}
+			else
+			{
+				OnAuthenticationError(100, T.Localized("AuthenticationFailed"));
+			}
 		}
 
 		public override void OnAuthenticationSucceeded(FingerprintManagerCompat.AuthenticationResult result)
@@ -142,18 +231,27 @@ namespace pbXNet
 				try
 				{
 					// Calling DoFinal on the Cipher ensures that the encryption worked. If not then exception will be threw.
+					byte[] _secret = { 34, 12, 67, 16, 87, 62, 27, 48, 29 };
 					byte[] doFinalResult = result.CryptoObject.Cipher.DoFinal(_secret);
 					_Success();
 
 					Log.I($"DoFinal results: {Convert.ToBase64String(doFinalResult)}", this);
 				}
-				catch (BadPaddingException bpe)
+				catch (BadPaddingException e)
 				{
-					OnAuthenticationError(98, bpe.ToString());
+					OnAuthenticationError(101, e.Message);
 				}
-				catch (IllegalBlockSizeException ibse)
+				catch (IllegalBlockSizeException e)
 				{
-					OnAuthenticationError(99, ibse.ToString());
+					OnAuthenticationError(102, e.Message);
+				}
+				catch (Java.Lang.Exception e)
+				{
+					OnAuthenticationError(103, e.Cause.Message);
+				}
+				catch (System.Exception e)
+				{
+					OnAuthenticationError(104, e.Message);
 				}
 			}
 			else
@@ -200,13 +298,12 @@ namespace pbXNet
 	/// If necessary a key for the cipher will be created.</remarks>
 	class CryptoObjectHelper
 	{
+		static readonly string KEY_NAME = ".a2a60ff0a53c4ae3a8465c4dfac16ba4";
 		static readonly string KEYSTORE_NAME = "AndroidKeyStore";
-		static readonly string KEY_NAME = "0948e431-20db-4b07-8635-1ae9fd50bafe";
 
 		static readonly string KEY_ALGORITHM = KeyProperties.KeyAlgorithmAes;
 		static readonly string BLOCK_MODE = KeyProperties.BlockModeCbc;
 		static readonly string ENCRYPTION_PADDING = KeyProperties.EncryptionPaddingPkcs7;
-
 		static readonly string TRANSFORMATION = KEY_ALGORITHM + "/" + BLOCK_MODE + "/" + ENCRYPTION_PADDING;
 
 		readonly KeyStore _keystore;
@@ -226,8 +323,6 @@ namespace pbXNet
 		/// <summary>
 		/// Creates the cipher.
 		/// </summary>
-		/// <returns>The cipher.</returns>
-		/// <param name="retry">If set to <c>true</c>, recreate the key and try again.</param>
 		Cipher CreateCipher(bool retry = true)
 		{
 			IKey key = GetKey();
@@ -248,14 +343,14 @@ namespace pbXNet
 				else
 				{
 					Log.E(e.Message, this);
-					throw new System.Exception("Could not create the cipher for fingerprint authentication.", e);
+					throw new System.Exception("Could not create the cipher for authentication.", e);
 				}
 			}
 			return cipher;
 		}
 
 		/// <summary>
-		/// Will get the key from the Android keystore, creating it if necessary.
+		/// Will get the Key from the Android keystore, creating it if necessary.
 		/// </summary>
 		IKey GetKey()
 		{
@@ -269,11 +364,12 @@ namespace pbXNet
 		}
 
 		/// <summary>
-		/// Creates the Key for fingerprint authentication.
+		/// Creates the Key from the Android keystore for authentication.
 		/// </summary>
 		void CreateKey()
 		{
 			KeyGenerator keyGen = KeyGenerator.GetInstance(KEY_ALGORITHM, KEYSTORE_NAME);
+
 			KeyGenParameterSpec keyGenSpec =
 				new KeyGenParameterSpec.Builder(KEY_NAME, KeyStorePurpose.Encrypt | KeyStorePurpose.Decrypt)
 					.SetBlockModes(BLOCK_MODE)
@@ -284,7 +380,7 @@ namespace pbXNet
 			keyGen.Init(keyGenSpec);
 			keyGen.GenerateKey();
 
-			Log.I($"new key created for fingerprint authentication", this);
+			Log.I($"new key created for authentication", this);
 		}
 	}
 }

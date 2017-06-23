@@ -50,8 +50,6 @@ namespace pbXNet
 	{
 		string Id { get; }
 
-		void Initialize(object param);
-
 		// Basic device owner authentication (pin, passkey, biometrics, etc.)
 
 		DOAuthentication AvailableDOAuthentication { get; }
