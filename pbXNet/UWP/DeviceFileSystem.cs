@@ -1,4 +1,4 @@
-﻿//#if WINDOWS_UWP
+﻿#if WINDOWS_UWP
 
 using System;
 using System.Collections.Generic;
@@ -77,20 +77,18 @@ namespace pbXNet
 
 		async Task InitializeAsync()
 		{
-			LoadModifiedOnDictAsync();
+			LoadModifiedOnDictAsync(_root);
 		}
 
 #pragma warning restore CS4014
 
 		public void Dispose()
 		{
-			_modifiedOnDict?.Clear();
-			_modifiedOnDict = null;
 			_current = null;
 			_root = null;
 		}
 
-		public async Task<IFileSystem> MakeCopyAsync()
+		public async Task<IFileSystem> CloneAsync()
 		{
 			DeviceFileSystem cp = new DeviceFileSystem(this.Root);
 			if (_root != null)
@@ -98,20 +96,18 @@ namespace pbXNet
 			if (_current != null)
 				cp._current = await StorageFolder.GetFolderFromPathAsync(_current.Path);
 
-			await cp.LoadModifiedOnDictAsync().ConfigureAwait(false);
-
 			return cp;
 		}
 
-		const string _modifiedOnDictFileName = ".3c96f3db6d304e1b984476dc380e5aea";
+		static readonly string _modifiedOnDictFileName = ".3c96f3db6d304e1b984476dc380e5aea";
 
-		ISerializer _serializer = new NewtonsoftJsonSerializer();
+		static readonly ISerializer _serializer = new NewtonsoftJsonSerializer();
 
-		IDictionary<string, DateTime> _modifiedOnDict = new Dictionary<string, DateTime>();
+		static IDictionary<string, IDictionary<string, DateTime>> _modifiedOnDictDict = new Dictionary<string, IDictionary<string, DateTime>>();
 
-		readonly SemaphoreSlim _saveModifiedOnDictLock = new SemaphoreSlim(1);
+		static readonly SemaphoreSlim _saveModifiedOnDictLock = new SemaphoreSlim(1);
 
-		Int32 _saveModifiedOnDictTaskRunning = 0;
+		static Int32 _saveModifiedOnDictTaskRunning = 0;
 
 		string FileNameForModifiedOn(string filename)
 		{
@@ -119,12 +115,17 @@ namespace pbXNet
 			return Path.Combine(path, filename);
 		}
 
-		void ModifyModifiedOnDict(Action action)
+		static bool TryGetModifiedOn(StorageFolder root, string filename, out DateTime modifiedOn)
 		{
 			_saveModifiedOnDictLock.Wait();
 			try
 			{
-				action();
+				if (_modifiedOnDictDict.TryGetValue(root.Path, out IDictionary<string, DateTime> modifiedOnDict))
+					if (modifiedOnDict.TryGetValue(filename, out modifiedOn))
+						return true;
+
+				modifiedOn = DateTime.MinValue;
+				return false;
 			}
 			finally
 			{
@@ -132,67 +133,90 @@ namespace pbXNet
 			}
 		}
 
-		async Task LoadModifiedOnDictAsync()
+		static void ModifyModifiedOnDict(StorageFolder root, Action<IDictionary<string, DateTime>> action)
 		{
-			ModifyModifiedOnDict(_modifiedOnDict.Clear);
-
-			IStorageItem storageFile = await _root.TryGetItemAsync(_modifiedOnDictFileName);
-			if (storageFile != null)
+			_saveModifiedOnDictLock.Wait();
+			try
 			{
-				await _saveModifiedOnDictLock.WaitAsync();
-				try
-				{
-					string d = await FileIO.ReadTextAsync(storageFile as StorageFile);
-					d = Obfuscator.DeObfuscate(d);
-					_modifiedOnDict = _serializer.Deserialize<IDictionary<string, DateTime>>(d);
-				}
-				finally
-				{
-					_saveModifiedOnDictLock.Release();
-				}
+				if (_modifiedOnDictDict.TryGetValue(root.Path, out IDictionary<string, DateTime> modifiedOnDict))
+					action(modifiedOnDict);
+			}
+			finally
+			{
+				_saveModifiedOnDictLock.Release();
 			}
 		}
 
-		async Task SaveModifiedOnDictTask()
+		static async Task LoadModifiedOnDictAsync(StorageFolder root)
+		{
+			await _saveModifiedOnDictLock.WaitAsync();
+			try
+			{
+				if (_modifiedOnDictDict.ContainsKey(root.Path))
+					return;
+
+				IStorageItem storageFile = await root.TryGetItemAsync(_modifiedOnDictFileName);
+				if (storageFile != null)
+				{
+					string d = await FileIO.ReadTextAsync(storageFile as StorageFile);
+					d = Obfuscator.DeObfuscate(d);
+					_modifiedOnDictDict[root.Path] = _serializer.Deserialize<IDictionary<string, DateTime>>(d);
+				}
+			}
+			finally
+			{
+				_saveModifiedOnDictLock.Release();
+			}
+		}
+
+		static async Task SaveModifiedOnDictAsync(StorageFolder root)
 		{
 			DateTime sdt = DateTime.Now;
 
 			await _saveModifiedOnDictLock.WaitAsync();
 			try
 			{
-				IStorageFile storageFile = await _root.CreateFileAsync(_modifiedOnDictFileName, CreationCollisionOption.ReplaceExisting);
-				string d = _serializer.Serialize(_modifiedOnDict);
-				d = Obfuscator.Obfuscate(d);
-				await FileIO.WriteTextAsync(storageFile, d);
+				if (_modifiedOnDictDict.TryGetValue(root.Path, out IDictionary<string, DateTime> modifiedOnDict))
+				{
+					IStorageFile storageFile = await root.CreateFileAsync(_modifiedOnDictFileName, CreationCollisionOption.ReplaceExisting);
+					string d = _serializer.Serialize(modifiedOnDict);
+					d = Obfuscator.Obfuscate(d);
+					await FileIO.WriteTextAsync(storageFile, d);
+				}
 			}
 			catch (Exception ex)
 			{
-				Log.E(ex.Message, this);
+				Log.E(ex.Message);
 			}
 			finally
 			{
 				Interlocked.Exchange(ref _saveModifiedOnDictTaskRunning, 0);
 				_saveModifiedOnDictLock.Release();
 
-				Log.D($"duration: {(DateTime.Now - sdt).Milliseconds}", this);
+				Log.D($"duration: {(DateTime.Now - sdt).Milliseconds} for: {root.Path}");
 			}
 		}
 
-#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
-
-		async Task SaveModifiedOnDictAsync()
+		static void ScheduleSaveModifiedOnDict(StorageFolder root)
 		{
 			if (Interlocked.Exchange(ref _saveModifiedOnDictTaskRunning, 1) == 1)
 				return;
 
-			Task.Run(async () =>
+			Task.Run((async () =>
 			{
 				await Task.Delay(1000);
-				await SaveModifiedOnDictTask();
-			});
+				await SaveModifiedOnDictAsync((StorageFolder)root);
+			}));
 		}
 
-#pragma warning restore CS4014
+		public static async Task SaveAllModifiedOnDictsAsync()
+		{
+			foreach(var rootPath in _modifiedOnDictDict.Keys.ToArray())
+			{
+				StorageFolder root = await StorageFolder.GetFolderFromPathAsync(rootPath);
+				await SaveModifiedOnDictAsync(root);
+			}
+		}
 
 		class State
 		{
@@ -225,6 +249,7 @@ namespace pbXNet
 			return Task.FromResult(true);
 		}
 
+
 		public async Task SetCurrentDirectoryAsync(string dirname)
 		{
 			if (dirname == null || dirname == "")
@@ -241,7 +266,6 @@ namespace pbXNet
 				_current = await _current.GetFolderAsync(dirname);
 			}
 		}
-
 
 		public async Task<IEnumerable<string>> GetDirectoriesAsync(string pattern = "")
 		{
@@ -297,16 +321,16 @@ namespace pbXNet
 				IStorageFile storageFile = await _current.GetFileAsync(filename);
 				await storageFile.DeleteAsync();
 
-				ModifyModifiedOnDict(() => _modifiedOnDict.Remove(FileNameForModifiedOn(filename)));
-				SaveModifiedOnDictAsync();
+				ModifyModifiedOnDict(_root, (modifiedOnDict) => modifiedOnDict.Remove(FileNameForModifiedOn(filename)));
+				ScheduleSaveModifiedOnDict(_root);
 			}
 			catch (FileNotFoundException) { }
 		}
 
 		public async Task SetFileModifiedOnAsync(string filename, DateTime modifiedOn)
 		{
-			ModifyModifiedOnDict(() => _modifiedOnDict[FileNameForModifiedOn(filename)] = modifiedOn.ToUniversalTime());
-			SaveModifiedOnDictAsync();
+			ModifyModifiedOnDict(_root, (modifiedOnDict) => modifiedOnDict[FileNameForModifiedOn(filename)] = modifiedOn.ToUniversalTime());
+			ScheduleSaveModifiedOnDict(_root);
 		}
 
 #pragma warning restore CS4014
@@ -315,7 +339,7 @@ namespace pbXNet
 		{
 			try
 			{
-				if (_modifiedOnDict.TryGetValue(FileNameForModifiedOn(filename), out DateTime modifiedOn))
+				if (TryGetModifiedOn(_root, FileNameForModifiedOn(filename), out DateTime modifiedOn))
 					return modifiedOn;
 
 				IStorageFile storageFile = await _current.GetFileAsync(filename);
@@ -340,4 +364,4 @@ namespace pbXNet
 	}
 }
 
-//#endif
+#endif

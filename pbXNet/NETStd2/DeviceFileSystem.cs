@@ -87,7 +87,7 @@ namespace pbXNet
 			_root = _current = null;
 		}
 
-		public virtual Task<IFileSystem> MakeCopyAsync()
+		public virtual Task<IFileSystem> CloneAsync()
 		{
 			DeviceFileSystem fs = new DeviceFileSystem(this.Root, _root)
 			{

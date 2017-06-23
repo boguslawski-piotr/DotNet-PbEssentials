@@ -29,7 +29,7 @@ namespace pbXNet
 		/// <summary>
 		/// Should be super, super fast!
 		/// </summary>
-		Task<IFileSystem> MakeCopyAsync();
+		Task<IFileSystem> CloneAsync();
 
 		Task SaveStateAsync();
 		Task RestoreStateAsync();

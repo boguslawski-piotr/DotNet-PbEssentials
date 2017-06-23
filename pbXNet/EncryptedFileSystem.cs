@@ -105,7 +105,7 @@ namespace pbXNet
 			_cryptographer = null;
 		}
 
-		public Task<IFileSystem> MakeCopyAsync()
+		public Task<IFileSystem> CloneAsync()
 		{
 			throw new NotSupportedException();
 		}
