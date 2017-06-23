@@ -5,9 +5,14 @@ using System.Threading.Tasks;
 
 namespace pbXNet
 {
-	/// Id will be used as directory name in the root of file system. 
+	/// <summary>
+	/// Decorator for classes that implement the <see cref="IFileSystem"/> interface 
+	/// which provides encryption of all stored files and of course decrypting when reading.
+	/// <para>Id passed to constructor will be used as directory name in the root of file system. 
 	/// The data in this directory (and in all subdirectories) will be encrypted. 
 	/// The data in another directories (unless the Id was set to null or empty string) will not be encrypted.
+	/// </para>
+	/// </summary>
 	public class EncryptedFileSystem : IFileSystem, IDisposable
 	{
 		public FileSystemType Type => _fs.Type;
@@ -38,10 +43,12 @@ namespace pbXNet
 			_cryptographer = cryptographer ?? new AesCryptographer();
 		}
 
+		/// <summary>
 		/// IMPORTANT NOTE: 
 		/// Passed ckey can be completely cleaned (zeros) at an unspecified moment.
 		/// You should not use this data anymore after it was passed to the EncryptedFileSystem class constructor.
-		public EncryptedFileSystem(string id, IFileSystem fs, IByteBuffer ckey, ICryptographer cryptographer = null) 
+		/// </summary>
+		public EncryptedFileSystem(string id, IFileSystem fs, IByteBuffer ckey, ICryptographer cryptographer = null)
 			: this(id, fs, cryptographer)
 		{
 			if (ckey == null)
@@ -50,10 +57,12 @@ namespace pbXNet
 			_ckey = ckey;
 		}
 
+		/// <summary>
 		/// IMPORTANT NOTE: 
 		/// Passed passwd is completely cleaned (zeros) as soon as possible.
 		/// You should not use this data anymore after it was passed to the EncryptedFileSystem class constructor.
-		public EncryptedFileSystem(string id, IFileSystem fs, IPassword passwd, ICryptographer cryptographer = null) 
+		/// </summary>
+		public EncryptedFileSystem(string id, IFileSystem fs, IPassword passwd, ICryptographer cryptographer = null)
 			: this(id, fs, cryptographer)
 		{
 			if (passwd == null)
@@ -136,10 +145,20 @@ namespace pbXNet
 
 		public async Task<DateTime> GetFileModifiedOnAsync(string filename) => await _fs.GetFileModifiedOnAsync(filename).ConfigureAwait(false);
 
+		bool InEncryptedDirectory()
+		{
+			string currentPath = _fs.CurrentPath.Replace(_fs.RootPath, "");
+			if (currentPath.StartsWith("\\"))
+				currentPath = currentPath.Substring(1);
+			return currentPath.StartsWith(Id);
+		}
+
 		public virtual async Task<string> ReadTextAsync(string filename)
 		{
-			// TODO: dodac sprawdzanie czy jestesmy poza katalogiem o nazwie Id i jezeli tak, to nie odszyfrowywac
 			string text = await _fs.ReadTextAsync(filename).ConfigureAwait(false);
+
+			if (!InEncryptedDirectory())
+				return text;
 
 			if (_ckey == null || _iv == null)
 				await InitializeAsync();
@@ -150,13 +169,16 @@ namespace pbXNet
 
 		public virtual async Task WriteTextAsync(string filename, string text)
 		{
-			// TODO: dodac sprawdzanie czy jestesmy poza katalogiem o nazwie Id i jezeli tak, to nie szyfrowac
+			if (!InEncryptedDirectory())
+				await _fs.WriteTextAsync(filename, text);
+			else
+			{
+				if (_ckey == null || _iv == null)
+					await InitializeAsync();
 
-			if (_ckey == null || _iv == null)
-				await InitializeAsync();
-
-			ByteBuffer etext = _cryptographer.Encrypt(new ByteBuffer(text, Encoding.UTF8), _ckey, _iv);
-			await _fs.WriteTextAsync(filename, etext.ToHexString()).ConfigureAwait(false);
+				ByteBuffer etext = _cryptographer.Encrypt(new ByteBuffer(text, Encoding.UTF8), _ckey, _iv);
+				await _fs.WriteTextAsync(filename, etext.ToHexString()).ConfigureAwait(false);
+			}
 		}
 	}
 }
