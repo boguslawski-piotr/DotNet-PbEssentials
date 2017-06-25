@@ -2,22 +2,29 @@
 
 namespace pbXNet
 {
+	public enum AsymmetricCryptographerAlgoritm
+	{
+		Rsa,
+	}
+
 	public interface IAsymmetricCryptographerKeyPair
 	{
-		IByteBuffer pbl { get; }
-		IByteBuffer prv { get; }
+		AsymmetricCryptographerAlgoritm Algoritm { get; }
+
+		string Public { get; }
+		string Private { get; }
 	};
 
 	public interface IAsymmetricCryptographer : IDisposable
 	{
 		IAsymmetricCryptographerKeyPair GenerateKeyPair(int length = -1);
 
-		ByteBuffer Encrypt(IByteBuffer msg, IByteBuffer pblKey);
+		ByteBuffer Encrypt(IByteBuffer msg, IAsymmetricCryptographerKeyPair pblKey);
 
-		ByteBuffer Decrypt(IByteBuffer msg, IByteBuffer prvKey);
+		ByteBuffer Decrypt(IByteBuffer msg, IAsymmetricCryptographerKeyPair prvKey);
 
-		ByteBuffer Sign(IByteBuffer msg, IByteBuffer prvKey);
+		ByteBuffer Sign(IByteBuffer msg, IAsymmetricCryptographerKeyPair prvKey);
 
-		bool Verify(IByteBuffer msg, IByteBuffer signature, IByteBuffer pblKey);
+		bool Verify(IByteBuffer msg, IByteBuffer signature, IAsymmetricCryptographerKeyPair pblKey);
 	}
 }
