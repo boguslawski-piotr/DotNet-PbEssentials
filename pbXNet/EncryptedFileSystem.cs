@@ -7,7 +7,7 @@ namespace pbXNet
 {
 	/// <summary>
 	/// Decorator for classes that implement the <see cref="IFileSystem"/> interface 
-	/// which provides encryption of all stored files and of course decrypting when reading.
+	/// which provides encryption of stored files and of course decrypting when reading.
 	/// <para>Id passed to constructor will be used as directory name in the root of file system. 
 	/// The data in this directory (and in all subdirectories) will be encrypted. 
 	/// The data in another directories (unless the Id was set to null or empty string) will not be encrypted.
@@ -90,6 +90,8 @@ namespace pbXNet
 			else
 			{
 				_iv = _cryptographer.GenerateIV();
+				if(_iv as SecureBuffer == null)
+					_iv = new SecureBuffer((IByteBuffer)_iv, true);
 				await _fs.WriteTextAsync(_configFileName, _iv.ToHexString()).ConfigureAwait(false);
 			}
 
