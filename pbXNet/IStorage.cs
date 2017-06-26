@@ -39,19 +39,19 @@ namespace pbXNet
 
 		/// <summary>
 		/// Returns modification date/time (as UTC) stored with data (see <see cref="StoreAsync">StoreAsync</see>).
-		/// If value with the given <paramref name="thingId"/> does not exist, should return DateTime.MinValue.
+		/// If data with the given <paramref name="thingId"/> does not exist, should return DateTime.MinValue.
 		/// </summary>
 		Task<DateTime> GetModifiedOnAsync(string thingId);
 
 		/// <summary>
 		/// Gets a copy of data identified by <paramref name="thingId"/> from the storage.
-		/// If value with the given <paramref name="thingId"/> does not exist, should return null.
+		/// If data with the given <paramref name="thingId"/> does not exist, should return null.
 		/// </summary>
 		Task<T> GetACopyAsync(string thingId);
 
 		/// <summary>
 		/// Retrieves (== after this operation data is no longer stored) data identified by <paramref name="thingId"/> from the storage.
-		/// If value with the given <paramref name="thingId"/> does not exist, should return null.
+		/// If data with the given <paramref name="thingId"/> does not exist, should return null.
 		/// </summary>
 		Task<T> RetrieveAsync(string thingId);
 
