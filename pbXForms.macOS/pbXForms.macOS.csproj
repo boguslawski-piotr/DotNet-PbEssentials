@@ -51,16 +51,20 @@
     <Reference Include="System.Core" />
     <Reference Include="Xamarin.Mac" />
     <Reference Include="Xamarin.Forms.Core">
-      <HintPath>..\packages\Xamarin.Forms.2.3.5.239-pre3\lib\Xamarin.Mac\Xamarin.Forms.Core.dll</HintPath>
+      <HintPath>..\..\SafeNotebooks\packages\Xamarin.Forms.2.3.5.255-pre5\lib\Xamarin.Mac\Xamarin.Forms.Core.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Xamarin.Forms.Platform">
-      <HintPath>..\packages\Xamarin.Forms.2.3.5.239-pre3\lib\Xamarin.Mac\Xamarin.Forms.Platform.dll</HintPath>
+      <HintPath>..\..\SafeNotebooks\packages\Xamarin.Forms.2.3.5.255-pre5\lib\Xamarin.Mac\Xamarin.Forms.Platform.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Xamarin.Forms.Platform.macOS">
-      <HintPath>..\packages\Xamarin.Forms.2.3.5.239-pre3\lib\Xamarin.Mac\Xamarin.Forms.Platform.macOS.dll</HintPath>
+      <HintPath>..\..\SafeNotebooks\packages\Xamarin.Forms.2.3.5.255-pre5\lib\Xamarin.Mac\Xamarin.Forms.Platform.macOS.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Xamarin.Forms.Xaml">
-      <HintPath>..\packages\Xamarin.Forms.2.3.5.239-pre3\lib\Xamarin.Mac\Xamarin.Forms.Xaml.dll</HintPath>
+      <HintPath>..\..\SafeNotebooks\packages\Xamarin.Forms.2.3.5.255-pre5\lib\Xamarin.Mac\Xamarin.Forms.Xaml.dll</HintPath>
+      <Private>False</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -72,15 +76,16 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\pbXNet.macOS\pbXNet.macOS.csproj">
       <Project>{038B20C3-4EDD-4619-B83A-EC3471335477}</Project>
       <Name>pbXNet.macOS</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="..\pbXForms\pbXForms.Shared.projitems" Label="Shared" Condition="Exists('..\pbXForms\pbXForms.Shared.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Mac\Xamarin.Mac.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Forms.2.3.5.239-pre3\build\netstandard1.0\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.2.3.5.239-pre3\build\netstandard1.0\Xamarin.Forms.targets')" />
+  <Import Project="..\..\SafeNotebooks\packages\Xamarin.Forms.2.3.5.255-pre5\build\netstandard1.0\Xamarin.Forms.targets" Condition="Exists('..\..\SafeNotebooks\packages\Xamarin.Forms.2.3.5.255-pre5\build\netstandard1.0\Xamarin.Forms.targets')" />
 </Project>
