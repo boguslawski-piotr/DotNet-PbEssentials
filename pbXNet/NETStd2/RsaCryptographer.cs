@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -56,23 +58,22 @@ namespace pbXNet
 				.Append(p)
 				.Append("-")
 				.Append(q);
-			string s = key.ToString();
-			return Obfuscator.Obfuscate(s);
+			return Obfuscator.Obfuscate(key.ToString());
 		}
 
 		public static RSAParameters Unpack(string rsap)
 		{
 			rsap = Obfuscator.DeObfuscate(rsap);
 			RSAParameters key = new RSAParameters();
-			string[] components = rsap.Split('-');
-			key.D = !string.IsNullOrWhiteSpace(components[0]) ? components[0].FromHexString() : null;
-			key.DP = !string.IsNullOrWhiteSpace(components[1]) ? components[1]?.FromHexString() : null;
-			key.DQ = !string.IsNullOrWhiteSpace(components[2]) ? components[2]?.FromHexString() : null;
-			key.Exponent = !string.IsNullOrWhiteSpace(components[3]) ? components[3]?.FromHexString() : null;
-			key.InverseQ = !string.IsNullOrWhiteSpace(components[4]) ? components[4]?.FromHexString() : null;
-			key.Modulus = !string.IsNullOrWhiteSpace(components[5]) ? components[5]?.FromHexString() : null;
-			key.P = !string.IsNullOrWhiteSpace(components[6]) ? components[6]?.FromHexString() : null;
-			key.Q = !string.IsNullOrWhiteSpace(components[7]) ? components[7]?.FromHexString() : null;
+			string[] c = rsap.Split('-');
+			key.D = !string.IsNullOrWhiteSpace(c[0]) ? c[0].FromHexString() : null;
+			key.DP = !string.IsNullOrWhiteSpace(c[1]) ? c[1]?.FromHexString() : null;
+			key.DQ = !string.IsNullOrWhiteSpace(c[2]) ? c[2]?.FromHexString() : null;
+			key.Exponent = !string.IsNullOrWhiteSpace(c[3]) ? c[3]?.FromHexString() : null;
+			key.InverseQ = !string.IsNullOrWhiteSpace(c[4]) ? c[4]?.FromHexString() : null;
+			key.Modulus = !string.IsNullOrWhiteSpace(c[5]) ? c[5]?.FromHexString() : null;
+			key.P = !string.IsNullOrWhiteSpace(c[6]) ? c[6]?.FromHexString() : null;
+			key.Q = !string.IsNullOrWhiteSpace(c[7]) ? c[7]?.FromHexString() : null;
 			return key;
 		}
 
@@ -116,7 +117,7 @@ namespace pbXNet
 			}
 		}
 
-		public IAsymmetricCryptographerKeyPair GenerateKeyPair(int length = -1)
+		public IAsymmetricCryptographerKeyPair GenerateKeyPair()
 		{
 			using (RSA rsa = _algImpl)
 			{
@@ -141,14 +142,11 @@ namespace pbXNet
 					RsaKeyPair key = new RsaKeyPair(null, pblKey.Public);
 					rsa.ImportParameters(key.RsaPublic);
 
-					KeySizes[] keySizes = rsa.LegalKeySizes;
-					if (keySizes?.Length < 1)
-						throw new MissingFieldException($"There is no data in the {nameof(rsa.LegalKeySizes)} field.");
-
 					byte[] msgAsArray = msg.GetBytes();
-					int chunkSize = rsa.KeySize / 8 - keySizes[0].SkipSize;
+					int keySize = rsa.KeySize / 8;
+					int chunkSize = key.RsaPublic.Modulus.Length - 11;
 					int numberOfChunks = msg.Length / chunkSize + 1;
-					byte[] emsg = new byte[0];
+					List<byte> emsg = new List<byte>(keySize * numberOfChunks);
 
 					for (int i = 0; i < numberOfChunks; i++)
 					{
@@ -160,13 +158,11 @@ namespace pbXNet
 
 							byte[] echunk = rsa.Encrypt(chunk, RSAEncryptionPadding.Pkcs1);
 
-							int emsgLength = emsg.Length;
-							Array.Resize(ref emsg, emsgLength + echunk.Length);
-							Array.Copy(echunk, 0, emsg, emsgLength, echunk.Length);
+							emsg.AddRange(echunk);
 						}
 					}
 
-					return new ByteBuffer(emsg);
+					return new ByteBuffer(emsg.ToArray());
 				}
 			}
 			catch (Exception ex)
@@ -195,9 +191,10 @@ namespace pbXNet
 					rsa.ImportParameters(key.RsaPrivate);
 
 					byte[] msgAsArray = msg.GetBytes();
-					int chunkSize = rsa.KeySize / 8;
+					int keySize = rsa.KeySize / 8;
+					int chunkSize = keySize;
 					int numberOfChunks = msg.Length / chunkSize + 1;
-					byte[] dmsg = new byte[0];
+					List<byte> dmsg = new List<byte>(keySize * numberOfChunks);
 
 					for (int i = 0; i < numberOfChunks; i++)
 					{
@@ -209,13 +206,11 @@ namespace pbXNet
 
 							byte[] dchunk = rsa.Decrypt(chunk, RSAEncryptionPadding.Pkcs1);
 
-							int dmsgLength = dmsg.Length;
-							Array.Resize(ref dmsg, dmsgLength + dchunk.Length);
-							Array.Copy(dchunk, 0, dmsg, dmsgLength, dchunk.Length);
+							dmsg.AddRange(dchunk);
 						}
 					}
 
-					return new ByteBuffer(dmsg);
+					return new ByteBuffer(dmsg.ToArray());
 				}
 			}
 			catch (Exception ex)

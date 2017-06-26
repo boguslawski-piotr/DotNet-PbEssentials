@@ -70,6 +70,9 @@
     <Compile Include="..\pbXNet\NETStd2\RsaCryptographer.cs">
       <Link>pbXNet\NETStd2\RsaCryptographer.cs</Link>
     </Compile>
+    <Compile Include="..\pbXNet\NETStd2\RsaCryptographerHelper.cs">
+      <Link>pbXNet\NETStd2\RsaCryptographerHelper.cs</Link>
+    </Compile>
     <Compile Include="..\pbXNet\Templates\Locale.cs">
       <Link>pbXNet\Templates\Locale.cs</Link>
     </Compile>

@@ -17,7 +17,7 @@ namespace pbXNet
 
 	public interface IAsymmetricCryptographer : IDisposable
 	{
-		IAsymmetricCryptographerKeyPair GenerateKeyPair(int length = -1);
+		IAsymmetricCryptographerKeyPair GenerateKeyPair();
 
 		ByteBuffer Encrypt(IByteBuffer msg, IAsymmetricCryptographerKeyPair pblKey);
 
