@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
 
 namespace pbXNet
 {
@@ -39,6 +40,14 @@ namespace pbXNet
 		public static string CreateGuid()
 		{
 			return System.Guid.NewGuid().ToString("N");
+		}
+
+		/// <summary>
+		/// Creates the GUIDex (Global Unique IDentifier extended) in the most compact form.
+		/// </summary>
+		public static string CreateGuidEx()
+		{
+			return System.Guid.NewGuid().ToString("N") + DateTime.Now.Ticks.ToString();
 		}
 
 		/// <summary>
