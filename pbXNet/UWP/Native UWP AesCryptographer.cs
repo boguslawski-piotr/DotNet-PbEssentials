@@ -9,7 +9,7 @@ namespace pbXNet
 {
 	public partial class AesCryptographer : ICryptographer
 	{
-		public IByteBuffer GenerateKey(IPassword pwd, IByteBuffer salt, int length = 32)
+		public IByteBuffer GenerateKey(IPassword pwd, IByteBuffer salt)
 		{
 			const int iterations = 10000;
 
@@ -22,14 +22,14 @@ namespace pbXNet
 
 			KeyDerivationParameters pbkdf2Params = KeyDerivationParameters.BuildForPbkdf2(buffSalt, iterations);
 			CryptographicKey keyOriginal = objKdfProv.CreateKey(buffPwd);
-			IBuffer buffKey = CryptographicEngine.DeriveKeyMaterial(keyOriginal, pbkdf2Params, (uint)length);
+			IBuffer buffKey = CryptographicEngine.DeriveKeyMaterial(keyOriginal, pbkdf2Params, 32);
 
 			return new SecureBuffer(IBufferToByteArray(buffKey));
 		}
 
-		public IByteBuffer GenerateIV(int length = 16)
+		public IByteBuffer GenerateIV()
 		{
-			IBuffer buff = CryptographicBuffer.GenerateRandom((uint)length);
+			IBuffer buff = CryptographicBuffer.GenerateRandom(16);
 			return new SecureBuffer(IBufferToByteArray(buff));
 		}
 
