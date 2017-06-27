@@ -9,7 +9,7 @@ namespace pbXNet
 {
 	public class ByteBuffer : IByteBuffer, IDisposable, IEnumerable<byte>
 	{
-		readonly byte[] _b;
+		byte[] _b;
 
 		public int Length => (_b == null ? 0 : _b.Length);
 
@@ -22,11 +22,15 @@ namespace pbXNet
 		{
 			_b = (byte[])b.Clone();
 
-			if (clearSource
+			if (clearSource)
+				ClearSource(b);
+		}
+
+		void ClearSource(byte[] b)
+		{
 #if !WINDOWS_UWP && !NETSTANDARD1_6
-				&& !b.IsReadOnly
+			if (!b.IsReadOnly)
 #endif
-				)
 			{
 				b.FillWith<byte>(0);
 				System.Array.Resize<byte>(ref b, 0);
@@ -76,6 +80,59 @@ namespace pbXNet
 				}
 			}
 		}
+
+		public ByteBuffer Append(byte[] b, bool clearSource = false)
+		{
+			int i = _b.Length;
+			Array.Resize(ref _b, i + b.Length);
+			Array.Copy(b, 0, _b, i, b.Length);
+
+			if (clearSource)
+				ClearSource(b);
+
+			return this;
+		}
+
+		public ByteBuffer Append(IByteBuffer b, bool clearSource = false)
+		{
+			Append(b.GetBytes(), false);
+			if (!clearSource)
+				b.DisposeBytes();
+			else
+				b.Dispose();
+			return this;
+		}
+
+		public ByteBuffer Append(ByteBuffer b, bool clearSource = false)
+		{
+			Append(b._b, false);
+			if (clearSource)
+				b.Dispose();
+			return this;
+		}
+
+		public ByteBuffer Append(string sb, Encoding encoding) => Append(encoding.GetBytes(sb), true);
+
+		public ByteBuffer Append(IEnumerable<byte> l) => Append(l.ToArray(), true);
+
+		public ByteBuffer Append(Stream s)
+		{
+			if (s is MemoryStream)
+				Append((s as MemoryStream).ToArray());
+			else
+			{
+				using (MemoryStream sm = new MemoryStream())
+				{
+					if (s.CanSeek)
+						s.Seek(0, SeekOrigin.Begin);
+					s.CopyTo(sm);
+					Append(sm.ToArray());
+				}
+			}
+			return this;
+		}
+
+		// TODO: Insert, Delete
 
 		public static ByteBuffer NewFromHexString(string d)
 		{
