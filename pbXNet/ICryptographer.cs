@@ -4,17 +4,19 @@ namespace pbXNet
 {
 	public interface ICryptographer : IDisposable
 	{
-		IByteBuffer GenerateKey(IPassword pwd, IByteBuffer salt, int length = 32);
+		IByteBuffer GenerateKey(IPassword pwd, IByteBuffer salt);
 		
 		/// The function should never return null. 
 		/// If IV is unnecessary in the implemented algorithm, 
 		/// the function should return an empty ByteBuffer.
-		IByteBuffer GenerateIV(int length = 16);
+		IByteBuffer GenerateIV();
 
-		/// When error should return an empty ByteBuffer.
+		/// When error during encryption should return an empty ByteBuffer.
+		/// Other errors, such as incorrect parameters, should be handled with exceptions.
 		ByteBuffer Encrypt(IByteBuffer msg, IByteBuffer key, IByteBuffer iv);
 
-		/// When error should return an empty ByteBuffer.
+		/// When error during decryption should return an empty ByteBuffer.
+		/// Other errors, such as incorrect parameters, should be handled with exceptions.
 		ByteBuffer Decrypt(IByteBuffer msg, IByteBuffer key, IByteBuffer iv);
 	}
 }
