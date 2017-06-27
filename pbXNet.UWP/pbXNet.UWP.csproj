@@ -125,8 +125,8 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="../pbXNet/UWP/AesCryptographer.cs">
-      <Link>pbXNet\UWP\AesCryptographer.cs</Link>
+    <Compile Include="../pbXNet/NETStd2/AesCryptographer.cs">
+      <Link>pbXNet\NETStd2\AesCryptographer.cs</Link>
     </Compile>
     <Compile Include="../pbXNet/UWP/DeviceFileSystem.cs">
       <Link>pbXNet\UWP\DeviceFileSystem.cs</Link>
