@@ -44,6 +44,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Storage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)StorageOnAzureStorage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)StringOptimizedSerializer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DOAuthentication.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)pbXNetT.resx">

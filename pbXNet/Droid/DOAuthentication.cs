@@ -16,12 +16,11 @@ using Javax.Crypto;
 
 namespace pbXNet
 {
-	public sealed partial class SecretsManager : ISecretsManager
+	public static partial class DOAuthentication
 	{
 		public static Activity MainActivity;
-		static SecretsManager _current;
 
-		bool DOAuthenticationAvailable
+		static bool Available
 		{
 			get {
 				if (MainActivity != null && Android.OS.Build.VERSION.SdkInt >= Android.OS.BuildVersionCodes.Lollipop)
@@ -34,14 +33,14 @@ namespace pbXNet
 					}
 					catch (System.Exception ex)
 					{
-						Log.E(ex.Message, this);
+						Log.E(ex.Message);
 					}
 				}
 				return false;
 			}
 		}
 
-		bool DOBiometricsAuthenticationAvailable
+		static bool BiometricsAvailable
 		{
 			get {
 				if (MainActivity != null && Android.OS.Build.VERSION.SdkInt >= Android.OS.BuildVersionCodes.M)
@@ -51,46 +50,45 @@ namespace pbXNet
 						_fingerprintManager = FingerprintManagerCompat.From(MainActivity);
 						if (_fingerprintManager.IsHardwareDetected && _fingerprintManager.HasEnrolledFingerprints)
 						{
-							return DOAuthenticationAvailable;
+							return Available;
 						}
 					}
 					catch (System.Exception ex)
 					{
-						Log.E(ex.Message, this);
+						Log.E(ex.Message);
 					}
 				}
 				return false;
 			}
 		}
 
-		DOAuthentication _AvailableDOAuthentication
+		static DOAuthenticationType _Type
 		{
 			get {
-				if (DOBiometricsAuthenticationAvailable)
-					return DOAuthentication.Fingerprint;
-				if (DOAuthenticationAvailable)
-					return DOAuthentication.UserSelection;
-				return DOAuthentication.None;
+				if (BiometricsAvailable)
+					return DOAuthenticationType.Fingerprint;
+				if (Available)
+					return DOAuthenticationType.UserSelection;
+				return DOAuthenticationType.NotAvailable;
 			}
 		}
 
-		bool _StartDOAuthentication(string msg, Action Success, Action<string, bool> ErrorOrHint)
+		static bool _Start(string msg, Action Success, Action<string, bool> ErrorOrHint)
 		{
-			if (DOBiometricsAuthenticationAvailable)
-				return __StartDOBiometricsAuthentication(msg, Success, ErrorOrHint);
+			if (BiometricsAvailable)
+				return __StartBiometrics(msg, Success, ErrorOrHint);
 
-			if (DOAuthenticationAvailable)
-				return __StartDOAuthentication(msg, Success, ErrorOrHint);
+			if (Available)
+				return __Start(msg, Success, ErrorOrHint);
 
 			return false;
 		}
 
-		CryptoObjectHelper _cryptoObjectHelper;
-		AuthenticationCallbacks _authenticationCallbacks;
+		static AuthenticationCallbacks _authenticationCallbacks;
 
 		const int REQUEST_CODE_CONFIRM_DEVICE_CREDENTIALS = 63213;
 
-		bool __StartDOAuthentication(string msg, Action Success, Action<string, bool> ErrorOrHint)
+		static bool __Start(string msg, Action Success, Action<string, bool> ErrorOrHint)
 		{
 			if (MainActivity != null)
 			{
@@ -104,9 +102,6 @@ namespace pbXNet
 						{
 							_authenticationCallbacks = new AuthenticationCallbacks(Success, ErrorOrHint);
 							_cancellationSignal = null;
-
-							_current = this;
-
 							MainActivity.StartActivityForResult(intent, REQUEST_CODE_CONFIRM_DEVICE_CREDENTIALS);
 							return true;
 						}
@@ -114,7 +109,7 @@ namespace pbXNet
 				}
 				catch (System.Exception ex)
 				{
-					Log.E(ex.Message, this);
+					Log.E(ex.Message);
 				}
 			}
 			return false;
@@ -122,20 +117,20 @@ namespace pbXNet
 
 		public static bool OnActivityResult(int requestCode, Result resultCode, Intent data)
 		{
-			if (_current == null || _current._authenticationCallbacks == null || requestCode != REQUEST_CODE_CONFIRM_DEVICE_CREDENTIALS)
+			if (_authenticationCallbacks == null || requestCode != REQUEST_CODE_CONFIRM_DEVICE_CREDENTIALS)
 				return false;
 
-			_current._authenticationCallbacks.OnAuthenticationFinished(resultCode);
+			_authenticationCallbacks.OnAuthenticationFinished(resultCode);
+			_authenticationCallbacks = null;
 
-			_current._authenticationCallbacks = null;
-			_current = null;
 			return true;
 		}
 
-		FingerprintManagerCompat _fingerprintManager;
-		CancellationSignal _cancellationSignal;
+		static FingerprintManagerCompat _fingerprintManager;
+		static CancellationSignal _cancellationSignal;
+		static CryptoObjectHelper _cryptoObjectHelper;
 
-		bool __StartDOBiometricsAuthentication(string msg, Action Success, Action<string, bool> ErrorOrHint)
+		static bool __StartBiometrics(string msg, Action Success, Action<string, bool> ErrorOrHint)
 		{
 			try
 			{
@@ -169,17 +164,17 @@ namespace pbXNet
 			}
 			catch (System.Exception ex)
 			{
-				Log.E(ex.Message, this);
+				Log.E(ex.Message);
 			}
 			return false;
 		}
 
-		bool _CanDOAuthenticationBeCanceled()
+		static bool _CanBeCanceled()
 		{
 			return _cancellationSignal != null;
 		}
 
-		bool _CancelDOAuthentication()
+		static bool _Cancel()
 		{
 			bool rc = false;
 

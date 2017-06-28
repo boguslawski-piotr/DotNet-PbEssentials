@@ -12,9 +12,9 @@ using UIKit;
 
 namespace pbXNet
 {
-	public sealed partial class SecretsManager : ISecretsManager
+	public partial class DOAuthentication
 	{
-		bool DOAuthenticationAvailable
+		static bool Available
 		{
 			get {
 				var context = new LAContext();
@@ -22,7 +22,7 @@ namespace pbXNet
 			}
 		}
 
-		bool DOBiometricsAuthenticationAvailable
+		static bool BiometricsAvailable
 		{
 			get {
 				var context = new LAContext();
@@ -30,7 +30,7 @@ namespace pbXNet
 			}
 		}
 
-		DOAuthentication _AvailableDOAuthentication
+		static DOAuthenticationType _Type
 		{
 			get {
 				// See: https://developer.apple.com/documentation/localauthentication/lacontext
@@ -38,26 +38,26 @@ namespace pbXNet
 				var info = new NSProcessInfo(); 
 				var minVersion = new NSOperatingSystemVersion(10, 10, 0);
 				if (!info.IsOperatingSystemAtLeastVersion(minVersion))
-					return DOAuthentication.None;
+					return DOAuthenticationType.NotAvailable;
 #else
 				if (!UIDevice.CurrentDevice.CheckSystemVersion(8, 0))
-					return DOAuthentication.None;
+					return DOAuthenticationType.NotAvailable;
 #endif
 				
-				if (DOBiometricsAuthenticationAvailable)
-					return DOAuthentication.Fingerprint;
-				if (DOAuthenticationAvailable)
-					return DOAuthentication.Password;
+				if (BiometricsAvailable)
+					return DOAuthenticationType.Fingerprint;
+				if (Available)
+					return DOAuthenticationType.Password;
 
-				return DOAuthentication.None;
+				return DOAuthenticationType.NotAvailable;
 			}
 		}
 
-		bool _StartDOAuthentication(LAContext context, LAPolicy policy, string msg, Action Success, Action<string, bool> ErrorOrHint)
+		static bool _Start(LAContext context, LAPolicy policy, string msg, Action Success, Action<string, bool> ErrorOrHint)
 		{
 			if (context.CanEvaluatePolicy(policy, out NSError error))
 			{
-				Log.D($"policy: {policy}", this);
+				Log.D($"policy: {policy}");
 
 				var replyHandler = new LAContextReplyHandler((bool success, NSError _error) =>
 				{
@@ -65,18 +65,18 @@ namespace pbXNet
 					{
 						if (success)
 						{
-							Log.I("success", this);
+							Log.I("success");
 
 							Success();
 						}
 						else
 						{
-							Log.E(_error.ToString(), this);
+							Log.E(_error.ToString());
 
 							if (_error.Code == Convert.ToInt32(LAStatus.UserFallback)
 								&& policy == LAPolicy.DeviceOwnerAuthenticationWithBiometrics)
 							{
-								_StartDOAuthentication(context, LAPolicy.DeviceOwnerAuthentication, msg, Success, ErrorOrHint);
+								_Start(context, LAPolicy.DeviceOwnerAuthentication, msg, Success, ErrorOrHint);
 							}
 							else
 								ErrorOrHint(_error.ToString(), false);
@@ -91,34 +91,33 @@ namespace pbXNet
 			}
 			else
 			{
-				Log.E($"(policy: {policy}), error: {error}", this);
+				Log.E($"(policy: {policy}), error: {error}");
 			}
 
 			return false;
 		}
 
-		bool _StartDOAuthentication(string msg, Action Success, Action<string, bool> ErrorOrHint)
+		static bool _Start(string msg, Action Success, Action<string, bool> ErrorOrHint)
 		{
 			// It seems that the call with parameter LAPolicy.DeviceOwnerAuthentication automatically uses biometrics authentication when it is set in the system settings.
 			// TODO: check StartDOAuthentication on a real device(s)
 
 			var context = new LAContext();
 			//if (!context.CanEvaluatePolicy(LAPolicy.DeviceOwnerAuthenticationWithBiometrics, out NSError error))
-			return _StartDOAuthentication(context, LAPolicy.DeviceOwnerAuthentication, msg, Success, ErrorOrHint);
+			return _Start(context, LAPolicy.DeviceOwnerAuthentication, msg, Success, ErrorOrHint);
 			//else
 			//    return _AuthenticateDeviceOwner(context, LAPolicy.DeviceOwnerAuthenticationWithBiometrics, msg, Success, Error);
 		}
 
-		bool _CanDOAuthenticationBeCanceled()
+		static bool _CanBeCanceled()
 		{
 			return false;
 		}
 
-		bool _CancelDOAuthentication()
+		static bool _Cancel()
 		{
 			return false;
 		}
-
 	}
 }
 

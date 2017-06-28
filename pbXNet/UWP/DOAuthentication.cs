@@ -6,38 +6,38 @@ using Windows.Security.Credentials.UI;
 
 namespace pbXNet
 {
-	public partial class SecretsManager : ISecretsManager
+	public static partial class DOAuthentication
 	{
 		// Documentation:
 		// https://docs.microsoft.com/en-us/uwp/api/windows.security.credentials.ui.userconsentverifier
 
-		async Task<DOAuthentication> CheckConsentAvailabilityAsync()
+		static async Task<DOAuthenticationType> CheckConsentAvailabilityAsync()
 		{
 			try
 			{
 				// Check the availability of Windows Hello authentication.
 				UserConsentVerifierAvailability ucvAvailability = await UserConsentVerifier.CheckAvailabilityAsync();
-				return (ucvAvailability == UserConsentVerifierAvailability.Available) ? DOAuthentication.UserSelection : DOAuthentication.None;
+				return (ucvAvailability == UserConsentVerifierAvailability.Available) ? DOAuthenticationType.UserSelection : DOAuthenticationType.NotAvailable;
 			}
 			catch (Exception ex)
 			{
-				Log.E("failed: " + ex.ToString(), this);
+				Log.E("failed: " + ex.ToString());
 			}
 
-			return DOAuthentication.None;
+			return DOAuthenticationType.NotAvailable;
 		}
 
-		DOAuthentication _AvailableDOAuthentication
+		static DOAuthenticationType _Type
 		{
 			get {
 				// TODO: this is ugly, try to find better solution
-				DOAuthentication rc = DOAuthentication.None;
+				DOAuthenticationType rc = DOAuthenticationType.NotAvailable;
 				Task.Run(async () => rc = await CheckConsentAvailabilityAsync()).GetAwaiter().GetResult();
 				return rc;
 			}
 		}
 
-		async Task RequestConsentAsync(string userMessage, Action Succes, Action<string, bool> ErrorOrHint)
+		static async Task RequestConsentAsync(string userMessage, Action Succes, Action<string, bool> ErrorOrHint)
 		{
 			string errorMessage = null;
 			try
@@ -47,7 +47,7 @@ namespace pbXNet
 				switch (consentResult)
 				{
 					case UserConsentVerificationResult.Verified:
-						Log.I("success", this);
+						Log.I("success");
 						Succes();
 						break;
 					case UserConsentVerificationResult.DeviceBusy:
@@ -80,14 +80,14 @@ namespace pbXNet
 
 			if(errorMessage != null)
 			{
-				Log.E(errorMessage, this);
+				Log.E(errorMessage);
 				ErrorOrHint(errorMessage, false);
 			}
 		}
 
-		bool _StartDOAuthentication(string msg, Action Succes, Action<string, bool> ErrorOrHint)
+		static bool _Start(string msg, Action Succes, Action<string, bool> ErrorOrHint)
 		{
-			if(AvailableDOAuthentication != DOAuthentication.None)
+			if(_Type != DOAuthenticationType.NotAvailable)
 			{
 #pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
 				RequestConsentAsync(msg, Succes, ErrorOrHint);
@@ -98,12 +98,12 @@ namespace pbXNet
 			return false;
 		}
 
-		bool _CanDOAuthenticationBeCanceled()
+		static bool _CanBeCanceled()
 		{
 			return false;
 		}
 
-		bool _CancelDOAuthentication()
+		static bool _Cancel()
 		{
 			return false;
 		}

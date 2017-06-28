@@ -99,8 +99,8 @@
     <Compile Include="..\pbXNet\Droid\Locale.cs">
       <Link>pbXNet\Droid\Locale.cs</Link>
     </Compile>
-    <Compile Include="..\pbXNet\Droid\SecretsManager.cs">
-      <Link>pbXNet\Droid\SecretsManager.cs</Link>
+    <Compile Include="..\pbXNet\Droid\DOAuthentication.cs">
+      <Link>pbXNet\Droid\DOAuthentication.cs</Link>
     </Compile>
     <Compile Include="..\pbXNet\Droid\Tools.cs">
       <Link>pbXNet\Droid\Tools.cs</Link>

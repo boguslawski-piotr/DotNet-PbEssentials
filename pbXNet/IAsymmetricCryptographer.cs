@@ -19,16 +19,10 @@ namespace pbXNet
 	{
 		IAsymmetricCryptographerKeyPair GenerateKeyPair();
 
-		/// When error during (!) encryption should return an empty ByteBuffer.
-		/// Other errors, such as incorrect parameters, should be handled with exceptions.
 		ByteBuffer Encrypt(IByteBuffer msg, IAsymmetricCryptographerKeyPair pblKey);
 
-		/// When error during decryption should return an empty ByteBuffer.
-		/// Other errors, such as incorrect parameters, should be handled with exceptions.
 		ByteBuffer Decrypt(IByteBuffer msg, IAsymmetricCryptographerKeyPair prvKey);
 
-		/// When error during signing should return an empty ByteBuffer.
-		/// Other errors, such as incorrect parameters, should be handled with exceptions.
 		ByteBuffer Sign(IByteBuffer msg, IAsymmetricCryptographerKeyPair prvKey);
 
 		bool Verify(IByteBuffer msg, IByteBuffer signature, IAsymmetricCryptographerKeyPair pblKey);

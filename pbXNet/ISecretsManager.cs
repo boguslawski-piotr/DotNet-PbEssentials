@@ -3,16 +3,6 @@ using System.Threading.Tasks;
 
 namespace pbXNet
 {
-	public enum DOAuthentication
-	{
-		None,
-		Password,
-		Fingerprint,
-		Iris,
-		Face,
-		UserSelection,
-	}
-
 	/// <summary>
 	/// Secret life time definitions used in
 	/// <see cref="ISecretsManager.CreateCKey"/>,
@@ -49,14 +39,6 @@ namespace pbXNet
 	public interface ISecretsManager
 	{
 		string Id { get; }
-
-		// Basic device owner authentication (pin, passkey, biometrics, etc.)
-
-		DOAuthentication AvailableDOAuthentication { get; }
-
-		bool StartDOAuthentication(string msg, Action Succes, Action<string, bool> ErrorOrHint); // string: err/hint message, bool: this is only a hint?
-		bool CanDOAuthenticationBeCanceled();
-		bool CancelDOAuthentication();
 
 		// Basic authentication based on passwords
 		// Implementation should never store any password anywhere in any form

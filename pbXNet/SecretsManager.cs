@@ -29,17 +29,6 @@ namespace pbXNet
 			_CreateCKey(passwd);
 		}
 
-		// Basic device owner authentication (pin, passkey, biometrics, etc.)
-		// You will find the implementation in the platform directories...
-
-		public DOAuthentication AvailableDOAuthentication => _AvailableDOAuthentication;
-
-		public bool StartDOAuthentication(string msg, Action Succes, Action<string, bool> ErrorOrHint) => _StartDOAuthentication(msg, Succes, ErrorOrHint);
-
-		public bool CanDOAuthenticationBeCanceled() => _CanDOAuthenticationBeCanceled();
-
-		public bool CancelDOAuthentication() => _CancelDOAuthentication();
-
 		// Common code for passwords, ckeys and other secrets
 
 		[Serializable]

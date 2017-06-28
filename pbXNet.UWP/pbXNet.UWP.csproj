@@ -134,8 +134,8 @@
     <Compile Include="../pbXNet/UWP/Locale.cs">
       <Link>pbXNet\UWP\Locale.cs</Link>
     </Compile>
-    <Compile Include="../pbXNet/UWP/SecretsManager.cs">
-      <Link>pbXNet\UWP\SecretsManager.cs</Link>
+    <Compile Include="../pbXNet/UWP/DOAuthentication.cs">
+      <Link>pbXNet\UWP\DOAuthentication.cs</Link>
     </Compile>
     <Compile Include="../pbXNet/NETStd2/RsaCryptographer.cs">
       <Link>pbXNet\NETStd2\RsaCryptographer.cs</Link>

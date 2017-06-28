@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Security.Cryptography;
-using System.Text;
 
 namespace pbXNet
 {
@@ -121,8 +118,7 @@ namespace pbXNet
 					throw new ArgumentException("Incorrect format.", nameof(msg));
 
 				Aes alg = _algImpl;
-				ByteBuffer dmsg = Transform(amsg, si, key, iv, alg, false);
-				return dmsg;
+				return Transform(amsg, si, key, iv, alg, false);
 			}
 			finally
 			{
@@ -151,7 +147,7 @@ namespace pbXNet
 			catch (Exception ex)
 			{
 				Log.E(ex.Message, this);
-				return new ByteBuffer();
+				throw ex;
 			}
 			finally
 			{

@@ -195,7 +195,7 @@ namespace pbXNet
 			catch (Exception ex)
 			{
 				Log.E(ex.Message, this);
-				return new ByteBuffer();
+				throw ex;
 			}
 			finally
 			{
@@ -252,7 +252,7 @@ namespace pbXNet
 			catch (Exception ex)
 			{
 				Log.E(ex.Message, this);
-				return new ByteBuffer();
+				throw ex;
 			}
 			finally
 			{
@@ -281,7 +281,7 @@ namespace pbXNet
 			catch (Exception ex)
 			{
 				Log.E(ex.Message, this);
-				return new ByteBuffer();
+				throw ex;
 			}
 			finally
 			{
@@ -312,7 +312,7 @@ namespace pbXNet
 			catch (Exception ex)
 			{
 				Log.E(ex.Message, this);
-				return false;
+				throw ex;
 			}
 			finally
 			{

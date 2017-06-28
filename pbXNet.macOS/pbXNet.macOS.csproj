@@ -76,8 +76,8 @@
     <Compile Include="..\pbXNet\iOSmacOS\Locale.cs">
       <Link>pbXNet\iOSmacOS\Locale.cs</Link>
     </Compile>
-    <Compile Include="..\pbXNet\iOSmacOS\SecretsManager.cs">
-      <Link>pbXNet\iOSmacOS\SecretsManager.cs</Link>
+    <Compile Include="..\pbXNet\iOSmacOS\DOAuthentication.cs">
+      <Link>pbXNet\iOSmacOS\DOAuthentication.cs</Link>
     </Compile>
     <Compile Include="..\pbXNet\macOS\Tools.cs">
       <Link>pbXNet\macOS\Tools.cs</Link>
