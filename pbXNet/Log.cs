@@ -30,6 +30,8 @@ namespace pbXNet
 
 	public static class Log
 	{
+		public static bool UseFullCallerTypeName = false;
+
 		static Lazy<IList<ILogger>> _loggers = new Lazy<IList<ILogger>>(() =>
 		{
 			List<ILogger> l = new List<ILogger>();
@@ -47,7 +49,7 @@ namespace pbXNet
 
 			string callerInfo = null;
 			if (caller != null)
-				callerInfo = caller.GetType().FullName;
+				callerInfo = !UseFullCallerTypeName ? caller.GetType().Name : caller.GetType().FullName;
 			callerInfo = (callerInfo != null ? (callerInfo + ": ") : ("")) + callerName;
 
 			msg = $"{callerInfo}: {msg}";
