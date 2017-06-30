@@ -28,6 +28,25 @@ namespace pbXNet
 		}
 	}
 
+	public class ConsoleLogger : ILogger
+	{
+		public void L(DateTime dt, LogType type, string msg)
+		{
+			ConsoleColor c = Console.ForegroundColor;
+
+			if (type == LogType.Error)
+				Console.ForegroundColor = ConsoleColor.Red;
+			else if (type == LogType.Warning)
+				Console.ForegroundColor = ConsoleColor.Cyan;
+
+			Console.Write(dt.ToString("yyyy-M-d H:m:s.fff") + ": " + $"{type}: ");
+
+			Console.ForegroundColor = c;
+
+			Console.WriteLine(msg);
+		}
+	}
+
 	public static class Log
 	{
 		public static bool UseFullCallerTypeName = false;
