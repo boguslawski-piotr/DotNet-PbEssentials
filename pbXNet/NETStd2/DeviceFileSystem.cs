@@ -25,6 +25,27 @@ namespace pbXNet
 		public string RootPath => _root;
 		public string CurrentPath => _current;
 
+#if NETSTANDARD1_6 || __MACOS__
+		string SpecialFolderUserProfile
+		{
+			get {
+				string _HomeDir = Environment.GetEnvironmentVariable("HOME");
+				if (string.IsNullOrWhiteSpace(_HomeDir))
+					_HomeDir = Environment.GetEnvironmentVariable("USERPROFILE");
+				if (string.IsNullOrWhiteSpace(_HomeDir))
+					_HomeDir = Path.Combine(Environment.GetEnvironmentVariable("HOMEDRIVE"), Environment.GetEnvironmentVariable("HOMEPATH"));
+				if (string.IsNullOrWhiteSpace(_HomeDir))
+				{
+					Exception ex = new DirectoryNotFoundException("Can not find home directory.");
+					Log.E(ex.Message, this);
+					throw ex;
+				}
+
+				return _HomeDir;
+			}
+		}
+#endif
+
 		protected virtual void Initialize(string userDefinedRootPath)
 		{
 			switch (Root)
@@ -36,18 +57,11 @@ namespace pbXNet
 					if (userDefinedRootPath.StartsWith("~", StringComparison.Ordinal))
 					{
 #if NETSTANDARD1_6 || __MACOS__
-						string home = Environment.GetEnvironmentVariable("HOME");
+						string home = SpecialFolderUserProfile;
 #else
 						string home = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
 #endif
 						userDefinedRootPath = Path.Combine(home, userDefinedRootPath.Replace("~/", "").Replace("~", ""));
-					}
-
-					if (!Directory.Exists(userDefinedRootPath))
-					{
-						Exception ex = new DirectoryNotFoundException($"Directory {userDefinedRootPath} not found.");
-						Log.E(ex.Message, this);
-						throw ex;
 					}
 
 					_root = userDefinedRootPath;
@@ -56,8 +70,7 @@ namespace pbXNet
 				case DeviceFileSystemRoot.RoamingConfig:
 				case DeviceFileSystemRoot.LocalConfig:
 #if NETSTANDARD1_6
-					_root = Path.Combine(Environment.GetEnvironmentVariable("HOME"), ".config");
-					Directory.CreateDirectory(_root);
+					_root = Path.Combine(SpecialFolderUserProfile, ".config");
 #else
 					_root = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
 #endif
@@ -69,12 +82,16 @@ namespace pbXNet
 #if NETSTANDARD1_6 || __MACOS__
 					_root = Environment.GetEnvironmentVariable("HOME");
 					_root = Path.Combine(_root, "Documents");
-					if (!Directory.Exists(_root))
-						Directory.CreateDirectory(_root);
 #else
 					_root = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
 #endif
 					break;
+			}
+
+			if (!Directory.Exists(_root))
+			{
+				Directory.CreateDirectory(_root);
+				Log.I($"Directory '{_root}' has just been created.", this);
 			}
 
 			_current = _root;
