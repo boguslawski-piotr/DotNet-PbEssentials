@@ -1,4 +1,4 @@
-﻿#if WINDOWS_UWP
+﻿//#if WINDOWS_UWP
 
 using System;
 using System.Collections.Generic;
@@ -41,7 +41,7 @@ namespace pbXNet
 
 #pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
 
-		protected void Initialize(string userDefinedRootPath)
+		protected virtual void Initialize(string userDefinedRootPath)
 		{
 			switch (Root)
 			{
@@ -82,13 +82,13 @@ namespace pbXNet
 
 #pragma warning restore CS4014
 
-		public void Dispose()
+		public virtual void Dispose()
 		{
 			_current = null;
 			_root = null;
 		}
 
-		public async Task<IFileSystem> CloneAsync()
+		public virtual async Task<IFileSystem> CloneAsync()
 		{
 			DeviceFileSystem cp = new DeviceFileSystem(this.Root);
 			if (_root != null)
@@ -226,7 +226,7 @@ namespace pbXNet
 
 		Stack<State> _stateStack = new Stack<State>();
 
-		public Task SaveStateAsync()
+		public virtual Task SaveStateAsync()
 		{
 			_stateStack.Push(new State
 			{
@@ -237,7 +237,7 @@ namespace pbXNet
 			return Task.FromResult(true);
 		}
 
-		public Task RestoreStateAsync()
+		public virtual Task RestoreStateAsync()
 		{
 			if (_stateStack.Count > 0)
 			{
@@ -250,7 +250,7 @@ namespace pbXNet
 		}
 
 
-		public async Task SetCurrentDirectoryAsync(string dirname)
+		public virtual async Task SetCurrentDirectoryAsync(string dirname)
 		{
 			if (dirname == null || dirname == "")
 			{
@@ -258,7 +258,7 @@ namespace pbXNet
 			}
 			else if (dirname == "..")
 			{
-				if (_current != _root)
+				if (_current.Path != _root.Path)
 					_current = await _current.GetParentAsync();
 			}
 			else
@@ -267,7 +267,7 @@ namespace pbXNet
 			}
 		}
 
-		public async Task<IEnumerable<string>> GetDirectoriesAsync(string pattern = "")
+		public virtual async Task<IEnumerable<string>> GetDirectoriesAsync(string pattern = "")
 		{
 			IEnumerable<string> dirnames =
 				from storageDir in await _current.GetFoldersAsync()
@@ -276,18 +276,18 @@ namespace pbXNet
 			return dirnames;
 		}
 
-		public async Task<bool> DirectoryExistsAsync(string dirname)
+		public virtual async Task<bool> DirectoryExistsAsync(string dirname)
 		{
 			return await _current.TryGetItemAsync(dirname) != null;
 		}
 
-		public async Task CreateDirectoryAsync(string dirname)
+		public virtual async Task CreateDirectoryAsync(string dirname)
 		{
 			if (!string.IsNullOrEmpty(dirname))
 				_current = await _current.CreateFolderAsync(dirname, CreationCollisionOption.OpenIfExists);
 		}
 
-		public async Task DeleteDirectoryAsync(string dirname)
+		public virtual async Task DeleteDirectoryAsync(string dirname)
 		{
 			try
 			{
@@ -298,7 +298,7 @@ namespace pbXNet
 		}
 
 
-		public async Task<IEnumerable<string>> GetFilesAsync(string pattern = "")
+		public virtual async Task<IEnumerable<string>> GetFilesAsync(string pattern = "")
 		{
 			IEnumerable<string> filenames =
 				from storageFile in await _current.GetFilesAsync()
@@ -307,14 +307,14 @@ namespace pbXNet
 			return filenames;
 		}
 
-		public async Task<bool> FileExistsAsync(string filename)
+		public virtual async Task<bool> FileExistsAsync(string filename)
 		{
 			return await _current.TryGetItemAsync(filename) != null;
 		}
 
 #pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
 
-		public async Task DeleteFileAsync(string filename)
+		public virtual async Task DeleteFileAsync(string filename)
 		{
 			try
 			{
@@ -327,7 +327,7 @@ namespace pbXNet
 			catch (FileNotFoundException) { }
 		}
 
-		public async Task SetFileModifiedOnAsync(string filename, DateTime modifiedOn)
+		public virtual async Task SetFileModifiedOnAsync(string filename, DateTime modifiedOn)
 		{
 			ModifyModifiedOnDict(_root, (modifiedOnDict) => modifiedOnDict[FileNameForModifiedOn(filename)] = modifiedOn.ToUniversalTime());
 			ScheduleSaveModifiedOnDict(_root);
@@ -335,7 +335,7 @@ namespace pbXNet
 
 #pragma warning restore CS4014
 
-		public async Task<DateTime> GetFileModifiedOnAsync(string filename)
+		public virtual async Task<DateTime> GetFileModifiedOnAsync(string filename)
 		{
 			try
 			{
@@ -350,13 +350,13 @@ namespace pbXNet
 			return DateTime.MinValue;
 		}
 
-		public async Task WriteTextAsync(string filename, string text)
+		public virtual async Task WriteTextAsync(string filename, string text)
 		{
 			IStorageFile storageFile = await _current.CreateFileAsync(filename, CreationCollisionOption.ReplaceExisting);
 			await FileIO.WriteTextAsync(storageFile, text);
 		}
 
-		public async Task<string> ReadTextAsync(string filename)
+		public virtual async Task<string> ReadTextAsync(string filename)
 		{
 			IStorageFile storageFile = await _current.GetFileAsync(filename);
 			return await FileIO.ReadTextAsync(storageFile);
@@ -364,4 +364,4 @@ namespace pbXNet
 	}
 }
 
-#endif
+//#endif

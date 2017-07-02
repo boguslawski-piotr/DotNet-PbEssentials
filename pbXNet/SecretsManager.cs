@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace pbXNet
 {
-	public sealed partial class SecretsManager : ISecretsManager, IDisposable
+	public sealed class SecretsManager : ISecretsManager, IDisposable
 	{
 		public string Id { get; }
 

@@ -1,4 +1,4 @@
-﻿#if !WINDOWS_UWP
+﻿//#if !WINDOWS_UWP
 
 using System;
 using System.Collections.Generic;
@@ -168,20 +168,6 @@ namespace pbXNet
 			return Task.FromResult(true);
 		}
 
-		public virtual Task<bool> DirectoryExistsAsync(string dirname)
-		{
-			string dirpath = GetFilePath(dirname);
-			bool exists = Directory.Exists(dirpath);
-			return Task.FromResult(exists);
-		}
-
-		public virtual Task<bool> FileExistsAsync(string filename)
-		{
-			string filepath = GetFilePath(filename);
-			bool exists = File.Exists(filepath);
-			return Task.FromResult(exists);
-		}
-
 		public virtual Task<IEnumerable<string>> GetDirectoriesAsync(string pattern = "")
 		{
 			IEnumerable<string> dirnames =
@@ -192,14 +178,11 @@ namespace pbXNet
 			return Task.FromResult(dirnames);
 		}
 
-		public virtual Task<IEnumerable<string>> GetFilesAsync(string pattern = "")
+		public virtual Task<bool> DirectoryExistsAsync(string dirname)
 		{
-			IEnumerable<string> filenames =
-				from filepath in Directory.EnumerateFiles(_current)
-				let filename = Path.GetFileName(filepath)
-				where Regex.IsMatch(filename, pattern)
-				select filename;
-			return Task.FromResult(filenames);
+			string dirpath = GetFilePath(dirname);
+			bool exists = Directory.Exists(dirpath);
+			return Task.FromResult(exists);
 		}
 
 		public virtual Task CreateDirectoryAsync(string dirname)
@@ -209,6 +192,7 @@ namespace pbXNet
 				string dirpath = GetFilePath(dirname);
 				DirectoryInfo dir = Directory.CreateDirectory(GetFilePath(dirpath));
 				_previous.Push(_current);
+				// TODO: if dirname contains more than one directory (for example: t/e/s/) then we need to push to _previous whole path step by step
 				_current = dirpath;
 			}
 			return Task.FromResult(true);
@@ -221,6 +205,24 @@ namespace pbXNet
 			return Task.FromResult(true);
 		}
 
+
+		public virtual Task<IEnumerable<string>> GetFilesAsync(string pattern = "")
+		{
+			IEnumerable<string> filenames =
+				from filepath in Directory.EnumerateFiles(_current)
+				let filename = Path.GetFileName(filepath)
+				where Regex.IsMatch(filename, pattern)
+				select filename;
+			return Task.FromResult(filenames);
+		}
+
+		public virtual Task<bool> FileExistsAsync(string filename)
+		{
+			string filepath = GetFilePath(filename);
+			bool exists = File.Exists(filepath);
+			return Task.FromResult(exists);
+		}
+
 		public virtual Task DeleteFileAsync(string filename)
 		{
 			if (!string.IsNullOrEmpty(filename))
@@ -228,13 +230,13 @@ namespace pbXNet
 			return Task.FromResult(true);
 		}
 
-		public Task SetFileModifiedOnAsync(string filename, DateTime modifiedOn)
+		public virtual Task SetFileModifiedOnAsync(string filename, DateTime modifiedOn)
 		{
 			File.SetLastWriteTimeUtc(GetFilePath(filename), modifiedOn.ToUniversalTime());
 			return Task.FromResult(true);
 		}
 
-		public Task<DateTime> GetFileModifiedOnAsync(string filename)
+		public virtual Task<DateTime> GetFileModifiedOnAsync(string filename)
 		{
 			DateTime modifiedOn = File.GetLastWriteTimeUtc(GetFilePath(filename));
 			return Task.FromResult(modifiedOn);
@@ -258,11 +260,15 @@ namespace pbXNet
 			}
 		}
 
-		protected string GetFilePath(string filename)
+		#region Tools
+
+		protected virtual string GetFilePath(string filename)
 		{
 			return Path.Combine(_current, filename);
 		}
+
+		#endregion
 	}
 }
 
-#endif
+//#endif

@@ -8,7 +8,7 @@ namespace pbXNet
 	{
 		// Implementation in:
 		//
-		// UWP: pbXNet\UWP\
-		// iOS, macOS, Android, .NET: pbXNet\NETStd2\
+		// Native UWP: pbXNet\UWP\
+		// iOS, macOS, Android, UWP, .NET: pbXNet\NETStd2\
 	}
 }
