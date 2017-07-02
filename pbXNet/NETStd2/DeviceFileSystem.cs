@@ -51,7 +51,7 @@ namespace pbXNet
 			switch (Root)
 			{
 				case DeviceFileSystemRoot.UserDefined:
-					if (userDefinedRootPath == null)
+					if (string.IsNullOrWhiteSpace(userDefinedRootPath))
 						throw new ArgumentNullException(nameof(userDefinedRootPath));
 
 					if (userDefinedRootPath.StartsWith("~", StringComparison.Ordinal))
