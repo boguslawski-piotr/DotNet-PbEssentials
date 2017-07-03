@@ -10,7 +10,7 @@ namespace pbXNet
 	public class PbXStorageSettings
 	{
 		public IAsymmetricCryptographerKeyPair AppKeys;
-		
+
 		public string RepositoryId;
 		public IAsymmetricCryptographerKeyPair RepositoryPublicKey;
 
@@ -20,15 +20,41 @@ namespace pbXNet
 		public TimeSpan Timeout = TimeSpan.FromSeconds(30);
 	}
 
+	public enum PbXStorageErrorCode
+	{
+		IncorrectResponseData = 1,
+		CommandUnrecognized = 2,
+		SystemException = 3,
+
+		// 100 - 600: HttpStatusCode
+
+		RepositoryDoesNotExist = 1000,
+		AppRegistrationFailed = 1001,
+		IncorrectAppToken = 2000,
+		OpenStorageFailed = 2001,
+		IncorrectStorageToken = 3000,
+		ThingOperationFailed = 3001,
+	}
+
 	public class StorageOnPbXStorageException : Exception
 	{
-		public StorageOnPbXStorageException(string message)
-			: base(message)
+		public int Erorr;
+
+		public StorageOnPbXStorageException(int error, string message)
+			: base($"{error}, {message.Trim()}")
+		{
+			Erorr = error;
+		}
+
+		public StorageOnPbXStorageException(PbXStorageErrorCode error, string message)
+			: this((int)error, message)
 		{ }
 	}
 
 	public class StorageOnPbXStorage
 	{
+		#region Tools
+
 		public static readonly char[] commaAsArray = { ',' };
 
 		public static async Task<string> ExecuteCommandAsync(HttpClient httpClient, string cmd, Uri uri, HttpContent content = null)
@@ -52,34 +78,32 @@ namespace pbXNet
 					case "DELETE":
 						response = await httpClient.DeleteAsync(uri);
 						break;
+					default:
+						throw new StorageOnPbXStorageException(PbXStorageErrorCode.CommandUnrecognized, $"Command {cmd} unrecognized.");
 				}
 
-				if (response != null)
+				if (response.IsSuccessStatusCode)
 				{
-					if (response.IsSuccessStatusCode)
+					var responseContent = await response.Content.ReadAsStringAsync();
+					responseContent = Obfuscator.DeObfuscate(responseContent);
+
+					Log.D($"RESPONSE: {responseContent}");
+
+					string[] contentData = responseContent.Split(commaAsArray, 2);
+					if (contentData[0] == "ERROR" && contentData.Length > 1)
 					{
-						var responseContent = await response.Content.ReadAsStringAsync();
-						responseContent = Obfuscator.DeObfuscate(responseContent);
-
-						Log.D($"RESPONSE: {responseContent}");
-
-						string[] contentData = responseContent.Split(commaAsArray, 2);
-						if (contentData[0] == "ERROR")
-						{
-							throw new StorageOnPbXStorageException(contentData[1]);
-						}
-						else if (contentData[0] != "OK")
-						{
-							throw new StorageOnPbXStorageException("1,Incorrect data.");
-						}
-
-						return contentData.Length > 1 ? contentData[1] : null;
+						string[] errorData = contentData[1].Split(commaAsArray, 2);
+						throw new StorageOnPbXStorageException(int.Parse(errorData[0]), errorData[1]);
 					}
-					else
-						throw new StorageOnPbXStorageException($"{response.StatusCode},Failed to read data.");
+					else if (contentData[0] != "OK")
+					{
+						throw new StorageOnPbXStorageException(PbXStorageErrorCode.IncorrectResponseData, "Incorrect data.");
+					}
+
+					return contentData.Length > 1 ? contentData[1] : null;
 				}
 				else
-					throw new StorageOnPbXStorageException($"2,Command {cmd} unrecognized.");
+					throw new StorageOnPbXStorageException((int)response.StatusCode, "Incorrect data.");
 			}
 			catch (StorageOnPbXStorageException ex)
 			{
@@ -88,12 +112,14 @@ namespace pbXNet
 			}
 			catch (Exception ex)
 			{
-				string message = $"3,{ex.Message}";
+				string message = $"{ex.Message}";
 				if (ex.InnerException != null)
 					message += $" {ex.InnerException.Message + (ex.InnerException.Message.EndsWith(".") ? "" : ".")}";
 				Log.E(message);
-				throw new StorageOnPbXStorageException(message);
+				throw new StorageOnPbXStorageException(PbXStorageErrorCode.SystemException, message);
 			}
 		}
+
+		#endregion
 	}
 }
