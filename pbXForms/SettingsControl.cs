@@ -1,97 +1,119 @@
-﻿using Xamarin.Forms;
+﻿using System.ComponentModel;
+using Xamarin.Forms;
 
 namespace pbXForms
 {
-	public class SettingsControl : StackLayout { }
+	[EditorBrowsable(EditorBrowsableState.Never)]
+	public class SettingsControlLayout : StackLayout { }
 
+	[EditorBrowsable(EditorBrowsableState.Never)]
 	public class SettingsControlText : Label { }
 
-	public class SettingsControlDesc : Label { }
+	[EditorBrowsable(EditorBrowsableState.Never)]
+	public class SettingsDesc : Label { }
 
-	public class SettingsControlWithDesc : StackLayout
+	public class SettingsControl : StackLayout
 	{
-		protected SettingsControl _ControlLayout;
-		protected SettingsControlText _ControlText;
+		protected SettingsControlLayout ControlLayout;
+		protected SettingsControlText ControlText;
 
-		protected SettingsControlDesc _Desc;
-		protected SettingsLineSeparator _Separator;
+		protected SettingsDesc Desc;
+		protected SettingsLineSeparator Separator;
 
 		public string Text
 		{
-			get => _ControlText?.Text;
-			set => _ControlText.Text = value;
+			get => ControlText?.Text;
+			set => ControlText.Text = value;
 		}
 
-		public string Desc
+		public string Description
 		{
-			get => _Desc?.Text;
+			get => Desc.Text;
 			set {
-				_Desc.Text = value;
-				_Desc.IsVisible = true;
-				_Separator.IsVisible = false;
+				Desc.Text = value;
+				Desc.IsVisible = !string.IsNullOrWhiteSpace(value);
+				Separator.IsVisible = !Desc.IsVisible;
 			}
 		}
 
-		public bool Separator
+		public bool SeparatorIsVisible
 		{
-			get => _Separator.IsVisible;
-			set => _Separator.IsVisible = value;
+			get => Separator.IsVisible;
+			set => Separator.IsVisible = value;
 		}
 
 		public new bool IsEnabled
 		{
-			get => _ControlText.IsEnabled;
+			get => ControlText.IsEnabled;
 			set {
 				base.IsEnabled = value;
 
-				_ControlLayout.IsEnabled = value;
-				_ControlText.IsEnabled = value;
-				_Desc.IsEnabled = value;
+				ControlLayout.IsEnabled = value;
+				ControlText.IsEnabled = value;
+				Desc.IsEnabled = value;
 
-				_ControlText.Opacity = value ? 1 : 0.25;
-				_Desc.Opacity = _ControlText.Opacity;
+				ControlText.Opacity = value ? 1 : 0.25;
+				Desc.Opacity = ControlText.Opacity;
 			}
 		}
 
-		public SettingsControlWithDesc()
+		public SettingsControl()
+		{
+			Build();
+		}
+
+		protected virtual void Build()
 		{
 			Orientation = StackOrientation.Vertical;
 			Padding = new Thickness(0);
 			Margin = new Thickness(0);
 			Spacing = 0;
 
-			_ControlLayout = new SettingsControl()
+			BuildControl();
+			BuildDesc();
+			BuildSeparator();
+
+			Children.Add(ControlLayout);
+			Children.Add(Desc);
+			Children.Add(Separator);
+		}
+
+		protected virtual void BuildControl()
+		{
+			ControlLayout = new SettingsControlLayout()
 			{
 				Orientation = StackOrientation.Horizontal,
 				Padding = new Thickness(Metrics.ButtonItemsSpacing, Metrics.ButtonItemsSpacing),
 				Spacing = Metrics.ButtonItemsSpacing * 2,
 			};
 
-			_ControlText = new SettingsControlText()
+			ControlText = new SettingsControlText()
 			{
-				FontSize = Device.GetNamedSize(NamedSize.Medium, typeof(Label)),
+				FontSize = Device.GetNamedSize(NamedSize.Small, typeof(Label)),
 				HorizontalOptions = LayoutOptions.StartAndExpand,
 				VerticalTextAlignment = TextAlignment.Center,
 				Text = this.Text,
 			};
 
-			_ControlLayout.Children.Add(_ControlText);
+			ControlLayout.Children.Add(ControlText);
+		}
 
-			_Desc = new SettingsControlDesc()
+		protected virtual void BuildDesc()
+		{
+			Desc = new SettingsDesc()
 			{
 				FontSize = Device.GetNamedSize(NamedSize.Micro, typeof(Label)),
 				Margin = new Thickness(Metrics.ButtonItemsSpacing, Metrics.ButtonItemsSpacing / 4, Metrics.ButtonItemsSpacing, Metrics.ButtonItemsSpacing * 2),
 				IsVisible = false,
 			};
+		}
 
-			_Separator = new SettingsLineSeparator()
+		protected virtual void BuildSeparator()
+		{
+			Separator = new SettingsLineSeparator()
 			{
 				Margin = new Thickness(Metrics.ButtonItemsSpacing, 0, 0, 0),
 			};
-
-			Children.Add(_ControlLayout);
-			Children.Add(_Desc);
-			Children.Add(_Separator);
 		}
 	}
 }

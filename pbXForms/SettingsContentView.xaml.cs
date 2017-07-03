@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using pbXNet;
 using Xamarin.Forms;
 
 namespace pbXForms
 {
+	[EditorBrowsable(EditorBrowsableState.Never)]
 	public class SettingsContentViewLayout : Grid
 	{
 		public SettingsContentViewLayout()
@@ -29,14 +31,19 @@ namespace pbXForms
 	public partial class SettingsContentView : ModalContentView
 	{
 		public Color GroupBackgroundColor { get; set; }
-		public Color GroupHeaderBackgroundColor { get; set; }
-		public Color GroupTextTextColor { get; set; }
-		public Color GroupDescTextColor { get; set; }
-		public FileImageSource GroupCollapsedExpandedImage { get; set; }
+		public Color GroupTextColor { get; set; }
+		public Color GroupDescColor { get; set; }
+		public FileImageSource GroupImage { get; set; }
+
+		public Color GroupContentBackgroundColor { get; set; }
 
 		public Color ControlBackgroundColor { get; set; }
-		public Color ControlTextTextColor { get; set; }
-		public Color ControlDescTextColor { get; set; }
+		public Color ControlTextColor { get; set; }
+		public Color ControlDescColor { get; set; }
+
+		public Color SeparatorColor { get; set; }
+
+		// TODO: fonts sizes (GroupText, GroupDesc, ControlText, ControlDesc)
 
 		protected override AppBarLayout AppBarLayout => _AppBarRow;
 		public IList<View> AppBarContent => _AppBarRow.Children;
@@ -99,7 +106,13 @@ namespace pbXForms
 					SetImageSource(sl.Children, type, imageSource);
 
 				if (e.GetType() == type)
-					(e as Image).Source = imageSource;
+				{
+					if (e is Image i)
+					{
+						if (i.Source == null)
+							i.Source = imageSource;
+					}
+				}
 			}
 		}
 
@@ -107,19 +120,25 @@ namespace pbXForms
 		{
 			base.OnParentSet();
 
-			SetBackgroundColor(ViewContent, typeof(SettingsGroup), GroupBackgroundColor);
-			SetBackgroundColor(ViewContent, typeof(SettingsGroupHeader), GroupHeaderBackgroundColor);
+
+			SetBackgroundColor(ViewContent, typeof(SettingsGroupHeaderLayout), GroupBackgroundColor);
+			SetBackgroundColor(ViewContent, typeof(SettingsGroupInnerHeaderLayout), GroupBackgroundColor);
 #if WINDOWS_UWP
 			// Workaround bug(s) in TapGestureRecognizer. It doesn't work when background color is Default(Transparent).
-			SetBackgroundColor(ViewContent, typeof(SettingsGroupHeader), BackgroundColor);
+			SetBackgroundColor(ViewContent, typeof(SettingsGroupHeaderLayout), BackgroundColor);
+			SetBackgroundColor(ViewContent, typeof(SettingsGroupInnerHeaderLayout), BackgroundColor);
 #endif
-			SetTextColor(ViewContent, typeof(SettingsGroupText), GroupTextTextColor);
-			SetTextColor(ViewContent, typeof(SettingsGroupDesc), GroupDescTextColor);
-			SetImageSource(ViewContent, typeof(SettingsGroupCollapsedExpandedImage), GroupCollapsedExpandedImage);
+			SetTextColor(ViewContent, typeof(SettingsGroupText), GroupTextColor);
+			SetTextColor(ViewContent, typeof(SettingsGroupDesc), GroupDescColor);
+			SetImageSource(ViewContent, typeof(SettingsGroupImage), GroupImage);
 
-			SetBackgroundColor(ViewContent, typeof(SettingsControl), ControlBackgroundColor);
-			SetTextColor(ViewContent, typeof(SettingsControlText), ControlTextTextColor);
-			SetTextColor(ViewContent, typeof(SettingsControlDesc), ControlDescTextColor);
+			SetBackgroundColor(ViewContent, typeof(SettingsGroup), GroupContentBackgroundColor);
+
+			SetBackgroundColor(ViewContent, typeof(SettingsControlLayout), ControlBackgroundColor);
+			SetTextColor(ViewContent, typeof(SettingsControlText), ControlTextColor);
+			SetTextColor(ViewContent, typeof(SettingsDesc), ControlDescColor);
+
+			SetBackgroundColor(ViewContent, typeof(SettingsLineSeparator), SeparatorColor);
 		}
 	}
 }

@@ -3,7 +3,7 @@ using Xamarin.Forms;
 
 namespace pbXForms
 {
-	public class SettingsSwitch : SettingsControlWithDesc
+	public class SettingsSwitch : SettingsControl
 	{
 		public static readonly BindableProperty IsToggledProperty =
 			BindableProperty.Create("IsToggled",
@@ -13,15 +13,15 @@ namespace pbXForms
 									defaultBindingMode: BindingMode.TwoWay,
 									propertyChanged: (bindable, oldValue, newValue) =>
 									{
-										((SettingsSwitch)bindable)._Switch.IsToggled = (bool)newValue;
+										((SettingsSwitch)bindable)._switch.IsToggled = (bool)newValue;
 										((SettingsSwitch)bindable).Toggled?.Invoke(bindable, new ToggledEventArgs((bool)newValue));
 									});
 
 		public new bool IsEnabled
 		{
-			get => _Switch.IsEnabled;
+			get => _switch.IsEnabled;
 			set {
-				_Switch.IsEnabled = value;
+				_switch.IsEnabled = value;
 				base.IsEnabled = value;
 			}
 		}
@@ -34,15 +34,17 @@ namespace pbXForms
 
 		public event EventHandler<ToggledEventArgs> Toggled;
 
-		Switch _Switch { get; set; }
+		Switch _switch { get; set; }
 
-		public SettingsSwitch()
+		protected override void BuildControl()
 		{
-			_Switch = new Switch();
-			_Switch.VerticalOptions = LayoutOptions.Center;
-			_Switch.Toggled += OnInnerSwitchToggled;
+			base.BuildControl();
 
-			_ControlLayout.Children.Add(_Switch);
+			_switch = new Switch();
+			_switch.VerticalOptions = LayoutOptions.Center;
+			_switch.Toggled += OnInnerSwitchToggled;
+
+			ControlLayout.Children.Add(_switch);
 		}
 
 		protected virtual void OnInnerSwitchToggled(object sender, ToggledEventArgs e)

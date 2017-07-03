@@ -16,8 +16,8 @@ namespace pbXForms
 	{
 		public SettingsLineSeparator()
 		{
+			BackgroundColor = Color.Default;
 			HeightRequest = 0.5;
-			BackgroundColor = Color.Black;
 			Opacity = 0.15;
 		}
 	}
