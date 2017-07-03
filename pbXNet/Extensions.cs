@@ -96,28 +96,4 @@ namespace pbXNet
 			return ConvertEx.ToMemoryStream(src);
 		}
 	}
-
-	/// <summary>
-	/// Collections extensions.
-	/// </summary>
-	public static class CollectionExtensions
-	{
-		public static void Sort<T>(this ObservableCollection<T> observableCollection, Comparison<T> comparison)
-		{
-			var l = new List<T>(observableCollection);
-			if (comparison == null)
-				l.Sort();
-			else
-				l.Sort(comparison);
-			
-			for (var i = 0; i < l.Count; i++)
-			{
-				var oldIndex = observableCollection.IndexOf(l[i]);
-				var newIndex = i;
-				if (oldIndex != newIndex)
-					observableCollection.Move(oldIndex, newIndex);
-			}
-		}
-	}
-
 }

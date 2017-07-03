@@ -21,7 +21,7 @@ namespace pbXNet
 	/// class HomeControl {
 	///   ...
 	///   bool _armed;
-	///   List{Window} _windows = new List{Window}();
+	///   List&lt;Window&gt; _windows = new List&lt;Window&gt;();
 	///   ...
 	///   public AddWindow(Window window) {
 	///     _windows.Add(window);

@@ -17,14 +17,14 @@ namespace pbXNet
 	public class ObservableCollectionEx<T> : ObservableCollection<T>
 	{
 		/// <summary> 
-		/// Initializes a new instance of the ObservableCollectionEx{T} class that contains no elements. 
+		/// Initializes a new instance of the ObservableCollectionEx&lt;T&gt; class that contains no elements. 
 		/// </summary> 
 		public ObservableCollectionEx() : base()
 		{
 		}
 
 		/// <summary> 
-		/// Initializes a new instance of the ObservableCollectionEx{T} class that contains elements copied from the specified collection. 
+		/// Initializes a new instance of the ObservableCollectionEx&lt;T&gt; class that contains elements copied from the specified collection. 
 		/// </summary> 
 		/// <param name="collection">The collection from which the elements are copied.</param> 
 		/// <exception cref="System.ArgumentNullException">The collection parameter cannot be null.</exception> 
@@ -33,7 +33,7 @@ namespace pbXNet
 		}
 
 		/// <summary> 
-		/// Initializes a new instance of the ObservableCollectionEx{T} class that contains elements copied from the specified list. 
+		/// Initializes a new instance of the ObservableCollectionEx&lt;T&gt; class that contains elements copied from the specified list. 
 		/// </summary> 
 		/// <param name="list">The list from which the elements are copied.</param> 
 		/// <exception cref="System.ArgumentNullException">The list parameter cannot be null.</exception> 
@@ -42,7 +42,7 @@ namespace pbXNet
 		}
 
 		/// <summary> 
-		/// Adds the elements of the specified collection to the end of the ObservableCollectionEx{T}. 
+		/// Adds the elements of the specified collection to the end of the ObservableCollectionEx&lt;T&gt;. 
 		/// </summary> 
 		public void AddRange(IEnumerable<T> collection, NotifyCollectionChangedAction notificationMode = NotifyCollectionChangedAction.Add)
 		{
@@ -78,7 +78,7 @@ namespace pbXNet
 		}
 
 		/// <summary> 
-		/// Removes the first occurence of each item in the specified collection from ObservableCollectionEx{T}. 
+		/// Removes the first occurence of each item in the specified collection from ObservableCollectionEx&lt;T&gt;. 
 		/// </summary> 
 		public void RemoveRange(IEnumerable<T> collection)
 		{
@@ -113,7 +113,7 @@ namespace pbXNet
 		/// <summary>
 		/// Searches for an element that matches the conditions defined by the specified predicate, and returns the first occurrence within the entire collection.
 		/// </summary>
-		/// <param name="match">The Predicate{T} delegate that defines the conditions of the element to search for.</param>
+		/// <param name="match">The Predicate&lt;T&gt; delegate that defines the conditions of the element to search for.</param>
 		public T Find(Predicate<T> match)
 		{
 			List<T> items = Items as List<T>;
@@ -125,7 +125,7 @@ namespace pbXNet
 		/// <summary>
 		/// Sorts the elements in the entire collection.
 		/// </summary>
-		/// <param name="comparison">The Comparison{T} to use when comparing elements, or null to use the default comparer.</param>
+		/// <param name="comparison">The Comparison&lt;T&gt; to use when comparing elements, or null to use the default comparer.</param>
 		public void Sort(Comparison<T> comparison = null)
 		{
 			List<T> items = new List<T>(Items);
@@ -139,7 +139,7 @@ namespace pbXNet
 		/// <summary>
 		/// Sorts the elements in the entire collection.
 		/// </summary>
-		/// <param name="comparer">The IComparer{T} implementation to use when comparing elements, or null to use the default comparer.</param>
+		/// <param name="comparer">The IComparer&lt;T&gt; implementation to use when comparing elements, or null to use the default comparer.</param>
 		public void Sort(IComparer<T> comparer = null)
 		{
 			Sort(0, Count, comparer);
@@ -150,7 +150,7 @@ namespace pbXNet
 		/// </summary>
 		/// <param name="index">The zero-based starting index of the range to sort.</param>
 		/// <param name="count">The length of the range to sort.</param>
-		/// <param name="comparer">The IComparer{T} implementation to use when comparing elements, or null to use the default comparer.</param>
+		/// <param name="comparer">The IComparer&lt;T&gt; implementation to use when comparing elements, or null to use the default comparer.</param>
 		public void Sort(int index, int count, IComparer<T> comparer = null)
 		{
 			List<T> items = new List<T>(Items);
