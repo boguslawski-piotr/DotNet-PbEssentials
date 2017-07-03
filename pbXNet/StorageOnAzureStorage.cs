@@ -9,6 +9,20 @@ using Microsoft.WindowsAzure.Storage.Blob;
 
 namespace pbXNet
 {
+	public class AzureStorageSettings
+	{
+		public enum StorageType
+		{
+			BlockBlob,
+			PageBlob,
+		}
+
+		/// Connection string: https://docs.microsoft.com/en-us/azure/storage/storage-configure-connection-string
+		public string ConnectionString;
+
+		public StorageType Type;
+	}
+
 	public class StorageOnAzureStorage<T> : Storage<T>, ISearchableStorage<T> where T : class
 	{
 		public override StorageType Type => StorageType.RemoteService;
