@@ -33,17 +33,25 @@ namespace pbXNet
 		public void L(DateTime dt, LogType type, string msg)
 		{
 			ConsoleColor c = Console.ForegroundColor;
+			try
+			{
+				if (type == LogType.Error)
+					Console.ForegroundColor = ConsoleColor.Red;
+				else if (type == LogType.Warning)
+					Console.ForegroundColor = ConsoleColor.Cyan;
 
-			if (type == LogType.Error)
-				Console.ForegroundColor = ConsoleColor.Red;
-			else if (type == LogType.Warning)
-				Console.ForegroundColor = ConsoleColor.Cyan;
-
-			Console.Write(dt.ToString("yyyy-M-d H:m:s.fff") + ": " + $"{type}: ");
-
-			Console.ForegroundColor = c;
-
-			Console.WriteLine(msg);
+				Console.Write(dt.ToString("yyyy-M-d H:m:s.fff") + ": " + $"{type}: ");
+			}
+			catch { }
+			finally
+			{
+				Console.ForegroundColor = c;
+			}
+			try
+			{
+				Console.WriteLine(msg);
+			}
+			catch { }
 		}
 	}
 
