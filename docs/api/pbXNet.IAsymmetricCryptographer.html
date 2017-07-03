@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Interface IAsymmetricCryptographer
    ">
-    <meta name="generator" content="docfx 2.18.5.0">
+    <meta name="generator" content="docfx 2.19.2.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -72,14 +72,14 @@
   </h1>
   <div class="markdown level0 summary"></div>
   <div class="markdown level0 conceptual"></div>
-  
+
   
   
   <h5 id="pbXNet_IAsymmetricCryptographer_syntax">Syntax</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public interface IAsymmetricCryptographer : IDisposable</code></pre>
   </div>
-  
+
   
   
   
@@ -87,27 +87,20 @@
   <h3 id="methods">Methods
   </h3>
   
-  <span class="small pull-right mobile-hide">
-    <span class="divider"> </span>
-    <a href="https://github.com/boguslawski-piotr/pbX/new/master/apiSpec/new?filename=pbXNet_IAsymmetricCryptographer_Decrypt_pbXNet_IByteBuffer_pbXNet_IByteBuffer_.md&amp;value=---%0Auid%3A%20pbXNet.IAsymmetricCryptographer.Decrypt(pbXNet.IByteBuffer%2CpbXNet.IByteBuffer)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/boguslawski-piotr/pbX/blob/master/pbXNet/IAsymmetricCryptographer.cs/#L17" title="View Source"><i class="fa fa-code"></i></a>
-  </span>
   
   <a id="pbXNet_IAsymmetricCryptographer_Decrypt_" data-uid="pbXNet.IAsymmetricCryptographer.Decrypt*"></a>
   
-  <h4 id="pbXNet_IAsymmetricCryptographer_Decrypt_pbXNet_IByteBuffer_pbXNet_IByteBuffer_" data-uid="pbXNet.IAsymmetricCryptographer.Decrypt(pbXNet.IByteBuffer,pbXNet.IByteBuffer)"><a href="#collapsible-pbXNet_IAsymmetricCryptographer_Decrypt_pbXNet_IByteBuffer_pbXNet_IByteBuffer_" class="expander" data-toggle="collapse">Decrypt(IByteBuffer, IByteBuffer)</a></h4>
+  <h4 id="pbXNet_IAsymmetricCryptographer_Decrypt_pbXNet_IByteBuffer_pbXNet_IAsymmetricCryptographerKeyPair_" data-uid="pbXNet.IAsymmetricCryptographer.Decrypt(pbXNet.IByteBuffer,pbXNet.IAsymmetricCryptographerKeyPair)"><a href="#collapsible-pbXNet_IAsymmetricCryptographer_Decrypt_pbXNet_IByteBuffer_pbXNet_IAsymmetricCryptographerKeyPair_" class="expander" data-toggle="collapse">Decrypt(IByteBuffer, IAsymmetricCryptographerKeyPair)</a></h4>
   
-  <div id="collapsible-pbXNet_IAsymmetricCryptographer_Decrypt_pbXNet_IByteBuffer_pbXNet_IByteBuffer_" class="collapse in">
+  <div id="collapsible-pbXNet_IAsymmetricCryptographer_Decrypt_pbXNet_IByteBuffer_pbXNet_IAsymmetricCryptographerKeyPair_" class="collapse in">
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
-  
+
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">ByteBuffer Decrypt(IByteBuffer msg, IByteBuffer prvKey)</code></pre>
+    <pre><code class="lang-csharp hljs">ByteBuffer Decrypt(IByteBuffer msg, IAsymmetricCryptographerKeyPair prvKey)</code></pre>
   </div>
-  
+
   <h5 class="parameters">Parameters</h5>
   <table>
     <tr>
@@ -119,7 +112,7 @@
     </tr>
     <tr>
       <td>
-        <span class="pull-right"><a class="xref" href="pbXNet.IByteBuffer.html">IByteBuffer</a></span>
+        <span class="pull-right"><a class="xref" href="pbXNet.IAsymmetricCryptographerKeyPair.html">IAsymmetricCryptographerKeyPair</a></span>
         <span class="parametername">prvKey</span>
         <p>
       </td>
@@ -147,27 +140,20 @@
   
   </div>
   
-  <span class="small pull-right mobile-hide">
-    <span class="divider"> </span>
-    <a href="https://github.com/boguslawski-piotr/pbX/new/master/apiSpec/new?filename=pbXNet_IAsymmetricCryptographer_Encrypt_pbXNet_IByteBuffer_pbXNet_IByteBuffer_.md&amp;value=---%0Auid%3A%20pbXNet.IAsymmetricCryptographer.Encrypt(pbXNet.IByteBuffer%2CpbXNet.IByteBuffer)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/boguslawski-piotr/pbX/blob/master/pbXNet/IAsymmetricCryptographer.cs/#L15" title="View Source"><i class="fa fa-code"></i></a>
-  </span>
   
   <a id="pbXNet_IAsymmetricCryptographer_Encrypt_" data-uid="pbXNet.IAsymmetricCryptographer.Encrypt*"></a>
   
-  <h4 id="pbXNet_IAsymmetricCryptographer_Encrypt_pbXNet_IByteBuffer_pbXNet_IByteBuffer_" data-uid="pbXNet.IAsymmetricCryptographer.Encrypt(pbXNet.IByteBuffer,pbXNet.IByteBuffer)"><a href="#collapsible-pbXNet_IAsymmetricCryptographer_Encrypt_pbXNet_IByteBuffer_pbXNet_IByteBuffer_" class="expander" data-toggle="collapse">Encrypt(IByteBuffer, IByteBuffer)</a></h4>
+  <h4 id="pbXNet_IAsymmetricCryptographer_Encrypt_pbXNet_IByteBuffer_pbXNet_IAsymmetricCryptographerKeyPair_" data-uid="pbXNet.IAsymmetricCryptographer.Encrypt(pbXNet.IByteBuffer,pbXNet.IAsymmetricCryptographerKeyPair)"><a href="#collapsible-pbXNet_IAsymmetricCryptographer_Encrypt_pbXNet_IByteBuffer_pbXNet_IAsymmetricCryptographerKeyPair_" class="expander" data-toggle="collapse">Encrypt(IByteBuffer, IAsymmetricCryptographerKeyPair)</a></h4>
   
-  <div id="collapsible-pbXNet_IAsymmetricCryptographer_Encrypt_pbXNet_IByteBuffer_pbXNet_IByteBuffer_" class="collapse in">
+  <div id="collapsible-pbXNet_IAsymmetricCryptographer_Encrypt_pbXNet_IByteBuffer_pbXNet_IAsymmetricCryptographerKeyPair_" class="collapse in">
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
-  
+
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">ByteBuffer Encrypt(IByteBuffer msg, IByteBuffer pblKey)</code></pre>
+    <pre><code class="lang-csharp hljs">ByteBuffer Encrypt(IByteBuffer msg, IAsymmetricCryptographerKeyPair pblKey)</code></pre>
   </div>
-  
+
   <h5 class="parameters">Parameters</h5>
   <table>
     <tr>
@@ -179,7 +165,7 @@
     </tr>
     <tr>
       <td>
-        <span class="pull-right"><a class="xref" href="pbXNet.IByteBuffer.html">IByteBuffer</a></span>
+        <span class="pull-right"><a class="xref" href="pbXNet.IAsymmetricCryptographerKeyPair.html">IAsymmetricCryptographerKeyPair</a></span>
         <span class="parametername">pblKey</span>
         <p>
       </td>
@@ -207,37 +193,20 @@
   
   </div>
   
-  <span class="small pull-right mobile-hide">
-    <span class="divider"> </span>
-    <a href="https://github.com/boguslawski-piotr/pbX/new/master/apiSpec/new?filename=pbXNet_IAsymmetricCryptographer_GenerateKeyPair_System_Int32_.md&amp;value=---%0Auid%3A%20pbXNet.IAsymmetricCryptographer.GenerateKeyPair(System.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/boguslawski-piotr/pbX/blob/master/pbXNet/IAsymmetricCryptographer.cs/#L13" title="View Source"><i class="fa fa-code"></i></a>
-  </span>
   
   <a id="pbXNet_IAsymmetricCryptographer_GenerateKeyPair_" data-uid="pbXNet.IAsymmetricCryptographer.GenerateKeyPair*"></a>
   
-  <h4 id="pbXNet_IAsymmetricCryptographer_GenerateKeyPair_System_Int32_" data-uid="pbXNet.IAsymmetricCryptographer.GenerateKeyPair(System.Int32)"><a href="#collapsible-pbXNet_IAsymmetricCryptographer_GenerateKeyPair_System_Int32_" class="expander" data-toggle="collapse">GenerateKeyPair(Int32)</a></h4>
+  <h4 id="pbXNet_IAsymmetricCryptographer_GenerateKeyPair" data-uid="pbXNet.IAsymmetricCryptographer.GenerateKeyPair"><a href="#collapsible-pbXNet_IAsymmetricCryptographer_GenerateKeyPair" class="expander" data-toggle="collapse">GenerateKeyPair()</a></h4>
   
-  <div id="collapsible-pbXNet_IAsymmetricCryptographer_GenerateKeyPair_System_Int32_" class="collapse in">
+  <div id="collapsible-pbXNet_IAsymmetricCryptographer_GenerateKeyPair" class="collapse in">
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
-  
+
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">IAsymmetricCryptographerKeyPair GenerateKeyPair(int length = -1)</code></pre>
+    <pre><code class="lang-csharp hljs">IAsymmetricCryptographerKeyPair GenerateKeyPair()</code></pre>
   </div>
-  
-  <h5 class="parameters">Parameters</h5>
-  <table>
-    <tr>
-      <td>
-        <span class="pull-right"><a class="xref" href="https://msdn.microsoft.com/en-us/library/system.int32(v=vs.110).aspx">Int32</a></span>
-        <span class="parametername">length</span>
-        <p>
-      </td>
-    </tr>
-  </table>
+
   
   <h5 class="returns">Returns</h5>
   <table>
@@ -260,27 +229,20 @@
   
   </div>
   
-  <span class="small pull-right mobile-hide">
-    <span class="divider"> </span>
-    <a href="https://github.com/boguslawski-piotr/pbX/new/master/apiSpec/new?filename=pbXNet_IAsymmetricCryptographer_Sign_pbXNet_IByteBuffer_pbXNet_IByteBuffer_.md&amp;value=---%0Auid%3A%20pbXNet.IAsymmetricCryptographer.Sign(pbXNet.IByteBuffer%2CpbXNet.IByteBuffer)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/boguslawski-piotr/pbX/blob/master/pbXNet/IAsymmetricCryptographer.cs/#L19" title="View Source"><i class="fa fa-code"></i></a>
-  </span>
   
   <a id="pbXNet_IAsymmetricCryptographer_Sign_" data-uid="pbXNet.IAsymmetricCryptographer.Sign*"></a>
   
-  <h4 id="pbXNet_IAsymmetricCryptographer_Sign_pbXNet_IByteBuffer_pbXNet_IByteBuffer_" data-uid="pbXNet.IAsymmetricCryptographer.Sign(pbXNet.IByteBuffer,pbXNet.IByteBuffer)"><a href="#collapsible-pbXNet_IAsymmetricCryptographer_Sign_pbXNet_IByteBuffer_pbXNet_IByteBuffer_" class="expander" data-toggle="collapse">Sign(IByteBuffer, IByteBuffer)</a></h4>
+  <h4 id="pbXNet_IAsymmetricCryptographer_Sign_pbXNet_IByteBuffer_pbXNet_IAsymmetricCryptographerKeyPair_" data-uid="pbXNet.IAsymmetricCryptographer.Sign(pbXNet.IByteBuffer,pbXNet.IAsymmetricCryptographerKeyPair)"><a href="#collapsible-pbXNet_IAsymmetricCryptographer_Sign_pbXNet_IByteBuffer_pbXNet_IAsymmetricCryptographerKeyPair_" class="expander" data-toggle="collapse">Sign(IByteBuffer, IAsymmetricCryptographerKeyPair)</a></h4>
   
-  <div id="collapsible-pbXNet_IAsymmetricCryptographer_Sign_pbXNet_IByteBuffer_pbXNet_IByteBuffer_" class="collapse in">
+  <div id="collapsible-pbXNet_IAsymmetricCryptographer_Sign_pbXNet_IByteBuffer_pbXNet_IAsymmetricCryptographerKeyPair_" class="collapse in">
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
-  
+
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">ByteBuffer Sign(IByteBuffer msg, IByteBuffer prvKey)</code></pre>
+    <pre><code class="lang-csharp hljs">ByteBuffer Sign(IByteBuffer msg, IAsymmetricCryptographerKeyPair prvKey)</code></pre>
   </div>
-  
+
   <h5 class="parameters">Parameters</h5>
   <table>
     <tr>
@@ -292,7 +254,7 @@
     </tr>
     <tr>
       <td>
-        <span class="pull-right"><a class="xref" href="pbXNet.IByteBuffer.html">IByteBuffer</a></span>
+        <span class="pull-right"><a class="xref" href="pbXNet.IAsymmetricCryptographerKeyPair.html">IAsymmetricCryptographerKeyPair</a></span>
         <span class="parametername">prvKey</span>
         <p>
       </td>
@@ -320,27 +282,20 @@
   
   </div>
   
-  <span class="small pull-right mobile-hide">
-    <span class="divider"> </span>
-    <a href="https://github.com/boguslawski-piotr/pbX/new/master/apiSpec/new?filename=pbXNet_IAsymmetricCryptographer_Verify_pbXNet_IByteBuffer_pbXNet_IByteBuffer_pbXNet_IByteBuffer_.md&amp;value=---%0Auid%3A%20pbXNet.IAsymmetricCryptographer.Verify(pbXNet.IByteBuffer%2CpbXNet.IByteBuffer%2CpbXNet.IByteBuffer)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/boguslawski-piotr/pbX/blob/master/pbXNet/IAsymmetricCryptographer.cs/#L21" title="View Source"><i class="fa fa-code"></i></a>
-  </span>
   
   <a id="pbXNet_IAsymmetricCryptographer_Verify_" data-uid="pbXNet.IAsymmetricCryptographer.Verify*"></a>
   
-  <h4 id="pbXNet_IAsymmetricCryptographer_Verify_pbXNet_IByteBuffer_pbXNet_IByteBuffer_pbXNet_IByteBuffer_" data-uid="pbXNet.IAsymmetricCryptographer.Verify(pbXNet.IByteBuffer,pbXNet.IByteBuffer,pbXNet.IByteBuffer)"><a href="#collapsible-pbXNet_IAsymmetricCryptographer_Verify_pbXNet_IByteBuffer_pbXNet_IByteBuffer_pbXNet_IByteBuffer_" class="expander" data-toggle="collapse">Verify(IByteBuffer, IByteBuffer, IByteBuffer)</a></h4>
+  <h4 id="pbXNet_IAsymmetricCryptographer_Verify_pbXNet_IByteBuffer_pbXNet_IByteBuffer_pbXNet_IAsymmetricCryptographerKeyPair_" data-uid="pbXNet.IAsymmetricCryptographer.Verify(pbXNet.IByteBuffer,pbXNet.IByteBuffer,pbXNet.IAsymmetricCryptographerKeyPair)"><a href="#collapsible-pbXNet_IAsymmetricCryptographer_Verify_pbXNet_IByteBuffer_pbXNet_IByteBuffer_pbXNet_IAsymmetricCryptographerKeyPair_" class="expander" data-toggle="collapse">Verify(IByteBuffer, IByteBuffer, IAsymmetricCryptographerKeyPair)</a></h4>
   
-  <div id="collapsible-pbXNet_IAsymmetricCryptographer_Verify_pbXNet_IByteBuffer_pbXNet_IByteBuffer_pbXNet_IByteBuffer_" class="collapse in">
+  <div id="collapsible-pbXNet_IAsymmetricCryptographer_Verify_pbXNet_IByteBuffer_pbXNet_IByteBuffer_pbXNet_IAsymmetricCryptographerKeyPair_" class="collapse in">
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
-  
+
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">bool Verify(IByteBuffer msg, IByteBuffer signature, IByteBuffer pblKey)</code></pre>
+    <pre><code class="lang-csharp hljs">bool Verify(IByteBuffer msg, IByteBuffer signature, IAsymmetricCryptographerKeyPair pblKey)</code></pre>
   </div>
-  
+
   <h5 class="parameters">Parameters</h5>
   <table>
     <tr>
@@ -359,7 +314,7 @@
     </tr>
     <tr>
       <td>
-        <span class="pull-right"><a class="xref" href="pbXNet.IByteBuffer.html">IByteBuffer</a></span>
+        <span class="pull-right"><a class="xref" href="pbXNet.IAsymmetricCryptographerKeyPair.html">IAsymmetricCryptographerKeyPair</a></span>
         <span class="parametername">pblKey</span>
         <p>
       </td>
@@ -397,12 +352,10 @@
   
   
   
-  
+
 </article>
           </div>
           <div class="contribution-panel mobile-hide">
-              <a href="https://github.com/boguslawski-piotr/pbX/new/master/apiSpec/new?filename=pbXNet_IAsymmetricCryptographer.md&amp;value=---%0Auid%3A%20pbXNet.IAsymmetricCryptographer%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc" class="fab btn-warning pull-right"><i class="glyphicon glyphicon-pencil"></i></a>
-              <a href="https://github.com/boguslawski-piotr/pbX/blob/master/pbXNet/IAsymmetricCryptographer.cs/#L11" title="View Source" class="fab btn-info pull-right"><i class="fa fa-code"></i></a>
           </div>
           
           <div class="hidden-sm col-md-2" role="complementary">

@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Namespace pbXNet
    ">
-    <meta name="generator" content="docfx 2.18.5.0">
+    <meta name="generator" content="docfx 2.19.2.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -128,6 +128,12 @@
       </tr>
       <tr>
         <td>
+          <p><a class="xref" href="pbXNet.ConsoleLogger.html">ConsoleLogger</a></p>
+          <p>
+        </td>
+      </tr>
+      <tr>
+        <td>
           <p><a class="xref" href="pbXNet.ConvertEx.html">ConvertEx</a></p>
           <p>
         </td>
@@ -146,8 +152,21 @@
       </tr>
       <tr>
         <td>
+          <p><a class="xref" href="pbXNet.DOAuthentication.html">DOAuthentication</a></p>
+          <p><p>Basic device owner authentication (pin, passkey, biometrics, etc.).</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
           <p><a class="xref" href="pbXNet.EncryptedFileSystem.html">EncryptedFileSystem</a></p>
-          <p>
+          <p><p>Decorator for classes that implement the <a class="xref" href="pbXNet.IFileSystem.html">IFileSystem</a> interface 
+which provides encryption of stored files and of course decrypting when reading.
+<p>Id passed to constructor will be used as directory name in the root of file system. 
+The data in this directory (and in all subdirectories) will be encrypted. 
+The data in another directories (unless the Id was set to null or empty string) will not be encrypted.
+</p></p>
+</p>
         </td>
       </tr>
       <tr>
@@ -204,13 +223,31 @@
       </tr>
       <tr>
         <td>
-          <p><a class="xref" href="pbXNet.Os.html">Os</a></p>
+          <p><a class="xref" href="pbXNet.Password.html">Password</a></p>
           <p>
         </td>
       </tr>
       <tr>
         <td>
-          <p><a class="xref" href="pbXNet.Password.html">Password</a></p>
+          <p><a class="xref" href="pbXNet.PbXStorageSettings.html">PbXStorageSettings</a></p>
+          <p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="pbXNet.RsaCryptographer.html">RsaCryptographer</a></p>
+          <p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="pbXNet.RsaCryptographerHelper.html">RsaCryptographerHelper</a></p>
+          <p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="pbXNet.RsaKeyPair.html">RsaKeyPair</a></p>
           <p>
         </td>
       </tr>
@@ -246,6 +283,18 @@
       </tr>
       <tr>
         <td>
+          <p><a class="xref" href="pbXNet.StorageOnPbXStorage.html">StorageOnPbXStorage</a></p>
+          <p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="pbXNet.StorageOnPbXStorageException.html">StorageOnPbXStorageException</a></p>
+          <p>
+        </td>
+      </tr>
+      <tr>
+        <td>
           <p><a class="xref" href="pbXNet.StringExtensions.html">StringExtensions</a></p>
           <p><p>Strings extensions.</p>
 </p>
@@ -268,9 +317,9 @@
           <p><a class="xref" href="pbXNet.T.html">T</a></p>
           <p><p>An auxiliary class used to the intuitive use of localized text in the code.
 <p>Example:</p>
-<example>
-<pre><code>string s = T.Localized("text id");</code></pre>
-</example></p>
+<example><p>
+<pre><code>string s = T.Localized(&quot;text id&quot;);</code></pre>
+<p></example></p>
 </p>
         </td>
       </tr>
@@ -360,6 +409,12 @@
       </tr>
       <tr>
         <td>
+          <p><a class="xref" href="pbXNet.ISimpleCryptographer.html">ISimpleCryptographer</a></p>
+          <p>
+        </td>
+      </tr>
+      <tr>
+        <td>
           <p><a class="xref" href="pbXNet.IStorage-1.html">IStorage&lt;T&gt;</a></p>
           <p>
         </td>
@@ -368,6 +423,12 @@
     <h3 id="enums">Enums
   </h3>
     <table>
+      <tr>
+        <td>
+          <p><a class="xref" href="pbXNet.AsymmetricCryptographerAlgoritm.html">AsymmetricCryptographerAlgoritm</a></p>
+          <p>
+        </td>
+      </tr>
       <tr>
         <td>
           <p><a class="xref" href="pbXNet.AzureStorageSettings.StorageType.html">AzureStorageSettings.StorageType</a></p>
@@ -382,7 +443,7 @@
       </tr>
       <tr>
         <td>
-          <p><a class="xref" href="pbXNet.DOAuthentication.html">DOAuthentication</a></p>
+          <p><a class="xref" href="pbXNet.DOAuthenticationType.html">DOAuthenticationType</a></p>
           <p>
         </td>
       </tr>
@@ -395,6 +456,12 @@
       <tr>
         <td>
           <p><a class="xref" href="pbXNet.LogType.html">LogType</a></p>
+          <p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="pbXNet.PbXStorageErrorCode.html">PbXStorageErrorCode</a></p>
           <p>
         </td>
       </tr>

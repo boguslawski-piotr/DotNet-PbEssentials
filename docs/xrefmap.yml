@@ -2692,24 +2692,24 @@ references:
   commentId: Overload:pbXNet.AesCryptographer.Encrypt
   fullName: pbXNet.AesCryptographer.Encrypt
   nameWithType: AesCryptographer.Encrypt
-- uid: pbXNet.AesCryptographer.GenerateIV(System.Int32)
-  name: GenerateIV(Int32)
-  href: api/pbXNet.AesCryptographer.html#pbXNet_AesCryptographer_GenerateIV_System_Int32_
-  commentId: M:pbXNet.AesCryptographer.GenerateIV(System.Int32)
-  fullName: pbXNet.AesCryptographer.GenerateIV(System.Int32)
-  nameWithType: AesCryptographer.GenerateIV(Int32)
+- uid: pbXNet.AesCryptographer.GenerateIV
+  name: GenerateIV()
+  href: api/pbXNet.AesCryptographer.html#pbXNet_AesCryptographer_GenerateIV
+  commentId: M:pbXNet.AesCryptographer.GenerateIV
+  fullName: pbXNet.AesCryptographer.GenerateIV()
+  nameWithType: AesCryptographer.GenerateIV()
 - uid: pbXNet.AesCryptographer.GenerateIV*
   name: GenerateIV
   href: api/pbXNet.AesCryptographer.html#pbXNet_AesCryptographer_GenerateIV_
   commentId: Overload:pbXNet.AesCryptographer.GenerateIV
   fullName: pbXNet.AesCryptographer.GenerateIV
   nameWithType: AesCryptographer.GenerateIV
-- uid: pbXNet.AesCryptographer.GenerateKey(pbXNet.IPassword,pbXNet.IByteBuffer,System.Int32)
-  name: GenerateKey(IPassword, IByteBuffer, Int32)
-  href: api/pbXNet.AesCryptographer.html#pbXNet_AesCryptographer_GenerateKey_pbXNet_IPassword_pbXNet_IByteBuffer_System_Int32_
-  commentId: M:pbXNet.AesCryptographer.GenerateKey(pbXNet.IPassword,pbXNet.IByteBuffer,System.Int32)
-  fullName: pbXNet.AesCryptographer.GenerateKey(pbXNet.IPassword, pbXNet.IByteBuffer, System.Int32)
-  nameWithType: AesCryptographer.GenerateKey(IPassword, IByteBuffer, Int32)
+- uid: pbXNet.AesCryptographer.GenerateKey(pbXNet.IPassword,pbXNet.IByteBuffer)
+  name: GenerateKey(IPassword, IByteBuffer)
+  href: api/pbXNet.AesCryptographer.html#pbXNet_AesCryptographer_GenerateKey_pbXNet_IPassword_pbXNet_IByteBuffer_
+  commentId: M:pbXNet.AesCryptographer.GenerateKey(pbXNet.IPassword,pbXNet.IByteBuffer)
+  fullName: pbXNet.AesCryptographer.GenerateKey(pbXNet.IPassword, pbXNet.IByteBuffer)
+  nameWithType: AesCryptographer.GenerateKey(IPassword, IByteBuffer)
 - uid: pbXNet.AesCryptographer.GenerateKey*
   name: GenerateKey
   href: api/pbXNet.AesCryptographer.html#pbXNet_AesCryptographer_GenerateKey_
@@ -2931,6 +2931,18 @@ references:
   commentId: Overload:pbXNet.ArrayExtensions.ToHexString
   fullName: pbXNet.ArrayExtensions.ToHexString
   nameWithType: ArrayExtensions.ToHexString
+- uid: pbXNet.AsymmetricCryptographerAlgoritm
+  name: AsymmetricCryptographerAlgoritm
+  href: api/pbXNet.AsymmetricCryptographerAlgoritm.html
+  commentId: T:pbXNet.AsymmetricCryptographerAlgoritm
+  fullName: pbXNet.AsymmetricCryptographerAlgoritm
+  nameWithType: AsymmetricCryptographerAlgoritm
+- uid: pbXNet.AsymmetricCryptographerAlgoritm.Rsa
+  name: Rsa
+  href: api/pbXNet.AsymmetricCryptographerAlgoritm.html#pbXNet_AsymmetricCryptographerAlgoritm_Rsa
+  commentId: F:pbXNet.AsymmetricCryptographerAlgoritm.Rsa
+  fullName: pbXNet.AsymmetricCryptographerAlgoritm.Rsa
+  nameWithType: AsymmetricCryptographerAlgoritm.Rsa
 - uid: pbXNet.AzureStorageSettings
   name: AzureStorageSettings
   href: api/pbXNet.AzureStorageSettings.html
@@ -3063,6 +3075,54 @@ references:
   commentId: Overload:pbXNet.ByteBuffer.#ctor
   fullName: pbXNet.ByteBuffer.ByteBuffer
   nameWithType: ByteBuffer.ByteBuffer
+- uid: pbXNet.ByteBuffer.Append(pbXNet.ByteBuffer,System.Boolean)
+  name: Append(ByteBuffer, Boolean)
+  href: api/pbXNet.ByteBuffer.html#pbXNet_ByteBuffer_Append_pbXNet_ByteBuffer_System_Boolean_
+  commentId: M:pbXNet.ByteBuffer.Append(pbXNet.ByteBuffer,System.Boolean)
+  fullName: pbXNet.ByteBuffer.Append(pbXNet.ByteBuffer, System.Boolean)
+  nameWithType: ByteBuffer.Append(ByteBuffer, Boolean)
+- uid: pbXNet.ByteBuffer.Append(pbXNet.IByteBuffer,System.Boolean)
+  name: Append(IByteBuffer, Boolean)
+  href: api/pbXNet.ByteBuffer.html#pbXNet_ByteBuffer_Append_pbXNet_IByteBuffer_System_Boolean_
+  commentId: M:pbXNet.ByteBuffer.Append(pbXNet.IByteBuffer,System.Boolean)
+  fullName: pbXNet.ByteBuffer.Append(pbXNet.IByteBuffer, System.Boolean)
+  nameWithType: ByteBuffer.Append(IByteBuffer, Boolean)
+- uid: pbXNet.ByteBuffer.Append(System.Byte[],System.Boolean)
+  name: Append(Byte[], Boolean)
+  href: api/pbXNet.ByteBuffer.html#pbXNet_ByteBuffer_Append_System_Byte___System_Boolean_
+  commentId: M:pbXNet.ByteBuffer.Append(System.Byte[],System.Boolean)
+  name.vb: Append(Byte(), Boolean)
+  fullName: pbXNet.ByteBuffer.Append(System.Byte[], System.Boolean)
+  fullName.vb: pbXNet.ByteBuffer.Append(System.Byte(), System.Boolean)
+  nameWithType: ByteBuffer.Append(Byte[], Boolean)
+  nameWithType.vb: ByteBuffer.Append(Byte(), Boolean)
+- uid: pbXNet.ByteBuffer.Append(System.Collections.Generic.IEnumerable{System.Byte})
+  name: Append(IEnumerable<Byte>)
+  href: api/pbXNet.ByteBuffer.html#pbXNet_ByteBuffer_Append_System_Collections_Generic_IEnumerable_System_Byte__
+  commentId: M:pbXNet.ByteBuffer.Append(System.Collections.Generic.IEnumerable{System.Byte})
+  name.vb: Append(IEnumerable(Of Byte))
+  fullName: pbXNet.ByteBuffer.Append(System.Collections.Generic.IEnumerable<System.Byte>)
+  fullName.vb: pbXNet.ByteBuffer.Append(System.Collections.Generic.IEnumerable(Of System.Byte))
+  nameWithType: ByteBuffer.Append(IEnumerable<Byte>)
+  nameWithType.vb: ByteBuffer.Append(IEnumerable(Of Byte))
+- uid: pbXNet.ByteBuffer.Append(System.IO.Stream)
+  name: Append(Stream)
+  href: api/pbXNet.ByteBuffer.html#pbXNet_ByteBuffer_Append_System_IO_Stream_
+  commentId: M:pbXNet.ByteBuffer.Append(System.IO.Stream)
+  fullName: pbXNet.ByteBuffer.Append(System.IO.Stream)
+  nameWithType: ByteBuffer.Append(Stream)
+- uid: pbXNet.ByteBuffer.Append(System.String,System.Text.Encoding)
+  name: Append(String, Encoding)
+  href: api/pbXNet.ByteBuffer.html#pbXNet_ByteBuffer_Append_System_String_System_Text_Encoding_
+  commentId: M:pbXNet.ByteBuffer.Append(System.String,System.Text.Encoding)
+  fullName: pbXNet.ByteBuffer.Append(System.String, System.Text.Encoding)
+  nameWithType: ByteBuffer.Append(String, Encoding)
+- uid: pbXNet.ByteBuffer.Append*
+  name: Append
+  href: api/pbXNet.ByteBuffer.html#pbXNet_ByteBuffer_Append_
+  commentId: Overload:pbXNet.ByteBuffer.Append
+  fullName: pbXNet.ByteBuffer.Append
+  nameWithType: ByteBuffer.Append
 - uid: pbXNet.ByteBuffer.Dispose
   name: Dispose()
   href: api/pbXNet.ByteBuffer.html#pbXNet_ByteBuffer_Dispose
@@ -3241,36 +3301,6 @@ references:
   commentId: Overload:pbXNet.ByteBuffer.ToString
   fullName: pbXNet.ByteBuffer.ToString
   nameWithType: ByteBuffer.ToString
-- uid: pbXNet.CKeyLifeTime
-  name: CKeyLifeTime
-  href: api/pbXNet.CKeyLifeTime.html
-  commentId: T:pbXNet.CKeyLifeTime
-  fullName: pbXNet.CKeyLifeTime
-  nameWithType: CKeyLifeTime
-- uid: pbXNet.CKeyLifeTime.Infinite
-  name: Infinite
-  href: api/pbXNet.CKeyLifeTime.html#pbXNet_CKeyLifeTime_Infinite
-  commentId: F:pbXNet.CKeyLifeTime.Infinite
-  fullName: pbXNet.CKeyLifeTime.Infinite
-  nameWithType: CKeyLifeTime.Infinite
-- uid: pbXNet.CKeyLifeTime.Undefined
-  name: Undefined
-  href: api/pbXNet.CKeyLifeTime.html#pbXNet_CKeyLifeTime_Undefined
-  commentId: F:pbXNet.CKeyLifeTime.Undefined
-  fullName: pbXNet.CKeyLifeTime.Undefined
-  nameWithType: CKeyLifeTime.Undefined
-- uid: pbXNet.CKeyLifeTime.WhileAppIsOnTop
-  name: WhileAppIsOnTop
-  href: api/pbXNet.CKeyLifeTime.html#pbXNet_CKeyLifeTime_WhileAppIsOnTop
-  commentId: F:pbXNet.CKeyLifeTime.WhileAppIsOnTop
-  fullName: pbXNet.CKeyLifeTime.WhileAppIsOnTop
-  nameWithType: CKeyLifeTime.WhileAppIsOnTop
-- uid: pbXNet.CKeyLifeTime.WhileAppRunning
-  name: WhileAppRunning
-  href: api/pbXNet.CKeyLifeTime.html#pbXNet_CKeyLifeTime_WhileAppRunning
-  commentId: F:pbXNet.CKeyLifeTime.WhileAppRunning
-  fullName: pbXNet.CKeyLifeTime.WhileAppRunning
-  nameWithType: CKeyLifeTime.WhileAppRunning
 - uid: pbXNet.CollectionExtensions
   name: CollectionExtensions
   href: api/pbXNet.CollectionExtensions.html
@@ -3292,6 +3322,24 @@ references:
   fullName.vb: pbXNet.CollectionExtensions.Sort(Of T)(System.Collections.ObjectModel.ObservableCollection(Of T), System.Comparison(Of T))
   nameWithType: CollectionExtensions.Sort<T>(ObservableCollection<T>, Comparison<T>)
   nameWithType.vb: CollectionExtensions.Sort(Of T)(ObservableCollection(Of T), Comparison(Of T))
+- uid: pbXNet.ConsoleLogger
+  name: ConsoleLogger
+  href: api/pbXNet.ConsoleLogger.html
+  commentId: T:pbXNet.ConsoleLogger
+  fullName: pbXNet.ConsoleLogger
+  nameWithType: ConsoleLogger
+- uid: pbXNet.ConsoleLogger.L(System.DateTime,pbXNet.LogType,System.String)
+  name: L(DateTime, LogType, String)
+  href: api/pbXNet.ConsoleLogger.html#pbXNet_ConsoleLogger_L_System_DateTime_pbXNet_LogType_System_String_
+  commentId: M:pbXNet.ConsoleLogger.L(System.DateTime,pbXNet.LogType,System.String)
+  fullName: pbXNet.ConsoleLogger.L(System.DateTime, pbXNet.LogType, System.String)
+  nameWithType: ConsoleLogger.L(DateTime, LogType, String)
+- uid: pbXNet.ConsoleLogger.L*
+  name: L
+  href: api/pbXNet.ConsoleLogger.html#pbXNet_ConsoleLogger_L_
+  commentId: Overload:pbXNet.ConsoleLogger.L
+  fullName: pbXNet.ConsoleLogger.L
+  nameWithType: ConsoleLogger.L
 - uid: pbXNet.ConvertEx
   name: ConvertEx
   href: api/pbXNet.ConvertEx.html
@@ -3430,12 +3478,12 @@ references:
   commentId: T:pbXNet.DeviceFileSystem
   fullName: pbXNet.DeviceFileSystem
   nameWithType: DeviceFileSystem
-- uid: pbXNet.DeviceFileSystem.#ctor(pbXNet.DeviceFileSystemRoot)
-  name: DeviceFileSystem(DeviceFileSystemRoot)
-  href: api/pbXNet.DeviceFileSystem.html#pbXNet_DeviceFileSystem__ctor_pbXNet_DeviceFileSystemRoot_
-  commentId: M:pbXNet.DeviceFileSystem.#ctor(pbXNet.DeviceFileSystemRoot)
-  fullName: pbXNet.DeviceFileSystem.DeviceFileSystem(pbXNet.DeviceFileSystemRoot)
-  nameWithType: DeviceFileSystem.DeviceFileSystem(DeviceFileSystemRoot)
+- uid: pbXNet.DeviceFileSystem.#ctor(pbXNet.DeviceFileSystemRoot,System.String)
+  name: DeviceFileSystem(DeviceFileSystemRoot, String)
+  href: api/pbXNet.DeviceFileSystem.html#pbXNet_DeviceFileSystem__ctor_pbXNet_DeviceFileSystemRoot_System_String_
+  commentId: M:pbXNet.DeviceFileSystem.#ctor(pbXNet.DeviceFileSystemRoot,System.String)
+  fullName: pbXNet.DeviceFileSystem.DeviceFileSystem(pbXNet.DeviceFileSystemRoot, System.String)
+  nameWithType: DeviceFileSystem.DeviceFileSystem(DeviceFileSystemRoot, String)
 - uid: pbXNet.DeviceFileSystem.#ctor*
   name: DeviceFileSystem
   href: api/pbXNet.DeviceFileSystem.html#pbXNet_DeviceFileSystem__ctor_
@@ -3448,6 +3496,18 @@ references:
   commentId: F:pbXNet.DeviceFileSystem.AvailableRootsForEndUser
   fullName: pbXNet.DeviceFileSystem.AvailableRootsForEndUser
   nameWithType: DeviceFileSystem.AvailableRootsForEndUser
+- uid: pbXNet.DeviceFileSystem.CloneAsync
+  name: CloneAsync()
+  href: api/pbXNet.DeviceFileSystem.html#pbXNet_DeviceFileSystem_CloneAsync
+  commentId: M:pbXNet.DeviceFileSystem.CloneAsync
+  fullName: pbXNet.DeviceFileSystem.CloneAsync()
+  nameWithType: DeviceFileSystem.CloneAsync()
+- uid: pbXNet.DeviceFileSystem.CloneAsync*
+  name: CloneAsync
+  href: api/pbXNet.DeviceFileSystem.html#pbXNet_DeviceFileSystem_CloneAsync_
+  commentId: Overload:pbXNet.DeviceFileSystem.CloneAsync
+  fullName: pbXNet.DeviceFileSystem.CloneAsync
+  nameWithType: DeviceFileSystem.CloneAsync
 - uid: pbXNet.DeviceFileSystem.CreateDirectoryAsync(System.String)
   name: CreateDirectoryAsync(String)
   href: api/pbXNet.DeviceFileSystem.html#pbXNet_DeviceFileSystem_CreateDirectoryAsync_System_String_
@@ -3460,6 +3520,18 @@ references:
   commentId: Overload:pbXNet.DeviceFileSystem.CreateDirectoryAsync
   fullName: pbXNet.DeviceFileSystem.CreateDirectoryAsync
   nameWithType: DeviceFileSystem.CreateDirectoryAsync
+- uid: pbXNet.DeviceFileSystem.CurrentPath
+  name: CurrentPath
+  href: api/pbXNet.DeviceFileSystem.html#pbXNet_DeviceFileSystem_CurrentPath
+  commentId: P:pbXNet.DeviceFileSystem.CurrentPath
+  fullName: pbXNet.DeviceFileSystem.CurrentPath
+  nameWithType: DeviceFileSystem.CurrentPath
+- uid: pbXNet.DeviceFileSystem.CurrentPath*
+  name: CurrentPath
+  href: api/pbXNet.DeviceFileSystem.html#pbXNet_DeviceFileSystem_CurrentPath_
+  commentId: Overload:pbXNet.DeviceFileSystem.CurrentPath
+  fullName: pbXNet.DeviceFileSystem.CurrentPath
+  nameWithType: DeviceFileSystem.CurrentPath
 - uid: pbXNet.DeviceFileSystem.DeleteDirectoryAsync(System.String)
   name: DeleteDirectoryAsync(String)
   href: api/pbXNet.DeviceFileSystem.html#pbXNet_DeviceFileSystem_DeleteDirectoryAsync_System_String_
@@ -3580,30 +3652,18 @@ references:
   commentId: Overload:pbXNet.DeviceFileSystem.Id
   fullName: pbXNet.DeviceFileSystem.Id
   nameWithType: DeviceFileSystem.Id
-- uid: pbXNet.DeviceFileSystem.Initialize
-  name: Initialize()
-  href: api/pbXNet.DeviceFileSystem.html#pbXNet_DeviceFileSystem_Initialize
-  commentId: M:pbXNet.DeviceFileSystem.Initialize
-  fullName: pbXNet.DeviceFileSystem.Initialize()
-  nameWithType: DeviceFileSystem.Initialize()
+- uid: pbXNet.DeviceFileSystem.Initialize(System.String)
+  name: Initialize(String)
+  href: api/pbXNet.DeviceFileSystem.html#pbXNet_DeviceFileSystem_Initialize_System_String_
+  commentId: M:pbXNet.DeviceFileSystem.Initialize(System.String)
+  fullName: pbXNet.DeviceFileSystem.Initialize(System.String)
+  nameWithType: DeviceFileSystem.Initialize(String)
 - uid: pbXNet.DeviceFileSystem.Initialize*
   name: Initialize
   href: api/pbXNet.DeviceFileSystem.html#pbXNet_DeviceFileSystem_Initialize_
   commentId: Overload:pbXNet.DeviceFileSystem.Initialize
   fullName: pbXNet.DeviceFileSystem.Initialize
   nameWithType: DeviceFileSystem.Initialize
-- uid: pbXNet.DeviceFileSystem.MakeCopyAsync
-  name: MakeCopyAsync()
-  href: api/pbXNet.DeviceFileSystem.html#pbXNet_DeviceFileSystem_MakeCopyAsync
-  commentId: M:pbXNet.DeviceFileSystem.MakeCopyAsync
-  fullName: pbXNet.DeviceFileSystem.MakeCopyAsync()
-  nameWithType: DeviceFileSystem.MakeCopyAsync()
-- uid: pbXNet.DeviceFileSystem.MakeCopyAsync*
-  name: MakeCopyAsync
-  href: api/pbXNet.DeviceFileSystem.html#pbXNet_DeviceFileSystem_MakeCopyAsync_
-  commentId: Overload:pbXNet.DeviceFileSystem.MakeCopyAsync
-  fullName: pbXNet.DeviceFileSystem.MakeCopyAsync
-  nameWithType: DeviceFileSystem.MakeCopyAsync
 - uid: pbXNet.DeviceFileSystem.Name
   name: Name
   href: api/pbXNet.DeviceFileSystem.html#pbXNet_DeviceFileSystem_Name
@@ -3652,6 +3712,18 @@ references:
   commentId: Overload:pbXNet.DeviceFileSystem.Root
   fullName: pbXNet.DeviceFileSystem.Root
   nameWithType: DeviceFileSystem.Root
+- uid: pbXNet.DeviceFileSystem.RootPath
+  name: RootPath
+  href: api/pbXNet.DeviceFileSystem.html#pbXNet_DeviceFileSystem_RootPath
+  commentId: P:pbXNet.DeviceFileSystem.RootPath
+  fullName: pbXNet.DeviceFileSystem.RootPath
+  nameWithType: DeviceFileSystem.RootPath
+- uid: pbXNet.DeviceFileSystem.RootPath*
+  name: RootPath
+  href: api/pbXNet.DeviceFileSystem.html#pbXNet_DeviceFileSystem_RootPath_
+  commentId: Overload:pbXNet.DeviceFileSystem.RootPath
+  fullName: pbXNet.DeviceFileSystem.RootPath
+  nameWithType: DeviceFileSystem.RootPath
 - uid: pbXNet.DeviceFileSystem.SaveStateAsync
   name: SaveStateAsync()
   href: api/pbXNet.DeviceFileSystem.html#pbXNet_DeviceFileSystem_SaveStateAsync
@@ -3718,84 +3790,135 @@ references:
   commentId: T:pbXNet.DeviceFileSystemRoot
   fullName: pbXNet.DeviceFileSystemRoot
   nameWithType: DeviceFileSystemRoot
-- uid: pbXNet.DeviceFileSystemRoot.Config
-  name: Config
-  href: api/pbXNet.DeviceFileSystemRoot.html#pbXNet_DeviceFileSystemRoot_Config
-  commentId: F:pbXNet.DeviceFileSystemRoot.Config
-  fullName: pbXNet.DeviceFileSystemRoot.Config
-  nameWithType: DeviceFileSystemRoot.Config
-- uid: pbXNet.DeviceFileSystemRoot.Desktop
-  name: Desktop
-  href: api/pbXNet.DeviceFileSystemRoot.html#pbXNet_DeviceFileSystemRoot_Desktop
-  commentId: F:pbXNet.DeviceFileSystemRoot.Desktop
-  fullName: pbXNet.DeviceFileSystemRoot.Desktop
-  nameWithType: DeviceFileSystemRoot.Desktop
-- uid: pbXNet.DeviceFileSystemRoot.Documents
-  name: Documents
-  href: api/pbXNet.DeviceFileSystemRoot.html#pbXNet_DeviceFileSystemRoot_Documents
-  commentId: F:pbXNet.DeviceFileSystemRoot.Documents
-  fullName: pbXNet.DeviceFileSystemRoot.Documents
-  nameWithType: DeviceFileSystemRoot.Documents
-- uid: pbXNet.DeviceFileSystemRoot.External
-  name: External
-  href: api/pbXNet.DeviceFileSystemRoot.html#pbXNet_DeviceFileSystemRoot_External
-  commentId: F:pbXNet.DeviceFileSystemRoot.External
-  fullName: pbXNet.DeviceFileSystemRoot.External
-  nameWithType: DeviceFileSystemRoot.External
-- uid: pbXNet.DeviceFileSystemRoot.Personal
-  name: Personal
-  href: api/pbXNet.DeviceFileSystemRoot.html#pbXNet_DeviceFileSystemRoot_Personal
-  commentId: F:pbXNet.DeviceFileSystemRoot.Personal
-  fullName: pbXNet.DeviceFileSystemRoot.Personal
-  nameWithType: DeviceFileSystemRoot.Personal
+- uid: pbXNet.DeviceFileSystemRoot.Local
+  name: Local
+  href: api/pbXNet.DeviceFileSystemRoot.html#pbXNet_DeviceFileSystemRoot_Local
+  commentId: F:pbXNet.DeviceFileSystemRoot.Local
+  fullName: pbXNet.DeviceFileSystemRoot.Local
+  nameWithType: DeviceFileSystemRoot.Local
+- uid: pbXNet.DeviceFileSystemRoot.LocalConfig
+  name: LocalConfig
+  href: api/pbXNet.DeviceFileSystemRoot.html#pbXNet_DeviceFileSystemRoot_LocalConfig
+  commentId: F:pbXNet.DeviceFileSystemRoot.LocalConfig
+  fullName: pbXNet.DeviceFileSystemRoot.LocalConfig
+  nameWithType: DeviceFileSystemRoot.LocalConfig
 - uid: pbXNet.DeviceFileSystemRoot.Roaming
   name: Roaming
   href: api/pbXNet.DeviceFileSystemRoot.html#pbXNet_DeviceFileSystemRoot_Roaming
   commentId: F:pbXNet.DeviceFileSystemRoot.Roaming
   fullName: pbXNet.DeviceFileSystemRoot.Roaming
   nameWithType: DeviceFileSystemRoot.Roaming
+- uid: pbXNet.DeviceFileSystemRoot.RoamingConfig
+  name: RoamingConfig
+  href: api/pbXNet.DeviceFileSystemRoot.html#pbXNet_DeviceFileSystemRoot_RoamingConfig
+  commentId: F:pbXNet.DeviceFileSystemRoot.RoamingConfig
+  fullName: pbXNet.DeviceFileSystemRoot.RoamingConfig
+  nameWithType: DeviceFileSystemRoot.RoamingConfig
+- uid: pbXNet.DeviceFileSystemRoot.UserDefined
+  name: UserDefined
+  href: api/pbXNet.DeviceFileSystemRoot.html#pbXNet_DeviceFileSystemRoot_UserDefined
+  commentId: F:pbXNet.DeviceFileSystemRoot.UserDefined
+  fullName: pbXNet.DeviceFileSystemRoot.UserDefined
+  nameWithType: DeviceFileSystemRoot.UserDefined
 - uid: pbXNet.DOAuthentication
   name: DOAuthentication
   href: api/pbXNet.DOAuthentication.html
   commentId: T:pbXNet.DOAuthentication
   fullName: pbXNet.DOAuthentication
   nameWithType: DOAuthentication
-- uid: pbXNet.DOAuthentication.Face
+- uid: pbXNet.DOAuthentication.CanBeCanceled
+  name: CanBeCanceled()
+  href: api/pbXNet.DOAuthentication.html#pbXNet_DOAuthentication_CanBeCanceled
+  commentId: M:pbXNet.DOAuthentication.CanBeCanceled
+  fullName: pbXNet.DOAuthentication.CanBeCanceled()
+  nameWithType: DOAuthentication.CanBeCanceled()
+- uid: pbXNet.DOAuthentication.CanBeCanceled*
+  name: CanBeCanceled
+  href: api/pbXNet.DOAuthentication.html#pbXNet_DOAuthentication_CanBeCanceled_
+  commentId: Overload:pbXNet.DOAuthentication.CanBeCanceled
+  fullName: pbXNet.DOAuthentication.CanBeCanceled
+  nameWithType: DOAuthentication.CanBeCanceled
+- uid: pbXNet.DOAuthentication.Cancel
+  name: Cancel()
+  href: api/pbXNet.DOAuthentication.html#pbXNet_DOAuthentication_Cancel
+  commentId: M:pbXNet.DOAuthentication.Cancel
+  fullName: pbXNet.DOAuthentication.Cancel()
+  nameWithType: DOAuthentication.Cancel()
+- uid: pbXNet.DOAuthentication.Cancel*
+  name: Cancel
+  href: api/pbXNet.DOAuthentication.html#pbXNet_DOAuthentication_Cancel_
+  commentId: Overload:pbXNet.DOAuthentication.Cancel
+  fullName: pbXNet.DOAuthentication.Cancel
+  nameWithType: DOAuthentication.Cancel
+- uid: pbXNet.DOAuthentication.Start(System.String,System.Action,System.Action{System.String,System.Boolean})
+  name: Start(String, Action, Action<String, Boolean>)
+  href: api/pbXNet.DOAuthentication.html#pbXNet_DOAuthentication_Start_System_String_System_Action_System_Action_System_String_System_Boolean__
+  commentId: M:pbXNet.DOAuthentication.Start(System.String,System.Action,System.Action{System.String,System.Boolean})
+  name.vb: Start(String, Action, Action(Of String, Boolean))
+  fullName: pbXNet.DOAuthentication.Start(System.String, System.Action, System.Action<System.String, System.Boolean>)
+  fullName.vb: pbXNet.DOAuthentication.Start(System.String, System.Action, System.Action(Of System.String, System.Boolean))
+  nameWithType: DOAuthentication.Start(String, Action, Action<String, Boolean>)
+  nameWithType.vb: DOAuthentication.Start(String, Action, Action(Of String, Boolean))
+- uid: pbXNet.DOAuthentication.Start*
+  name: Start
+  href: api/pbXNet.DOAuthentication.html#pbXNet_DOAuthentication_Start_
+  commentId: Overload:pbXNet.DOAuthentication.Start
+  fullName: pbXNet.DOAuthentication.Start
+  nameWithType: DOAuthentication.Start
+- uid: pbXNet.DOAuthentication.Type
+  name: Type
+  href: api/pbXNet.DOAuthentication.html#pbXNet_DOAuthentication_Type
+  commentId: P:pbXNet.DOAuthentication.Type
+  fullName: pbXNet.DOAuthentication.Type
+  nameWithType: DOAuthentication.Type
+- uid: pbXNet.DOAuthentication.Type*
+  name: Type
+  href: api/pbXNet.DOAuthentication.html#pbXNet_DOAuthentication_Type_
+  commentId: Overload:pbXNet.DOAuthentication.Type
+  fullName: pbXNet.DOAuthentication.Type
+  nameWithType: DOAuthentication.Type
+- uid: pbXNet.DOAuthenticationType
+  name: DOAuthenticationType
+  href: api/pbXNet.DOAuthenticationType.html
+  commentId: T:pbXNet.DOAuthenticationType
+  fullName: pbXNet.DOAuthenticationType
+  nameWithType: DOAuthenticationType
+- uid: pbXNet.DOAuthenticationType.Face
   name: Face
-  href: api/pbXNet.DOAuthentication.html#pbXNet_DOAuthentication_Face
-  commentId: F:pbXNet.DOAuthentication.Face
-  fullName: pbXNet.DOAuthentication.Face
-  nameWithType: DOAuthentication.Face
-- uid: pbXNet.DOAuthentication.Fingerprint
+  href: api/pbXNet.DOAuthenticationType.html#pbXNet_DOAuthenticationType_Face
+  commentId: F:pbXNet.DOAuthenticationType.Face
+  fullName: pbXNet.DOAuthenticationType.Face
+  nameWithType: DOAuthenticationType.Face
+- uid: pbXNet.DOAuthenticationType.Fingerprint
   name: Fingerprint
-  href: api/pbXNet.DOAuthentication.html#pbXNet_DOAuthentication_Fingerprint
-  commentId: F:pbXNet.DOAuthentication.Fingerprint
-  fullName: pbXNet.DOAuthentication.Fingerprint
-  nameWithType: DOAuthentication.Fingerprint
-- uid: pbXNet.DOAuthentication.Iris
+  href: api/pbXNet.DOAuthenticationType.html#pbXNet_DOAuthenticationType_Fingerprint
+  commentId: F:pbXNet.DOAuthenticationType.Fingerprint
+  fullName: pbXNet.DOAuthenticationType.Fingerprint
+  nameWithType: DOAuthenticationType.Fingerprint
+- uid: pbXNet.DOAuthenticationType.Iris
   name: Iris
-  href: api/pbXNet.DOAuthentication.html#pbXNet_DOAuthentication_Iris
-  commentId: F:pbXNet.DOAuthentication.Iris
-  fullName: pbXNet.DOAuthentication.Iris
-  nameWithType: DOAuthentication.Iris
-- uid: pbXNet.DOAuthentication.None
-  name: None
-  href: api/pbXNet.DOAuthentication.html#pbXNet_DOAuthentication_None
-  commentId: F:pbXNet.DOAuthentication.None
-  fullName: pbXNet.DOAuthentication.None
-  nameWithType: DOAuthentication.None
-- uid: pbXNet.DOAuthentication.Password
+  href: api/pbXNet.DOAuthenticationType.html#pbXNet_DOAuthenticationType_Iris
+  commentId: F:pbXNet.DOAuthenticationType.Iris
+  fullName: pbXNet.DOAuthenticationType.Iris
+  nameWithType: DOAuthenticationType.Iris
+- uid: pbXNet.DOAuthenticationType.NotAvailable
+  name: NotAvailable
+  href: api/pbXNet.DOAuthenticationType.html#pbXNet_DOAuthenticationType_NotAvailable
+  commentId: F:pbXNet.DOAuthenticationType.NotAvailable
+  fullName: pbXNet.DOAuthenticationType.NotAvailable
+  nameWithType: DOAuthenticationType.NotAvailable
+- uid: pbXNet.DOAuthenticationType.Password
   name: Password
-  href: api/pbXNet.DOAuthentication.html#pbXNet_DOAuthentication_Password
-  commentId: F:pbXNet.DOAuthentication.Password
-  fullName: pbXNet.DOAuthentication.Password
-  nameWithType: DOAuthentication.Password
-- uid: pbXNet.DOAuthentication.UserSelection
+  href: api/pbXNet.DOAuthenticationType.html#pbXNet_DOAuthenticationType_Password
+  commentId: F:pbXNet.DOAuthenticationType.Password
+  fullName: pbXNet.DOAuthenticationType.Password
+  nameWithType: DOAuthenticationType.Password
+- uid: pbXNet.DOAuthenticationType.UserSelection
   name: UserSelection
-  href: api/pbXNet.DOAuthentication.html#pbXNet_DOAuthentication_UserSelection
-  commentId: F:pbXNet.DOAuthentication.UserSelection
-  fullName: pbXNet.DOAuthentication.UserSelection
-  nameWithType: DOAuthentication.UserSelection
+  href: api/pbXNet.DOAuthenticationType.html#pbXNet_DOAuthenticationType_UserSelection
+  commentId: F:pbXNet.DOAuthenticationType.UserSelection
+  fullName: pbXNet.DOAuthenticationType.UserSelection
+  nameWithType: DOAuthenticationType.UserSelection
 - uid: pbXNet.EncryptedFileSystem
   name: EncryptedFileSystem
   href: api/pbXNet.EncryptedFileSystem.html
@@ -3826,6 +3949,18 @@ references:
   commentId: Overload:pbXNet.EncryptedFileSystem.#ctor
   fullName: pbXNet.EncryptedFileSystem.EncryptedFileSystem
   nameWithType: EncryptedFileSystem.EncryptedFileSystem
+- uid: pbXNet.EncryptedFileSystem.CloneAsync
+  name: CloneAsync()
+  href: api/pbXNet.EncryptedFileSystem.html#pbXNet_EncryptedFileSystem_CloneAsync
+  commentId: M:pbXNet.EncryptedFileSystem.CloneAsync
+  fullName: pbXNet.EncryptedFileSystem.CloneAsync()
+  nameWithType: EncryptedFileSystem.CloneAsync()
+- uid: pbXNet.EncryptedFileSystem.CloneAsync*
+  name: CloneAsync
+  href: api/pbXNet.EncryptedFileSystem.html#pbXNet_EncryptedFileSystem_CloneAsync_
+  commentId: Overload:pbXNet.EncryptedFileSystem.CloneAsync
+  fullName: pbXNet.EncryptedFileSystem.CloneAsync
+  nameWithType: EncryptedFileSystem.CloneAsync
 - uid: pbXNet.EncryptedFileSystem.CreateDirectoryAsync(System.String)
   name: CreateDirectoryAsync(String)
   href: api/pbXNet.EncryptedFileSystem.html#pbXNet_EncryptedFileSystem_CreateDirectoryAsync_System_String_
@@ -3838,6 +3973,18 @@ references:
   commentId: Overload:pbXNet.EncryptedFileSystem.CreateDirectoryAsync
   fullName: pbXNet.EncryptedFileSystem.CreateDirectoryAsync
   nameWithType: EncryptedFileSystem.CreateDirectoryAsync
+- uid: pbXNet.EncryptedFileSystem.CurrentPath
+  name: CurrentPath
+  href: api/pbXNet.EncryptedFileSystem.html#pbXNet_EncryptedFileSystem_CurrentPath
+  commentId: P:pbXNet.EncryptedFileSystem.CurrentPath
+  fullName: pbXNet.EncryptedFileSystem.CurrentPath
+  nameWithType: EncryptedFileSystem.CurrentPath
+- uid: pbXNet.EncryptedFileSystem.CurrentPath*
+  name: CurrentPath
+  href: api/pbXNet.EncryptedFileSystem.html#pbXNet_EncryptedFileSystem_CurrentPath_
+  commentId: Overload:pbXNet.EncryptedFileSystem.CurrentPath
+  fullName: pbXNet.EncryptedFileSystem.CurrentPath
+  nameWithType: EncryptedFileSystem.CurrentPath
 - uid: pbXNet.EncryptedFileSystem.DeleteDirectoryAsync(System.String)
   name: DeleteDirectoryAsync(String)
   href: api/pbXNet.EncryptedFileSystem.html#pbXNet_EncryptedFileSystem_DeleteDirectoryAsync_System_String_
@@ -3958,18 +4105,6 @@ references:
   commentId: Overload:pbXNet.EncryptedFileSystem.InitializeAsync
   fullName: pbXNet.EncryptedFileSystem.InitializeAsync
   nameWithType: EncryptedFileSystem.InitializeAsync
-- uid: pbXNet.EncryptedFileSystem.MakeCopyAsync
-  name: MakeCopyAsync()
-  href: api/pbXNet.EncryptedFileSystem.html#pbXNet_EncryptedFileSystem_MakeCopyAsync
-  commentId: M:pbXNet.EncryptedFileSystem.MakeCopyAsync
-  fullName: pbXNet.EncryptedFileSystem.MakeCopyAsync()
-  nameWithType: EncryptedFileSystem.MakeCopyAsync()
-- uid: pbXNet.EncryptedFileSystem.MakeCopyAsync*
-  name: MakeCopyAsync
-  href: api/pbXNet.EncryptedFileSystem.html#pbXNet_EncryptedFileSystem_MakeCopyAsync_
-  commentId: Overload:pbXNet.EncryptedFileSystem.MakeCopyAsync
-  fullName: pbXNet.EncryptedFileSystem.MakeCopyAsync
-  nameWithType: EncryptedFileSystem.MakeCopyAsync
 - uid: pbXNet.EncryptedFileSystem.Name
   name: Name
   href: api/pbXNet.EncryptedFileSystem.html#pbXNet_EncryptedFileSystem_Name
@@ -4006,6 +4141,18 @@ references:
   commentId: Overload:pbXNet.EncryptedFileSystem.RestoreStateAsync
   fullName: pbXNet.EncryptedFileSystem.RestoreStateAsync
   nameWithType: EncryptedFileSystem.RestoreStateAsync
+- uid: pbXNet.EncryptedFileSystem.RootPath
+  name: RootPath
+  href: api/pbXNet.EncryptedFileSystem.html#pbXNet_EncryptedFileSystem_RootPath
+  commentId: P:pbXNet.EncryptedFileSystem.RootPath
+  fullName: pbXNet.EncryptedFileSystem.RootPath
+  nameWithType: EncryptedFileSystem.RootPath
+- uid: pbXNet.EncryptedFileSystem.RootPath*
+  name: RootPath
+  href: api/pbXNet.EncryptedFileSystem.html#pbXNet_EncryptedFileSystem_RootPath_
+  commentId: Overload:pbXNet.EncryptedFileSystem.RootPath
+  fullName: pbXNet.EncryptedFileSystem.RootPath
+  nameWithType: EncryptedFileSystem.RootPath
 - uid: pbXNet.EncryptedFileSystem.SaveStateAsync
   name: SaveStateAsync()
   href: api/pbXNet.EncryptedFileSystem.html#pbXNet_EncryptedFileSystem_SaveStateAsync
@@ -4090,60 +4237,60 @@ references:
   commentId: T:pbXNet.IAsymmetricCryptographer
   fullName: pbXNet.IAsymmetricCryptographer
   nameWithType: IAsymmetricCryptographer
-- uid: pbXNet.IAsymmetricCryptographer.Decrypt(pbXNet.IByteBuffer,pbXNet.IByteBuffer)
-  name: Decrypt(IByteBuffer, IByteBuffer)
-  href: api/pbXNet.IAsymmetricCryptographer.html#pbXNet_IAsymmetricCryptographer_Decrypt_pbXNet_IByteBuffer_pbXNet_IByteBuffer_
-  commentId: M:pbXNet.IAsymmetricCryptographer.Decrypt(pbXNet.IByteBuffer,pbXNet.IByteBuffer)
-  fullName: pbXNet.IAsymmetricCryptographer.Decrypt(pbXNet.IByteBuffer, pbXNet.IByteBuffer)
-  nameWithType: IAsymmetricCryptographer.Decrypt(IByteBuffer, IByteBuffer)
+- uid: pbXNet.IAsymmetricCryptographer.Decrypt(pbXNet.IByteBuffer,pbXNet.IAsymmetricCryptographerKeyPair)
+  name: Decrypt(IByteBuffer, IAsymmetricCryptographerKeyPair)
+  href: api/pbXNet.IAsymmetricCryptographer.html#pbXNet_IAsymmetricCryptographer_Decrypt_pbXNet_IByteBuffer_pbXNet_IAsymmetricCryptographerKeyPair_
+  commentId: M:pbXNet.IAsymmetricCryptographer.Decrypt(pbXNet.IByteBuffer,pbXNet.IAsymmetricCryptographerKeyPair)
+  fullName: pbXNet.IAsymmetricCryptographer.Decrypt(pbXNet.IByteBuffer, pbXNet.IAsymmetricCryptographerKeyPair)
+  nameWithType: IAsymmetricCryptographer.Decrypt(IByteBuffer, IAsymmetricCryptographerKeyPair)
 - uid: pbXNet.IAsymmetricCryptographer.Decrypt*
   name: Decrypt
   href: api/pbXNet.IAsymmetricCryptographer.html#pbXNet_IAsymmetricCryptographer_Decrypt_
   commentId: Overload:pbXNet.IAsymmetricCryptographer.Decrypt
   fullName: pbXNet.IAsymmetricCryptographer.Decrypt
   nameWithType: IAsymmetricCryptographer.Decrypt
-- uid: pbXNet.IAsymmetricCryptographer.Encrypt(pbXNet.IByteBuffer,pbXNet.IByteBuffer)
-  name: Encrypt(IByteBuffer, IByteBuffer)
-  href: api/pbXNet.IAsymmetricCryptographer.html#pbXNet_IAsymmetricCryptographer_Encrypt_pbXNet_IByteBuffer_pbXNet_IByteBuffer_
-  commentId: M:pbXNet.IAsymmetricCryptographer.Encrypt(pbXNet.IByteBuffer,pbXNet.IByteBuffer)
-  fullName: pbXNet.IAsymmetricCryptographer.Encrypt(pbXNet.IByteBuffer, pbXNet.IByteBuffer)
-  nameWithType: IAsymmetricCryptographer.Encrypt(IByteBuffer, IByteBuffer)
+- uid: pbXNet.IAsymmetricCryptographer.Encrypt(pbXNet.IByteBuffer,pbXNet.IAsymmetricCryptographerKeyPair)
+  name: Encrypt(IByteBuffer, IAsymmetricCryptographerKeyPair)
+  href: api/pbXNet.IAsymmetricCryptographer.html#pbXNet_IAsymmetricCryptographer_Encrypt_pbXNet_IByteBuffer_pbXNet_IAsymmetricCryptographerKeyPair_
+  commentId: M:pbXNet.IAsymmetricCryptographer.Encrypt(pbXNet.IByteBuffer,pbXNet.IAsymmetricCryptographerKeyPair)
+  fullName: pbXNet.IAsymmetricCryptographer.Encrypt(pbXNet.IByteBuffer, pbXNet.IAsymmetricCryptographerKeyPair)
+  nameWithType: IAsymmetricCryptographer.Encrypt(IByteBuffer, IAsymmetricCryptographerKeyPair)
 - uid: pbXNet.IAsymmetricCryptographer.Encrypt*
   name: Encrypt
   href: api/pbXNet.IAsymmetricCryptographer.html#pbXNet_IAsymmetricCryptographer_Encrypt_
   commentId: Overload:pbXNet.IAsymmetricCryptographer.Encrypt
   fullName: pbXNet.IAsymmetricCryptographer.Encrypt
   nameWithType: IAsymmetricCryptographer.Encrypt
-- uid: pbXNet.IAsymmetricCryptographer.GenerateKeyPair(System.Int32)
-  name: GenerateKeyPair(Int32)
-  href: api/pbXNet.IAsymmetricCryptographer.html#pbXNet_IAsymmetricCryptographer_GenerateKeyPair_System_Int32_
-  commentId: M:pbXNet.IAsymmetricCryptographer.GenerateKeyPair(System.Int32)
-  fullName: pbXNet.IAsymmetricCryptographer.GenerateKeyPair(System.Int32)
-  nameWithType: IAsymmetricCryptographer.GenerateKeyPair(Int32)
+- uid: pbXNet.IAsymmetricCryptographer.GenerateKeyPair
+  name: GenerateKeyPair()
+  href: api/pbXNet.IAsymmetricCryptographer.html#pbXNet_IAsymmetricCryptographer_GenerateKeyPair
+  commentId: M:pbXNet.IAsymmetricCryptographer.GenerateKeyPair
+  fullName: pbXNet.IAsymmetricCryptographer.GenerateKeyPair()
+  nameWithType: IAsymmetricCryptographer.GenerateKeyPair()
 - uid: pbXNet.IAsymmetricCryptographer.GenerateKeyPair*
   name: GenerateKeyPair
   href: api/pbXNet.IAsymmetricCryptographer.html#pbXNet_IAsymmetricCryptographer_GenerateKeyPair_
   commentId: Overload:pbXNet.IAsymmetricCryptographer.GenerateKeyPair
   fullName: pbXNet.IAsymmetricCryptographer.GenerateKeyPair
   nameWithType: IAsymmetricCryptographer.GenerateKeyPair
-- uid: pbXNet.IAsymmetricCryptographer.Sign(pbXNet.IByteBuffer,pbXNet.IByteBuffer)
-  name: Sign(IByteBuffer, IByteBuffer)
-  href: api/pbXNet.IAsymmetricCryptographer.html#pbXNet_IAsymmetricCryptographer_Sign_pbXNet_IByteBuffer_pbXNet_IByteBuffer_
-  commentId: M:pbXNet.IAsymmetricCryptographer.Sign(pbXNet.IByteBuffer,pbXNet.IByteBuffer)
-  fullName: pbXNet.IAsymmetricCryptographer.Sign(pbXNet.IByteBuffer, pbXNet.IByteBuffer)
-  nameWithType: IAsymmetricCryptographer.Sign(IByteBuffer, IByteBuffer)
+- uid: pbXNet.IAsymmetricCryptographer.Sign(pbXNet.IByteBuffer,pbXNet.IAsymmetricCryptographerKeyPair)
+  name: Sign(IByteBuffer, IAsymmetricCryptographerKeyPair)
+  href: api/pbXNet.IAsymmetricCryptographer.html#pbXNet_IAsymmetricCryptographer_Sign_pbXNet_IByteBuffer_pbXNet_IAsymmetricCryptographerKeyPair_
+  commentId: M:pbXNet.IAsymmetricCryptographer.Sign(pbXNet.IByteBuffer,pbXNet.IAsymmetricCryptographerKeyPair)
+  fullName: pbXNet.IAsymmetricCryptographer.Sign(pbXNet.IByteBuffer, pbXNet.IAsymmetricCryptographerKeyPair)
+  nameWithType: IAsymmetricCryptographer.Sign(IByteBuffer, IAsymmetricCryptographerKeyPair)
 - uid: pbXNet.IAsymmetricCryptographer.Sign*
   name: Sign
   href: api/pbXNet.IAsymmetricCryptographer.html#pbXNet_IAsymmetricCryptographer_Sign_
   commentId: Overload:pbXNet.IAsymmetricCryptographer.Sign
   fullName: pbXNet.IAsymmetricCryptographer.Sign
   nameWithType: IAsymmetricCryptographer.Sign
-- uid: pbXNet.IAsymmetricCryptographer.Verify(pbXNet.IByteBuffer,pbXNet.IByteBuffer,pbXNet.IByteBuffer)
-  name: Verify(IByteBuffer, IByteBuffer, IByteBuffer)
-  href: api/pbXNet.IAsymmetricCryptographer.html#pbXNet_IAsymmetricCryptographer_Verify_pbXNet_IByteBuffer_pbXNet_IByteBuffer_pbXNet_IByteBuffer_
-  commentId: M:pbXNet.IAsymmetricCryptographer.Verify(pbXNet.IByteBuffer,pbXNet.IByteBuffer,pbXNet.IByteBuffer)
-  fullName: pbXNet.IAsymmetricCryptographer.Verify(pbXNet.IByteBuffer, pbXNet.IByteBuffer, pbXNet.IByteBuffer)
-  nameWithType: IAsymmetricCryptographer.Verify(IByteBuffer, IByteBuffer, IByteBuffer)
+- uid: pbXNet.IAsymmetricCryptographer.Verify(pbXNet.IByteBuffer,pbXNet.IByteBuffer,pbXNet.IAsymmetricCryptographerKeyPair)
+  name: Verify(IByteBuffer, IByteBuffer, IAsymmetricCryptographerKeyPair)
+  href: api/pbXNet.IAsymmetricCryptographer.html#pbXNet_IAsymmetricCryptographer_Verify_pbXNet_IByteBuffer_pbXNet_IByteBuffer_pbXNet_IAsymmetricCryptographerKeyPair_
+  commentId: M:pbXNet.IAsymmetricCryptographer.Verify(pbXNet.IByteBuffer,pbXNet.IByteBuffer,pbXNet.IAsymmetricCryptographerKeyPair)
+  fullName: pbXNet.IAsymmetricCryptographer.Verify(pbXNet.IByteBuffer, pbXNet.IByteBuffer, pbXNet.IAsymmetricCryptographerKeyPair)
+  nameWithType: IAsymmetricCryptographer.Verify(IByteBuffer, IByteBuffer, IAsymmetricCryptographerKeyPair)
 - uid: pbXNet.IAsymmetricCryptographer.Verify*
   name: Verify
   href: api/pbXNet.IAsymmetricCryptographer.html#pbXNet_IAsymmetricCryptographer_Verify_
@@ -4156,30 +4303,42 @@ references:
   commentId: T:pbXNet.IAsymmetricCryptographerKeyPair
   fullName: pbXNet.IAsymmetricCryptographerKeyPair
   nameWithType: IAsymmetricCryptographerKeyPair
-- uid: pbXNet.IAsymmetricCryptographerKeyPair.pbl
-  name: pbl
-  href: api/pbXNet.IAsymmetricCryptographerKeyPair.html#pbXNet_IAsymmetricCryptographerKeyPair_pbl
-  commentId: P:pbXNet.IAsymmetricCryptographerKeyPair.pbl
-  fullName: pbXNet.IAsymmetricCryptographerKeyPair.pbl
-  nameWithType: IAsymmetricCryptographerKeyPair.pbl
-- uid: pbXNet.IAsymmetricCryptographerKeyPair.pbl*
-  name: pbl
-  href: api/pbXNet.IAsymmetricCryptographerKeyPair.html#pbXNet_IAsymmetricCryptographerKeyPair_pbl_
-  commentId: Overload:pbXNet.IAsymmetricCryptographerKeyPair.pbl
-  fullName: pbXNet.IAsymmetricCryptographerKeyPair.pbl
-  nameWithType: IAsymmetricCryptographerKeyPair.pbl
-- uid: pbXNet.IAsymmetricCryptographerKeyPair.prv
-  name: prv
-  href: api/pbXNet.IAsymmetricCryptographerKeyPair.html#pbXNet_IAsymmetricCryptographerKeyPair_prv
-  commentId: P:pbXNet.IAsymmetricCryptographerKeyPair.prv
-  fullName: pbXNet.IAsymmetricCryptographerKeyPair.prv
-  nameWithType: IAsymmetricCryptographerKeyPair.prv
-- uid: pbXNet.IAsymmetricCryptographerKeyPair.prv*
-  name: prv
-  href: api/pbXNet.IAsymmetricCryptographerKeyPair.html#pbXNet_IAsymmetricCryptographerKeyPair_prv_
-  commentId: Overload:pbXNet.IAsymmetricCryptographerKeyPair.prv
-  fullName: pbXNet.IAsymmetricCryptographerKeyPair.prv
-  nameWithType: IAsymmetricCryptographerKeyPair.prv
+- uid: pbXNet.IAsymmetricCryptographerKeyPair.Algoritm
+  name: Algoritm
+  href: api/pbXNet.IAsymmetricCryptographerKeyPair.html#pbXNet_IAsymmetricCryptographerKeyPair_Algoritm
+  commentId: P:pbXNet.IAsymmetricCryptographerKeyPair.Algoritm
+  fullName: pbXNet.IAsymmetricCryptographerKeyPair.Algoritm
+  nameWithType: IAsymmetricCryptographerKeyPair.Algoritm
+- uid: pbXNet.IAsymmetricCryptographerKeyPair.Algoritm*
+  name: Algoritm
+  href: api/pbXNet.IAsymmetricCryptographerKeyPair.html#pbXNet_IAsymmetricCryptographerKeyPair_Algoritm_
+  commentId: Overload:pbXNet.IAsymmetricCryptographerKeyPair.Algoritm
+  fullName: pbXNet.IAsymmetricCryptographerKeyPair.Algoritm
+  nameWithType: IAsymmetricCryptographerKeyPair.Algoritm
+- uid: pbXNet.IAsymmetricCryptographerKeyPair.Private
+  name: Private
+  href: api/pbXNet.IAsymmetricCryptographerKeyPair.html#pbXNet_IAsymmetricCryptographerKeyPair_Private
+  commentId: P:pbXNet.IAsymmetricCryptographerKeyPair.Private
+  fullName: pbXNet.IAsymmetricCryptographerKeyPair.Private
+  nameWithType: IAsymmetricCryptographerKeyPair.Private
+- uid: pbXNet.IAsymmetricCryptographerKeyPair.Private*
+  name: Private
+  href: api/pbXNet.IAsymmetricCryptographerKeyPair.html#pbXNet_IAsymmetricCryptographerKeyPair_Private_
+  commentId: Overload:pbXNet.IAsymmetricCryptographerKeyPair.Private
+  fullName: pbXNet.IAsymmetricCryptographerKeyPair.Private
+  nameWithType: IAsymmetricCryptographerKeyPair.Private
+- uid: pbXNet.IAsymmetricCryptographerKeyPair.Public
+  name: Public
+  href: api/pbXNet.IAsymmetricCryptographerKeyPair.html#pbXNet_IAsymmetricCryptographerKeyPair_Public
+  commentId: P:pbXNet.IAsymmetricCryptographerKeyPair.Public
+  fullName: pbXNet.IAsymmetricCryptographerKeyPair.Public
+  nameWithType: IAsymmetricCryptographerKeyPair.Public
+- uid: pbXNet.IAsymmetricCryptographerKeyPair.Public*
+  name: Public
+  href: api/pbXNet.IAsymmetricCryptographerKeyPair.html#pbXNet_IAsymmetricCryptographerKeyPair_Public_
+  commentId: Overload:pbXNet.IAsymmetricCryptographerKeyPair.Public
+  fullName: pbXNet.IAsymmetricCryptographerKeyPair.Public
+  nameWithType: IAsymmetricCryptographerKeyPair.Public
 - uid: pbXNet.IByteBuffer
   name: IByteBuffer
   href: api/pbXNet.IByteBuffer.html
@@ -4312,24 +4471,24 @@ references:
   commentId: Overload:pbXNet.ICryptographer.Encrypt
   fullName: pbXNet.ICryptographer.Encrypt
   nameWithType: ICryptographer.Encrypt
-- uid: pbXNet.ICryptographer.GenerateIV(System.Int32)
-  name: GenerateIV(Int32)
-  href: api/pbXNet.ICryptographer.html#pbXNet_ICryptographer_GenerateIV_System_Int32_
-  commentId: M:pbXNet.ICryptographer.GenerateIV(System.Int32)
-  fullName: pbXNet.ICryptographer.GenerateIV(System.Int32)
-  nameWithType: ICryptographer.GenerateIV(Int32)
+- uid: pbXNet.ICryptographer.GenerateIV
+  name: GenerateIV()
+  href: api/pbXNet.ICryptographer.html#pbXNet_ICryptographer_GenerateIV
+  commentId: M:pbXNet.ICryptographer.GenerateIV
+  fullName: pbXNet.ICryptographer.GenerateIV()
+  nameWithType: ICryptographer.GenerateIV()
 - uid: pbXNet.ICryptographer.GenerateIV*
   name: GenerateIV
   href: api/pbXNet.ICryptographer.html#pbXNet_ICryptographer_GenerateIV_
   commentId: Overload:pbXNet.ICryptographer.GenerateIV
   fullName: pbXNet.ICryptographer.GenerateIV
   nameWithType: ICryptographer.GenerateIV
-- uid: pbXNet.ICryptographer.GenerateKey(pbXNet.IPassword,pbXNet.IByteBuffer,System.Int32)
-  name: GenerateKey(IPassword, IByteBuffer, Int32)
-  href: api/pbXNet.ICryptographer.html#pbXNet_ICryptographer_GenerateKey_pbXNet_IPassword_pbXNet_IByteBuffer_System_Int32_
-  commentId: M:pbXNet.ICryptographer.GenerateKey(pbXNet.IPassword,pbXNet.IByteBuffer,System.Int32)
-  fullName: pbXNet.ICryptographer.GenerateKey(pbXNet.IPassword, pbXNet.IByteBuffer, System.Int32)
-  nameWithType: ICryptographer.GenerateKey(IPassword, IByteBuffer, Int32)
+- uid: pbXNet.ICryptographer.GenerateKey(pbXNet.IPassword,pbXNet.IByteBuffer)
+  name: GenerateKey(IPassword, IByteBuffer)
+  href: api/pbXNet.ICryptographer.html#pbXNet_ICryptographer_GenerateKey_pbXNet_IPassword_pbXNet_IByteBuffer_
+  commentId: M:pbXNet.ICryptographer.GenerateKey(pbXNet.IPassword,pbXNet.IByteBuffer)
+  fullName: pbXNet.ICryptographer.GenerateKey(pbXNet.IPassword, pbXNet.IByteBuffer)
+  nameWithType: ICryptographer.GenerateKey(IPassword, IByteBuffer)
 - uid: pbXNet.ICryptographer.GenerateKey*
   name: GenerateKey
   href: api/pbXNet.ICryptographer.html#pbXNet_ICryptographer_GenerateKey_
@@ -4342,6 +4501,18 @@ references:
   commentId: T:pbXNet.IFileSystem
   fullName: pbXNet.IFileSystem
   nameWithType: IFileSystem
+- uid: pbXNet.IFileSystem.CloneAsync
+  name: CloneAsync()
+  href: api/pbXNet.IFileSystem.html#pbXNet_IFileSystem_CloneAsync
+  commentId: M:pbXNet.IFileSystem.CloneAsync
+  fullName: pbXNet.IFileSystem.CloneAsync()
+  nameWithType: IFileSystem.CloneAsync()
+- uid: pbXNet.IFileSystem.CloneAsync*
+  name: CloneAsync
+  href: api/pbXNet.IFileSystem.html#pbXNet_IFileSystem_CloneAsync_
+  commentId: Overload:pbXNet.IFileSystem.CloneAsync
+  fullName: pbXNet.IFileSystem.CloneAsync
+  nameWithType: IFileSystem.CloneAsync
 - uid: pbXNet.IFileSystem.CreateDirectoryAsync(System.String)
   name: CreateDirectoryAsync(String)
   href: api/pbXNet.IFileSystem.html#pbXNet_IFileSystem_CreateDirectoryAsync_System_String_
@@ -4354,6 +4525,18 @@ references:
   commentId: Overload:pbXNet.IFileSystem.CreateDirectoryAsync
   fullName: pbXNet.IFileSystem.CreateDirectoryAsync
   nameWithType: IFileSystem.CreateDirectoryAsync
+- uid: pbXNet.IFileSystem.CurrentPath
+  name: CurrentPath
+  href: api/pbXNet.IFileSystem.html#pbXNet_IFileSystem_CurrentPath
+  commentId: P:pbXNet.IFileSystem.CurrentPath
+  fullName: pbXNet.IFileSystem.CurrentPath
+  nameWithType: IFileSystem.CurrentPath
+- uid: pbXNet.IFileSystem.CurrentPath*
+  name: CurrentPath
+  href: api/pbXNet.IFileSystem.html#pbXNet_IFileSystem_CurrentPath_
+  commentId: Overload:pbXNet.IFileSystem.CurrentPath
+  fullName: pbXNet.IFileSystem.CurrentPath
+  nameWithType: IFileSystem.CurrentPath
 - uid: pbXNet.IFileSystem.DeleteDirectoryAsync(System.String)
   name: DeleteDirectoryAsync(String)
   href: api/pbXNet.IFileSystem.html#pbXNet_IFileSystem_DeleteDirectoryAsync_System_String_
@@ -4450,18 +4633,6 @@ references:
   commentId: Overload:pbXNet.IFileSystem.Id
   fullName: pbXNet.IFileSystem.Id
   nameWithType: IFileSystem.Id
-- uid: pbXNet.IFileSystem.MakeCopyAsync
-  name: MakeCopyAsync()
-  href: api/pbXNet.IFileSystem.html#pbXNet_IFileSystem_MakeCopyAsync
-  commentId: M:pbXNet.IFileSystem.MakeCopyAsync
-  fullName: pbXNet.IFileSystem.MakeCopyAsync()
-  nameWithType: IFileSystem.MakeCopyAsync()
-- uid: pbXNet.IFileSystem.MakeCopyAsync*
-  name: MakeCopyAsync
-  href: api/pbXNet.IFileSystem.html#pbXNet_IFileSystem_MakeCopyAsync_
-  commentId: Overload:pbXNet.IFileSystem.MakeCopyAsync
-  fullName: pbXNet.IFileSystem.MakeCopyAsync
-  nameWithType: IFileSystem.MakeCopyAsync
 - uid: pbXNet.IFileSystem.Name
   name: Name
   href: api/pbXNet.IFileSystem.html#pbXNet_IFileSystem_Name
@@ -4498,6 +4669,18 @@ references:
   commentId: Overload:pbXNet.IFileSystem.RestoreStateAsync
   fullName: pbXNet.IFileSystem.RestoreStateAsync
   nameWithType: IFileSystem.RestoreStateAsync
+- uid: pbXNet.IFileSystem.RootPath
+  name: RootPath
+  href: api/pbXNet.IFileSystem.html#pbXNet_IFileSystem_RootPath
+  commentId: P:pbXNet.IFileSystem.RootPath
+  fullName: pbXNet.IFileSystem.RootPath
+  nameWithType: IFileSystem.RootPath
+- uid: pbXNet.IFileSystem.RootPath*
+  name: RootPath
+  href: api/pbXNet.IFileSystem.html#pbXNet_IFileSystem_RootPath_
+  commentId: Overload:pbXNet.IFileSystem.RootPath
+  fullName: pbXNet.IFileSystem.RootPath
+  nameWithType: IFileSystem.RootPath
 - uid: pbXNet.IFileSystem.SaveStateAsync
   name: SaveStateAsync()
   href: api/pbXNet.IFileSystem.html#pbXNet_IFileSystem_SaveStateAsync
@@ -4730,42 +4913,6 @@ references:
   fullName.vb: pbXNet.ISecretsManager.AddOrUpdateSecret(Of T)(System.String, pbXNet.SecretLifeTime, T)
   nameWithType: ISecretsManager.AddOrUpdateSecret<T>(String, SecretLifeTime, T)
   nameWithType.vb: ISecretsManager.AddOrUpdateSecret(Of T)(String, SecretLifeTime, T)
-- uid: pbXNet.ISecretsManager.AvailableDOAuthentication
-  name: AvailableDOAuthentication
-  href: api/pbXNet.ISecretsManager.html#pbXNet_ISecretsManager_AvailableDOAuthentication
-  commentId: P:pbXNet.ISecretsManager.AvailableDOAuthentication
-  fullName: pbXNet.ISecretsManager.AvailableDOAuthentication
-  nameWithType: ISecretsManager.AvailableDOAuthentication
-- uid: pbXNet.ISecretsManager.AvailableDOAuthentication*
-  name: AvailableDOAuthentication
-  href: api/pbXNet.ISecretsManager.html#pbXNet_ISecretsManager_AvailableDOAuthentication_
-  commentId: Overload:pbXNet.ISecretsManager.AvailableDOAuthentication
-  fullName: pbXNet.ISecretsManager.AvailableDOAuthentication
-  nameWithType: ISecretsManager.AvailableDOAuthentication
-- uid: pbXNet.ISecretsManager.CancelDOAuthentication
-  name: CancelDOAuthentication()
-  href: api/pbXNet.ISecretsManager.html#pbXNet_ISecretsManager_CancelDOAuthentication
-  commentId: M:pbXNet.ISecretsManager.CancelDOAuthentication
-  fullName: pbXNet.ISecretsManager.CancelDOAuthentication()
-  nameWithType: ISecretsManager.CancelDOAuthentication()
-- uid: pbXNet.ISecretsManager.CancelDOAuthentication*
-  name: CancelDOAuthentication
-  href: api/pbXNet.ISecretsManager.html#pbXNet_ISecretsManager_CancelDOAuthentication_
-  commentId: Overload:pbXNet.ISecretsManager.CancelDOAuthentication
-  fullName: pbXNet.ISecretsManager.CancelDOAuthentication
-  nameWithType: ISecretsManager.CancelDOAuthentication
-- uid: pbXNet.ISecretsManager.CanDOAuthenticationBeCanceled
-  name: CanDOAuthenticationBeCanceled()
-  href: api/pbXNet.ISecretsManager.html#pbXNet_ISecretsManager_CanDOAuthenticationBeCanceled
-  commentId: M:pbXNet.ISecretsManager.CanDOAuthenticationBeCanceled
-  fullName: pbXNet.ISecretsManager.CanDOAuthenticationBeCanceled()
-  nameWithType: ISecretsManager.CanDOAuthenticationBeCanceled()
-- uid: pbXNet.ISecretsManager.CanDOAuthenticationBeCanceled*
-  name: CanDOAuthenticationBeCanceled
-  href: api/pbXNet.ISecretsManager.html#pbXNet_ISecretsManager_CanDOAuthenticationBeCanceled_
-  commentId: Overload:pbXNet.ISecretsManager.CanDOAuthenticationBeCanceled
-  fullName: pbXNet.ISecretsManager.CanDOAuthenticationBeCanceled
-  nameWithType: ISecretsManager.CanDOAuthenticationBeCanceled
 - uid: pbXNet.ISecretsManager.CKeyExists(System.String)
   name: CKeyExists(String)
   href: api/pbXNet.ISecretsManager.html#pbXNet_ISecretsManager_CKeyExists_System_String_
@@ -4901,18 +5048,6 @@ references:
   commentId: Overload:pbXNet.ISecretsManager.Id
   fullName: pbXNet.ISecretsManager.Id
   nameWithType: ISecretsManager.Id
-- uid: pbXNet.ISecretsManager.Initialize(System.Object)
-  name: Initialize(Object)
-  href: api/pbXNet.ISecretsManager.html#pbXNet_ISecretsManager_Initialize_System_Object_
-  commentId: M:pbXNet.ISecretsManager.Initialize(System.Object)
-  fullName: pbXNet.ISecretsManager.Initialize(System.Object)
-  nameWithType: ISecretsManager.Initialize(Object)
-- uid: pbXNet.ISecretsManager.Initialize*
-  name: Initialize
-  href: api/pbXNet.ISecretsManager.html#pbXNet_ISecretsManager_Initialize_
-  commentId: Overload:pbXNet.ISecretsManager.Initialize
-  fullName: pbXNet.ISecretsManager.Initialize
-  nameWithType: ISecretsManager.Initialize
 - uid: pbXNet.ISecretsManager.PasswordExists(System.String)
   name: PasswordExists(String)
   href: api/pbXNet.ISecretsManager.html#pbXNet_ISecretsManager_PasswordExists_System_String_
@@ -4937,21 +5072,6 @@ references:
   commentId: Overload:pbXNet.ISecretsManager.SecretExists
   fullName: pbXNet.ISecretsManager.SecretExists
   nameWithType: ISecretsManager.SecretExists
-- uid: pbXNet.ISecretsManager.StartDOAuthentication(System.String,System.Action,System.Action{System.String,System.Boolean})
-  name: StartDOAuthentication(String, Action, Action<String, Boolean>)
-  href: api/pbXNet.ISecretsManager.html#pbXNet_ISecretsManager_StartDOAuthentication_System_String_System_Action_System_Action_System_String_System_Boolean__
-  commentId: M:pbXNet.ISecretsManager.StartDOAuthentication(System.String,System.Action,System.Action{System.String,System.Boolean})
-  name.vb: StartDOAuthentication(String, Action, Action(Of String, Boolean))
-  fullName: pbXNet.ISecretsManager.StartDOAuthentication(System.String, System.Action, System.Action<System.String, System.Boolean>)
-  fullName.vb: pbXNet.ISecretsManager.StartDOAuthentication(System.String, System.Action, System.Action(Of System.String, System.Boolean))
-  nameWithType: ISecretsManager.StartDOAuthentication(String, Action, Action<String, Boolean>)
-  nameWithType.vb: ISecretsManager.StartDOAuthentication(String, Action, Action(Of String, Boolean))
-- uid: pbXNet.ISecretsManager.StartDOAuthentication*
-  name: StartDOAuthentication
-  href: api/pbXNet.ISecretsManager.html#pbXNet_ISecretsManager_StartDOAuthentication_
-  commentId: Overload:pbXNet.ISecretsManager.StartDOAuthentication
-  fullName: pbXNet.ISecretsManager.StartDOAuthentication
-  nameWithType: ISecretsManager.StartDOAuthentication
 - uid: pbXNet.ISerializer
   name: ISerializer
   href: api/pbXNet.ISerializer.html
@@ -4988,6 +5108,36 @@ references:
   fullName.vb: pbXNet.ISerializer.Serialize(Of T)(T, System.String)
   nameWithType: ISerializer.Serialize<T>(T, String)
   nameWithType.vb: ISerializer.Serialize(Of T)(T, String)
+- uid: pbXNet.ISimpleCryptographer
+  name: ISimpleCryptographer
+  href: api/pbXNet.ISimpleCryptographer.html
+  commentId: T:pbXNet.ISimpleCryptographer
+  fullName: pbXNet.ISimpleCryptographer
+  nameWithType: ISimpleCryptographer
+- uid: pbXNet.ISimpleCryptographer.Decrypt(System.String)
+  name: Decrypt(String)
+  href: api/pbXNet.ISimpleCryptographer.html#pbXNet_ISimpleCryptographer_Decrypt_System_String_
+  commentId: M:pbXNet.ISimpleCryptographer.Decrypt(System.String)
+  fullName: pbXNet.ISimpleCryptographer.Decrypt(System.String)
+  nameWithType: ISimpleCryptographer.Decrypt(String)
+- uid: pbXNet.ISimpleCryptographer.Decrypt*
+  name: Decrypt
+  href: api/pbXNet.ISimpleCryptographer.html#pbXNet_ISimpleCryptographer_Decrypt_
+  commentId: Overload:pbXNet.ISimpleCryptographer.Decrypt
+  fullName: pbXNet.ISimpleCryptographer.Decrypt
+  nameWithType: ISimpleCryptographer.Decrypt
+- uid: pbXNet.ISimpleCryptographer.Encrypt(System.String)
+  name: Encrypt(String)
+  href: api/pbXNet.ISimpleCryptographer.html#pbXNet_ISimpleCryptographer_Encrypt_System_String_
+  commentId: M:pbXNet.ISimpleCryptographer.Encrypt(System.String)
+  fullName: pbXNet.ISimpleCryptographer.Encrypt(System.String)
+  nameWithType: ISimpleCryptographer.Encrypt(String)
+- uid: pbXNet.ISimpleCryptographer.Encrypt*
+  name: Encrypt
+  href: api/pbXNet.ISimpleCryptographer.html#pbXNet_ISimpleCryptographer_Encrypt_
+  commentId: Overload:pbXNet.ISimpleCryptographer.Encrypt
+  fullName: pbXNet.ISimpleCryptographer.Encrypt
+  nameWithType: ISimpleCryptographer.Encrypt
 - uid: pbXNet.IStorage`1
   name: IStorage<T>
   href: api/pbXNet.IStorage-1.html
@@ -5307,6 +5457,12 @@ references:
   commentId: Overload:pbXNet.Log.L
   fullName: pbXNet.Log.L
   nameWithType: Log.L
+- uid: pbXNet.Log.UseFullCallerTypeName
+  name: UseFullCallerTypeName
+  href: api/pbXNet.Log.html#pbXNet_Log_UseFullCallerTypeName
+  commentId: F:pbXNet.Log.UseFullCallerTypeName
+  fullName: pbXNet.Log.UseFullCallerTypeName
+  nameWithType: Log.UseFullCallerTypeName
 - uid: pbXNet.Log.W(System.String,System.Object,System.String)
   name: W(String, Object, String)
   href: api/pbXNet.Log.html#pbXNet_Log_W_System_String_System_Object_System_String_
@@ -5646,48 +5802,6 @@ references:
   fullName.vb: pbXNet.ObservableCollectionEx(Of T).Sort
   nameWithType: ObservableCollectionEx<T>.Sort
   nameWithType.vb: ObservableCollectionEx(Of T).Sort
-- uid: pbXNet.Os
-  name: Os
-  href: api/pbXNet.Os.html
-  commentId: T:pbXNet.Os
-  fullName: pbXNet.Os
-  nameWithType: Os
-- uid: pbXNet.Os.IsMacOS
-  name: IsMacOS
-  href: api/pbXNet.Os.html#pbXNet_Os_IsMacOS
-  commentId: P:pbXNet.Os.IsMacOS
-  fullName: pbXNet.Os.IsMacOS
-  nameWithType: Os.IsMacOS
-- uid: pbXNet.Os.IsMacOS*
-  name: IsMacOS
-  href: api/pbXNet.Os.html#pbXNet_Os_IsMacOS_
-  commentId: Overload:pbXNet.Os.IsMacOS
-  fullName: pbXNet.Os.IsMacOS
-  nameWithType: Os.IsMacOS
-- uid: pbXNet.Os.IsUnix
-  name: IsUnix
-  href: api/pbXNet.Os.html#pbXNet_Os_IsUnix
-  commentId: P:pbXNet.Os.IsUnix
-  fullName: pbXNet.Os.IsUnix
-  nameWithType: Os.IsUnix
-- uid: pbXNet.Os.IsUnix*
-  name: IsUnix
-  href: api/pbXNet.Os.html#pbXNet_Os_IsUnix_
-  commentId: Overload:pbXNet.Os.IsUnix
-  fullName: pbXNet.Os.IsUnix
-  nameWithType: Os.IsUnix
-- uid: pbXNet.Os.IsWindows
-  name: IsWindows
-  href: api/pbXNet.Os.html#pbXNet_Os_IsWindows
-  commentId: P:pbXNet.Os.IsWindows
-  fullName: pbXNet.Os.IsWindows
-  nameWithType: Os.IsWindows
-- uid: pbXNet.Os.IsWindows*
-  name: IsWindows
-  href: api/pbXNet.Os.html#pbXNet_Os_IsWindows_
-  commentId: Overload:pbXNet.Os.IsWindows
-  fullName: pbXNet.Os.IsWindows
-  nameWithType: Os.IsWindows
 - uid: pbXNet.Password
   name: Password
   href: api/pbXNet.Password.html
@@ -5868,24 +5982,354 @@ references:
   commentId: Overload:pbXNet.Password.ToString
   fullName: pbXNet.Password.ToString
   nameWithType: Password.ToString
-- uid: pbXNet.RSAServices
-  name: RSAServices
-  href: api/pbXNet.RSAServices.html
-  commentId: T:pbXNet.RSAServices
-  fullName: pbXNet.RSAServices
-  nameWithType: RSAServices
-- uid: pbXNet.RSAServices.TestRSA
-  name: TestRSA()
-  href: api/pbXNet.RSAServices.html#pbXNet_RSAServices_TestRSA
-  commentId: M:pbXNet.RSAServices.TestRSA
-  fullName: pbXNet.RSAServices.TestRSA()
-  nameWithType: RSAServices.TestRSA()
-- uid: pbXNet.RSAServices.TestRSA*
-  name: TestRSA
-  href: api/pbXNet.RSAServices.html#pbXNet_RSAServices_TestRSA_
-  commentId: Overload:pbXNet.RSAServices.TestRSA
-  fullName: pbXNet.RSAServices.TestRSA
-  nameWithType: RSAServices.TestRSA
+- uid: pbXNet.PbXStorageErrorCode
+  name: PbXStorageErrorCode
+  href: api/pbXNet.PbXStorageErrorCode.html
+  commentId: T:pbXNet.PbXStorageErrorCode
+  fullName: pbXNet.PbXStorageErrorCode
+  nameWithType: PbXStorageErrorCode
+- uid: pbXNet.PbXStorageErrorCode.AppRegistrationFailed
+  name: AppRegistrationFailed
+  href: api/pbXNet.PbXStorageErrorCode.html#pbXNet_PbXStorageErrorCode_AppRegistrationFailed
+  commentId: F:pbXNet.PbXStorageErrorCode.AppRegistrationFailed
+  fullName: pbXNet.PbXStorageErrorCode.AppRegistrationFailed
+  nameWithType: PbXStorageErrorCode.AppRegistrationFailed
+- uid: pbXNet.PbXStorageErrorCode.CommandUnrecognized
+  name: CommandUnrecognized
+  href: api/pbXNet.PbXStorageErrorCode.html#pbXNet_PbXStorageErrorCode_CommandUnrecognized
+  commentId: F:pbXNet.PbXStorageErrorCode.CommandUnrecognized
+  fullName: pbXNet.PbXStorageErrorCode.CommandUnrecognized
+  nameWithType: PbXStorageErrorCode.CommandUnrecognized
+- uid: pbXNet.PbXStorageErrorCode.IncorrectAppToken
+  name: IncorrectAppToken
+  href: api/pbXNet.PbXStorageErrorCode.html#pbXNet_PbXStorageErrorCode_IncorrectAppToken
+  commentId: F:pbXNet.PbXStorageErrorCode.IncorrectAppToken
+  fullName: pbXNet.PbXStorageErrorCode.IncorrectAppToken
+  nameWithType: PbXStorageErrorCode.IncorrectAppToken
+- uid: pbXNet.PbXStorageErrorCode.IncorrectResponseData
+  name: IncorrectResponseData
+  href: api/pbXNet.PbXStorageErrorCode.html#pbXNet_PbXStorageErrorCode_IncorrectResponseData
+  commentId: F:pbXNet.PbXStorageErrorCode.IncorrectResponseData
+  fullName: pbXNet.PbXStorageErrorCode.IncorrectResponseData
+  nameWithType: PbXStorageErrorCode.IncorrectResponseData
+- uid: pbXNet.PbXStorageErrorCode.IncorrectStorageToken
+  name: IncorrectStorageToken
+  href: api/pbXNet.PbXStorageErrorCode.html#pbXNet_PbXStorageErrorCode_IncorrectStorageToken
+  commentId: F:pbXNet.PbXStorageErrorCode.IncorrectStorageToken
+  fullName: pbXNet.PbXStorageErrorCode.IncorrectStorageToken
+  nameWithType: PbXStorageErrorCode.IncorrectStorageToken
+- uid: pbXNet.PbXStorageErrorCode.OpenStorageFailed
+  name: OpenStorageFailed
+  href: api/pbXNet.PbXStorageErrorCode.html#pbXNet_PbXStorageErrorCode_OpenStorageFailed
+  commentId: F:pbXNet.PbXStorageErrorCode.OpenStorageFailed
+  fullName: pbXNet.PbXStorageErrorCode.OpenStorageFailed
+  nameWithType: PbXStorageErrorCode.OpenStorageFailed
+- uid: pbXNet.PbXStorageErrorCode.RepositoryDoesNotExist
+  name: RepositoryDoesNotExist
+  href: api/pbXNet.PbXStorageErrorCode.html#pbXNet_PbXStorageErrorCode_RepositoryDoesNotExist
+  commentId: F:pbXNet.PbXStorageErrorCode.RepositoryDoesNotExist
+  fullName: pbXNet.PbXStorageErrorCode.RepositoryDoesNotExist
+  nameWithType: PbXStorageErrorCode.RepositoryDoesNotExist
+- uid: pbXNet.PbXStorageErrorCode.SystemException
+  name: SystemException
+  href: api/pbXNet.PbXStorageErrorCode.html#pbXNet_PbXStorageErrorCode_SystemException
+  commentId: F:pbXNet.PbXStorageErrorCode.SystemException
+  fullName: pbXNet.PbXStorageErrorCode.SystemException
+  nameWithType: PbXStorageErrorCode.SystemException
+- uid: pbXNet.PbXStorageErrorCode.ThingOperationFailed
+  name: ThingOperationFailed
+  href: api/pbXNet.PbXStorageErrorCode.html#pbXNet_PbXStorageErrorCode_ThingOperationFailed
+  commentId: F:pbXNet.PbXStorageErrorCode.ThingOperationFailed
+  fullName: pbXNet.PbXStorageErrorCode.ThingOperationFailed
+  nameWithType: PbXStorageErrorCode.ThingOperationFailed
+- uid: pbXNet.PbXStorageSettings
+  name: PbXStorageSettings
+  href: api/pbXNet.PbXStorageSettings.html
+  commentId: T:pbXNet.PbXStorageSettings
+  fullName: pbXNet.PbXStorageSettings
+  nameWithType: PbXStorageSettings
+- uid: pbXNet.PbXStorageSettings.ApiUri
+  name: ApiUri
+  href: api/pbXNet.PbXStorageSettings.html#pbXNet_PbXStorageSettings_ApiUri
+  commentId: F:pbXNet.PbXStorageSettings.ApiUri
+  fullName: pbXNet.PbXStorageSettings.ApiUri
+  nameWithType: PbXStorageSettings.ApiUri
+- uid: pbXNet.PbXStorageSettings.AppKeys
+  name: AppKeys
+  href: api/pbXNet.PbXStorageSettings.html#pbXNet_PbXStorageSettings_AppKeys
+  commentId: F:pbXNet.PbXStorageSettings.AppKeys
+  fullName: pbXNet.PbXStorageSettings.AppKeys
+  nameWithType: PbXStorageSettings.AppKeys
+- uid: pbXNet.PbXStorageSettings.RepositoryId
+  name: RepositoryId
+  href: api/pbXNet.PbXStorageSettings.html#pbXNet_PbXStorageSettings_RepositoryId
+  commentId: F:pbXNet.PbXStorageSettings.RepositoryId
+  fullName: pbXNet.PbXStorageSettings.RepositoryId
+  nameWithType: PbXStorageSettings.RepositoryId
+- uid: pbXNet.PbXStorageSettings.RepositoryPublicKey
+  name: RepositoryPublicKey
+  href: api/pbXNet.PbXStorageSettings.html#pbXNet_PbXStorageSettings_RepositoryPublicKey
+  commentId: F:pbXNet.PbXStorageSettings.RepositoryPublicKey
+  fullName: pbXNet.PbXStorageSettings.RepositoryPublicKey
+  nameWithType: PbXStorageSettings.RepositoryPublicKey
+- uid: pbXNet.PbXStorageSettings.Timeout
+  name: Timeout
+  href: api/pbXNet.PbXStorageSettings.html#pbXNet_PbXStorageSettings_Timeout
+  commentId: F:pbXNet.PbXStorageSettings.Timeout
+  fullName: pbXNet.PbXStorageSettings.Timeout
+  nameWithType: PbXStorageSettings.Timeout
+- uid: pbXNet.RsaCryptographer
+  name: RsaCryptographer
+  href: api/pbXNet.RsaCryptographer.html
+  commentId: T:pbXNet.RsaCryptographer
+  fullName: pbXNet.RsaCryptographer
+  nameWithType: RsaCryptographer
+- uid: pbXNet.RsaCryptographer.Decrypt(pbXNet.IByteBuffer,pbXNet.IAsymmetricCryptographerKeyPair)
+  name: Decrypt(IByteBuffer, IAsymmetricCryptographerKeyPair)
+  href: api/pbXNet.RsaCryptographer.html#pbXNet_RsaCryptographer_Decrypt_pbXNet_IByteBuffer_pbXNet_IAsymmetricCryptographerKeyPair_
+  commentId: M:pbXNet.RsaCryptographer.Decrypt(pbXNet.IByteBuffer,pbXNet.IAsymmetricCryptographerKeyPair)
+  fullName: pbXNet.RsaCryptographer.Decrypt(pbXNet.IByteBuffer, pbXNet.IAsymmetricCryptographerKeyPair)
+  nameWithType: RsaCryptographer.Decrypt(IByteBuffer, IAsymmetricCryptographerKeyPair)
+- uid: pbXNet.RsaCryptographer.Decrypt*
+  name: Decrypt
+  href: api/pbXNet.RsaCryptographer.html#pbXNet_RsaCryptographer_Decrypt_
+  commentId: Overload:pbXNet.RsaCryptographer.Decrypt
+  fullName: pbXNet.RsaCryptographer.Decrypt
+  nameWithType: RsaCryptographer.Decrypt
+- uid: pbXNet.RsaCryptographer.Dispose
+  name: Dispose()
+  href: api/pbXNet.RsaCryptographer.html#pbXNet_RsaCryptographer_Dispose
+  commentId: M:pbXNet.RsaCryptographer.Dispose
+  fullName: pbXNet.RsaCryptographer.Dispose()
+  nameWithType: RsaCryptographer.Dispose()
+- uid: pbXNet.RsaCryptographer.Dispose*
+  name: Dispose
+  href: api/pbXNet.RsaCryptographer.html#pbXNet_RsaCryptographer_Dispose_
+  commentId: Overload:pbXNet.RsaCryptographer.Dispose
+  fullName: pbXNet.RsaCryptographer.Dispose
+  nameWithType: RsaCryptographer.Dispose
+- uid: pbXNet.RsaCryptographer.Encrypt(pbXNet.IByteBuffer,pbXNet.IAsymmetricCryptographerKeyPair)
+  name: Encrypt(IByteBuffer, IAsymmetricCryptographerKeyPair)
+  href: api/pbXNet.RsaCryptographer.html#pbXNet_RsaCryptographer_Encrypt_pbXNet_IByteBuffer_pbXNet_IAsymmetricCryptographerKeyPair_
+  commentId: M:pbXNet.RsaCryptographer.Encrypt(pbXNet.IByteBuffer,pbXNet.IAsymmetricCryptographerKeyPair)
+  fullName: pbXNet.RsaCryptographer.Encrypt(pbXNet.IByteBuffer, pbXNet.IAsymmetricCryptographerKeyPair)
+  nameWithType: RsaCryptographer.Encrypt(IByteBuffer, IAsymmetricCryptographerKeyPair)
+- uid: pbXNet.RsaCryptographer.Encrypt*
+  name: Encrypt
+  href: api/pbXNet.RsaCryptographer.html#pbXNet_RsaCryptographer_Encrypt_
+  commentId: Overload:pbXNet.RsaCryptographer.Encrypt
+  fullName: pbXNet.RsaCryptographer.Encrypt
+  nameWithType: RsaCryptographer.Encrypt
+- uid: pbXNet.RsaCryptographer.GenerateKeyPair
+  name: GenerateKeyPair()
+  href: api/pbXNet.RsaCryptographer.html#pbXNet_RsaCryptographer_GenerateKeyPair
+  commentId: M:pbXNet.RsaCryptographer.GenerateKeyPair
+  fullName: pbXNet.RsaCryptographer.GenerateKeyPair()
+  nameWithType: RsaCryptographer.GenerateKeyPair()
+- uid: pbXNet.RsaCryptographer.GenerateKeyPair*
+  name: GenerateKeyPair
+  href: api/pbXNet.RsaCryptographer.html#pbXNet_RsaCryptographer_GenerateKeyPair_
+  commentId: Overload:pbXNet.RsaCryptographer.GenerateKeyPair
+  fullName: pbXNet.RsaCryptographer.GenerateKeyPair
+  nameWithType: RsaCryptographer.GenerateKeyPair
+- uid: pbXNet.RsaCryptographer.Sign(pbXNet.IByteBuffer,pbXNet.IAsymmetricCryptographerKeyPair)
+  name: Sign(IByteBuffer, IAsymmetricCryptographerKeyPair)
+  href: api/pbXNet.RsaCryptographer.html#pbXNet_RsaCryptographer_Sign_pbXNet_IByteBuffer_pbXNet_IAsymmetricCryptographerKeyPair_
+  commentId: M:pbXNet.RsaCryptographer.Sign(pbXNet.IByteBuffer,pbXNet.IAsymmetricCryptographerKeyPair)
+  fullName: pbXNet.RsaCryptographer.Sign(pbXNet.IByteBuffer, pbXNet.IAsymmetricCryptographerKeyPair)
+  nameWithType: RsaCryptographer.Sign(IByteBuffer, IAsymmetricCryptographerKeyPair)
+- uid: pbXNet.RsaCryptographer.Sign*
+  name: Sign
+  href: api/pbXNet.RsaCryptographer.html#pbXNet_RsaCryptographer_Sign_
+  commentId: Overload:pbXNet.RsaCryptographer.Sign
+  fullName: pbXNet.RsaCryptographer.Sign
+  nameWithType: RsaCryptographer.Sign
+- uid: pbXNet.RsaCryptographer.Verify(pbXNet.IByteBuffer,pbXNet.IByteBuffer,pbXNet.IAsymmetricCryptographerKeyPair)
+  name: Verify(IByteBuffer, IByteBuffer, IAsymmetricCryptographerKeyPair)
+  href: api/pbXNet.RsaCryptographer.html#pbXNet_RsaCryptographer_Verify_pbXNet_IByteBuffer_pbXNet_IByteBuffer_pbXNet_IAsymmetricCryptographerKeyPair_
+  commentId: M:pbXNet.RsaCryptographer.Verify(pbXNet.IByteBuffer,pbXNet.IByteBuffer,pbXNet.IAsymmetricCryptographerKeyPair)
+  fullName: pbXNet.RsaCryptographer.Verify(pbXNet.IByteBuffer, pbXNet.IByteBuffer, pbXNet.IAsymmetricCryptographerKeyPair)
+  nameWithType: RsaCryptographer.Verify(IByteBuffer, IByteBuffer, IAsymmetricCryptographerKeyPair)
+- uid: pbXNet.RsaCryptographer.Verify*
+  name: Verify
+  href: api/pbXNet.RsaCryptographer.html#pbXNet_RsaCryptographer_Verify_
+  commentId: Overload:pbXNet.RsaCryptographer.Verify
+  fullName: pbXNet.RsaCryptographer.Verify
+  nameWithType: RsaCryptographer.Verify
+- uid: pbXNet.RsaCryptographerHelper
+  name: RsaCryptographerHelper
+  href: api/pbXNet.RsaCryptographerHelper.html
+  commentId: T:pbXNet.RsaCryptographerHelper
+  fullName: pbXNet.RsaCryptographerHelper
+  nameWithType: RsaCryptographerHelper
+- uid: pbXNet.RsaCryptographerHelper.Cryptographer
+  name: Cryptographer
+  href: api/pbXNet.RsaCryptographerHelper.html#pbXNet_RsaCryptographerHelper_Cryptographer
+  commentId: P:pbXNet.RsaCryptographerHelper.Cryptographer
+  fullName: pbXNet.RsaCryptographerHelper.Cryptographer
+  nameWithType: RsaCryptographerHelper.Cryptographer
+- uid: pbXNet.RsaCryptographerHelper.Cryptographer*
+  name: Cryptographer
+  href: api/pbXNet.RsaCryptographerHelper.html#pbXNet_RsaCryptographerHelper_Cryptographer_
+  commentId: Overload:pbXNet.RsaCryptographerHelper.Cryptographer
+  fullName: pbXNet.RsaCryptographerHelper.Cryptographer
+  nameWithType: RsaCryptographerHelper.Cryptographer
+- uid: pbXNet.RsaCryptographerHelper.Decrypt(System.String,pbXNet.IAsymmetricCryptographerKeyPair)
+  name: Decrypt(String, IAsymmetricCryptographerKeyPair)
+  href: api/pbXNet.RsaCryptographerHelper.html#pbXNet_RsaCryptographerHelper_Decrypt_System_String_pbXNet_IAsymmetricCryptographerKeyPair_
+  commentId: M:pbXNet.RsaCryptographerHelper.Decrypt(System.String,pbXNet.IAsymmetricCryptographerKeyPair)
+  fullName: pbXNet.RsaCryptographerHelper.Decrypt(System.String, pbXNet.IAsymmetricCryptographerKeyPair)
+  nameWithType: RsaCryptographerHelper.Decrypt(String, IAsymmetricCryptographerKeyPair)
+- uid: pbXNet.RsaCryptographerHelper.Decrypt*
+  name: Decrypt
+  href: api/pbXNet.RsaCryptographerHelper.html#pbXNet_RsaCryptographerHelper_Decrypt_
+  commentId: Overload:pbXNet.RsaCryptographerHelper.Decrypt
+  fullName: pbXNet.RsaCryptographerHelper.Decrypt
+  nameWithType: RsaCryptographerHelper.Decrypt
+- uid: pbXNet.RsaCryptographerHelper.Encrypt(System.String,pbXNet.IAsymmetricCryptographerKeyPair)
+  name: Encrypt(String, IAsymmetricCryptographerKeyPair)
+  href: api/pbXNet.RsaCryptographerHelper.html#pbXNet_RsaCryptographerHelper_Encrypt_System_String_pbXNet_IAsymmetricCryptographerKeyPair_
+  commentId: M:pbXNet.RsaCryptographerHelper.Encrypt(System.String,pbXNet.IAsymmetricCryptographerKeyPair)
+  fullName: pbXNet.RsaCryptographerHelper.Encrypt(System.String, pbXNet.IAsymmetricCryptographerKeyPair)
+  nameWithType: RsaCryptographerHelper.Encrypt(String, IAsymmetricCryptographerKeyPair)
+- uid: pbXNet.RsaCryptographerHelper.Encrypt*
+  name: Encrypt
+  href: api/pbXNet.RsaCryptographerHelper.html#pbXNet_RsaCryptographerHelper_Encrypt_
+  commentId: Overload:pbXNet.RsaCryptographerHelper.Encrypt
+  fullName: pbXNet.RsaCryptographerHelper.Encrypt
+  nameWithType: RsaCryptographerHelper.Encrypt
+- uid: pbXNet.RsaCryptographerHelper.Sign(System.String,pbXNet.IAsymmetricCryptographerKeyPair)
+  name: Sign(String, IAsymmetricCryptographerKeyPair)
+  href: api/pbXNet.RsaCryptographerHelper.html#pbXNet_RsaCryptographerHelper_Sign_System_String_pbXNet_IAsymmetricCryptographerKeyPair_
+  commentId: M:pbXNet.RsaCryptographerHelper.Sign(System.String,pbXNet.IAsymmetricCryptographerKeyPair)
+  fullName: pbXNet.RsaCryptographerHelper.Sign(System.String, pbXNet.IAsymmetricCryptographerKeyPair)
+  nameWithType: RsaCryptographerHelper.Sign(String, IAsymmetricCryptographerKeyPair)
+- uid: pbXNet.RsaCryptographerHelper.Sign*
+  name: Sign
+  href: api/pbXNet.RsaCryptographerHelper.html#pbXNet_RsaCryptographerHelper_Sign_
+  commentId: Overload:pbXNet.RsaCryptographerHelper.Sign
+  fullName: pbXNet.RsaCryptographerHelper.Sign
+  nameWithType: RsaCryptographerHelper.Sign
+- uid: pbXNet.RsaCryptographerHelper.Verify(System.String,System.String,pbXNet.IAsymmetricCryptographerKeyPair)
+  name: Verify(String, String, IAsymmetricCryptographerKeyPair)
+  href: api/pbXNet.RsaCryptographerHelper.html#pbXNet_RsaCryptographerHelper_Verify_System_String_System_String_pbXNet_IAsymmetricCryptographerKeyPair_
+  commentId: M:pbXNet.RsaCryptographerHelper.Verify(System.String,System.String,pbXNet.IAsymmetricCryptographerKeyPair)
+  fullName: pbXNet.RsaCryptographerHelper.Verify(System.String, System.String, pbXNet.IAsymmetricCryptographerKeyPair)
+  nameWithType: RsaCryptographerHelper.Verify(String, String, IAsymmetricCryptographerKeyPair)
+- uid: pbXNet.RsaCryptographerHelper.Verify*
+  name: Verify
+  href: api/pbXNet.RsaCryptographerHelper.html#pbXNet_RsaCryptographerHelper_Verify_
+  commentId: Overload:pbXNet.RsaCryptographerHelper.Verify
+  fullName: pbXNet.RsaCryptographerHelper.Verify
+  nameWithType: RsaCryptographerHelper.Verify
+- uid: pbXNet.RsaKeyPair
+  name: RsaKeyPair
+  href: api/pbXNet.RsaKeyPair.html
+  commentId: T:pbXNet.RsaKeyPair
+  fullName: pbXNet.RsaKeyPair
+  nameWithType: RsaKeyPair
+- uid: pbXNet.RsaKeyPair.#ctor(pbXNet.IAsymmetricCryptographerKeyPair)
+  name: RsaKeyPair(IAsymmetricCryptographerKeyPair)
+  href: api/pbXNet.RsaKeyPair.html#pbXNet_RsaKeyPair__ctor_pbXNet_IAsymmetricCryptographerKeyPair_
+  commentId: M:pbXNet.RsaKeyPair.#ctor(pbXNet.IAsymmetricCryptographerKeyPair)
+  fullName: pbXNet.RsaKeyPair.RsaKeyPair(pbXNet.IAsymmetricCryptographerKeyPair)
+  nameWithType: RsaKeyPair.RsaKeyPair(IAsymmetricCryptographerKeyPair)
+- uid: pbXNet.RsaKeyPair.#ctor(pbXNet.RsaKeyPair)
+  name: RsaKeyPair(RsaKeyPair)
+  href: api/pbXNet.RsaKeyPair.html#pbXNet_RsaKeyPair__ctor_pbXNet_RsaKeyPair_
+  commentId: M:pbXNet.RsaKeyPair.#ctor(pbXNet.RsaKeyPair)
+  fullName: pbXNet.RsaKeyPair.RsaKeyPair(pbXNet.RsaKeyPair)
+  nameWithType: RsaKeyPair.RsaKeyPair(RsaKeyPair)
+- uid: pbXNet.RsaKeyPair.#ctor(RSAParameters,RSAParameters)
+  name: RsaKeyPair(RSAParameters, RSAParameters)
+  href: api/pbXNet.RsaKeyPair.html#pbXNet_RsaKeyPair__ctor_RSAParameters_RSAParameters_
+  commentId: M:pbXNet.RsaKeyPair.#ctor(RSAParameters,RSAParameters)
+  fullName: pbXNet.RsaKeyPair.RsaKeyPair(RSAParameters, RSAParameters)
+  nameWithType: RsaKeyPair.RsaKeyPair(RSAParameters, RSAParameters)
+- uid: pbXNet.RsaKeyPair.#ctor(System.String,System.String)
+  name: RsaKeyPair(String, String)
+  href: api/pbXNet.RsaKeyPair.html#pbXNet_RsaKeyPair__ctor_System_String_System_String_
+  commentId: M:pbXNet.RsaKeyPair.#ctor(System.String,System.String)
+  fullName: pbXNet.RsaKeyPair.RsaKeyPair(System.String, System.String)
+  nameWithType: RsaKeyPair.RsaKeyPair(String, String)
+- uid: pbXNet.RsaKeyPair.#ctor*
+  name: RsaKeyPair
+  href: api/pbXNet.RsaKeyPair.html#pbXNet_RsaKeyPair__ctor_
+  commentId: Overload:pbXNet.RsaKeyPair.#ctor
+  fullName: pbXNet.RsaKeyPair.RsaKeyPair
+  nameWithType: RsaKeyPair.RsaKeyPair
+- uid: pbXNet.RsaKeyPair.Algoritm
+  name: Algoritm
+  href: api/pbXNet.RsaKeyPair.html#pbXNet_RsaKeyPair_Algoritm
+  commentId: P:pbXNet.RsaKeyPair.Algoritm
+  fullName: pbXNet.RsaKeyPair.Algoritm
+  nameWithType: RsaKeyPair.Algoritm
+- uid: pbXNet.RsaKeyPair.Algoritm*
+  name: Algoritm
+  href: api/pbXNet.RsaKeyPair.html#pbXNet_RsaKeyPair_Algoritm_
+  commentId: Overload:pbXNet.RsaKeyPair.Algoritm
+  fullName: pbXNet.RsaKeyPair.Algoritm
+  nameWithType: RsaKeyPair.Algoritm
+- uid: pbXNet.RsaKeyPair.Pack(RSAParameters)
+  name: Pack(RSAParameters)
+  href: api/pbXNet.RsaKeyPair.html#pbXNet_RsaKeyPair_Pack_RSAParameters_
+  commentId: M:pbXNet.RsaKeyPair.Pack(RSAParameters)
+  fullName: pbXNet.RsaKeyPair.Pack(RSAParameters)
+  nameWithType: RsaKeyPair.Pack(RSAParameters)
+- uid: pbXNet.RsaKeyPair.Pack*
+  name: Pack
+  href: api/pbXNet.RsaKeyPair.html#pbXNet_RsaKeyPair_Pack_
+  commentId: Overload:pbXNet.RsaKeyPair.Pack
+  fullName: pbXNet.RsaKeyPair.Pack
+  nameWithType: RsaKeyPair.Pack
+- uid: pbXNet.RsaKeyPair.Private
+  name: Private
+  href: api/pbXNet.RsaKeyPair.html#pbXNet_RsaKeyPair_Private
+  commentId: P:pbXNet.RsaKeyPair.Private
+  fullName: pbXNet.RsaKeyPair.Private
+  nameWithType: RsaKeyPair.Private
+- uid: pbXNet.RsaKeyPair.Private*
+  name: Private
+  href: api/pbXNet.RsaKeyPair.html#pbXNet_RsaKeyPair_Private_
+  commentId: Overload:pbXNet.RsaKeyPair.Private
+  fullName: pbXNet.RsaKeyPair.Private
+  nameWithType: RsaKeyPair.Private
+- uid: pbXNet.RsaKeyPair.Public
+  name: Public
+  href: api/pbXNet.RsaKeyPair.html#pbXNet_RsaKeyPair_Public
+  commentId: P:pbXNet.RsaKeyPair.Public
+  fullName: pbXNet.RsaKeyPair.Public
+  nameWithType: RsaKeyPair.Public
+- uid: pbXNet.RsaKeyPair.Public*
+  name: Public
+  href: api/pbXNet.RsaKeyPair.html#pbXNet_RsaKeyPair_Public_
+  commentId: Overload:pbXNet.RsaKeyPair.Public
+  fullName: pbXNet.RsaKeyPair.Public
+  nameWithType: RsaKeyPair.Public
+- uid: pbXNet.RsaKeyPair.RsaPrivate
+  name: RsaPrivate
+  href: api/pbXNet.RsaKeyPair.html#pbXNet_RsaKeyPair_RsaPrivate
+  commentId: F:pbXNet.RsaKeyPair.RsaPrivate
+  fullName: pbXNet.RsaKeyPair.RsaPrivate
+  nameWithType: RsaKeyPair.RsaPrivate
+- uid: pbXNet.RsaKeyPair.RsaPublic
+  name: RsaPublic
+  href: api/pbXNet.RsaKeyPair.html#pbXNet_RsaKeyPair_RsaPublic
+  commentId: F:pbXNet.RsaKeyPair.RsaPublic
+  fullName: pbXNet.RsaKeyPair.RsaPublic
+  nameWithType: RsaKeyPair.RsaPublic
+- uid: pbXNet.RsaKeyPair.Unpack(System.String)
+  name: Unpack(String)
+  href: api/pbXNet.RsaKeyPair.html#pbXNet_RsaKeyPair_Unpack_System_String_
+  commentId: M:pbXNet.RsaKeyPair.Unpack(System.String)
+  fullName: pbXNet.RsaKeyPair.Unpack(System.String)
+  nameWithType: RsaKeyPair.Unpack(String)
+- uid: pbXNet.RsaKeyPair.Unpack*
+  name: Unpack
+  href: api/pbXNet.RsaKeyPair.html#pbXNet_RsaKeyPair_Unpack_
+  commentId: Overload:pbXNet.RsaKeyPair.Unpack
+  fullName: pbXNet.RsaKeyPair.Unpack
+  nameWithType: RsaKeyPair.Unpack
 - uid: pbXNet.SecretLifeTime
   name: SecretLifeTime
   href: api/pbXNet.SecretLifeTime.html
@@ -5964,42 +6408,6 @@ references:
   fullName.vb: pbXNet.SecretsManager.AddOrUpdateSecret(Of T)(System.String, pbXNet.SecretLifeTime, T)
   nameWithType: SecretsManager.AddOrUpdateSecret<T>(String, SecretLifeTime, T)
   nameWithType.vb: SecretsManager.AddOrUpdateSecret(Of T)(String, SecretLifeTime, T)
-- uid: pbXNet.SecretsManager.AvailableDOAuthentication
-  name: AvailableDOAuthentication
-  href: api/pbXNet.SecretsManager.html#pbXNet_SecretsManager_AvailableDOAuthentication
-  commentId: P:pbXNet.SecretsManager.AvailableDOAuthentication
-  fullName: pbXNet.SecretsManager.AvailableDOAuthentication
-  nameWithType: SecretsManager.AvailableDOAuthentication
-- uid: pbXNet.SecretsManager.AvailableDOAuthentication*
-  name: AvailableDOAuthentication
-  href: api/pbXNet.SecretsManager.html#pbXNet_SecretsManager_AvailableDOAuthentication_
-  commentId: Overload:pbXNet.SecretsManager.AvailableDOAuthentication
-  fullName: pbXNet.SecretsManager.AvailableDOAuthentication
-  nameWithType: SecretsManager.AvailableDOAuthentication
-- uid: pbXNet.SecretsManager.CancelDOAuthentication
-  name: CancelDOAuthentication()
-  href: api/pbXNet.SecretsManager.html#pbXNet_SecretsManager_CancelDOAuthentication
-  commentId: M:pbXNet.SecretsManager.CancelDOAuthentication
-  fullName: pbXNet.SecretsManager.CancelDOAuthentication()
-  nameWithType: SecretsManager.CancelDOAuthentication()
-- uid: pbXNet.SecretsManager.CancelDOAuthentication*
-  name: CancelDOAuthentication
-  href: api/pbXNet.SecretsManager.html#pbXNet_SecretsManager_CancelDOAuthentication_
-  commentId: Overload:pbXNet.SecretsManager.CancelDOAuthentication
-  fullName: pbXNet.SecretsManager.CancelDOAuthentication
-  nameWithType: SecretsManager.CancelDOAuthentication
-- uid: pbXNet.SecretsManager.CanDOAuthenticationBeCanceled
-  name: CanDOAuthenticationBeCanceled()
-  href: api/pbXNet.SecretsManager.html#pbXNet_SecretsManager_CanDOAuthenticationBeCanceled
-  commentId: M:pbXNet.SecretsManager.CanDOAuthenticationBeCanceled
-  fullName: pbXNet.SecretsManager.CanDOAuthenticationBeCanceled()
-  nameWithType: SecretsManager.CanDOAuthenticationBeCanceled()
-- uid: pbXNet.SecretsManager.CanDOAuthenticationBeCanceled*
-  name: CanDOAuthenticationBeCanceled
-  href: api/pbXNet.SecretsManager.html#pbXNet_SecretsManager_CanDOAuthenticationBeCanceled_
-  commentId: Overload:pbXNet.SecretsManager.CanDOAuthenticationBeCanceled
-  fullName: pbXNet.SecretsManager.CanDOAuthenticationBeCanceled
-  nameWithType: SecretsManager.CanDOAuthenticationBeCanceled
 - uid: pbXNet.SecretsManager.CKeyExists(System.String)
   name: CKeyExists(String)
   href: api/pbXNet.SecretsManager.html#pbXNet_SecretsManager_CKeyExists_System_String_
@@ -6147,18 +6555,6 @@ references:
   commentId: Overload:pbXNet.SecretsManager.Id
   fullName: pbXNet.SecretsManager.Id
   nameWithType: SecretsManager.Id
-- uid: pbXNet.SecretsManager.Initialize(System.Object)
-  name: Initialize(Object)
-  href: api/pbXNet.SecretsManager.html#pbXNet_SecretsManager_Initialize_System_Object_
-  commentId: M:pbXNet.SecretsManager.Initialize(System.Object)
-  fullName: pbXNet.SecretsManager.Initialize(System.Object)
-  nameWithType: SecretsManager.Initialize(Object)
-- uid: pbXNet.SecretsManager.Initialize*
-  name: Initialize
-  href: api/pbXNet.SecretsManager.html#pbXNet_SecretsManager_Initialize_
-  commentId: Overload:pbXNet.SecretsManager.Initialize
-  fullName: pbXNet.SecretsManager.Initialize
-  nameWithType: SecretsManager.Initialize
 - uid: pbXNet.SecretsManager.PasswordExists(System.String)
   name: PasswordExists(String)
   href: api/pbXNet.SecretsManager.html#pbXNet_SecretsManager_PasswordExists_System_String_
@@ -6183,21 +6579,6 @@ references:
   commentId: Overload:pbXNet.SecretsManager.SecretExists
   fullName: pbXNet.SecretsManager.SecretExists
   nameWithType: SecretsManager.SecretExists
-- uid: pbXNet.SecretsManager.StartDOAuthentication(System.String,System.Action,System.Action{System.String,System.Boolean})
-  name: StartDOAuthentication(String, Action, Action<String, Boolean>)
-  href: api/pbXNet.SecretsManager.html#pbXNet_SecretsManager_StartDOAuthentication_System_String_System_Action_System_Action_System_String_System_Boolean__
-  commentId: M:pbXNet.SecretsManager.StartDOAuthentication(System.String,System.Action,System.Action{System.String,System.Boolean})
-  name.vb: StartDOAuthentication(String, Action, Action(Of String, Boolean))
-  fullName: pbXNet.SecretsManager.StartDOAuthentication(System.String, System.Action, System.Action<System.String, System.Boolean>)
-  fullName.vb: pbXNet.SecretsManager.StartDOAuthentication(System.String, System.Action, System.Action(Of System.String, System.Boolean))
-  nameWithType: SecretsManager.StartDOAuthentication(String, Action, Action<String, Boolean>)
-  nameWithType.vb: SecretsManager.StartDOAuthentication(String, Action, Action(Of String, Boolean))
-- uid: pbXNet.SecretsManager.StartDOAuthentication*
-  name: StartDOAuthentication
-  href: api/pbXNet.SecretsManager.html#pbXNet_SecretsManager_StartDOAuthentication_
-  commentId: Overload:pbXNet.SecretsManager.StartDOAuthentication
-  fullName: pbXNet.SecretsManager.StartDOAuthentication
-  nameWithType: SecretsManager.StartDOAuthentication
 - uid: pbXNet.SecureBuffer
   name: SecureBuffer
   href: api/pbXNet.SecureBuffer.html
@@ -6333,12 +6714,6 @@ references:
   commentId: Overload:pbXNet.SecureBuffer.ToString
   fullName: pbXNet.SecureBuffer.ToString
   nameWithType: SecureBuffer.ToString
-- uid: pbXNet.SerializableAttribute
-  name: SerializableAttribute
-  href: api/pbXNet.SerializableAttribute.html
-  commentId: T:pbXNet.SerializableAttribute
-  fullName: pbXNet.SerializableAttribute
-  nameWithType: SerializableAttribute
 - uid: pbXNet.Storage`1
   name: Storage<T>
   href: api/pbXNet.Storage-1.html
@@ -6958,6 +7333,60 @@ references:
   fullName.vb: pbXNet.StorageOnFileSystem(Of T).Type
   nameWithType: StorageOnFileSystem<T>.Type
   nameWithType.vb: StorageOnFileSystem(Of T).Type
+- uid: pbXNet.StorageOnPbXStorage
+  name: StorageOnPbXStorage
+  href: api/pbXNet.StorageOnPbXStorage.html
+  commentId: T:pbXNet.StorageOnPbXStorage
+  fullName: pbXNet.StorageOnPbXStorage
+  nameWithType: StorageOnPbXStorage
+- uid: pbXNet.StorageOnPbXStorage.commaAsArray
+  name: commaAsArray
+  href: api/pbXNet.StorageOnPbXStorage.html#pbXNet_StorageOnPbXStorage_commaAsArray
+  commentId: F:pbXNet.StorageOnPbXStorage.commaAsArray
+  fullName: pbXNet.StorageOnPbXStorage.commaAsArray
+  nameWithType: StorageOnPbXStorage.commaAsArray
+- uid: pbXNet.StorageOnPbXStorage.ExecuteCommandAsync(System.Net.Http.HttpClient,System.String,System.Uri,System.Net.Http.HttpContent)
+  name: ExecuteCommandAsync(HttpClient, String, Uri, HttpContent)
+  href: api/pbXNet.StorageOnPbXStorage.html#pbXNet_StorageOnPbXStorage_ExecuteCommandAsync_System_Net_Http_HttpClient_System_String_System_Uri_System_Net_Http_HttpContent_
+  commentId: M:pbXNet.StorageOnPbXStorage.ExecuteCommandAsync(System.Net.Http.HttpClient,System.String,System.Uri,System.Net.Http.HttpContent)
+  fullName: pbXNet.StorageOnPbXStorage.ExecuteCommandAsync(System.Net.Http.HttpClient, System.String, System.Uri, System.Net.Http.HttpContent)
+  nameWithType: StorageOnPbXStorage.ExecuteCommandAsync(HttpClient, String, Uri, HttpContent)
+- uid: pbXNet.StorageOnPbXStorage.ExecuteCommandAsync*
+  name: ExecuteCommandAsync
+  href: api/pbXNet.StorageOnPbXStorage.html#pbXNet_StorageOnPbXStorage_ExecuteCommandAsync_
+  commentId: Overload:pbXNet.StorageOnPbXStorage.ExecuteCommandAsync
+  fullName: pbXNet.StorageOnPbXStorage.ExecuteCommandAsync
+  nameWithType: StorageOnPbXStorage.ExecuteCommandAsync
+- uid: pbXNet.StorageOnPbXStorageException
+  name: StorageOnPbXStorageException
+  href: api/pbXNet.StorageOnPbXStorageException.html
+  commentId: T:pbXNet.StorageOnPbXStorageException
+  fullName: pbXNet.StorageOnPbXStorageException
+  nameWithType: StorageOnPbXStorageException
+- uid: pbXNet.StorageOnPbXStorageException.#ctor(pbXNet.PbXStorageErrorCode,System.String)
+  name: StorageOnPbXStorageException(PbXStorageErrorCode, String)
+  href: api/pbXNet.StorageOnPbXStorageException.html#pbXNet_StorageOnPbXStorageException__ctor_pbXNet_PbXStorageErrorCode_System_String_
+  commentId: M:pbXNet.StorageOnPbXStorageException.#ctor(pbXNet.PbXStorageErrorCode,System.String)
+  fullName: pbXNet.StorageOnPbXStorageException.StorageOnPbXStorageException(pbXNet.PbXStorageErrorCode, System.String)
+  nameWithType: StorageOnPbXStorageException.StorageOnPbXStorageException(PbXStorageErrorCode, String)
+- uid: pbXNet.StorageOnPbXStorageException.#ctor(System.Int32,System.String)
+  name: StorageOnPbXStorageException(Int32, String)
+  href: api/pbXNet.StorageOnPbXStorageException.html#pbXNet_StorageOnPbXStorageException__ctor_System_Int32_System_String_
+  commentId: M:pbXNet.StorageOnPbXStorageException.#ctor(System.Int32,System.String)
+  fullName: pbXNet.StorageOnPbXStorageException.StorageOnPbXStorageException(System.Int32, System.String)
+  nameWithType: StorageOnPbXStorageException.StorageOnPbXStorageException(Int32, String)
+- uid: pbXNet.StorageOnPbXStorageException.#ctor*
+  name: StorageOnPbXStorageException
+  href: api/pbXNet.StorageOnPbXStorageException.html#pbXNet_StorageOnPbXStorageException__ctor_
+  commentId: Overload:pbXNet.StorageOnPbXStorageException.#ctor
+  fullName: pbXNet.StorageOnPbXStorageException.StorageOnPbXStorageException
+  nameWithType: StorageOnPbXStorageException.StorageOnPbXStorageException
+- uid: pbXNet.StorageOnPbXStorageException.Erorr
+  name: Erorr
+  href: api/pbXNet.StorageOnPbXStorageException.html#pbXNet_StorageOnPbXStorageException_Erorr
+  commentId: F:pbXNet.StorageOnPbXStorageException.Erorr
+  fullName: pbXNet.StorageOnPbXStorageException.Erorr
+  nameWithType: StorageOnPbXStorageException.Erorr
 - uid: pbXNet.StorageType
   name: StorageType
   href: api/pbXNet.StorageType.html
@@ -7150,6 +7579,18 @@ references:
   commentId: Overload:pbXNet.Tools.CreateGuid
   fullName: pbXNet.Tools.CreateGuid
   nameWithType: Tools.CreateGuid
+- uid: pbXNet.Tools.CreateGuidEx
+  name: CreateGuidEx()
+  href: api/pbXNet.Tools.html#pbXNet_Tools_CreateGuidEx
+  commentId: M:pbXNet.Tools.CreateGuidEx
+  fullName: pbXNet.Tools.CreateGuidEx()
+  nameWithType: Tools.CreateGuidEx()
+- uid: pbXNet.Tools.CreateGuidEx*
+  name: CreateGuidEx
+  href: api/pbXNet.Tools.html#pbXNet_Tools_CreateGuidEx_
+  commentId: Overload:pbXNet.Tools.CreateGuidEx
+  fullName: pbXNet.Tools.CreateGuidEx
+  nameWithType: Tools.CreateGuidEx
 - uid: pbXNet.Tools.GetUaqpid
   name: GetUaqpid()
   href: api/pbXNet.Tools.html#pbXNet_Tools_GetUaqpid

@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Class DeviceFileSystem
    ">
-    <meta name="generator" content="docfx 2.18.5.0">
+    <meta name="generator" content="docfx 2.19.2.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -72,7 +72,7 @@
   </h1>
   <div class="markdown level0 summary"></div>
   <div class="markdown level0 conceptual"></div>
-  
+
   <div class="inheritance">
     <h5>Inheritance</h5>
     <div class="level0"><a class="xref" href="https://msdn.microsoft.com/en-us/library/system.object(v=vs.110).aspx">Object</a></div>
@@ -84,7 +84,7 @@
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public class DeviceFileSystem : IFileSystem, IDisposable</code></pre>
   </div>
-  
+
   
   
   
@@ -92,33 +92,33 @@
   <h3 id="constructors">Constructors
   </h3>
   
-  <span class="small pull-right mobile-hide">
-    <span class="divider"> </span>
-    <a href="https://github.com/boguslawski-piotr/pbX/new/master/apiSpec/new?filename=pbXNet_DeviceFileSystem__ctor_pbXNet_DeviceFileSystemRoot_.md&amp;value=---%0Auid%3A%20pbXNet.DeviceFileSystem.%23ctor(pbXNet.DeviceFileSystemRoot)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/boguslawski-piotr/pbX/blob/master/pbXNet/DeviceFileSystem.cs/#L55" title="View Source"><i class="fa fa-code"></i></a>
-  </span>
   
   <a id="pbXNet_DeviceFileSystem__ctor_" data-uid="pbXNet.DeviceFileSystem.#ctor*"></a>
   
-  <h4 id="pbXNet_DeviceFileSystem__ctor_pbXNet_DeviceFileSystemRoot_" data-uid="pbXNet.DeviceFileSystem.#ctor(pbXNet.DeviceFileSystemRoot)"><a href="#collapsible-pbXNet_DeviceFileSystem__ctor_pbXNet_DeviceFileSystemRoot_" class="expander" data-toggle="collapse">DeviceFileSystem(DeviceFileSystemRoot)</a></h4>
+  <h4 id="pbXNet_DeviceFileSystem__ctor_pbXNet_DeviceFileSystemRoot_System_String_" data-uid="pbXNet.DeviceFileSystem.#ctor(pbXNet.DeviceFileSystemRoot,System.String)"><a href="#collapsible-pbXNet_DeviceFileSystem__ctor_pbXNet_DeviceFileSystemRoot_System_String_" class="expander" data-toggle="collapse">DeviceFileSystem(DeviceFileSystemRoot, String)</a></h4>
   
-  <div id="collapsible-pbXNet_DeviceFileSystem__ctor_pbXNet_DeviceFileSystemRoot_" class="collapse in">
+  <div id="collapsible-pbXNet_DeviceFileSystem__ctor_pbXNet_DeviceFileSystemRoot_System_String_" class="collapse in">
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
-  
+
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public DeviceFileSystem(DeviceFileSystemRoot root = DeviceFileSystemRoot.Personal)</code></pre>
+    <pre><code class="lang-csharp hljs">public DeviceFileSystem(DeviceFileSystemRoot root = DeviceFileSystemRoot.Local, string userDefinedRootPath = null)</code></pre>
   </div>
-  
+
   <h5 class="parameters">Parameters</h5>
   <table>
     <tr>
       <td>
         <span class="pull-right"><a class="xref" href="pbXNet.DeviceFileSystemRoot.html">DeviceFileSystemRoot</a></span>
         <span class="parametername">root</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://msdn.microsoft.com/en-us/library/system.string(v=vs.110).aspx">String</a></span>
+        <span class="parametername">userDefinedRootPath</span>
         <p>
       </td>
     </tr>
@@ -138,13 +138,6 @@
   <h3 id="fields">Fields
   </h3>
   
-  <span class="small pull-right mobile-hide">
-    <span class="divider"> </span>
-    <a href="https://github.com/boguslawski-piotr/pbX/new/master/apiSpec/new?filename=pbXNet_DeviceFileSystem_AvailableRootsForEndUser.md&amp;value=---%0Auid%3A%20pbXNet.DeviceFileSystem.AvailableRootsForEndUser%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/boguslawski-piotr/pbX/blob/master/pbXNet/NETStd2/DeviceFileSystem.cs/#L14" title="View Source"><i class="fa fa-code"></i></a>
-  </span>
   
   
   <h4 id="pbXNet_DeviceFileSystem_AvailableRootsForEndUser" data-uid="pbXNet.DeviceFileSystem.AvailableRootsForEndUser"><a href="#collapsible-pbXNet_DeviceFileSystem_AvailableRootsForEndUser" class="expander" data-toggle="collapse">AvailableRootsForEndUser</a></h4>
@@ -153,11 +146,11 @@
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
-  
+
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static readonly IEnumerable&lt;DeviceFileSystemRoot&gt; AvailableRootsForEndUser</code></pre>
   </div>
-  
+
   
   
   
@@ -182,13 +175,44 @@
   <h3 id="properties">Properties
   </h3>
   
-  <span class="small pull-right mobile-hide">
-    <span class="divider"> </span>
-    <a href="https://github.com/boguslawski-piotr/pbX/new/master/apiSpec/new?filename=pbXNet_DeviceFileSystem_Id.md&amp;value=---%0Auid%3A%20pbXNet.DeviceFileSystem.Id%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/boguslawski-piotr/pbX/blob/master/pbXNet/DeviceFileSystem.cs/#L25" title="View Source"><i class="fa fa-code"></i></a>
-  </span>
+  
+  <a id="pbXNet_DeviceFileSystem_CurrentPath_" data-uid="pbXNet.DeviceFileSystem.CurrentPath*"></a>
+  
+  <h4 id="pbXNet_DeviceFileSystem_CurrentPath" data-uid="pbXNet.DeviceFileSystem.CurrentPath"><a href="#collapsible-pbXNet_DeviceFileSystem_CurrentPath" class="expander" data-toggle="collapse">CurrentPath</a></h4>
+  
+  <div id="collapsible-pbXNet_DeviceFileSystem_CurrentPath" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string CurrentPath { get; }</code></pre>
+  </div>
+
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://msdn.microsoft.com/en-us/library/system.string(v=vs.110).aspx">String</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="pbXNet.IFileSystem.html#pbXNet_IFileSystem_CurrentPath">IFileSystem.CurrentPath</a></div>
+  
+  
+  
+  
+  </div>
+  
   
   <a id="pbXNet_DeviceFileSystem_Id_" data-uid="pbXNet.DeviceFileSystem.Id*"></a>
   
@@ -198,11 +222,11 @@
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
-  
+
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public string Id { get; }</code></pre>
   </div>
-  
+
   
   
   
@@ -227,13 +251,6 @@
   
   </div>
   
-  <span class="small pull-right mobile-hide">
-    <span class="divider"> </span>
-    <a href="https://github.com/boguslawski-piotr/pbX/new/master/apiSpec/new?filename=pbXNet_DeviceFileSystem_Name.md&amp;value=---%0Auid%3A%20pbXNet.DeviceFileSystem.Name%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/boguslawski-piotr/pbX/blob/master/pbXNet/DeviceFileSystem.cs/#L27" title="View Source"><i class="fa fa-code"></i></a>
-  </span>
   
   <a id="pbXNet_DeviceFileSystem_Name_" data-uid="pbXNet.DeviceFileSystem.Name*"></a>
   
@@ -243,11 +260,11 @@
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
-  
+
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public string Name { get; }</code></pre>
   </div>
-  
+
   
   
   
@@ -272,13 +289,6 @@
   
   </div>
   
-  <span class="small pull-right mobile-hide">
-    <span class="divider"> </span>
-    <a href="https://github.com/boguslawski-piotr/pbX/new/master/apiSpec/new?filename=pbXNet_DeviceFileSystem_Root.md&amp;value=---%0Auid%3A%20pbXNet.DeviceFileSystem.Root%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/boguslawski-piotr/pbX/blob/master/pbXNet/DeviceFileSystem.cs/#L23" title="View Source"><i class="fa fa-code"></i></a>
-  </span>
   
   <a id="pbXNet_DeviceFileSystem_Root_" data-uid="pbXNet.DeviceFileSystem.Root*"></a>
   
@@ -288,11 +298,11 @@
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
-  
+
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public DeviceFileSystemRoot Root { get; }</code></pre>
   </div>
-  
+
   
   
   
@@ -315,13 +325,44 @@
   
   </div>
   
-  <span class="small pull-right mobile-hide">
-    <span class="divider"> </span>
-    <a href="https://github.com/boguslawski-piotr/pbX/new/master/apiSpec/new?filename=pbXNet_DeviceFileSystem_Type.md&amp;value=---%0Auid%3A%20pbXNet.DeviceFileSystem.Type%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/boguslawski-piotr/pbX/blob/master/pbXNet/DeviceFileSystem.cs/#L21" title="View Source"><i class="fa fa-code"></i></a>
-  </span>
+  
+  <a id="pbXNet_DeviceFileSystem_RootPath_" data-uid="pbXNet.DeviceFileSystem.RootPath*"></a>
+  
+  <h4 id="pbXNet_DeviceFileSystem_RootPath" data-uid="pbXNet.DeviceFileSystem.RootPath"><a href="#collapsible-pbXNet_DeviceFileSystem_RootPath" class="expander" data-toggle="collapse">RootPath</a></h4>
+  
+  <div id="collapsible-pbXNet_DeviceFileSystem_RootPath" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string RootPath { get; }</code></pre>
+  </div>
+
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://msdn.microsoft.com/en-us/library/system.string(v=vs.110).aspx">String</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="pbXNet.IFileSystem.html#pbXNet_IFileSystem_RootPath">IFileSystem.RootPath</a></div>
+  
+  
+  
+  
+  </div>
+  
   
   <a id="pbXNet_DeviceFileSystem_Type_" data-uid="pbXNet.DeviceFileSystem.Type*"></a>
   
@@ -331,11 +372,11 @@
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
-  
+
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public FileSystemType Type { get; }</code></pre>
   </div>
-  
+
   
   
   
@@ -362,13 +403,44 @@
   <h3 id="methods">Methods
   </h3>
   
-  <span class="small pull-right mobile-hide">
-    <span class="divider"> </span>
-    <a href="https://github.com/boguslawski-piotr/pbX/new/master/apiSpec/new?filename=pbXNet_DeviceFileSystem_CreateDirectoryAsync_System_String_.md&amp;value=---%0Auid%3A%20pbXNet.DeviceFileSystem.CreateDirectoryAsync(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/boguslawski-piotr/pbX/blob/master/pbXNet/NETStd2/DeviceFileSystem.cs/#L171" title="View Source"><i class="fa fa-code"></i></a>
-  </span>
+  
+  <a id="pbXNet_DeviceFileSystem_CloneAsync_" data-uid="pbXNet.DeviceFileSystem.CloneAsync*"></a>
+  
+  <h4 id="pbXNet_DeviceFileSystem_CloneAsync" data-uid="pbXNet.DeviceFileSystem.CloneAsync"><a href="#collapsible-pbXNet_DeviceFileSystem_CloneAsync" class="expander" data-toggle="collapse">CloneAsync()</a></h4>
+  
+  <div id="collapsible-pbXNet_DeviceFileSystem_CloneAsync" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual Task&lt;IFileSystem&gt; CloneAsync()</code></pre>
+  </div>
+
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://msdn.microsoft.com/en-us/library/dd321424(v=vs.110).aspx">Task</a>&lt;<a class="xref" href="pbXNet.IFileSystem.html">IFileSystem</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="pbXNet.IFileSystem.html#pbXNet_IFileSystem_CloneAsync">IFileSystem.CloneAsync()</a></div>
+  
+  
+  
+  
+  </div>
+  
   
   <a id="pbXNet_DeviceFileSystem_CreateDirectoryAsync_" data-uid="pbXNet.DeviceFileSystem.CreateDirectoryAsync*"></a>
   
@@ -378,11 +450,11 @@
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
-  
+
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public virtual Task CreateDirectoryAsync(string dirname)</code></pre>
   </div>
-  
+
   <h5 class="parameters">Parameters</h5>
   <table>
     <tr>
@@ -417,13 +489,6 @@
   
   </div>
   
-  <span class="small pull-right mobile-hide">
-    <span class="divider"> </span>
-    <a href="https://github.com/boguslawski-piotr/pbX/new/master/apiSpec/new?filename=pbXNet_DeviceFileSystem_DeleteDirectoryAsync_System_String_.md&amp;value=---%0Auid%3A%20pbXNet.DeviceFileSystem.DeleteDirectoryAsync(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/boguslawski-piotr/pbX/blob/master/pbXNet/NETStd2/DeviceFileSystem.cs/#L183" title="View Source"><i class="fa fa-code"></i></a>
-  </span>
   
   <a id="pbXNet_DeviceFileSystem_DeleteDirectoryAsync_" data-uid="pbXNet.DeviceFileSystem.DeleteDirectoryAsync*"></a>
   
@@ -433,11 +498,11 @@
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
-  
+
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public virtual Task DeleteDirectoryAsync(string dirname)</code></pre>
   </div>
-  
+
   <h5 class="parameters">Parameters</h5>
   <table>
     <tr>
@@ -472,13 +537,6 @@
   
   </div>
   
-  <span class="small pull-right mobile-hide">
-    <span class="divider"> </span>
-    <a href="https://github.com/boguslawski-piotr/pbX/new/master/apiSpec/new?filename=pbXNet_DeviceFileSystem_DeleteFileAsync_System_String_.md&amp;value=---%0Auid%3A%20pbXNet.DeviceFileSystem.DeleteFileAsync(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/boguslawski-piotr/pbX/blob/master/pbXNet/NETStd2/DeviceFileSystem.cs/#L190" title="View Source"><i class="fa fa-code"></i></a>
-  </span>
   
   <a id="pbXNet_DeviceFileSystem_DeleteFileAsync_" data-uid="pbXNet.DeviceFileSystem.DeleteFileAsync*"></a>
   
@@ -488,11 +546,11 @@
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
-  
+
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public virtual Task DeleteFileAsync(string filename)</code></pre>
   </div>
-  
+
   <h5 class="parameters">Parameters</h5>
   <table>
     <tr>
@@ -527,13 +585,6 @@
   
   </div>
   
-  <span class="small pull-right mobile-hide">
-    <span class="divider"> </span>
-    <a href="https://github.com/boguslawski-piotr/pbX/new/master/apiSpec/new?filename=pbXNet_DeviceFileSystem_DirectoryExistsAsync_System_String_.md&amp;value=---%0Auid%3A%20pbXNet.DeviceFileSystem.DirectoryExistsAsync(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/boguslawski-piotr/pbX/blob/master/pbXNet/NETStd2/DeviceFileSystem.cs/#L137" title="View Source"><i class="fa fa-code"></i></a>
-  </span>
   
   <a id="pbXNet_DeviceFileSystem_DirectoryExistsAsync_" data-uid="pbXNet.DeviceFileSystem.DirectoryExistsAsync*"></a>
   
@@ -543,11 +594,11 @@
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
-  
+
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public virtual Task&lt;bool&gt; DirectoryExistsAsync(string dirname)</code></pre>
   </div>
-  
+
   <h5 class="parameters">Parameters</h5>
   <table>
     <tr>
@@ -582,13 +633,6 @@
   
   </div>
   
-  <span class="small pull-right mobile-hide">
-    <span class="divider"> </span>
-    <a href="https://github.com/boguslawski-piotr/pbX/new/master/apiSpec/new?filename=pbXNet_DeviceFileSystem_Dispose.md&amp;value=---%0Auid%3A%20pbXNet.DeviceFileSystem.Dispose%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/boguslawski-piotr/pbX/blob/master/pbXNet/NETStd2/DeviceFileSystem.cs/#L67" title="View Source"><i class="fa fa-code"></i></a>
-  </span>
   
   <a id="pbXNet_DeviceFileSystem_Dispose_" data-uid="pbXNet.DeviceFileSystem.Dispose*"></a>
   
@@ -598,11 +642,11 @@
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
-  
+
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public virtual void Dispose()</code></pre>
   </div>
-  
+
   
   
   
@@ -618,13 +662,6 @@
   
   </div>
   
-  <span class="small pull-right mobile-hide">
-    <span class="divider"> </span>
-    <a href="https://github.com/boguslawski-piotr/pbX/new/master/apiSpec/new?filename=pbXNet_DeviceFileSystem_FileExistsAsync_System_String_.md&amp;value=---%0Auid%3A%20pbXNet.DeviceFileSystem.FileExistsAsync(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/boguslawski-piotr/pbX/blob/master/pbXNet/NETStd2/DeviceFileSystem.cs/#L144" title="View Source"><i class="fa fa-code"></i></a>
-  </span>
   
   <a id="pbXNet_DeviceFileSystem_FileExistsAsync_" data-uid="pbXNet.DeviceFileSystem.FileExistsAsync*"></a>
   
@@ -634,11 +671,11 @@
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
-  
+
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public virtual Task&lt;bool&gt; FileExistsAsync(string filename)</code></pre>
   </div>
-  
+
   <h5 class="parameters">Parameters</h5>
   <table>
     <tr>
@@ -673,13 +710,6 @@
   
   </div>
   
-  <span class="small pull-right mobile-hide">
-    <span class="divider"> </span>
-    <a href="https://github.com/boguslawski-piotr/pbX/new/master/apiSpec/new?filename=pbXNet_DeviceFileSystem_GetDirectoriesAsync_System_String_.md&amp;value=---%0Auid%3A%20pbXNet.DeviceFileSystem.GetDirectoriesAsync(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/boguslawski-piotr/pbX/blob/master/pbXNet/NETStd2/DeviceFileSystem.cs/#L151" title="View Source"><i class="fa fa-code"></i></a>
-  </span>
   
   <a id="pbXNet_DeviceFileSystem_GetDirectoriesAsync_" data-uid="pbXNet.DeviceFileSystem.GetDirectoriesAsync*"></a>
   
@@ -689,11 +719,11 @@
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
-  
+
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public virtual Task&lt;IEnumerable&lt;string&gt;&gt; GetDirectoriesAsync(string pattern = &quot;&quot;)</code></pre>
   </div>
-  
+
   <h5 class="parameters">Parameters</h5>
   <table>
     <tr>
@@ -728,13 +758,6 @@
   
   </div>
   
-  <span class="small pull-right mobile-hide">
-    <span class="divider"> </span>
-    <a href="https://github.com/boguslawski-piotr/pbX/new/master/apiSpec/new?filename=pbXNet_DeviceFileSystem_GetFileModifiedOnAsync_System_String_.md&amp;value=---%0Auid%3A%20pbXNet.DeviceFileSystem.GetFileModifiedOnAsync(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/boguslawski-piotr/pbX/blob/master/pbXNet/NETStd2/DeviceFileSystem.cs/#L203" title="View Source"><i class="fa fa-code"></i></a>
-  </span>
   
   <a id="pbXNet_DeviceFileSystem_GetFileModifiedOnAsync_" data-uid="pbXNet.DeviceFileSystem.GetFileModifiedOnAsync*"></a>
   
@@ -744,11 +767,11 @@
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
-  
+
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;DateTime&gt; GetFileModifiedOnAsync(string filename)</code></pre>
+    <pre><code class="lang-csharp hljs">public virtual Task&lt;DateTime&gt; GetFileModifiedOnAsync(string filename)</code></pre>
   </div>
-  
+
   <h5 class="parameters">Parameters</h5>
   <table>
     <tr>
@@ -783,13 +806,6 @@
   
   </div>
   
-  <span class="small pull-right mobile-hide">
-    <span class="divider"> </span>
-    <a href="https://github.com/boguslawski-piotr/pbX/new/master/apiSpec/new?filename=pbXNet_DeviceFileSystem_GetFilePath_System_String_.md&amp;value=---%0Auid%3A%20pbXNet.DeviceFileSystem.GetFilePath(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/boguslawski-piotr/pbX/blob/master/pbXNet/NETStd2/DeviceFileSystem.cs/#L227" title="View Source"><i class="fa fa-code"></i></a>
-  </span>
   
   <a id="pbXNet_DeviceFileSystem_GetFilePath_" data-uid="pbXNet.DeviceFileSystem.GetFilePath*"></a>
   
@@ -799,11 +815,11 @@
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
-  
+
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected string GetFilePath(string filename)</code></pre>
+    <pre><code class="lang-csharp hljs">protected virtual string GetFilePath(string filename)</code></pre>
   </div>
-  
+
   <h5 class="parameters">Parameters</h5>
   <table>
     <tr>
@@ -836,13 +852,6 @@
   
   </div>
   
-  <span class="small pull-right mobile-hide">
-    <span class="divider"> </span>
-    <a href="https://github.com/boguslawski-piotr/pbX/new/master/apiSpec/new?filename=pbXNet_DeviceFileSystem_GetFilesAsync_System_String_.md&amp;value=---%0Auid%3A%20pbXNet.DeviceFileSystem.GetFilesAsync(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/boguslawski-piotr/pbX/blob/master/pbXNet/NETStd2/DeviceFileSystem.cs/#L161" title="View Source"><i class="fa fa-code"></i></a>
-  </span>
   
   <a id="pbXNet_DeviceFileSystem_GetFilesAsync_" data-uid="pbXNet.DeviceFileSystem.GetFilesAsync*"></a>
   
@@ -852,11 +861,11 @@
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
-  
+
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public virtual Task&lt;IEnumerable&lt;string&gt;&gt; GetFilesAsync(string pattern = &quot;&quot;)</code></pre>
   </div>
-  
+
   <h5 class="parameters">Parameters</h5>
   <table>
     <tr>
@@ -891,67 +900,26 @@
   
   </div>
   
-  <span class="small pull-right mobile-hide">
-    <span class="divider"> </span>
-    <a href="https://github.com/boguslawski-piotr/pbX/new/master/apiSpec/new?filename=pbXNet_DeviceFileSystem_Initialize.md&amp;value=---%0Auid%3A%20pbXNet.DeviceFileSystem.Initialize%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/boguslawski-piotr/pbX/blob/master/pbXNet/NETStd2/DeviceFileSystem.cs/#L29" title="View Source"><i class="fa fa-code"></i></a>
-  </span>
   
   <a id="pbXNet_DeviceFileSystem_Initialize_" data-uid="pbXNet.DeviceFileSystem.Initialize*"></a>
   
-  <h4 id="pbXNet_DeviceFileSystem_Initialize" data-uid="pbXNet.DeviceFileSystem.Initialize"><a href="#collapsible-pbXNet_DeviceFileSystem_Initialize" class="expander" data-toggle="collapse">Initialize()</a></h4>
+  <h4 id="pbXNet_DeviceFileSystem_Initialize_System_String_" data-uid="pbXNet.DeviceFileSystem.Initialize(System.String)"><a href="#collapsible-pbXNet_DeviceFileSystem_Initialize_System_String_" class="expander" data-toggle="collapse">Initialize(String)</a></h4>
   
-  <div id="collapsible-pbXNet_DeviceFileSystem_Initialize" class="collapse in">
+  <div id="collapsible-pbXNet_DeviceFileSystem_Initialize_System_String_" class="collapse in">
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
-  
+
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected virtual void Initialize()</code></pre>
+    <pre><code class="lang-csharp hljs">protected virtual void Initialize(string userDefinedRootPath)</code></pre>
   </div>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  </div>
-  
-  <span class="small pull-right mobile-hide">
-    <span class="divider"> </span>
-    <a href="https://github.com/boguslawski-piotr/pbX/new/master/apiSpec/new?filename=pbXNet_DeviceFileSystem_MakeCopyAsync.md&amp;value=---%0Auid%3A%20pbXNet.DeviceFileSystem.MakeCopyAsync%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/boguslawski-piotr/pbX/blob/master/pbXNet/NETStd2/DeviceFileSystem.cs/#L73" title="View Source"><i class="fa fa-code"></i></a>
-  </span>
-  
-  <a id="pbXNet_DeviceFileSystem_MakeCopyAsync_" data-uid="pbXNet.DeviceFileSystem.MakeCopyAsync*"></a>
-  
-  <h4 id="pbXNet_DeviceFileSystem_MakeCopyAsync" data-uid="pbXNet.DeviceFileSystem.MakeCopyAsync"><a href="#collapsible-pbXNet_DeviceFileSystem_MakeCopyAsync" class="expander" data-toggle="collapse">MakeCopyAsync()</a></h4>
-  
-  <div id="collapsible-pbXNet_DeviceFileSystem_MakeCopyAsync" class="collapse in">
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual Task&lt;IFileSystem&gt; MakeCopyAsync()</code></pre>
-  </div>
-  
-  
-  <h5 class="returns">Returns</h5>
+
+  <h5 class="parameters">Parameters</h5>
   <table>
     <tr>
       <td>
-        <a class="xref" href="https://msdn.microsoft.com/en-us/library/dd321424(v=vs.110).aspx">Task</a>&lt;<a class="xref" href="pbXNet.IFileSystem.html">IFileSystem</a>&gt;
+        <span class="pull-right"><a class="xref" href="https://msdn.microsoft.com/en-us/library/system.string(v=vs.110).aspx">String</a></span>
+        <span class="parametername">userDefinedRootPath</span>
         <p>
       </td>
     </tr>
@@ -962,21 +930,13 @@
   
   
   
-  <h5 class="implements">Implements</h5>
-      <div><a class="xref" href="pbXNet.IFileSystem.html#pbXNet_IFileSystem_MakeCopyAsync">IFileSystem.MakeCopyAsync()</a></div>
+  
   
   
   
   
   </div>
   
-  <span class="small pull-right mobile-hide">
-    <span class="divider"> </span>
-    <a href="https://github.com/boguslawski-piotr/pbX/new/master/apiSpec/new?filename=pbXNet_DeviceFileSystem_ReadTextAsync_System_String_.md&amp;value=---%0Auid%3A%20pbXNet.DeviceFileSystem.ReadTextAsync(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/boguslawski-piotr/pbX/blob/master/pbXNet/NETStd2/DeviceFileSystem.cs/#L218" title="View Source"><i class="fa fa-code"></i></a>
-  </span>
   
   <a id="pbXNet_DeviceFileSystem_ReadTextAsync_" data-uid="pbXNet.DeviceFileSystem.ReadTextAsync*"></a>
   
@@ -986,11 +946,11 @@
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
-  
+
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public virtual Task&lt;string&gt; ReadTextAsync(string filename)</code></pre>
   </div>
-  
+
   <h5 class="parameters">Parameters</h5>
   <table>
     <tr>
@@ -1025,13 +985,6 @@
   
   </div>
   
-  <span class="small pull-right mobile-hide">
-    <span class="divider"> </span>
-    <a href="https://github.com/boguslawski-piotr/pbX/new/master/apiSpec/new?filename=pbXNet_DeviceFileSystem_RestoreStateAsync.md&amp;value=---%0Auid%3A%20pbXNet.DeviceFileSystem.RestoreStateAsync%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/boguslawski-piotr/pbX/blob/master/pbXNet/NETStd2/DeviceFileSystem.cs/#L105" title="View Source"><i class="fa fa-code"></i></a>
-  </span>
   
   <a id="pbXNet_DeviceFileSystem_RestoreStateAsync_" data-uid="pbXNet.DeviceFileSystem.RestoreStateAsync*"></a>
   
@@ -1041,11 +994,11 @@
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
-  
+
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public virtual Task RestoreStateAsync()</code></pre>
   </div>
-  
+
   
   <h5 class="returns">Returns</h5>
   <table>
@@ -1070,13 +1023,6 @@
   
   </div>
   
-  <span class="small pull-right mobile-hide">
-    <span class="divider"> </span>
-    <a href="https://github.com/boguslawski-piotr/pbX/new/master/apiSpec/new?filename=pbXNet_DeviceFileSystem_SaveStateAsync.md&amp;value=---%0Auid%3A%20pbXNet.DeviceFileSystem.SaveStateAsync%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/boguslawski-piotr/pbX/blob/master/pbXNet/NETStd2/DeviceFileSystem.cs/#L93" title="View Source"><i class="fa fa-code"></i></a>
-  </span>
   
   <a id="pbXNet_DeviceFileSystem_SaveStateAsync_" data-uid="pbXNet.DeviceFileSystem.SaveStateAsync*"></a>
   
@@ -1086,11 +1032,11 @@
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
-  
+
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public virtual Task SaveStateAsync()</code></pre>
   </div>
-  
+
   
   <h5 class="returns">Returns</h5>
   <table>
@@ -1115,13 +1061,6 @@
   
   </div>
   
-  <span class="small pull-right mobile-hide">
-    <span class="divider"> </span>
-    <a href="https://github.com/boguslawski-piotr/pbX/new/master/apiSpec/new?filename=pbXNet_DeviceFileSystem_SetCurrentDirectoryAsync_System_String_.md&amp;value=---%0Auid%3A%20pbXNet.DeviceFileSystem.SetCurrentDirectoryAsync(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/boguslawski-piotr/pbX/blob/master/pbXNet/NETStd2/DeviceFileSystem.cs/#L118" title="View Source"><i class="fa fa-code"></i></a>
-  </span>
   
   <a id="pbXNet_DeviceFileSystem_SetCurrentDirectoryAsync_" data-uid="pbXNet.DeviceFileSystem.SetCurrentDirectoryAsync*"></a>
   
@@ -1131,11 +1070,11 @@
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
-  
+
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public virtual Task SetCurrentDirectoryAsync(string dirname)</code></pre>
   </div>
-  
+
   <h5 class="parameters">Parameters</h5>
   <table>
     <tr>
@@ -1170,13 +1109,6 @@
   
   </div>
   
-  <span class="small pull-right mobile-hide">
-    <span class="divider"> </span>
-    <a href="https://github.com/boguslawski-piotr/pbX/new/master/apiSpec/new?filename=pbXNet_DeviceFileSystem_SetFileModifiedOnAsync_System_String_System_DateTime_.md&amp;value=---%0Auid%3A%20pbXNet.DeviceFileSystem.SetFileModifiedOnAsync(System.String%2CSystem.DateTime)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/boguslawski-piotr/pbX/blob/master/pbXNet/NETStd2/DeviceFileSystem.cs/#L197" title="View Source"><i class="fa fa-code"></i></a>
-  </span>
   
   <a id="pbXNet_DeviceFileSystem_SetFileModifiedOnAsync_" data-uid="pbXNet.DeviceFileSystem.SetFileModifiedOnAsync*"></a>
   
@@ -1186,11 +1118,11 @@
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
-  
+
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task SetFileModifiedOnAsync(string filename, DateTime modifiedOn)</code></pre>
+    <pre><code class="lang-csharp hljs">public virtual Task SetFileModifiedOnAsync(string filename, DateTime modifiedOn)</code></pre>
   </div>
-  
+
   <h5 class="parameters">Parameters</h5>
   <table>
     <tr>
@@ -1232,13 +1164,6 @@
   
   </div>
   
-  <span class="small pull-right mobile-hide">
-    <span class="divider"> </span>
-    <a href="https://github.com/boguslawski-piotr/pbX/new/master/apiSpec/new?filename=pbXNet_DeviceFileSystem_WriteTextAsync_System_String_System_String_.md&amp;value=---%0Auid%3A%20pbXNet.DeviceFileSystem.WriteTextAsync(System.String%2CSystem.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/boguslawski-piotr/pbX/blob/master/pbXNet/NETStd2/DeviceFileSystem.cs/#L209" title="View Source"><i class="fa fa-code"></i></a>
-  </span>
   
   <a id="pbXNet_DeviceFileSystem_WriteTextAsync_" data-uid="pbXNet.DeviceFileSystem.WriteTextAsync*"></a>
   
@@ -1248,11 +1173,11 @@
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
-  
+
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public virtual Task WriteTextAsync(string filename, string text)</code></pre>
   </div>
-  
+
   <h5 class="parameters">Parameters</h5>
   <table>
     <tr>
@@ -1322,12 +1247,10 @@
   
   
   
-  
+
 </article>
           </div>
           <div class="contribution-panel mobile-hide">
-              <a href="https://github.com/boguslawski-piotr/pbX/new/master/apiSpec/new?filename=pbXNet_DeviceFileSystem.md&amp;value=---%0Auid%3A%20pbXNet.DeviceFileSystem%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc" class="fab btn-warning pull-right"><i class="glyphicon glyphicon-pencil"></i></a>
-              <a href="https://github.com/boguslawski-piotr/pbX/blob/master/pbXNet/DeviceFileSystem.cs/#L19" title="View Source" class="fab btn-info pull-right"><i class="fa fa-code"></i></a>
           </div>
           
           <div class="hidden-sm col-md-2" role="complementary">

@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Class EncryptedFileSystem
    ">
-    <meta name="generator" content="docfx 2.18.5.0">
+    <meta name="generator" content="docfx 2.19.2.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -70,9 +70,15 @@
             <article class="content wrap" id="_content" data-uid="pbXNet.EncryptedFileSystem">
   <h1 id="pbXNet_EncryptedFileSystem" data-uid="pbXNet.EncryptedFileSystem">Class EncryptedFileSystem
   </h1>
-  <div class="markdown level0 summary"></div>
+  <div class="markdown level0 summary"><p>Decorator for classes that implement the <a class="xref" href="pbXNet.IFileSystem.html">IFileSystem</a> interface 
+which provides encryption of stored files and of course decrypting when reading.
+<p>Id passed to constructor will be used as directory name in the root of file system. 
+The data in this directory (and in all subdirectories) will be encrypted. 
+The data in another directories (unless the Id was set to null or empty string) will not be encrypted.
+</p></p>
+</div>
   <div class="markdown level0 conceptual"></div>
-  
+
   <div class="inheritance">
     <h5>Inheritance</h5>
     <div class="level0"><a class="xref" href="https://msdn.microsoft.com/en-us/library/system.object(v=vs.110).aspx">Object</a></div>
@@ -84,7 +90,7 @@
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public class EncryptedFileSystem : IFileSystem, IDisposable</code></pre>
   </div>
-  
+
   
   
   
@@ -92,27 +98,23 @@
   <h3 id="constructors">Constructors
   </h3>
   
-  <span class="small pull-right mobile-hide">
-    <span class="divider"> </span>
-    <a href="https://github.com/boguslawski-piotr/pbX/new/master/apiSpec/new?filename=pbXNet_EncryptedFileSystem__ctor_System_String_pbXNet_IFileSystem_pbXNet_IByteBuffer_pbXNet_ICryptographer_.md&amp;value=---%0Auid%3A%20pbXNet.EncryptedFileSystem.%23ctor(System.String%2CpbXNet.IFileSystem%2CpbXNet.IByteBuffer%2CpbXNet.ICryptographer)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/boguslawski-piotr/pbX/blob/master/pbXNet/EncryptedFileSystem.cs/#L40" title="View Source"><i class="fa fa-code"></i></a>
-  </span>
   
   <a id="pbXNet_EncryptedFileSystem__ctor_" data-uid="pbXNet.EncryptedFileSystem.#ctor*"></a>
   
   <h4 id="pbXNet_EncryptedFileSystem__ctor_System_String_pbXNet_IFileSystem_pbXNet_IByteBuffer_pbXNet_ICryptographer_" data-uid="pbXNet.EncryptedFileSystem.#ctor(System.String,pbXNet.IFileSystem,pbXNet.IByteBuffer,pbXNet.ICryptographer)"><a href="#collapsible-pbXNet_EncryptedFileSystem__ctor_System_String_pbXNet_IFileSystem_pbXNet_IByteBuffer_pbXNet_ICryptographer_" class="expander" data-toggle="collapse">EncryptedFileSystem(String, IFileSystem, IByteBuffer, ICryptographer)</a></h4>
   
   <div id="collapsible-pbXNet_EncryptedFileSystem__ctor_System_String_pbXNet_IFileSystem_pbXNet_IByteBuffer_pbXNet_ICryptographer_" class="collapse in">
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>IMPORTANT NOTE: 
+Passed ckey can be completely cleaned (zeros) at an unspecified moment.
+You should not use this data anymore after it was passed to the EncryptedFileSystem class constructor.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
-  
+
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public EncryptedFileSystem(string id, IFileSystem fs, IByteBuffer ckey, ICryptographer cryptographer = null)</code></pre>
   </div>
-  
+
   <h5 class="parameters">Parameters</h5>
   <table>
     <tr>
@@ -157,13 +159,6 @@
   
   </div>
   
-  <span class="small pull-right mobile-hide">
-    <span class="divider"> </span>
-    <a href="https://github.com/boguslawski-piotr/pbX/new/master/apiSpec/new?filename=pbXNet_EncryptedFileSystem__ctor_System_String_pbXNet_IFileSystem_pbXNet_ICryptographer_.md&amp;value=---%0Auid%3A%20pbXNet.EncryptedFileSystem.%23ctor(System.String%2CpbXNet.IFileSystem%2CpbXNet.ICryptographer)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/boguslawski-piotr/pbX/blob/master/pbXNet/EncryptedFileSystem.cs/#L27" title="View Source"><i class="fa fa-code"></i></a>
-  </span>
   
   <a id="pbXNet_EncryptedFileSystem__ctor_" data-uid="pbXNet.EncryptedFileSystem.#ctor*"></a>
   
@@ -173,11 +168,11 @@
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
-  
+
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">protected EncryptedFileSystem(string id, IFileSystem fs, ICryptographer cryptographer = null)</code></pre>
   </div>
-  
+
   <h5 class="parameters">Parameters</h5>
   <table>
     <tr>
@@ -215,27 +210,23 @@
   
   </div>
   
-  <span class="small pull-right mobile-hide">
-    <span class="divider"> </span>
-    <a href="https://github.com/boguslawski-piotr/pbX/new/master/apiSpec/new?filename=pbXNet_EncryptedFileSystem__ctor_System_String_pbXNet_IFileSystem_pbXNet_IPassword_pbXNet_ICryptographer_.md&amp;value=---%0Auid%3A%20pbXNet.EncryptedFileSystem.%23ctor(System.String%2CpbXNet.IFileSystem%2CpbXNet.IPassword%2CpbXNet.ICryptographer)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/boguslawski-piotr/pbX/blob/master/pbXNet/EncryptedFileSystem.cs/#L52" title="View Source"><i class="fa fa-code"></i></a>
-  </span>
   
   <a id="pbXNet_EncryptedFileSystem__ctor_" data-uid="pbXNet.EncryptedFileSystem.#ctor*"></a>
   
   <h4 id="pbXNet_EncryptedFileSystem__ctor_System_String_pbXNet_IFileSystem_pbXNet_IPassword_pbXNet_ICryptographer_" data-uid="pbXNet.EncryptedFileSystem.#ctor(System.String,pbXNet.IFileSystem,pbXNet.IPassword,pbXNet.ICryptographer)"><a href="#collapsible-pbXNet_EncryptedFileSystem__ctor_System_String_pbXNet_IFileSystem_pbXNet_IPassword_pbXNet_ICryptographer_" class="expander" data-toggle="collapse">EncryptedFileSystem(String, IFileSystem, IPassword, ICryptographer)</a></h4>
   
   <div id="collapsible-pbXNet_EncryptedFileSystem__ctor_System_String_pbXNet_IFileSystem_pbXNet_IPassword_pbXNet_ICryptographer_" class="collapse in">
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>IMPORTANT NOTE: 
+Passed passwd is completely cleaned (zeros) as soon as possible.
+You should not use this data anymore after it was passed to the EncryptedFileSystem class constructor.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
-  
+
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public EncryptedFileSystem(string id, IFileSystem fs, IPassword passwd, ICryptographer cryptographer = null)</code></pre>
   </div>
-  
+
   <h5 class="parameters">Parameters</h5>
   <table>
     <tr>
@@ -282,13 +273,44 @@
   <h3 id="properties">Properties
   </h3>
   
-  <span class="small pull-right mobile-hide">
-    <span class="divider"> </span>
-    <a href="https://github.com/boguslawski-piotr/pbX/new/master/apiSpec/new?filename=pbXNet_EncryptedFileSystem_Id.md&amp;value=---%0Auid%3A%20pbXNet.EncryptedFileSystem.Id%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/boguslawski-piotr/pbX/blob/master/pbXNet/EncryptedFileSystem.cs/#L15" title="View Source"><i class="fa fa-code"></i></a>
-  </span>
+  
+  <a id="pbXNet_EncryptedFileSystem_CurrentPath_" data-uid="pbXNet.EncryptedFileSystem.CurrentPath*"></a>
+  
+  <h4 id="pbXNet_EncryptedFileSystem_CurrentPath" data-uid="pbXNet.EncryptedFileSystem.CurrentPath"><a href="#collapsible-pbXNet_EncryptedFileSystem_CurrentPath" class="expander" data-toggle="collapse">CurrentPath</a></h4>
+  
+  <div id="collapsible-pbXNet_EncryptedFileSystem_CurrentPath" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string CurrentPath { get; }</code></pre>
+  </div>
+
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://msdn.microsoft.com/en-us/library/system.string(v=vs.110).aspx">String</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="pbXNet.IFileSystem.html#pbXNet_IFileSystem_CurrentPath">IFileSystem.CurrentPath</a></div>
+  
+  
+  
+  
+  </div>
+  
   
   <a id="pbXNet_EncryptedFileSystem_Id_" data-uid="pbXNet.EncryptedFileSystem.Id*"></a>
   
@@ -298,11 +320,11 @@
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
-  
+
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public string Id { get; }</code></pre>
   </div>
-  
+
   
   
   
@@ -327,13 +349,6 @@
   
   </div>
   
-  <span class="small pull-right mobile-hide">
-    <span class="divider"> </span>
-    <a href="https://github.com/boguslawski-piotr/pbX/new/master/apiSpec/new?filename=pbXNet_EncryptedFileSystem_Name.md&amp;value=---%0Auid%3A%20pbXNet.EncryptedFileSystem.Name%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/boguslawski-piotr/pbX/blob/master/pbXNet/EncryptedFileSystem.cs/#L17" title="View Source"><i class="fa fa-code"></i></a>
-  </span>
   
   <a id="pbXNet_EncryptedFileSystem_Name_" data-uid="pbXNet.EncryptedFileSystem.Name*"></a>
   
@@ -343,11 +358,11 @@
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
-  
+
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public string Name { get; }</code></pre>
   </div>
-  
+
   
   
   
@@ -372,13 +387,44 @@
   
   </div>
   
-  <span class="small pull-right mobile-hide">
-    <span class="divider"> </span>
-    <a href="https://github.com/boguslawski-piotr/pbX/new/master/apiSpec/new?filename=pbXNet_EncryptedFileSystem_Type.md&amp;value=---%0Auid%3A%20pbXNet.EncryptedFileSystem.Type%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/boguslawski-piotr/pbX/blob/master/pbXNet/EncryptedFileSystem.cs/#L13" title="View Source"><i class="fa fa-code"></i></a>
-  </span>
+  
+  <a id="pbXNet_EncryptedFileSystem_RootPath_" data-uid="pbXNet.EncryptedFileSystem.RootPath*"></a>
+  
+  <h4 id="pbXNet_EncryptedFileSystem_RootPath" data-uid="pbXNet.EncryptedFileSystem.RootPath"><a href="#collapsible-pbXNet_EncryptedFileSystem_RootPath" class="expander" data-toggle="collapse">RootPath</a></h4>
+  
+  <div id="collapsible-pbXNet_EncryptedFileSystem_RootPath" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string RootPath { get; }</code></pre>
+  </div>
+
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://msdn.microsoft.com/en-us/library/system.string(v=vs.110).aspx">String</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="pbXNet.IFileSystem.html#pbXNet_IFileSystem_RootPath">IFileSystem.RootPath</a></div>
+  
+  
+  
+  
+  </div>
+  
   
   <a id="pbXNet_EncryptedFileSystem_Type_" data-uid="pbXNet.EncryptedFileSystem.Type*"></a>
   
@@ -388,11 +434,11 @@
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
-  
+
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public FileSystemType Type { get; }</code></pre>
   </div>
-  
+
   
   
   
@@ -419,13 +465,44 @@
   <h3 id="methods">Methods
   </h3>
   
-  <span class="small pull-right mobile-hide">
-    <span class="divider"> </span>
-    <a href="https://github.com/boguslawski-piotr/pbX/new/master/apiSpec/new?filename=pbXNet_EncryptedFileSystem_CreateDirectoryAsync_System_String_.md&amp;value=---%0Auid%3A%20pbXNet.EncryptedFileSystem.CreateDirectoryAsync(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/boguslawski-piotr/pbX/blob/master/pbXNet/EncryptedFileSystem.cs/#L120" title="View Source"><i class="fa fa-code"></i></a>
-  </span>
+  
+  <a id="pbXNet_EncryptedFileSystem_CloneAsync_" data-uid="pbXNet.EncryptedFileSystem.CloneAsync*"></a>
+  
+  <h4 id="pbXNet_EncryptedFileSystem_CloneAsync" data-uid="pbXNet.EncryptedFileSystem.CloneAsync"><a href="#collapsible-pbXNet_EncryptedFileSystem_CloneAsync" class="expander" data-toggle="collapse">CloneAsync()</a></h4>
+  
+  <div id="collapsible-pbXNet_EncryptedFileSystem_CloneAsync" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;IFileSystem&gt; CloneAsync()</code></pre>
+  </div>
+
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://msdn.microsoft.com/en-us/library/dd321424(v=vs.110).aspx">Task</a>&lt;<a class="xref" href="pbXNet.IFileSystem.html">IFileSystem</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="pbXNet.IFileSystem.html#pbXNet_IFileSystem_CloneAsync">IFileSystem.CloneAsync()</a></div>
+  
+  
+  
+  
+  </div>
+  
   
   <a id="pbXNet_EncryptedFileSystem_CreateDirectoryAsync_" data-uid="pbXNet.EncryptedFileSystem.CreateDirectoryAsync*"></a>
   
@@ -435,11 +512,11 @@
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
-  
+
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Task CreateDirectoryAsync(string dirname)</code></pre>
   </div>
-  
+
   <h5 class="parameters">Parameters</h5>
   <table>
     <tr>
@@ -474,13 +551,6 @@
   
   </div>
   
-  <span class="small pull-right mobile-hide">
-    <span class="divider"> </span>
-    <a href="https://github.com/boguslawski-piotr/pbX/new/master/apiSpec/new?filename=pbXNet_EncryptedFileSystem_DeleteDirectoryAsync_System_String_.md&amp;value=---%0Auid%3A%20pbXNet.EncryptedFileSystem.DeleteDirectoryAsync(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/boguslawski-piotr/pbX/blob/master/pbXNet/EncryptedFileSystem.cs/#L122" title="View Source"><i class="fa fa-code"></i></a>
-  </span>
   
   <a id="pbXNet_EncryptedFileSystem_DeleteDirectoryAsync_" data-uid="pbXNet.EncryptedFileSystem.DeleteDirectoryAsync*"></a>
   
@@ -490,11 +560,11 @@
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
-  
+
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Task DeleteDirectoryAsync(string dirname)</code></pre>
   </div>
-  
+
   <h5 class="parameters">Parameters</h5>
   <table>
     <tr>
@@ -529,13 +599,6 @@
   
   </div>
   
-  <span class="small pull-right mobile-hide">
-    <span class="divider"> </span>
-    <a href="https://github.com/boguslawski-piotr/pbX/new/master/apiSpec/new?filename=pbXNet_EncryptedFileSystem_DeleteFileAsync_System_String_.md&amp;value=---%0Auid%3A%20pbXNet.EncryptedFileSystem.DeleteFileAsync(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/boguslawski-piotr/pbX/blob/master/pbXNet/EncryptedFileSystem.cs/#L129" title="View Source"><i class="fa fa-code"></i></a>
-  </span>
   
   <a id="pbXNet_EncryptedFileSystem_DeleteFileAsync_" data-uid="pbXNet.EncryptedFileSystem.DeleteFileAsync*"></a>
   
@@ -545,11 +608,11 @@
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
-  
+
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Task DeleteFileAsync(string filename)</code></pre>
   </div>
-  
+
   <h5 class="parameters">Parameters</h5>
   <table>
     <tr>
@@ -584,13 +647,6 @@
   
   </div>
   
-  <span class="small pull-right mobile-hide">
-    <span class="divider"> </span>
-    <a href="https://github.com/boguslawski-piotr/pbX/new/master/apiSpec/new?filename=pbXNet_EncryptedFileSystem_DirectoryExistsAsync_System_String_.md&amp;value=---%0Auid%3A%20pbXNet.EncryptedFileSystem.DirectoryExistsAsync(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/boguslawski-piotr/pbX/blob/master/pbXNet/EncryptedFileSystem.cs/#L118" title="View Source"><i class="fa fa-code"></i></a>
-  </span>
   
   <a id="pbXNet_EncryptedFileSystem_DirectoryExistsAsync_" data-uid="pbXNet.EncryptedFileSystem.DirectoryExistsAsync*"></a>
   
@@ -600,11 +656,11 @@
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
-  
+
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Task&lt;bool&gt; DirectoryExistsAsync(string dirname)</code></pre>
   </div>
-  
+
   <h5 class="parameters">Parameters</h5>
   <table>
     <tr>
@@ -639,13 +695,6 @@
   
   </div>
   
-  <span class="small pull-right mobile-hide">
-    <span class="divider"> </span>
-    <a href="https://github.com/boguslawski-piotr/pbX/new/master/apiSpec/new?filename=pbXNet_EncryptedFileSystem_Dispose.md&amp;value=---%0Auid%3A%20pbXNet.EncryptedFileSystem.Dispose%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/boguslawski-piotr/pbX/blob/master/pbXNet/EncryptedFileSystem.cs/#L93" title="View Source"><i class="fa fa-code"></i></a>
-  </span>
   
   <a id="pbXNet_EncryptedFileSystem_Dispose_" data-uid="pbXNet.EncryptedFileSystem.Dispose*"></a>
   
@@ -655,11 +704,11 @@
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
-  
+
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public void Dispose()</code></pre>
   </div>
-  
+
   
   
   
@@ -675,13 +724,6 @@
   
   </div>
   
-  <span class="small pull-right mobile-hide">
-    <span class="divider"> </span>
-    <a href="https://github.com/boguslawski-piotr/pbX/new/master/apiSpec/new?filename=pbXNet_EncryptedFileSystem_FileExistsAsync_System_String_.md&amp;value=---%0Auid%3A%20pbXNet.EncryptedFileSystem.FileExistsAsync(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/boguslawski-piotr/pbX/blob/master/pbXNet/EncryptedFileSystem.cs/#L127" title="View Source"><i class="fa fa-code"></i></a>
-  </span>
   
   <a id="pbXNet_EncryptedFileSystem_FileExistsAsync_" data-uid="pbXNet.EncryptedFileSystem.FileExistsAsync*"></a>
   
@@ -691,11 +733,11 @@
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
-  
+
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Task&lt;bool&gt; FileExistsAsync(string filename)</code></pre>
   </div>
-  
+
   <h5 class="parameters">Parameters</h5>
   <table>
     <tr>
@@ -730,13 +772,6 @@
   
   </div>
   
-  <span class="small pull-right mobile-hide">
-    <span class="divider"> </span>
-    <a href="https://github.com/boguslawski-piotr/pbX/new/master/apiSpec/new?filename=pbXNet_EncryptedFileSystem_GetDirectoriesAsync_System_String_.md&amp;value=---%0Auid%3A%20pbXNet.EncryptedFileSystem.GetDirectoriesAsync(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/boguslawski-piotr/pbX/blob/master/pbXNet/EncryptedFileSystem.cs/#L116" title="View Source"><i class="fa fa-code"></i></a>
-  </span>
   
   <a id="pbXNet_EncryptedFileSystem_GetDirectoriesAsync_" data-uid="pbXNet.EncryptedFileSystem.GetDirectoriesAsync*"></a>
   
@@ -746,11 +781,11 @@
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
-  
+
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Task&lt;IEnumerable&lt;string&gt;&gt; GetDirectoriesAsync(string pattern = &quot;&quot;)</code></pre>
   </div>
-  
+
   <h5 class="parameters">Parameters</h5>
   <table>
     <tr>
@@ -785,13 +820,6 @@
   
   </div>
   
-  <span class="small pull-right mobile-hide">
-    <span class="divider"> </span>
-    <a href="https://github.com/boguslawski-piotr/pbX/new/master/apiSpec/new?filename=pbXNet_EncryptedFileSystem_GetFileModifiedOnAsync_System_String_.md&amp;value=---%0Auid%3A%20pbXNet.EncryptedFileSystem.GetFileModifiedOnAsync(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/boguslawski-piotr/pbX/blob/master/pbXNet/EncryptedFileSystem.cs/#L133" title="View Source"><i class="fa fa-code"></i></a>
-  </span>
   
   <a id="pbXNet_EncryptedFileSystem_GetFileModifiedOnAsync_" data-uid="pbXNet.EncryptedFileSystem.GetFileModifiedOnAsync*"></a>
   
@@ -801,11 +829,11 @@
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
-  
+
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Task&lt;DateTime&gt; GetFileModifiedOnAsync(string filename)</code></pre>
   </div>
-  
+
   <h5 class="parameters">Parameters</h5>
   <table>
     <tr>
@@ -840,13 +868,6 @@
   
   </div>
   
-  <span class="small pull-right mobile-hide">
-    <span class="divider"> </span>
-    <a href="https://github.com/boguslawski-piotr/pbX/new/master/apiSpec/new?filename=pbXNet_EncryptedFileSystem_GetFilesAsync_System_String_.md&amp;value=---%0Auid%3A%20pbXNet.EncryptedFileSystem.GetFilesAsync(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/boguslawski-piotr/pbX/blob/master/pbXNet/EncryptedFileSystem.cs/#L125" title="View Source"><i class="fa fa-code"></i></a>
-  </span>
   
   <a id="pbXNet_EncryptedFileSystem_GetFilesAsync_" data-uid="pbXNet.EncryptedFileSystem.GetFilesAsync*"></a>
   
@@ -856,11 +877,11 @@
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
-  
+
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Task&lt;IEnumerable&lt;string&gt;&gt; GetFilesAsync(string pattern = &quot;&quot;)</code></pre>
   </div>
-  
+
   <h5 class="parameters">Parameters</h5>
   <table>
     <tr>
@@ -895,13 +916,6 @@
   
   </div>
   
-  <span class="small pull-right mobile-hide">
-    <span class="divider"> </span>
-    <a href="https://github.com/boguslawski-piotr/pbX/new/master/apiSpec/new?filename=pbXNet_EncryptedFileSystem_InitializeAsync.md&amp;value=---%0Auid%3A%20pbXNet.EncryptedFileSystem.InitializeAsync%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/boguslawski-piotr/pbX/blob/master/pbXNet/EncryptedFileSystem.cs/#L61" title="View Source"><i class="fa fa-code"></i></a>
-  </span>
   
   <a id="pbXNet_EncryptedFileSystem_InitializeAsync_" data-uid="pbXNet.EncryptedFileSystem.InitializeAsync*"></a>
   
@@ -911,11 +925,11 @@
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
-  
+
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public virtual Task InitializeAsync()</code></pre>
   </div>
-  
+
   
   <h5 class="returns">Returns</h5>
   <table>
@@ -938,58 +952,6 @@
   
   </div>
   
-  <span class="small pull-right mobile-hide">
-    <span class="divider"> </span>
-    <a href="https://github.com/boguslawski-piotr/pbX/new/master/apiSpec/new?filename=pbXNet_EncryptedFileSystem_MakeCopyAsync.md&amp;value=---%0Auid%3A%20pbXNet.EncryptedFileSystem.MakeCopyAsync%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/boguslawski-piotr/pbX/blob/master/pbXNet/EncryptedFileSystem.cs/#L104" title="View Source"><i class="fa fa-code"></i></a>
-  </span>
-  
-  <a id="pbXNet_EncryptedFileSystem_MakeCopyAsync_" data-uid="pbXNet.EncryptedFileSystem.MakeCopyAsync*"></a>
-  
-  <h4 id="pbXNet_EncryptedFileSystem_MakeCopyAsync" data-uid="pbXNet.EncryptedFileSystem.MakeCopyAsync"><a href="#collapsible-pbXNet_EncryptedFileSystem_MakeCopyAsync" class="expander" data-toggle="collapse">MakeCopyAsync()</a></h4>
-  
-  <div id="collapsible-pbXNet_EncryptedFileSystem_MakeCopyAsync" class="collapse in">
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;IFileSystem&gt; MakeCopyAsync()</code></pre>
-  </div>
-  
-  
-  <h5 class="returns">Returns</h5>
-  <table>
-    <tr>
-      <td>
-        <a class="xref" href="https://msdn.microsoft.com/en-us/library/dd321424(v=vs.110).aspx">Task</a>&lt;<a class="xref" href="pbXNet.IFileSystem.html">IFileSystem</a>&gt;
-        <p>
-      </td>
-    </tr>
-  </table>
-  
-  
-  
-  
-  
-  
-  <h5 class="implements">Implements</h5>
-      <div><a class="xref" href="pbXNet.IFileSystem.html#pbXNet_IFileSystem_MakeCopyAsync">IFileSystem.MakeCopyAsync()</a></div>
-  
-  
-  
-  
-  </div>
-  
-  <span class="small pull-right mobile-hide">
-    <span class="divider"> </span>
-    <a href="https://github.com/boguslawski-piotr/pbX/new/master/apiSpec/new?filename=pbXNet_EncryptedFileSystem_ReadTextAsync_System_String_.md&amp;value=---%0Auid%3A%20pbXNet.EncryptedFileSystem.ReadTextAsync(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/boguslawski-piotr/pbX/blob/master/pbXNet/EncryptedFileSystem.cs/#L135" title="View Source"><i class="fa fa-code"></i></a>
-  </span>
   
   <a id="pbXNet_EncryptedFileSystem_ReadTextAsync_" data-uid="pbXNet.EncryptedFileSystem.ReadTextAsync*"></a>
   
@@ -999,11 +961,11 @@
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
-  
+
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public virtual Task&lt;string&gt; ReadTextAsync(string filename)</code></pre>
   </div>
-  
+
   <h5 class="parameters">Parameters</h5>
   <table>
     <tr>
@@ -1038,13 +1000,6 @@
   
   </div>
   
-  <span class="small pull-right mobile-hide">
-    <span class="divider"> </span>
-    <a href="https://github.com/boguslawski-piotr/pbX/new/master/apiSpec/new?filename=pbXNet_EncryptedFileSystem_RestoreStateAsync.md&amp;value=---%0Auid%3A%20pbXNet.EncryptedFileSystem.RestoreStateAsync%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/boguslawski-piotr/pbX/blob/master/pbXNet/EncryptedFileSystem.cs/#L111" title="View Source"><i class="fa fa-code"></i></a>
-  </span>
   
   <a id="pbXNet_EncryptedFileSystem_RestoreStateAsync_" data-uid="pbXNet.EncryptedFileSystem.RestoreStateAsync*"></a>
   
@@ -1054,11 +1009,11 @@
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
-  
+
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Task RestoreStateAsync()</code></pre>
   </div>
-  
+
   
   <h5 class="returns">Returns</h5>
   <table>
@@ -1083,13 +1038,6 @@
   
   </div>
   
-  <span class="small pull-right mobile-hide">
-    <span class="divider"> </span>
-    <a href="https://github.com/boguslawski-piotr/pbX/new/master/apiSpec/new?filename=pbXNet_EncryptedFileSystem_SaveStateAsync.md&amp;value=---%0Auid%3A%20pbXNet.EncryptedFileSystem.SaveStateAsync%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/boguslawski-piotr/pbX/blob/master/pbXNet/EncryptedFileSystem.cs/#L109" title="View Source"><i class="fa fa-code"></i></a>
-  </span>
   
   <a id="pbXNet_EncryptedFileSystem_SaveStateAsync_" data-uid="pbXNet.EncryptedFileSystem.SaveStateAsync*"></a>
   
@@ -1099,11 +1047,11 @@
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
-  
+
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Task SaveStateAsync()</code></pre>
   </div>
-  
+
   
   <h5 class="returns">Returns</h5>
   <table>
@@ -1128,13 +1076,6 @@
   
   </div>
   
-  <span class="small pull-right mobile-hide">
-    <span class="divider"> </span>
-    <a href="https://github.com/boguslawski-piotr/pbX/new/master/apiSpec/new?filename=pbXNet_EncryptedFileSystem_SetCurrentDirectoryAsync_System_String_.md&amp;value=---%0Auid%3A%20pbXNet.EncryptedFileSystem.SetCurrentDirectoryAsync(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/boguslawski-piotr/pbX/blob/master/pbXNet/EncryptedFileSystem.cs/#L114" title="View Source"><i class="fa fa-code"></i></a>
-  </span>
   
   <a id="pbXNet_EncryptedFileSystem_SetCurrentDirectoryAsync_" data-uid="pbXNet.EncryptedFileSystem.SetCurrentDirectoryAsync*"></a>
   
@@ -1144,11 +1085,11 @@
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
-  
+
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Task SetCurrentDirectoryAsync(string dirname)</code></pre>
   </div>
-  
+
   <h5 class="parameters">Parameters</h5>
   <table>
     <tr>
@@ -1183,13 +1124,6 @@
   
   </div>
   
-  <span class="small pull-right mobile-hide">
-    <span class="divider"> </span>
-    <a href="https://github.com/boguslawski-piotr/pbX/new/master/apiSpec/new?filename=pbXNet_EncryptedFileSystem_SetFileModifiedOnAsync_System_String_System_DateTime_.md&amp;value=---%0Auid%3A%20pbXNet.EncryptedFileSystem.SetFileModifiedOnAsync(System.String%2CSystem.DateTime)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/boguslawski-piotr/pbX/blob/master/pbXNet/EncryptedFileSystem.cs/#L131" title="View Source"><i class="fa fa-code"></i></a>
-  </span>
   
   <a id="pbXNet_EncryptedFileSystem_SetFileModifiedOnAsync_" data-uid="pbXNet.EncryptedFileSystem.SetFileModifiedOnAsync*"></a>
   
@@ -1199,11 +1133,11 @@
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
-  
+
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Task SetFileModifiedOnAsync(string filename, DateTime modifiedOn)</code></pre>
   </div>
-  
+
   <h5 class="parameters">Parameters</h5>
   <table>
     <tr>
@@ -1245,13 +1179,6 @@
   
   </div>
   
-  <span class="small pull-right mobile-hide">
-    <span class="divider"> </span>
-    <a href="https://github.com/boguslawski-piotr/pbX/new/master/apiSpec/new?filename=pbXNet_EncryptedFileSystem_WriteTextAsync_System_String_System_String_.md&amp;value=---%0Auid%3A%20pbXNet.EncryptedFileSystem.WriteTextAsync(System.String%2CSystem.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/boguslawski-piotr/pbX/blob/master/pbXNet/EncryptedFileSystem.cs/#L147" title="View Source"><i class="fa fa-code"></i></a>
-  </span>
   
   <a id="pbXNet_EncryptedFileSystem_WriteTextAsync_" data-uid="pbXNet.EncryptedFileSystem.WriteTextAsync*"></a>
   
@@ -1261,11 +1188,11 @@
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
-  
+
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public virtual Task WriteTextAsync(string filename, string text)</code></pre>
   </div>
-  
+
   <h5 class="parameters">Parameters</h5>
   <table>
     <tr>
@@ -1335,12 +1262,10 @@
   
   
   
-  
+
 </article>
           </div>
           <div class="contribution-panel mobile-hide">
-              <a href="https://github.com/boguslawski-piotr/pbX/new/master/apiSpec/new?filename=pbXNet_EncryptedFileSystem.md&amp;value=---%0Auid%3A%20pbXNet.EncryptedFileSystem%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc" class="fab btn-warning pull-right"><i class="glyphicon glyphicon-pencil"></i></a>
-              <a href="https://github.com/boguslawski-piotr/pbX/blob/master/pbXNet/EncryptedFileSystem.cs/#L11" title="View Source" class="fab btn-info pull-right"><i class="fa fa-code"></i></a>
           </div>
           
           <div class="hidden-sm col-md-2" role="complementary">

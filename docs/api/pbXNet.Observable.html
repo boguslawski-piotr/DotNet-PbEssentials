@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Class Observable
    ">
-    <meta name="generator" content="docfx 2.18.5.0">
+    <meta name="generator" content="docfx 2.19.2.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -73,7 +73,7 @@
   <div class="markdown level0 summary"><p>A base class that allows you to observe changes in properties.</p>
 </div>
   <div class="markdown level0 conceptual"></div>
-  
+
   <div class="inheritance">
     <h5>Inheritance</h5>
     <div class="level0"><a class="xref" href="https://msdn.microsoft.com/en-us/library/system.object(v=vs.110).aspx">Object</a></div>
@@ -85,7 +85,7 @@
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public class Observable : INotifyPropertyChanged</code></pre>
   </div>
-  
+
   
   
   
@@ -95,8 +95,8 @@
   ...
   bool _open;
   public bool Open {
-    get =&gt; _open;
-    set =&gt; SetValue(ref _open, value);
+    get => _open;
+    set => SetValue(ref _open, value);
   }
   ...
 }
@@ -113,7 +113,7 @@ class HomeControl {
   public OnWindowPropertyChanged(object sender, PropertyChangedEventArgs a) {
     if(!_armed)
       return;
-    if(a.PropertyName == "Open")
+    if(a.PropertyName == &quot;Open&quot;)
       if((sender as Window).Open)
         FireAlarm(...);
   }
@@ -123,13 +123,6 @@ class HomeControl {
   <h3 id="methods">Methods
   </h3>
   
-  <span class="small pull-right mobile-hide">
-    <span class="divider"> </span>
-    <a href="https://github.com/boguslawski-piotr/pbX/new/master/apiSpec/new?filename=pbXNet_Observable_OnPropertyChanged_System_String_.md&amp;value=---%0Auid%3A%20pbXNet.Observable.OnPropertyChanged(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/boguslawski-piotr/pbX/blob/master/pbXNet/Observable.cs/#L57" title="View Source"><i class="fa fa-code"></i></a>
-  </span>
   
   <a id="pbXNet_Observable_OnPropertyChanged_" data-uid="pbXNet.Observable.OnPropertyChanged*"></a>
   
@@ -139,11 +132,11 @@ class HomeControl {
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
-  
+
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">protected virtual void OnPropertyChanged(string name)</code></pre>
   </div>
-  
+
   <h5 class="parameters">Parameters</h5>
   <table>
     <tr>
@@ -167,13 +160,6 @@ class HomeControl {
   
   </div>
   
-  <span class="small pull-right mobile-hide">
-    <span class="divider"> </span>
-    <a href="https://github.com/boguslawski-piotr/pbX/new/master/apiSpec/new?filename=pbXNet_Observable_SetValue__1___0____0_System_String_.md&amp;value=---%0Auid%3A%20pbXNet.Observable.SetValue%60%601(%60%600%40%2C%60%600%2CSystem.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/boguslawski-piotr/pbX/blob/master/pbXNet/Observable.cs/#L46" title="View Source"><i class="fa fa-code"></i></a>
-  </span>
   
   <a id="pbXNet_Observable_SetValue_" data-uid="pbXNet.Observable.SetValue*"></a>
   
@@ -183,11 +169,11 @@ class HomeControl {
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
-  
+
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">protected void SetValue&lt;T&gt;(ref T storage, T value, string name = null)</code></pre>
   </div>
-  
+
   <h5 class="parameters">Parameters</h5>
   <table>
     <tr>
@@ -236,13 +222,6 @@ class HomeControl {
   <h3 id="events">Events
   </h3>
   
-  <span class="small pull-right mobile-hide">
-    <span class="divider"> </span>
-    <a href="https://github.com/boguslawski-piotr/pbX/new/master/apiSpec/new?filename=pbXNet_Observable_PropertyChanged.md&amp;value=---%0Auid%3A%20pbXNet.Observable.PropertyChanged%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/boguslawski-piotr/pbX/blob/master/pbXNet/Observable.cs/#L44" title="View Source"><i class="fa fa-code"></i></a>
-  </span>
   
   
   <h4 id="pbXNet_Observable_PropertyChanged" data-uid="pbXNet.Observable.PropertyChanged"><a href="#collapsible-pbXNet_Observable_PropertyChanged" class="expander" data-toggle="collapse">PropertyChanged</a></h4>
@@ -251,11 +230,11 @@ class HomeControl {
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
-  
+
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public event PropertyChangedEventHandler PropertyChanged</code></pre>
   </div>
-  
+
   
   
   
@@ -312,12 +291,10 @@ class HomeControl {
   </div>
   
   
-  
+
 </article>
           </div>
           <div class="contribution-panel mobile-hide">
-              <a href="https://github.com/boguslawski-piotr/pbX/new/master/apiSpec/new?filename=pbXNet_Observable.md&amp;value=---%0Auid%3A%20pbXNet.Observable%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc" class="fab btn-warning pull-right"><i class="glyphicon glyphicon-pencil"></i></a>
-              <a href="https://github.com/boguslawski-piotr/pbX/blob/master/pbXNet/Observable.cs/#L42" title="View Source" class="fab btn-info pull-right"><i class="fa fa-code"></i></a>
           </div>
           
           <div class="hidden-sm col-md-2" role="complementary">
