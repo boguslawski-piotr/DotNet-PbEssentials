@@ -1,9 +1,11 @@
 ﻿﻿using System.Collections.Generic;
+using System.ComponentModel;
 using pbXNet;
 using Xamarin.Forms;
 
 namespace pbXForms
 {
+	[EditorBrowsable(EditorBrowsableState.Never)]
 	public class ContentViewLayout : Grid
 	{
 		public ContentViewLayout()
@@ -33,6 +35,7 @@ namespace pbXForms
 		}
 	}
 
+	[EditorBrowsable(EditorBrowsableState.Never)]
 	public class ContentViewViewLayout : StackLayout
 	{
 		public ContentViewViewLayout()

@@ -6,7 +6,9 @@ namespace pbXForms
 {
 	public class BaseContentView : Xamarin.Forms.ContentView
 	{
+		/// <summary>
 		/// Gets a value indicating whether this view covers status bar.
+		/// </summary>
 		public virtual bool ViewCoversStatusBar => Device.RuntimePlatform == Device.iOS && DeviceEx.StatusBarVisible;
 
 		protected virtual Grid ContentLayout { get; } = null;

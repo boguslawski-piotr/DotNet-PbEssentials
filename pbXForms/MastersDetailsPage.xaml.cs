@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using pbXNet;
@@ -12,6 +13,7 @@ namespace pbXForms
 	// On this platform, these features behave completely different than on iOS, macOS or Android.
 	// To be completely honest - they do not work at all.
 
+	[EditorBrowsable(EditorBrowsableState.Never)]
 	public class MastersDetailsPageViewsLayout : AbsoluteLayout { }
 
 	/// <summary>
