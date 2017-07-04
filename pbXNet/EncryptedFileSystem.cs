@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -71,6 +72,9 @@ namespace pbXNet
 			_passwd = passwd;
 		}
 
+		public void Initialize()
+		{ }
+
 		public virtual async Task InitializeAsync()
 		{
 			if (_ckey != null && _iv != null)
@@ -90,7 +94,7 @@ namespace pbXNet
 			else
 			{
 				_iv = _cryptographer.GenerateIV();
-				if(_iv as SecureBuffer == null)
+				if (_iv as SecureBuffer == null)
 					_iv = new SecureBuffer((IByteBuffer)_iv, true);
 				await _fs.WriteTextAsync(_configFileName, _iv.ToHexString()).ConfigureAwait(false);
 			}
@@ -150,7 +154,7 @@ namespace pbXNet
 		bool InEncryptedDirectory()
 		{
 			string currentPath = _fs.CurrentPath.Replace(_fs.RootPath, "");
-			if (currentPath.StartsWith("\\"))
+			if (currentPath.StartsWith(Path.DirectorySeparatorChar.ToString(), StringComparison.Ordinal))
 				currentPath = currentPath.Substring(1);
 			return currentPath.StartsWith(Id);
 		}

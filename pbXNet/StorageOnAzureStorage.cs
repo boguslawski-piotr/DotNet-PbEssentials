@@ -48,15 +48,14 @@ namespace pbXNet
 		public static async Task<StorageOnAzureStorage<T>> NewAsync(string id, AzureStorageSettings settings, ISerializer serializer = null)
 		{
 			StorageOnAzureStorage<T> o = new StorageOnAzureStorage<T>(id, settings, serializer);
-			if (!await o.InitializeAsync())
-				return null;
+			await o.InitializeAsync();
 			return o;
 		}
 
 		const string _dataSizeAttribute = "dataSize";
 		const string _modifiedOnAttribute = "modifiedOn";
 
-		public override async Task<bool> InitializeAsync()
+		public override async Task InitializeAsync()
 		{
 			try
 			{
@@ -90,8 +89,6 @@ namespace pbXNet
 				Log.E(ex.Message, this);
 				throw ex;
 			}
-
-			return true;
 		}
 
 		public override async Task StoreAsync(string thingId, T data, DateTime modifiedOn)

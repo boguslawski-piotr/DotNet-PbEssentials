@@ -41,7 +41,7 @@ namespace pbXNet
 
 #pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
 
-		protected virtual void Initialize(string userDefinedRootPath)
+		public virtual void Initialize()
 		{
 			switch (Root)
 			{
@@ -61,22 +61,17 @@ namespace pbXNet
 			}
 
 			_current = _root;
-
-			if (Root == DeviceFileSystemRoot.LocalConfig || Root == DeviceFileSystemRoot.RoamingConfig)
-				InitializeConfigRootAsync();
-			else
-				InitializeAsync();
-		}
-
-		async Task InitializeConfigRootAsync()
-		{
-			await CreateDirectoryAsync(".config").ConfigureAwait(false);
-			_root = _current;
 			InitializeAsync();
 		}
 
 		async Task InitializeAsync()
 		{
+			if (Root == DeviceFileSystemRoot.LocalConfig || Root == DeviceFileSystemRoot.RoamingConfig)
+			{
+				await CreateDirectoryAsync(".config").ConfigureAwait(false);
+				_root = _current;
+			}
+
 			LoadModifiedOnDictAsync(_root);
 		}
 
@@ -218,17 +213,17 @@ namespace pbXNet
 			}
 		}
 
-		class State
+		class _State
 		{
 			public StorageFolder savedRoot;
 			public StorageFolder savedCurrent;
 		};
 
-		Stack<State> _stateStack = new Stack<State>();
+		Stack<_State> _stateStack = new Stack<_State>();
 
 		public virtual Task SaveStateAsync()
 		{
-			_stateStack.Push(new State
+			_stateStack.Push(new _State
 			{
 				savedRoot = _root,
 				savedCurrent = _current,
@@ -241,7 +236,7 @@ namespace pbXNet
 		{
 			if (_stateStack.Count > 0)
 			{
-				State state = _stateStack.Pop();
+				_State state = _stateStack.Pop();
 				_root = state.savedRoot;
 				_current = state.savedCurrent;
 			}

@@ -26,6 +26,8 @@ namespace pbXNet
 
 		string CurrentPath { get; }
 
+		void Initialize();
+
 		/// <summary>
 		/// Should be super, super fast!
 		/// </summary>

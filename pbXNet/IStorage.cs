@@ -24,7 +24,7 @@ namespace pbXNet
 
 		string Name { get; }
 
-		Task<bool> InitializeAsync();
+		Task InitializeAsync();
 
 		/// <summary>
 		/// Adds or update data identified by <paramref name="thingId"/> in the storage. 

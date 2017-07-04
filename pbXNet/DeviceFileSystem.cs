@@ -1,4 +1,7 @@
-﻿using System;
+﻿﻿﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 // Based on book Creating Mobile Apps with Xamarin.Forms by Charles Petzold
 
@@ -46,13 +49,57 @@ namespace pbXNet
 
 		// TODO: dodac Description
 
-		public DeviceFileSystem(DeviceFileSystemRoot root = DeviceFileSystemRoot.Local, string userDefinedRootPath = null)
+		string _userDefinedRootPath;
+
+		protected DeviceFileSystem(DeviceFileSystemRoot root = DeviceFileSystemRoot.Local, string userDefinedRootPath = null)
 		{
 			Root = root;
-			Initialize(userDefinedRootPath);
+			_userDefinedRootPath = userDefinedRootPath;
 		}
 
-		// Implementation in:
+		public static IFileSystem New(DeviceFileSystemRoot root = DeviceFileSystemRoot.Local, string userDefinedRootPath = null)
+		{
+			IFileSystem fs = new DeviceFileSystem(root, userDefinedRootPath);
+			fs.Initialize();
+			return fs;
+		}
+
+		public class State
+		{
+			class Rec
+			{
+				public string RootPath;
+				public string CurrentPath;
+				public Stack<string> VisitedPaths;
+			}
+
+			Stack<Rec> _stack = new Stack<Rec>();
+
+			public void Save(string rootPath, string currentPath, Stack<string> visitedPaths)
+			{
+				_stack.Push(new Rec
+				{
+					RootPath = rootPath,
+					CurrentPath = currentPath,
+					VisitedPaths = new Stack<string>(visitedPaths.AsEnumerable()),
+				});
+			}
+
+			public bool Restore(ref string rootPath, ref string currentPath, ref Stack<string> visitedPaths)
+			{
+				if (_stack.Count > 0)
+				{
+					Rec entry = _stack.Pop();
+					rootPath = entry.RootPath;
+					currentPath = entry.CurrentPath;
+					visitedPaths = entry.VisitedPaths;
+					return true;
+				}
+				return false;
+			}
+		}
+
+		// Remaining implementation in:
 		//
 		// UWP: pbXNet\UWP\
 		// iOS, macOS, Android, .NET: pbXNet\NETStd2\

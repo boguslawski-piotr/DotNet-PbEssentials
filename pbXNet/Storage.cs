@@ -22,7 +22,7 @@ namespace pbXNet
 			Serializer = new StringOptimizedSerializer(serializer ?? new NewtonsoftJsonSerializer());
 		}
 
-		public abstract Task<bool> InitializeAsync();
+		public abstract Task InitializeAsync();
 
 		public abstract Task StoreAsync(string thingId, T data, DateTime modifiedOn);
 

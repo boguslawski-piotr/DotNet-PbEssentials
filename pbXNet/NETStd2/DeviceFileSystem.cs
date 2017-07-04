@@ -13,17 +13,13 @@ namespace pbXNet
 	{
 		public static readonly IEnumerable<DeviceFileSystemRoot> AvailableRootsForEndUser = new List<DeviceFileSystemRoot>() {
 			DeviceFileSystemRoot.Local,
-#if DEBUG
-			//DeviceFileSystemRoot.Config, // only for testing
-#endif
         };
 
-		string _root;
-		string _current;
-		Stack<string> _previous = new Stack<string>();
+		public string RootPath { get; protected set; }
 
-		public string RootPath => _root;
-		public string CurrentPath => _current;
+		public string CurrentPath { get; protected set; }
+
+		Stack<string> _visitedPaths = new Stack<string>();
 
 #if NETSTANDARD1_6 || __MACOS__
 		string SpecialFolderUserProfile
@@ -46,33 +42,33 @@ namespace pbXNet
 		}
 #endif
 
-		protected virtual void Initialize(string userDefinedRootPath)
+		public virtual void Initialize()
 		{
 			switch (Root)
 			{
 				case DeviceFileSystemRoot.UserDefined:
-					if (string.IsNullOrWhiteSpace(userDefinedRootPath))
-						throw new ArgumentNullException(nameof(userDefinedRootPath));
+					if (string.IsNullOrWhiteSpace(_userDefinedRootPath))
+						throw new ArgumentNullException(nameof(_userDefinedRootPath));
 
-					if (userDefinedRootPath.StartsWith("~", StringComparison.Ordinal))
+					if (_userDefinedRootPath.StartsWith("~", StringComparison.Ordinal))
 					{
 #if NETSTANDARD1_6 || __MACOS__
 						string home = SpecialFolderUserProfile;
 #else
 						string home = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
 #endif
-						userDefinedRootPath = Path.Combine(home, userDefinedRootPath.Replace("~/", "").Replace("~", ""));
+						_userDefinedRootPath = Path.Combine(home, _userDefinedRootPath.Replace("~/", "").Replace("~", ""));
 					}
 
-					_root = userDefinedRootPath;
+					RootPath = _userDefinedRootPath;
 					break;
 
 				case DeviceFileSystemRoot.RoamingConfig:
 				case DeviceFileSystemRoot.LocalConfig:
 #if NETSTANDARD1_6
-					_root = Path.Combine(SpecialFolderUserProfile, ".config");
+					RootPath = Path.Combine(SpecialFolderUserProfile, ".config");
 #else
-					_root = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+					RootPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
 #endif
 					break;
 
@@ -80,90 +76,75 @@ namespace pbXNet
 				case DeviceFileSystemRoot.Local:
 				default:
 #if NETSTANDARD1_6 || __MACOS__
-					_root = Environment.GetEnvironmentVariable("HOME");
-					_root = Path.Combine(_root, "Documents");
+					RootPath = Path.Combine(SpecialFolderUserProfile, "Documents");
 #else
-					_root = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+					RootPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
 #endif
 					break;
 			}
 
-			if (!Directory.Exists(_root))
+			if (!Directory.Exists(RootPath))
 			{
-				Directory.CreateDirectory(_root);
-				Log.I($"Directory '{_root}' has just been created.", this);
+				Directory.CreateDirectory(RootPath);
+				Log.I($"Directory '{RootPath}' has just been created.", this);
 			}
 
-			_current = _root;
-			_previous.Clear();
+			CurrentPath = RootPath;
+			_visitedPaths.Clear();
 		}
 
 		public virtual void Dispose()
 		{
-			_previous.Clear();
-			_root = _current = null;
+			_visitedPaths.Clear();
+			RootPath = CurrentPath = null;
 		}
 
 		public virtual Task<IFileSystem> CloneAsync()
 		{
-			DeviceFileSystem fs = new DeviceFileSystem(this.Root, _root)
+			DeviceFileSystem fs = new DeviceFileSystem(this.Root, RootPath)
 			{
-				_root = this._root,
-				_current = this._current,
-				_previous = new Stack<string>(_previous.AsEnumerable()),
+				RootPath = this.RootPath,
+				CurrentPath = this.CurrentPath,
+				_visitedPaths = new Stack<string>(_visitedPaths.AsEnumerable()),
 			};
 			return Task.FromResult<IFileSystem>(fs);
 		}
 
-		class State
-		{
-			public string savedRoot;
-			public string savedCurrent;
-			public Stack<string> savedPrevious;
-		}
-
-		Stack<State> _stateStack = new Stack<State>();
+		State _state = new State();
 
 		public virtual Task SaveStateAsync()
 		{
-			_stateStack.Push(new State
-			{
-				savedRoot = _root,
-				savedCurrent = _current,
-				savedPrevious = new Stack<string>(_previous.AsEnumerable()),
-			});
-
+			_state.Save(RootPath, CurrentPath, _visitedPaths);
 			return Task.FromResult(true);
 		}
 
 		public virtual Task RestoreStateAsync()
 		{
-			if (_stateStack.Count > 0)
+			string rootPath = "", currentPath = "";
+			if (_state.Restore(ref rootPath, ref currentPath, ref _visitedPaths))
 			{
-				State state = _stateStack.Pop();
-				_root = state.savedRoot;
-				_current = state.savedCurrent;
-				_previous = state.savedPrevious;
+				RootPath = rootPath;
+				CurrentPath = currentPath;
 			}
-
 			return Task.FromResult(true);
 		}
+
 
 		public virtual Task SetCurrentDirectoryAsync(string dirname)
 		{
 			if (string.IsNullOrEmpty(dirname))
 			{
-				_current = _root;
-				_previous.Clear();
+				CurrentPath = RootPath;
+				_visitedPaths.Clear();
 			}
 			else if (dirname == "..")
 			{
-				_current = _previous.Count > 0 ? _previous.Pop() : _root;
+				CurrentPath = _visitedPaths.Count > 0 ? _visitedPaths.Pop() : RootPath;
 			}
 			else
 			{
-				_previous.Push(_current);
-				_current = Path.Combine(_current, dirname);
+				_visitedPaths.Push(CurrentPath);
+				CurrentPath = Path.Combine(CurrentPath, dirname);
 			}
 			return Task.FromResult(true);
 		}
@@ -171,7 +152,7 @@ namespace pbXNet
 		public virtual Task<IEnumerable<string>> GetDirectoriesAsync(string pattern = "")
 		{
 			IEnumerable<string> dirnames =
-				from dirpath in Directory.EnumerateDirectories(_current)
+				from dirpath in Directory.EnumerateDirectories(CurrentPath)
 				let dirname = Path.GetFileName(dirpath)
 				where Regex.IsMatch(dirname, pattern)
 				select dirname;
@@ -191,9 +172,9 @@ namespace pbXNet
 			{
 				string dirpath = GetFilePath(dirname);
 				DirectoryInfo dir = Directory.CreateDirectory(GetFilePath(dirpath));
-				_previous.Push(_current);
-				// TODO: if dirname contains more than one directory (for example: t/e/s/) then we need to push to _previous whole path step by step
-				_current = dirpath;
+				_visitedPaths.Push(CurrentPath);
+				// TODO: if dirname contains more than one directory (for example: t/e/s/) then we need to push to _visitedPaths whole path step by step
+				CurrentPath = dirpath;
 			}
 			return Task.FromResult(true);
 		}
@@ -209,7 +190,7 @@ namespace pbXNet
 		public virtual Task<IEnumerable<string>> GetFilesAsync(string pattern = "")
 		{
 			IEnumerable<string> filenames =
-				from filepath in Directory.EnumerateFiles(_current)
+				from filepath in Directory.EnumerateFiles(CurrentPath)
 				let filename = Path.GetFileName(filepath)
 				where Regex.IsMatch(filename, pattern)
 				select filename;
@@ -264,7 +245,7 @@ namespace pbXNet
 
 		protected virtual string GetFilePath(string filename)
 		{
-			return Path.Combine(_current, filename);
+			return Path.Combine(CurrentPath, filename);
 		}
 
 		#endregion
