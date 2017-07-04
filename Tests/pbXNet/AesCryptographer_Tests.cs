@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Text;
-using NUnit.Framework;
+using Xunit;
 
 namespace pbXNet.Tests
 {
-	[TestFixture]
 	public class AesCryptographer_Tests
 	{
-		[Test]
+		[Fact]
 		public void BasicEncryptDecrypt()
 		{
 			string smsg = "jakis test do zaszyfrowania, ąęśćłó, !@#$%^&*()_+, jakis test do zaszyfrowania, jakis test do zaszyfrowania, ąęśćłó, jakis test do zaszyfrowania";
@@ -38,11 +37,11 @@ namespace pbXNet.Tests
 
 			//
 
-			Assert.AreEqual(ekey.GetBytes(), dkey.GetBytes(), "key");
-			Assert.AreEqual(sekey, sdkey, "skey");
+			Assert.Equal(ekey.GetBytes(), dkey.GetBytes());
+			Assert.Equal(sekey, sdkey);
 
-			Assert.AreEqual(msg, dmsg, "msg");
-			Assert.AreEqual(smsg, sdmsg, "smsg");
+			Assert.Equal(msg, dmsg);
+			Assert.Equal(smsg, sdmsg);
 		}
 	}
 }

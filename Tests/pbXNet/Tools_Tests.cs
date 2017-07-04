@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Text.RegularExpressions;
-using NUnit.Framework;
+using Xunit;
 
 namespace pbXNet.Tests
 {
-	[TestFixture]
 	public class Tools_Tests
 	{
-		[Test]
+		[Fact]
 		public void MakeIdenticalIfDifferent()
 		{
 			int a = 1;
@@ -19,7 +18,7 @@ namespace pbXNet.Tests
 			Assert.True(b == a, "b == a");
 		}
 
-		[Test]
+		[Fact]
 		public void CreateGuid()
 		{
 			string g = Tools.CreateGuid();
