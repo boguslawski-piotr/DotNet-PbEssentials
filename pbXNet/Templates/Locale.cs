@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using System.Threading;
 
 namespace pbXNet
 {
@@ -7,12 +8,11 @@ namespace pbXNet
 	{
 		public void _SetLocale(CultureInfo ci)
 		{
-			throw new NotImplementedException();
 		}
 
 		public CultureInfo _GetCurrentCultureInfo()
 		{
-			throw new NotImplementedException();
+			return CultureInfo.CurrentUICulture;
 		}
 	}
 }

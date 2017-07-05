@@ -116,6 +116,9 @@ namespace pbXNet
 		/// <param name="match">The Predicate&lt;T&gt; delegate that defines the conditions of the element to search for.</param>
 		public T Find(Predicate<T> match)
 		{
+			if (match == null)
+				throw new ArgumentNullException(nameof(match));
+
 			List<T> items = Items as List<T>;
 			if (items == null)
 				items = new List<T>(Items);

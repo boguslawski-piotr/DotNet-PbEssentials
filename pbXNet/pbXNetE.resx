@@ -117,58 +117,61 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="LibName" xml:space="preserve">
-    <value>pbXNet</value>
+  <data name="AES_IncrorrectFormat" xml:space="preserve">
+    <value>Incorrect format.</value>
   </data>
-  <data name="DeviceFileSystem.Root.Local" xml:space="preserve">
-    <value>Katalog dokumentów</value>
+  <data name="AES_UnsupportedParams" xml:space="preserve">
+    <value>Unsupported Aes parameters.</value>
   </data>
-  <data name="DeviceFileSystem.Root.LocalConfig" xml:space="preserve">
-    <value>Katalog ustawień</value>
+  <data name="FS_DirNotEmpty" xml:space="preserve">
+    <value>Directory '{0}/{1}' is not empty.</value>
   </data>
-  <data name="DeviceFileSystem.Root.Roaming" xml:space="preserve">
-    <value>Konto Microsoft</value>
+  <data name="FS_DirNotFound" xml:space="preserve">
+    <value>Directory '{0}/{1}' doesn't exist.</value>
   </data>
-  <data name="DeviceFileSystem.Root.RoamingConfig" xml:space="preserve">
-    <value>Konto Microsoft (ustawienia)</value>
+  <data name="FS_FileNotFound" xml:space="preserve">
+    <value>File '{0}/{1}' doesn't exist.</value>
   </data>
-  <data name="folder" xml:space="preserve">
-    <value>katalog</value>
+  <data name="FS_UserDefinedRootNotSupported" xml:space="preserve">
+    <value>DeviceFileSystemRoot.UserDefined is not supported on this platform.</value>
   </data>
-  <data name="AuthenticationFailed" xml:space="preserve">
-    <value>Autentykacja nie powiodła się.</value>
+  <data name="PXS_ThingNotFound" xml:space="preserve">
+    <value>'{0}/{1}' was not found.</value>
   </data>
-  <data name="FingerprintAuthenticationFailed" xml:space="preserve">
-    <value>Odcisk palca zeskanowany, ale nie rozpoznany.</value>
+  <data name="RSA_BadKey" xml:space="preserve">
+    <value>Key does not fit this algorithm.</value>
   </data>
-  <data name="FingerprintRequestPermissions" xml:space="preserve">
-    <value>Zapytanie o przydzielenie uprawnień do użycia skanera odcisków palca zostało wysłane do systemu.</value>
+  <data name="RSA_IncrorrectFormat" xml:space="preserve">
+    <value>Incorrect format.</value>
   </data>
-  <data name="BDBusy" xml:space="preserve">
-    <value>Urządzenie biometryczne jest zajęte.</value>
+  <data name="RSA_UnsupportedKeySize" xml:space="preserve">
+    <value>Unsupported RSA encryption/decryption key size.</value>
   </data>
-  <data name="BDNotFound" xml:space="preserve">
-    <value>Nie znaleziono żadnego urządzenia biometrycznego.</value>
+  <data name="SDIM_ObjectDoesntExist" xml:space="preserve">
+    <value>Object doesn't exist.</value>
   </data>
-  <data name="BVDisabledByPolicy" xml:space="preserve">
-    <value>Weryfikacja biometryczna jest wyłączona przez administatora.</value>
+  <data name="SDIM_PrimaryKeyNotDefined" xml:space="preserve">
+    <value>The primary key has not been defined.</value>
   </data>
-  <data name="BVNotConfigured" xml:space="preserve">
-    <value>Weryfikacja biometryczna nie jest skonfigurowana.</value>
+  <data name="SM_KeyNotFound" xml:space="preserve">
+    <value>Object '{0}' doesn't exist.</value>
   </data>
-  <data name="BVTooManyAttemts" xml:space="preserve">
-    <value>Zbyt dużo prób. Weryfikacja biometryczna anulowana.</value>
+  <data name="SM_StorageNotProvided" xml:space="preserve">
+    <value>Attempt to add a secret with life time set to 'Infinite' without passing any data storage while constructing the object.</value>
   </data>
-  <data name="BVCanceled" xml:space="preserve">
-    <value>Weryfikacja biometryczna anulowana.</value>
+  <data name="SOPXS_CmdUnrecognized" xml:space="preserve">
+    <value>Command {0} unrecognized.</value>
   </data>
-  <data name="BVUnavailable" xml:space="preserve">
-    <value>Weryfikacja biometryczna jest aktualnie niedostępna.</value>
+  <data name="SOPXS_IncorrectAppToken" xml:space="preserve">
+    <value>Incorrect application token.</value>
   </data>
-  <data name="BVError" xml:space="preserve">
-    <value>Błąd weryfikacji biometrycznej: </value>
+  <data name="SOPXS_IncorrectData" xml:space="preserve">
+    <value>Incorrect data.</value>
   </data>
-  <data name="SDIM_Name" xml:space="preserve">
-    <value>Prosta baza danych w pamięci</value>
+  <data name="SOPXS_IncorrectStorageToken" xml:space="preserve">
+    <value>Incorrect storage token.</value>
+  </data>
+  <data name="SOPXS_RepoDoesntExist" xml:space="preserve">
+    <value>Repository doesn't exist.</value>
   </data>
 </root>

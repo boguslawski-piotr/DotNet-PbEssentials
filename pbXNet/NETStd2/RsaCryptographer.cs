@@ -132,7 +132,7 @@ namespace pbXNet
 				rsa.KeySize = 1024;
 
 				if (rsa.KeySize != 1024)
-					throw new CryptographicException("Unsupported RSA encryption/decryption key size.");
+					throw new CryptographicException(T.Localized("RSA_UnsupportedKeySize"));
 
 				return rsa;
 			}
@@ -152,9 +152,9 @@ namespace pbXNet
 		public ByteBuffer Encrypt(IByteBuffer msg, IAsymmetricCryptographerKeyPair pblKey)
 		{
 			if (pblKey == null || pblKey.Public == null)
-				throw new ArgumentNullException(nameof(pblKey.Public));
+				throw new ArgumentNullException(nameof(pblKey));
 			if (pblKey.Algoritm != AsymmetricCryptographerAlgoritm.Rsa)
-				throw new ArgumentException("Key does not fit this algorithm.", nameof(pblKey));
+				throw new ArgumentException(T.Localized("RSA_BadKey"), nameof(pblKey));
 			if (msg == null)
 				throw new ArgumentNullException(nameof(msg));
 
@@ -206,9 +206,9 @@ namespace pbXNet
 		public ByteBuffer Decrypt(IByteBuffer msg, IAsymmetricCryptographerKeyPair prvKey)
 		{
 			if (prvKey == null || prvKey.Private == null)
-				throw new ArgumentNullException(nameof(prvKey.Private));
+				throw new ArgumentNullException(nameof(prvKey));
 			if (prvKey.Algoritm != AsymmetricCryptographerAlgoritm.Rsa)
-				throw new ArgumentException("Key does not fit this algorithm.", nameof(prvKey));
+				throw new ArgumentException(T.Localized("RSA_BadKey"), nameof(prvKey));
 			if (msg == null)
 				throw new ArgumentNullException(nameof(msg));
 
@@ -216,7 +216,7 @@ namespace pbXNet
 			{
 				byte[] amsg = msg.GetBytes();
 				if (!amsg.Take(4).SequenceEqual(_magic) || amsg[4] != _pkcs1 || amsg[5] != _key1024)
-					throw new ArgumentException("Incorrect format.", nameof(msg));
+					throw new ArgumentException(T.Localized("RSA_IncrorrectFormat"), nameof(msg));
 
 				using (RSA rsa = _algImpl)
 				{
@@ -263,9 +263,9 @@ namespace pbXNet
 		public ByteBuffer Sign(IByteBuffer msg, IAsymmetricCryptographerKeyPair prvKey)
 		{
 			if (prvKey == null || prvKey.Private == null)
-				throw new ArgumentNullException(nameof(prvKey.Private));
+				throw new ArgumentNullException(nameof(prvKey));
 			if (prvKey.Algoritm != AsymmetricCryptographerAlgoritm.Rsa)
-				throw new ArgumentException("Key does not fit this algorithm.", nameof(prvKey));
+				throw new ArgumentException(T.Localized("RSA_BadKey"), nameof(prvKey));
 			if (msg == null)
 				throw new ArgumentNullException(nameof(msg));
 
@@ -292,9 +292,9 @@ namespace pbXNet
 		public bool Verify(IByteBuffer msg, IByteBuffer signature, IAsymmetricCryptographerKeyPair pblKey)
 		{
 			if (pblKey == null || pblKey.Public == null)
-				throw new ArgumentNullException(nameof(pblKey.Public));
+				throw new ArgumentNullException(nameof(pblKey));
 			if (pblKey.Algoritm != AsymmetricCryptographerAlgoritm.Rsa)
-				throw new ArgumentException("Key does not fit this algorithm.", nameof(pblKey));
+				throw new ArgumentException(T.Localized("RSA_BadKey"), nameof(pblKey));
 			if (msg == null)
 				throw new ArgumentNullException(nameof(msg));
 			if (signature == null)

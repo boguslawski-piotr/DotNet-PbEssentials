@@ -20,6 +20,9 @@ namespace pbXNet
 
 		public ByteBuffer(byte[] b, bool clearSource = false)
 		{
+			if (b == null)
+				throw new ArgumentNullException(nameof(b));
+
 			_b = (byte[])b.Clone();
 
 			if (clearSource)
@@ -39,6 +42,9 @@ namespace pbXNet
 
 		public ByteBuffer(IByteBuffer b, bool clearSource = false)
 		{
+			if (b == null)
+				throw new ArgumentNullException(nameof(b));
+
 			_b = (byte[])b.GetBytes().Clone();
 			if (!clearSource)
 				b.DisposeBytes();
@@ -48,6 +54,9 @@ namespace pbXNet
 
 		public ByteBuffer(ByteBuffer b, bool clearSource = false)
 		{
+			if (b == null)
+				throw new ArgumentNullException(nameof(b));
+
 			_b = (byte[])b._b.Clone();
 			if (clearSource)
 				b.Dispose();
@@ -65,6 +74,9 @@ namespace pbXNet
 
 		public ByteBuffer(Stream s)
 		{
+			if (s == null)
+				throw new ArgumentNullException(nameof(s));
+
 			if (s is MemoryStream)
 			{
 				_b = (s as MemoryStream).ToArray();
@@ -83,6 +95,9 @@ namespace pbXNet
 
 		public ByteBuffer Append(byte[] b, bool clearSource = false)
 		{
+			if (b == null)
+				throw new ArgumentNullException(nameof(b));
+
 			int i = _b.Length;
 			Array.Resize(ref _b, i + b.Length);
 			Array.Copy(b, 0, _b, i, b.Length);
@@ -95,6 +110,9 @@ namespace pbXNet
 
 		public ByteBuffer Append(IByteBuffer b, bool clearSource = false)
 		{
+			if (b == null)
+				throw new ArgumentNullException(nameof(b));
+
 			Append(b.GetBytes(), false);
 			if (!clearSource)
 				b.DisposeBytes();
@@ -105,6 +123,9 @@ namespace pbXNet
 
 		public ByteBuffer Append(ByteBuffer b, bool clearSource = false)
 		{
+			if (b == null)
+				throw new ArgumentNullException(nameof(b));
+
 			Append(b._b, false);
 			if (clearSource)
 				b.Dispose();
@@ -117,6 +138,9 @@ namespace pbXNet
 
 		public ByteBuffer Append(Stream s)
 		{
+			if (s == null)
+				throw new ArgumentNullException(nameof(s));
+
 			if (s is MemoryStream)
 				Append((s as MemoryStream).ToArray());
 			else

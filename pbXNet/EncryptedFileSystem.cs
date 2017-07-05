@@ -36,8 +36,10 @@ namespace pbXNet
 
 		protected EncryptedFileSystem(string id, IFileSystem fs, ICryptographer cryptographer = null)
 		{
-			if (id == null || fs == null)
-				throw new ArgumentException($"{nameof(id)} and {nameof(fs)} must be valid objects.");
+			if (fs == null)
+				throw new ArgumentNullException(nameof(fs));
+			if (id == null)
+				throw new ArgumentNullException(nameof(id));
 
 			Id = id;
 			_fs = fs;
@@ -53,7 +55,7 @@ namespace pbXNet
 			: this(id, fs, cryptographer)
 		{
 			if (ckey == null)
-				throw new ArgumentException($"{nameof(ckey)} must be valid object.");
+				throw new ArgumentNullException(nameof(ckey));
 
 			_ckey = ckey;
 		}
@@ -67,7 +69,7 @@ namespace pbXNet
 			: this(id, fs, cryptographer)
 		{
 			if (passwd == null)
-				throw new ArgumentException($"{nameof(passwd)} must be valid object.");
+				throw new ArgumentNullException(nameof(passwd));
 
 			_passwd = passwd;
 		}

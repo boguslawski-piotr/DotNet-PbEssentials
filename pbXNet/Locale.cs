@@ -28,7 +28,7 @@ namespace pbXNet
 		{
 			if (String.IsNullOrEmpty(platformCultureString))
 			{
-				throw new ArgumentException("Expected culture identifier", nameof(platformCultureString));
+				throw new ArgumentException("Expected culture identifier.", nameof(platformCultureString));
 			}
 
 			PlatformString = platformCultureString.Replace("_", "-"); // .NET expects dash, not underscore

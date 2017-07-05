@@ -21,7 +21,7 @@ namespace pbXNet
 		public SecretsManager(string id, ISerializer serializer = null, IStorage<string> storage = null, IPassword passwd = null)
 		{
 			if (id == null)
-				throw new ArgumentException($"{nameof(id)} must be valid object.");
+				throw new ArgumentNullException(nameof(id));
 
 			Id = id;
 			_serializer = new StringOptimizedSerializer(serializer ?? new NewtonsoftJsonSerializer());
@@ -101,7 +101,7 @@ namespace pbXNet
 			if (lifeTime == SecretLifeTime.Infinite)
 			{
 				if (_storage == null)
-					throw new ArgumentException("Attempt to add a secret with life time set to 'Infinite' without passing any data storage while constructing the object.");
+					throw new ArgumentException(T.Localized("SM_StorageNotProvided"));
 
 				_LoadSecrets();
 				_secrets[id] = s;
@@ -139,7 +139,7 @@ namespace pbXNet
 				if (_secrets.TryGetValue(id, out s.secret))
 					return s.secret;
 
-				throw new KeyNotFoundException();
+				throw new KeyNotFoundException(T.Localized("SM_KeyNotFound", id));
 			}
 
 			return Obfuscator.DeObfuscate(__GetSecret());

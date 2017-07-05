@@ -46,7 +46,7 @@ namespace pbXNet
 			switch (Root)
 			{
 				case DeviceFileSystemRoot.UserDefined:
-					throw new NotSupportedException();
+					throw new NotSupportedException(T.Localized("FS_UserDefinedRootNotSupported"));
 
 				case DeviceFileSystemRoot.RoamingConfig:
 				case DeviceFileSystemRoot.Roaming:
@@ -206,7 +206,7 @@ namespace pbXNet
 
 		public static async Task SaveAllModifiedOnDictsAsync()
 		{
-			foreach(var rootPath in _modifiedOnDictDict.Keys.ToArray())
+			foreach (var rootPath in _modifiedOnDictDict.Keys.ToArray())
 			{
 				StorageFolder root = await StorageFolder.GetFolderFromPathAsync(rootPath);
 				await SaveModifiedOnDictAsync(root);
@@ -273,23 +273,30 @@ namespace pbXNet
 
 		public virtual async Task<bool> DirectoryExistsAsync(string dirname)
 		{
+			if (string.IsNullOrEmpty(dirname))
+				return false;
+
 			return await _current.TryGetItemAsync(dirname) != null;
 		}
 
 		public virtual async Task CreateDirectoryAsync(string dirname)
 		{
-			if (!string.IsNullOrEmpty(dirname))
-				_current = await _current.CreateFolderAsync(dirname, CreationCollisionOption.OpenIfExists);
+			if (string.IsNullOrEmpty(dirname))
+				throw new ArgumentNullException(nameof(dirname));
+
+			_current = await _current.CreateFolderAsync(dirname, CreationCollisionOption.OpenIfExists);
 		}
 
 		public virtual async Task DeleteDirectoryAsync(string dirname)
 		{
-			try
-			{
-				IStorageFolder storageDir = await _current.GetFolderAsync(dirname);
-				await storageDir.DeleteAsync();
-			}
-			catch (FileNotFoundException) { }
+			if (string.IsNullOrEmpty(dirname))
+				throw new ArgumentNullException(nameof(dirname));
+
+			if (!await DirectoryExistsAsync(dirname))
+				return;
+
+			IStorageFolder storageDir = await _current.GetFolderAsync(dirname);
+			await storageDir.DeleteAsync();
 		}
 
 
@@ -304,6 +311,9 @@ namespace pbXNet
 
 		public virtual async Task<bool> FileExistsAsync(string filename)
 		{
+			if (string.IsNullOrEmpty(filename))
+				return false;
+
 			return await _current.TryGetItemAsync(filename) != null;
 		}
 
@@ -311,19 +321,24 @@ namespace pbXNet
 
 		public virtual async Task DeleteFileAsync(string filename)
 		{
-			try
-			{
-				IStorageFile storageFile = await _current.GetFileAsync(filename);
-				await storageFile.DeleteAsync();
+			if (string.IsNullOrEmpty(filename))
+				throw new ArgumentNullException(nameof(filename));
 
-				ModifyModifiedOnDict(_root, (modifiedOnDict) => modifiedOnDict.Remove(FileNameForModifiedOn(filename)));
-				ScheduleSaveModifiedOnDict(_root);
-			}
-			catch (FileNotFoundException) { }
+			if (!await FileExistsAsync(filename))
+				return;
+
+			IStorageFile storageFile = await _current.GetFileAsync(filename);
+			await storageFile.DeleteAsync();
+
+			ModifyModifiedOnDict(_root, (modifiedOnDict) => modifiedOnDict.Remove(FileNameForModifiedOn(filename)));
+			ScheduleSaveModifiedOnDict(_root);
 		}
 
 		public virtual async Task SetFileModifiedOnAsync(string filename, DateTime modifiedOn)
 		{
+			if (string.IsNullOrEmpty(filename))
+				throw new ArgumentNullException(nameof(filename));
+
 			ModifyModifiedOnDict(_root, (modifiedOnDict) => modifiedOnDict[FileNameForModifiedOn(filename)] = modifiedOn.ToUniversalTime());
 			ScheduleSaveModifiedOnDict(_root);
 		}
@@ -332,27 +347,31 @@ namespace pbXNet
 
 		public virtual async Task<DateTime> GetFileModifiedOnAsync(string filename)
 		{
-			try
-			{
-				if (TryGetModifiedOn(_root, FileNameForModifiedOn(filename), out DateTime modifiedOn))
-					return modifiedOn;
+			if (string.IsNullOrEmpty(filename))
+				throw new ArgumentNullException(nameof(filename));
 
-				IStorageFile storageFile = await _current.GetFileAsync(filename);
-				BasicProperties props = await storageFile.GetBasicPropertiesAsync();
-				return props.DateModified.DateTime.ToUniversalTime();
-			}
-			catch (FileNotFoundException) { }
-			return DateTime.MinValue;
+			if (TryGetModifiedOn(_root, FileNameForModifiedOn(filename), out DateTime modifiedOn))
+				return modifiedOn;
+
+			IStorageFile storageFile = await _current.GetFileAsync(filename);
+			BasicProperties props = await storageFile.GetBasicPropertiesAsync();
+			return props.DateModified.DateTime.ToUniversalTime();
 		}
 
 		public virtual async Task WriteTextAsync(string filename, string text)
 		{
+			if (string.IsNullOrEmpty(filename))
+				throw new ArgumentNullException(nameof(filename));
+
 			IStorageFile storageFile = await _current.CreateFileAsync(filename, CreationCollisionOption.ReplaceExisting);
 			await FileIO.WriteTextAsync(storageFile, text);
 		}
 
 		public virtual async Task<string> ReadTextAsync(string filename)
 		{
+			if (string.IsNullOrEmpty(filename))
+				throw new ArgumentNullException(nameof(filename));
+
 			IStorageFile storageFile = await _current.GetFileAsync(filename);
 			return await FileIO.ReadTextAsync(storageFile);
 		}

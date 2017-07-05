@@ -79,7 +79,7 @@ namespace pbXNet
 						response = await httpClient.DeleteAsync(uri);
 						break;
 					default:
-						throw new StorageOnPbXStorageException(PbXStorageErrorCode.CommandUnrecognized, $"Command {cmd} unrecognized.");
+						throw new StorageOnPbXStorageException(PbXStorageErrorCode.CommandUnrecognized, T.Localized("SOPXS_CmdUnrecognized", cmd));
 				}
 
 				if (response.IsSuccessStatusCode)
@@ -97,13 +97,13 @@ namespace pbXNet
 					}
 					else if (contentData[0] != "OK")
 					{
-						throw new StorageOnPbXStorageException(PbXStorageErrorCode.IncorrectResponseData, "Incorrect data.");
+						throw new StorageOnPbXStorageException(PbXStorageErrorCode.IncorrectResponseData, T.Localized("SOPXS_IncorrectData"));
 					}
 
 					return contentData.Length > 1 ? contentData[1] : null;
 				}
 				else
-					throw new StorageOnPbXStorageException((int)response.StatusCode, "Incorrect data.");
+					throw new StorageOnPbXStorageException((int)response.StatusCode, T.Localized("SOPXS_IncorrectData"));
 			}
 			catch (StorageOnPbXStorageException ex)
 			{

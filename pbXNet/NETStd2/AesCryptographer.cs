@@ -39,7 +39,7 @@ namespace pbXNet
 				aes.Padding = _padding;
 
 				if (aes.BlockSize != _blockSize || aes.KeySize != _keySize || aes.Mode != _mode || aes.Padding != _padding)
-					throw new CryptographicException("Unsupported Aes parameters.");
+					throw new CryptographicException(T.Localized("AES_UnsupportedParams"));
 
 				return aes;
 			}
@@ -96,7 +96,7 @@ namespace pbXNet
 			if (msg == null)
 				throw new ArgumentNullException(nameof(msg));
 			if (msg.Length <= _signatureSize)
-				throw new ArgumentException("Incorrect format.", nameof(msg));
+				throw new ArgumentException(T.Localized("AES_IncrorrectFormat"), nameof(msg));
 			if (key == null)
 				throw new ArgumentNullException(nameof(key));
 			if (iv == null)
@@ -115,7 +115,7 @@ namespace pbXNet
 					amsg[si + 5] != _key256 ||
 					amsg[si + 6] != _modeCbc ||
 					amsg[si + 7] != _paddingPkcs7)
-					throw new ArgumentException("Incorrect format.", nameof(msg));
+					throw new ArgumentException(T.Localized("AES_IncrorrectFormat"), nameof(msg));
 
 				Aes alg = _algImpl;
 				return Transform(amsg, si, key, iv, alg, false);

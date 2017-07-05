@@ -13,7 +13,7 @@ namespace pbXNet
 	{
 		public static readonly IEnumerable<DeviceFileSystemRoot> AvailableRootsForEndUser = new List<DeviceFileSystemRoot>() {
 			DeviceFileSystemRoot.Local,
-        };
+		};
 
 		public string RootPath { get; protected set; }
 
@@ -101,7 +101,7 @@ namespace pbXNet
 
 		public virtual Task<IFileSystem> CloneAsync()
 		{
-			DeviceFileSystem fs = new DeviceFileSystem(this.Root, RootPath)
+			DeviceFileSystem fs = new DeviceFileSystem(this.Root, _userDefinedRootPath)
 			{
 				RootPath = this.RootPath,
 				CurrentPath = this.CurrentPath,
@@ -143,8 +143,12 @@ namespace pbXNet
 			}
 			else
 			{
+				string dirpath = GetFilePath(dirname);
+				if (!Directory.Exists(dirpath))
+					throw new DirectoryNotFoundException(T.Localized("FS_DirNotFound", CurrentPath, dirname));
+
 				_visitedPaths.Push(CurrentPath);
-				CurrentPath = Path.Combine(CurrentPath, dirname);
+				CurrentPath = dirpath;
 			}
 			return Task.FromResult(true);
 		}
@@ -161,6 +165,9 @@ namespace pbXNet
 
 		public virtual Task<bool> DirectoryExistsAsync(string dirname)
 		{
+			if (string.IsNullOrEmpty(dirname))
+				return Task.FromResult(false);
+
 			string dirpath = GetFilePath(dirname);
 			bool exists = Directory.Exists(dirpath);
 			return Task.FromResult(exists);
@@ -168,21 +175,26 @@ namespace pbXNet
 
 		public virtual Task CreateDirectoryAsync(string dirname)
 		{
-			if (!string.IsNullOrEmpty(dirname))
-			{
-				string dirpath = GetFilePath(dirname);
-				DirectoryInfo dir = Directory.CreateDirectory(GetFilePath(dirpath));
-				_visitedPaths.Push(CurrentPath);
-				// TODO: if dirname contains more than one directory (for example: t/e/s/) then we need to push to _visitedPaths whole path step by step
-				CurrentPath = dirpath;
-			}
+			if (string.IsNullOrEmpty(dirname))
+				throw new ArgumentNullException(nameof(dirname));
+
+			string dirpath = GetFilePath(dirname);
+			DirectoryInfo dir = Directory.CreateDirectory(GetFilePath(dirpath));
+
+			_visitedPaths.Push(CurrentPath);
+			CurrentPath = dirpath;
 			return Task.FromResult(true);
 		}
 
 		public virtual Task DeleteDirectoryAsync(string dirname)
 		{
-			if (!string.IsNullOrEmpty(dirname))
-				Directory.Delete(GetFilePath(dirname));
+			if (string.IsNullOrEmpty(dirname))
+				throw new ArgumentNullException(nameof(dirname));
+
+			string dirpath = GetFilePath(dirname);
+			if (Directory.Exists(dirpath))
+				Directory.Delete(dirpath);
+
 			return Task.FromResult(true);
 		}
 
@@ -199,6 +211,9 @@ namespace pbXNet
 
 		public virtual Task<bool> FileExistsAsync(string filename)
 		{
+			if (string.IsNullOrEmpty(filename))
+				return Task.FromResult(false);
+
 			string filepath = GetFilePath(filename);
 			bool exists = File.Exists(filepath);
 			return Task.FromResult(exists);
@@ -206,25 +221,39 @@ namespace pbXNet
 
 		public virtual Task DeleteFileAsync(string filename)
 		{
-			if (!string.IsNullOrEmpty(filename))
-				File.Delete(GetFilePath(filename));
+			if (string.IsNullOrEmpty(filename))
+				throw new ArgumentNullException(nameof(filename));
+
+			string filepath = GetFilePath(filename);
+			if (File.Exists(filepath))
+				File.Delete(filepath);
+
 			return Task.FromResult(true);
 		}
 
 		public virtual Task SetFileModifiedOnAsync(string filename, DateTime modifiedOn)
 		{
+			if (string.IsNullOrEmpty(filename))
+				throw new ArgumentNullException(nameof(filename));
+
 			File.SetLastWriteTimeUtc(GetFilePath(filename), modifiedOn.ToUniversalTime());
 			return Task.FromResult(true);
 		}
 
 		public virtual Task<DateTime> GetFileModifiedOnAsync(string filename)
 		{
+			if (string.IsNullOrEmpty(filename))
+				throw new ArgumentNullException(nameof(filename));
+
 			DateTime modifiedOn = File.GetLastWriteTimeUtc(GetFilePath(filename));
 			return Task.FromResult(modifiedOn);
 		}
 
 		public virtual async Task WriteTextAsync(string filename, string text)
 		{
+			if (string.IsNullOrEmpty(filename))
+				throw new ArgumentNullException(nameof(filename));
+
 			string filepath = GetFilePath(filename);
 			using (StreamWriter writer = File.CreateText(filepath))
 			{
@@ -234,6 +263,9 @@ namespace pbXNet
 
 		public virtual async Task<string> ReadTextAsync(string filename)
 		{
+			if (string.IsNullOrEmpty(filename))
+				throw new ArgumentNullException(nameof(filename));
+
 			string filepath = GetFilePath(filename);
 			using (StreamReader reader = File.OpenText(filepath))
 			{
