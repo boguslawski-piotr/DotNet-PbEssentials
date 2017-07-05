@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace pbXNet
@@ -14,21 +16,67 @@ namespace pbXNet
 		[AttributeUsage(AttributeTargets.Property)]
 		public class PrimaryKeyAttribute : Attribute { }
 
-		public class Table<T>
+		interface ITable
+		{
+			void PrepareDump();
+		}
+
+		class Table<T> : ITable
 		{
 			public string Name;
 			public Type Type;
+
+			public class PrimaryKeyInfoField
+			{
+				public string Name;
+				public Type Type;
+			}
+
+			public List<PrimaryKeyInfoField> PrimaryKeyInfo;
+			[NonSerialized]	public List<PropertyInfo> PrimaryKey;
+
 			public List<T> Rows;
-			public List<PropertyInfo> PrimaryKey;
+
+			SemaphoreSlim _lock;
+
+			public Table(string tableName)
+			{
+				Name = tableName;
+				Type = typeof(T);
+				Rows = new List<T>(1024);
+				PrimaryKey = new List<PropertyInfo>();
+				_lock = new SemaphoreSlim(1);
+			}
+
+			public async Task LockAsync()
+			{
+				await _lock.WaitAsync();
+			}
+
+			public void Unlock()
+			{
+				_lock.Release();
+			}
+
+			public void PrepareDump()
+			{
+				PrimaryKeyInfo = new List<PrimaryKeyInfoField>(
+					PrimaryKey.Select((p) => new PrimaryKeyInfoField()
+					{
+						Type = p.PropertyType,
+						Name = p.Name,
+					})
+				);
+			}
 		}
 
 		public class Exception<T> : System.Exception
 		{
-			public Exception(string message, Table<T> t, T o) : base(message)
+			public Exception(string message) : base(message)
 			{ }
 		}
 
-		Dictionary<string, object> _tables = new Dictionary<string, object>();
+		ConcurrentDictionary<string, object> _tables = new ConcurrentDictionary<string, object>();
 
 		Table<T> GetTable<T>(string tableName) => (Table<T>)_tables[tableName];
 
@@ -41,14 +89,7 @@ namespace pbXNet
 			if (_tables.ContainsKey(tableName))
 				return;
 
-			Table<T> t = new Table<T>
-			{
-				Name = tableName,
-				Type = typeof(T),
-				Rows = new List<T>(),
-				PrimaryKey = new List<PropertyInfo>(),
-			};
-
+			Table<T> t = new Table<T>(tableName);
 			_tables[tableName] = t;
 
 			// Create primary key based on [PrimaryKey] attribute.
@@ -92,7 +133,25 @@ namespace pbXNet
 		async Task<T> FindAsync<T>(Table<T> t, T pk)
 		{
 			if (t.PrimaryKey.Count <= 0)
-				throw new Exception<T>(pbXNet.T.Localized("SDIM_PrimaryKeyNotDefined"), t, pk);
+				throw new Exception<T>(pbXNet.T.Localized("SDIM_PrimaryKeyNotDefined", t.Name));
+
+			// These simple optimizations speed up the whole search twice.
+
+			if (t.PrimaryKey.Count == 1)
+			{
+				PropertyInfo p1 = t.PrimaryKey[0];
+				object pk1 = p1.GetValue(pk);
+				return t.Rows.Find((o) => pk1.Equals(p1.GetValue(o)));
+			}
+
+			if (t.PrimaryKey.Count == 2)
+			{
+				PropertyInfo p1 = t.PrimaryKey[0];
+				PropertyInfo p2 = t.PrimaryKey[1];
+				object pk1 = p1.GetValue(pk);
+				object pk2 = p2.GetValue(pk);
+				return t.Rows.Find((o) => pk1.Equals(p1.GetValue(o)) && pk2.Equals(p2.GetValue(o)));
+			}
 
 			return t.Rows.Find((o) =>
 				t.PrimaryKey.Count == t.PrimaryKey.Count((p) => p.GetValue(pk).Equals(p.GetValue(o)))
@@ -104,12 +163,21 @@ namespace pbXNet
 		async Task InsertAsync<T>(Table<T> t, T o)
 		{
 			T obj = await FindAsync(t, o);
-			if (obj == null || obj.Equals(default(T)))
-				t.Rows.Add(o);
-			else
+
+			await t.LockAsync();
+			try
 			{
-				if (!object.ReferenceEquals(obj, o))
-					t.Rows[t.Rows.IndexOf(obj)] = o;
+				if (obj == null || obj.Equals(default(T)))
+					t.Rows.Add(o);
+				else
+				{
+					if (!object.ReferenceEquals(obj, o))
+						t.Rows[t.Rows.IndexOf(obj)] = o;
+				}
+			}
+			finally
+			{
+				t.Unlock();
 			}
 		}
 
@@ -119,10 +187,20 @@ namespace pbXNet
 		{
 			T obj = await FindAsync(t, o);
 			if (obj == null || obj.Equals(default(T)))
-				throw new Exception<T>(pbXNet.T.Localized("SDIM_ObjectDoesntExist"), t, o);
+				throw new Exception<T>(pbXNet.T.Localized("SDIM_ObjectDoesntExist"));
 
 			if (!object.ReferenceEquals(obj, o))
-				t.Rows[t.Rows.IndexOf(obj)] = o;
+			{
+				await t.LockAsync();
+				try
+				{
+					t.Rows[t.Rows.IndexOf(obj)] = o;
+				}
+				finally
+				{
+					t.Unlock();
+				}
+			}
 		}
 
 		public async Task DeleteAsync<T>(string tableName, T pk) => await DeleteAsync(GetTable<T>(tableName), pk);
@@ -131,9 +209,27 @@ namespace pbXNet
 		{
 			T obj = await FindAsync(t, pk);
 			if (obj == null || obj.Equals(default(T)))
-				throw new Exception<T>(pbXNet.T.Localized("SDIM_ObjectDoesntExist"), t, pk);
+				throw new Exception<T>(pbXNet.T.Localized("SDIM_ObjectDoesntExist"));
 
-			t.Rows.Remove(obj);
+			await t.LockAsync();
+			try
+			{
+				t.Rows.Remove(obj);
+			}
+			finally
+			{
+				t.Unlock();
+			}
+		}
+
+		public async Task Dump(string filename, IFileSystem fs)
+		{
+			foreach (var t in _tables.Values)
+			{
+				((ITable)t).PrepareDump();
+			}
+
+			await fs.WriteTextAsync(filename, new NewtonsoftJsonSerializer().Serialize(_tables));
 		}
 	}
 }

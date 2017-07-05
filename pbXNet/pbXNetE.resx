@@ -151,7 +151,7 @@
     <value>Object doesn't exist.</value>
   </data>
   <data name="SDIM_PrimaryKeyNotDefined" xml:space="preserve">
-    <value>The primary key has not been defined.</value>
+    <value>The primary key for table '{0}' has not been defined.</value>
   </data>
   <data name="SM_KeyNotFound" xml:space="preserve">
     <value>Object '{0}' doesn't exist.</value>
