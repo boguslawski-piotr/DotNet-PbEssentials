@@ -53,7 +53,11 @@ namespace pbXNet
 
 			// Create primary key based on [PrimaryKey] attribute.
 			t.PrimaryKey.AddRange(
+#if NETSTANDARD1_6
+				typeof(T).GetRuntimeProperties()
+#else
 				typeof(T).GetProperties()
+#endif
 					.Where((p) => p.CustomAttributes.Any((a) => a.AttributeType.Name == nameof(PrimaryKeyAttribute)))
 			);
 		}
@@ -64,7 +68,11 @@ namespace pbXNet
 
 			t.PrimaryKey.Clear();
 			t.PrimaryKey.AddRange(
+#if NETSTANDARD1_6
+				typeof(T).GetRuntimeProperties()
+#else
 				typeof(T).GetProperties()
+#endif
 					.Where((p) => columnNames.Contains(p.Name))
 			);
 		}
