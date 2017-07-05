@@ -52,7 +52,8 @@ namespace pbXNet
 			}
 		}
 
-		static readonly IList<Resource> _resources = new List<Resource>();
+		static readonly List<Resource> _resources = new List<Resource>();
+		static int _numberOfInstalledDefaultResources = 0;
 
 		public static void AddResource(string baseName, Assembly assembly, bool first = false)
 		{
@@ -60,6 +61,7 @@ namespace pbXNet
 			{
 				_resources.Clear();
 				CultureInfo = null;
+				_numberOfInstalledDefaultResources = 0;
 			}
 
 			Resource resource = new Resource()
@@ -71,12 +73,24 @@ namespace pbXNet
 			_resources.Add(resource);
 		}
 
-		public static string Localized(string name)
+		public static void AddDefaultResources()
+		{
+			if (_numberOfInstalledDefaultResources == 0)
+			{
+				AddResource("pbXNet.Exceptions.T", typeof(pbXNet.LocalizationManager).GetTypeInfo().Assembly);
+				AddResource("pbXNet.Texts.T", typeof(pbXNet.LocalizationManager).GetTypeInfo().Assembly);
+				_numberOfInstalledDefaultResources = 2;
+			}
+		}
+
+		public static string Localized(string name, params string[] args)
 		{
 			if (name == null)
 				return "";
 
 			string value = null;
+
+			AddDefaultResources();
 
 			if (_resources.Count > 0)
 			{
@@ -86,7 +100,11 @@ namespace pbXNet
 					{
 						value = r.ResourceManager.GetString(name, CultureInfo);
 						if (value != null)
+						{
+							if (args.Length > 0)
+								value = string.Format(value, args);
 							break;
+						}
 					}
 					catch { }
 				}
@@ -108,9 +126,9 @@ namespace pbXNet
 	/// </summary>
 	public static class T
 	{
-		public static string Localized(string name)
+		public static string Localized(string name, params string[] args)
 		{
-			return LocalizationManager.Localized(name);
+			return LocalizationManager.Localized(name, args);
 		}
 	}
 }
