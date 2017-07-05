@@ -2,9 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Linq.Expressions;
-using System.Reflection;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
@@ -73,8 +70,6 @@ namespace pbXNet
 			await _db.CreateTableAsync<FsEntry>(Id);
 			await _db.CreatePrimaryKeyAsync<FsEntry>(Id, nameof(entry.Path), nameof(entry.Name));
 			await _db.CreateIndexAsync<FsEntry>(Id, true, nameof(entry.Path));
-
-			await CreateDirectoryAsync(RootPath);
 		}
 
 		public void Dispose()
@@ -287,5 +282,3 @@ namespace pbXNet
 		#endregion
 	}
 }
-
-//#endif

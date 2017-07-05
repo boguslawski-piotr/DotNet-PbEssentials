@@ -179,7 +179,8 @@ namespace pbXNet
 				throw new ArgumentNullException(nameof(dirname));
 
 			string dirpath = GetFilePath(dirname);
-			DirectoryInfo dir = Directory.CreateDirectory(GetFilePath(dirpath));
+			if(!Directory.Exists(dirpath))
+				Directory.CreateDirectory(dirpath);
 
 			_visitedPaths.Push(CurrentPath);
 			CurrentPath = dirpath;
