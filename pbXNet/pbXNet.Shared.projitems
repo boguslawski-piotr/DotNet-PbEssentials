@@ -9,9 +9,12 @@
     <Import_RootNamespace>pbXNet</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)FileSystemInDatabase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ISimpleCryptographer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ISimpleDatabase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)NewtonsoftJsonSerializer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ObservableCollectionEx.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SimpleDatabaseInMemory.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)StorageOnPbXStorage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Tools.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DeflateCompressor.cs" />
@@ -51,6 +54,11 @@
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)pbXNetT.pl.resx">
       <LogicalName>pbXNet.Texts.T.pl.resources</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)pbXNetE.resx">
+      <LogicalName>pbXNet.Exceptions.T.resources</LogicalName>
+      <Generator>
+      </Generator>
     </EmbeddedResource>
   </ItemGroup>
 </Project>
