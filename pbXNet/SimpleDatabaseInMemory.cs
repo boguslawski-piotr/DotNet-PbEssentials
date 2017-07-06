@@ -128,7 +128,7 @@ namespace pbXNet
 			return t.Rows.Where<T>(where.Compile());
 		}
 
-		public async Task<T> FindAsync<T>(string tableName, T pk) => await FindAsync(GetTable<T>(tableName), pk);
+		public async Task<T> FindAsync<T>(string tableName, T pk) => await FindAsync(GetTable<T>(tableName), pk).ConfigureAwait(false);
 
 		async Task<T> FindAsync<T>(Table<T> t, T pk)
 		{
@@ -158,11 +158,11 @@ namespace pbXNet
 			);
 		}
 
-		public async Task InsertAsync<T>(string tableName, T o) => await InsertAsync(GetTable<T>(tableName), o);
+		public async Task InsertAsync<T>(string tableName, T o) => await InsertAsync(GetTable<T>(tableName), o).ConfigureAwait(false);
 
 		async Task InsertAsync<T>(Table<T> t, T o)
 		{
-			T obj = await FindAsync(t, o);
+			T obj = await FindAsync(t, o).ConfigureAwait(false);
 
 			await t.LockAsync();
 			try
@@ -181,11 +181,11 @@ namespace pbXNet
 			}
 		}
 
-		public async Task UpdateAsync<T>(string tableName, T o) => await UpdateAsync(GetTable<T>(tableName), o);
+		public async Task UpdateAsync<T>(string tableName, T o) => await UpdateAsync(GetTable<T>(tableName), o).ConfigureAwait(false);
 
 		async Task UpdateAsync<T>(Table<T> t, T o)
 		{
-			T obj = await FindAsync(t, o);
+			T obj = await FindAsync(t, o).ConfigureAwait(false);
 			if (obj == null || obj.Equals(default(T)))
 				throw new Exception<T>(pbXNet.T.Localized("SDIM_ObjectDoesntExist"));
 
@@ -203,11 +203,11 @@ namespace pbXNet
 			}
 		}
 
-		public async Task DeleteAsync<T>(string tableName, T pk) => await DeleteAsync(GetTable<T>(tableName), pk);
+		public async Task DeleteAsync<T>(string tableName, T pk) => await DeleteAsync(GetTable<T>(tableName), pk).ConfigureAwait(false);
 
 		async Task DeleteAsync<T>(Table<T> t, T pk)
 		{
-			T obj = await FindAsync(t, pk);
+			T obj = await FindAsync(t, pk).ConfigureAwait(false);
 			if (obj == null || obj.Equals(default(T)))
 				throw new Exception<T>(pbXNet.T.Localized("SDIM_ObjectDoesntExist"));
 
@@ -229,7 +229,7 @@ namespace pbXNet
 				((ITable)t).PrepareDump();
 			}
 
-			await fs.WriteTextAsync(filename, new NewtonsoftJsonSerializer().Serialize(_tables));
+			await fs.WriteTextAsync(filename, new NewtonsoftJsonSerializer().Serialize(_tables)).ConfigureAwait(false);
 		}
 	}
 }
