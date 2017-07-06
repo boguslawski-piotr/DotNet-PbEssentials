@@ -1,18 +1,18 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using pbXNet;
 using Xunit;
+using Xunit.Abstractions;
 
 namespace Tests
 {
 	public class IFileSystem_Tests
 	{
-		[Fact]
-		public async Task FileSystemInDatabaseBasicTest()
+		readonly ITestOutputHelper _output;
+
+		public IFileSystem_Tests(ITestOutputHelper output)
 		{
-			IFileSystem fs = await FileSystemInDatabase.NewAsync(new SimpleDatabaseInMemory(), "Tests");
-			await IFileSystemBasicTest(fs);
+			_output = output;
 		}
 
 		[Fact]
@@ -20,7 +20,7 @@ namespace Tests
 		{
 			SimpleDatabaseInMemory db = new SimpleDatabaseInMemory();
 
-			IFileSystem fs = await FileSystemInDatabase.NewAsync(db, "Tests");
+			IFileSystem fs = await FileSystemInDatabase.NewAsync("Tests", db);
 
 			await Prepare(fs);
 
@@ -43,14 +43,23 @@ namespace Tests
 		}
 
 		[Fact]
-		public async Task DeviceFileSystemBasicTest()
+		public async Task DeviceFileSystemDefaultBasicTest()
 		{
-			IFileSystem fs = null;
-
-			fs = DeviceFileSystem.New();
+			IFileSystem fs = DeviceFileSystem.New();
 			await IFileSystemBasicTest(fs);
+		}
 
-			fs = DeviceFileSystem.New(DeviceFileSystemRoot.LocalConfig);
+		[Fact]
+		public async Task DeviceFileSystemConfigBasicTest()
+		{
+			IFileSystem fs = DeviceFileSystem.New(DeviceFileSystemRoot.LocalConfig);
+			await IFileSystemBasicTest(fs);
+		}
+
+		[Fact]
+		public async Task FileSystemInDatabaseBasicTest()
+		{
+			IFileSystem fs = await FileSystemInDatabase.NewAsync("Tests", new SimpleDatabaseInMemory());
 			await IFileSystemBasicTest(fs);
 		}
 
