@@ -9,16 +9,6 @@ namespace pbXNet
 {
 	public class FileSystemInDatabase : IFileSystem, IDisposable
 	{
-		class FsEntry
-		{
-			public string Path { get; set; }
-			public string Name { get; set; }
-			public bool IsDirectory { get; set; }
-			public string Data { get; set; }
-			public DateTime CreatedOn { get; set; }
-			public DateTime ModifiedOn { get; set; }
-		}
-
 		public FileSystemType Type { get; private set; }
 
 		/// <summary>
@@ -36,23 +26,33 @@ namespace pbXNet
 
 		ISimpleDatabase _db;
 
+		class FsEntry
+		{
+			public string Path { get; set; }
+			public string Name { get; set; }
+			public bool IsDirectory { get; set; }
+			public string Data { get; set; }
+			public DateTime CreatedOn { get; set; }
+			public DateTime ModifiedOn { get; set; }
+		}
+
 		FsEntry _pk = new FsEntry();
 
-		protected FileSystemInDatabase(ISimpleDatabase db, string id)
+		protected FileSystemInDatabase(string id, ISimpleDatabase db)
 		{
 			Id = id ?? throw new ArgumentNullException(nameof(id));
 			_db = db ?? throw new ArgumentNullException(nameof(db));
 			RootPath = CurrentPath = "/";
 		}
 
-		public static async Task<IFileSystem> NewAsync(ISimpleDatabase db, string id)
+		public static async Task<IFileSystem> NewAsync(string id, ISimpleDatabase db)
 		{
-			if (db == null)
-				throw new ArgumentNullException(nameof(db));
 			if (id == null)
 				throw new ArgumentNullException(nameof(id));
+			if (db == null)
+				throw new ArgumentNullException(nameof(db));
 
-			var fs = new FileSystemInDatabase(db, id);
+			var fs = new FileSystemInDatabase(id, db);
 			await fs.InitializeAsync();
 			return fs;
 		}
@@ -66,10 +66,11 @@ namespace pbXNet
 		{
 			await _db.InitializeAsync().ConfigureAwait(false);
 
+			ITable<FsEntry> t = await _db.CreateTableAsync<FsEntry>(Id).ConfigureAwait(false);
+
 			FsEntry entry;
-			await _db.CreateTableAsync<FsEntry>(Id).ConfigureAwait(false);
-			await _db.CreatePrimaryKeyAsync<FsEntry>(Id, nameof(entry.Path), nameof(entry.Name)).ConfigureAwait(false);
-			await _db.CreateIndexAsync<FsEntry>(Id, false, nameof(entry.Path)).ConfigureAwait(false);
+			await t.CreatePrimaryKeyAsync(nameof(entry.Path), nameof(entry.Name)).ConfigureAwait(false);
+			await t.CreateIndexAsync(false, nameof(entry.Path)).ConfigureAwait(false);
 		}
 
 		public void Dispose()
@@ -80,7 +81,7 @@ namespace pbXNet
 
 		public async Task<IFileSystem> CloneAsync()
 		{
-			FileSystemInDatabase fs = new FileSystemInDatabase(_db, Id)
+			FileSystemInDatabase fs = new FileSystemInDatabase(Id, _db)
 			{
 				RootPath = this.RootPath,
 				CurrentPath = this.CurrentPath,
@@ -131,8 +132,13 @@ namespace pbXNet
 
 		public async Task<IEnumerable<string>> GetDirectoriesAsync(string pattern = "")
 		{
-			var l = await _db.SelectAsync<FsEntry>(Id, (e) => e.Path == CurrentPath).ConfigureAwait(false);
-			return l.Where((e) => e.IsDirectory && Regex.IsMatch(e.Name, pattern)).Select((e) => e.Name);
+			bool emptyPattern = string.IsNullOrWhiteSpace(pattern);
+			var q = await
+				_db.Table<FsEntry>(Id)
+				.Rows
+				.Where(e => e.Path == CurrentPath && e.IsDirectory && (emptyPattern || Regex.IsMatch(e.Name, pattern)))
+				.PrepareAsync();
+			return q.Select((e) => e.Name);
 		}
 
 		public async Task<bool> DirectoryExistsAsync(string dirname)
@@ -142,7 +148,7 @@ namespace pbXNet
 
 			_pk.Path = CurrentPath;
 			_pk.Name = dirname;
-			return await _db.FindAsync(Id, _pk).ConfigureAwait(false) != null;
+			return await _db.Table<FsEntry>(Id).FindAsync(_pk).ConfigureAwait(false) != null;
 		}
 
 		public async Task CreateDirectoryAsync(string dirname)
@@ -152,7 +158,7 @@ namespace pbXNet
 
 			if (!await DirectoryExistsAsync(dirname).ConfigureAwait(false))
 			{
-				await _db.InsertAsync(Id,
+				await _db.Table<FsEntry>(Id).InsertAsync(
 					new FsEntry
 					{
 						Path = CurrentPath,
@@ -176,26 +182,29 @@ namespace pbXNet
 			if (!await DirectoryExistsAsync(dirname).ConfigureAwait(false))
 				return;
 
-			var l = await _db.SelectAsync<FsEntry>(Id, (e) => e.Path == GetFilePath(dirname)).ConfigureAwait(false);
-			if (l.Any())
+			var l = _db.Table<FsEntry>(Id).Rows.Where(e => e.Path == GetFilePath(dirname));
+			if (await l.AnyAsync().ConfigureAwait(false))
 				throw new IOException(T.Localized("FS_DirNotEmpty", CurrentPath, dirname));
 
 			_pk.Path = CurrentPath;
 			_pk.Name = dirname;
-			await _db.DeleteAsync(Id, _pk).ConfigureAwait(false);
+			await _db.Table<FsEntry>(Id).DeleteAsync(_pk).ConfigureAwait(false);
 		}
 
 		public async Task<IEnumerable<string>> GetFilesAsync(string pattern = "")
 		{
-			var l = await _db.SelectAsync<FsEntry>(Id, (e) => e.Path == CurrentPath).ConfigureAwait(false);
-			return l.Where((e) => !e.IsDirectory && Regex.IsMatch(e.Name, pattern)).Select((e) => e.Name);
+			bool emptyPattern = string.IsNullOrWhiteSpace(pattern);
+			return (await _db.Table<FsEntry>(Id).Rows
+					.Where(e => e.Path == CurrentPath && !e.IsDirectory && (emptyPattern || Regex.IsMatch(e.Name, pattern)))
+					.PrepareAsync())
+					.Select((e) => e.Name);
 		}
 
 		async Task<FsEntry> GetFsEntryAsync(string filename)
 		{
 			_pk.Path = CurrentPath;
 			_pk.Name = filename;
-			return await _db.FindAsync(Id, _pk).ConfigureAwait(false);
+			return await _db.Table<FsEntry>(Id).FindAsync(_pk).ConfigureAwait(false);
 		}
 
 		public async Task<bool> FileExistsAsync(string filename)
@@ -216,7 +225,7 @@ namespace pbXNet
 
 			_pk.Path = CurrentPath;
 			_pk.Name = filename;
-			await _db.DeleteAsync(Id, _pk).ConfigureAwait(false);
+			await _db.Table<FsEntry>(Id).DeleteAsync(_pk).ConfigureAwait(false);
 		}
 
 		public async Task SetFileModifiedOnAsync(string filename, DateTime modifiedOn)
@@ -229,7 +238,7 @@ namespace pbXNet
 				throw new FileNotFoundException(T.Localized("FS_FileNotFound", CurrentPath, filename));
 
 			e.ModifiedOn = modifiedOn.ToUniversalTime();
-			await _db.UpdateAsync(Id, e).ConfigureAwait(false);
+			await _db.Table<FsEntry>(Id).UpdateAsync(e).ConfigureAwait(false);
 		}
 
 		public async Task<DateTime> GetFileModifiedOnAsync(string filename)
@@ -249,7 +258,7 @@ namespace pbXNet
 			if (string.IsNullOrEmpty(filename))
 				throw new ArgumentNullException(nameof(filename));
 
-			await _db.InsertAsync(Id,
+			await _db.Table<FsEntry>(Id).InsertAsync(
 				new FsEntry
 				{
 					Path = CurrentPath,

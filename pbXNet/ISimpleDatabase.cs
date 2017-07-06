@@ -5,6 +5,54 @@ using System.Threading.Tasks;
 
 namespace pbXNet
 {
+	public interface IQueryResult<T> : IEnumerable<T>
+	{
+		IQueryResult<T> Where(Expression<Func<T, bool>> expr);
+
+		// group by ???
+
+		IQueryResult<T> OrderBy<K>(Expression<Func<T, K>> expr);
+
+		IQueryResult<T> OrderByDescending<K>(Expression<Func<T, K>> expr);
+
+		/// <summary>
+		/// Should prepare and send a query to the database (based on data received from Where, GroupBy, OrderBy calls),
+		/// retrieve some rows (for example using some cache strategy) and then prepare the enumerator.
+		/// </summary>
+		Task<IEnumerable<T>> PrepareAsync();
+
+		Task<bool> AnyAsync();
+
+		//FirstAsync();
+		//FirstOrDefaultAsync();
+		//CountAsync();
+		//ToListAsync();
+		//etc...
+	}
+
+	public interface ITable<T>
+	{
+		Task CreatePrimaryKeyAsync(params string[] columnNames);
+
+		Task CreateIndexAsync(bool unique, params string[] columnNames);
+
+		IQueryResult<T> Rows { get; }
+
+		// Only properties that are part of the primary key are used.
+		// Returns the element that matches primary key, if found; otherwise, the default value for type T.
+		Task<T> FindAsync(T pk);
+
+		// If the element with primary key exists should update, otherwise insert new.
+		Task InsertAsync(T o);
+
+		// If the element with primary key not exists should throw an exception.
+		Task UpdateAsync(T o);
+
+		// Only properties that are part of the primary key are used.
+		// If the element with primary key not exists should throw an exception.
+		Task DeleteAsync(T pk);
+	}
+
 	public interface ISimpleDatabase
 	{
 		string Name { get; }
@@ -13,27 +61,14 @@ namespace pbXNet
 		Task InitializeAsync();
 
 		// If table not exists then create, otherwise perform upgrade if needed.
-		Task CreateTableAsync<T>(string tableName);
+		Task<ITable<T>> CreateTableAsync<T>(string tableName);
 
-		Task CreatePrimaryKeyAsync<T>(string tableName, params string[] columnNames);
+		Task DropTableAsync<T>(string tableName);
 
-		Task CreateIndexAsync<T>(string tableName, bool unique, params string[] columnNames);
+		//int Execute<T>(string query, params object[] args);
 
-		// If nothing found should return Enumerable.Empty<T>()
-		Task<IEnumerable<T>> SelectAsync<T>(string tableName, Expression<Func<T, bool>> where);
+		//IQueryResult<T> Query<T>(string query, params object[] args);
 
-		// Only properties that are part of the primary key are used.
-		// Returns the element that matches primary key, if found; otherwise, the default value for type T.
-		Task<T> FindAsync<T>(string tableName, T pk);
-
-		// If the element with primary key exists should update, otherwise insert new.
-		Task InsertAsync<T>(string tableName, T o);
-
-		// If the element with primary key not exists should throw an exception.
-		Task UpdateAsync<T>(string tableName, T o);
-
-		// Only properties that are part of the primary key are used.
-		// If the element with primary key not exists should throw an exception.
-		Task DeleteAsync<T>(string tableName, T pk);
+		ITable<T> Table<T>(string tableName);
 	}
 }
