@@ -9,16 +9,6 @@ namespace pbXForms
 {
 	public static partial class DeviceEx
 	{
-		static string _Id
-		{
-			get {
-				// TODO: DeviceEx.Id for UWP
-				string id = "b3fea4b6-0f44-466e-96e0-ba25324671fc";
-				string id2 = "UWP";
-				return id + id2;
-			}
-		}
-
 		static DeviceOrientation _Orientation
 		{
 			get {
