@@ -128,8 +128,8 @@
     <Compile Include="../pbXNet/NETStd2/AesCryptographer.cs">
       <Link>pbXNet\NETStd2\AesCryptographer.cs</Link>
     </Compile>
-    <Compile Include="../pbXNet/UWP/DeviceFileSystem.cs">
-      <Link>pbXNet\UWP\DeviceFileSystem.cs</Link>
+    <Compile Include="../pbXNet/NETStd2/DeviceFileSystem.cs">
+      <Link>pbXNet\NETStd2\DeviceFileSystem.cs</Link>
     </Compile>
     <Compile Include="../pbXNet/UWP/Locale.cs">
       <Link>pbXNet\UWP\Locale.cs</Link>

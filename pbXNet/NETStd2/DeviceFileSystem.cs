@@ -6,14 +6,60 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+#if WINDOWS_UWP
+using Windows.Storage;
+#endif
 
 namespace pbXNet
 {
-	public partial class DeviceFileSystem : IFileSystem, IDisposable
+	public class DeviceFileSystem : IFileSystem, IDisposable
 	{
-		public static readonly IEnumerable<DeviceFileSystemRoot> AvailableRootsForEndUser = new List<DeviceFileSystemRoot>() {
-			DeviceFileSystemRoot.Local,
+		public static readonly IEnumerable<RootType> AvailableRootsForEndUser = new List<RootType>() {
+			RootType.Local,
+#if WINDOWS_UWP
+			RootType.Roaming,
+#endif
 		};
+
+		public FileSystemType Type { get; } = FileSystemType.Local;
+
+		public enum RootType
+		{
+			Local,
+			LocalConfig,
+			Roaming,
+			RoamingConfig,
+			UserDefined,
+		}
+
+		public RootType Root { get; }
+
+		public string Id { get; } = Tools.CreateGuid();
+
+		public string Name
+		{
+			get {
+				switch (Root)
+				{
+					case RootType.Local:
+						return T.Localized("DeviceFileSystem.Root.Local");
+
+					case RootType.LocalConfig:
+						return T.Localized("DeviceFileSystem.Root.LocalConfig");
+
+					case RootType.Roaming:
+						return T.Localized("DeviceFileSystem.Root.Roaming");
+
+					case RootType.RoamingConfig:
+						return T.Localized("DeviceFileSystem.Root.RoamingConfig");
+
+					default:
+						return RootPath;
+				}
+			}
+		}
+
+		// TODO: dodac Description
 
 		public string RootPath { get; protected set; }
 
@@ -21,23 +67,44 @@ namespace pbXNet
 
 		Stack<string> _visitedPaths = new Stack<string>();
 
-#if NETSTANDARD1_6 || __MACOS__
+		string _userDefinedRootPath;
+
+		protected DeviceFileSystem(RootType root = RootType.Local, string userDefinedRootPath = null)
+		{
+			if(root == RootType.UserDefined && string.IsNullOrWhiteSpace(userDefinedRootPath))
+				throw new ArgumentNullException(nameof(userDefinedRootPath));
+
+			Root = root;
+			_userDefinedRootPath = userDefinedRootPath;
+		}
+
+		public static IFileSystem New(RootType root = RootType.Local, string userDefinedRootPath = null)
+		{
+			IFileSystem fs = new DeviceFileSystem(root, userDefinedRootPath);
+			fs.Initialize();
+			return fs;
+		}
+
+#if NETSTANDARD1_6 || __MACOS__ || WINDOWS_UWP
 		string SpecialFolderUserProfile
 		{
 			get {
-				string _HomeDir = Environment.GetEnvironmentVariable("HOME");
-				if (string.IsNullOrWhiteSpace(_HomeDir))
-					_HomeDir = Environment.GetEnvironmentVariable("USERPROFILE");
-				if (string.IsNullOrWhiteSpace(_HomeDir))
-					_HomeDir = Path.Combine(Environment.GetEnvironmentVariable("HOMEDRIVE"), Environment.GetEnvironmentVariable("HOMEPATH"));
-				if (string.IsNullOrWhiteSpace(_HomeDir))
+#if WINDOWS_UWP
+				string home = ApplicationData.Current.LocalFolder.Path;
+#else
+				string home = Environment.GetEnvironmentVariable("HOME");
+				if (string.IsNullOrWhiteSpace(home))
+					home = Environment.GetEnvironmentVariable("USERPROFILE");
+				if (string.IsNullOrWhiteSpace(home))
+					home = Path.Combine(Environment.GetEnvironmentVariable("HOMEDRIVE") ?? "", Environment.GetEnvironmentVariable("HOMEPATH") ?? "");
+				if (string.IsNullOrWhiteSpace(home))
 				{
 					Exception ex = new DirectoryNotFoundException("Can not find home directory.");
 					Log.E(ex.Message, this);
 					throw ex;
 				}
-
-				return _HomeDir;
+#endif
+				return home;
 			}
 		}
 #endif
@@ -46,13 +113,10 @@ namespace pbXNet
 		{
 			switch (Root)
 			{
-				case DeviceFileSystemRoot.UserDefined:
-					if (string.IsNullOrWhiteSpace(_userDefinedRootPath))
-						throw new ArgumentNullException(nameof(_userDefinedRootPath));
-
+				case RootType.UserDefined:
 					if (_userDefinedRootPath.StartsWith("~", StringComparison.Ordinal))
 					{
-#if NETSTANDARD1_6 || __MACOS__
+#if NETSTANDARD1_6 || __MACOS__ || WINDOWS_UWP
 						string home = SpecialFolderUserProfile;
 #else
 						string home = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
@@ -63,19 +127,27 @@ namespace pbXNet
 					RootPath = _userDefinedRootPath;
 					break;
 
-				case DeviceFileSystemRoot.RoamingConfig:
-				case DeviceFileSystemRoot.LocalConfig:
-#if NETSTANDARD1_6
+				case RootType.RoamingConfig:
+#if WINDOWS_UWP
+					RootPath = Path.Combine(ApplicationData.Current.RoamingFolder.Path, ".config");
+					break;
+#endif
+				case RootType.LocalConfig:
+#if NETSTANDARD1_6 || WINDOWS_UWP
 					RootPath = Path.Combine(SpecialFolderUserProfile, ".config");
 #else
 					RootPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
 #endif
 					break;
 
-				case DeviceFileSystemRoot.Roaming:
-				case DeviceFileSystemRoot.Local:
+				case RootType.Roaming:
+#if WINDOWS_UWP
+					RootPath = ApplicationData.Current.RoamingFolder.Path;
+					break;
+#endif
+				case RootType.Local:
 				default:
-#if NETSTANDARD1_6 || __MACOS__
+#if NETSTANDARD1_6 || __MACOS__ || WINDOWS_UWP
 					RootPath = Path.Combine(SpecialFolderUserProfile, "Documents");
 #else
 					RootPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
@@ -108,6 +180,41 @@ namespace pbXNet
 				_visitedPaths = new Stack<string>(_visitedPaths.AsEnumerable()),
 			};
 			return Task.FromResult<IFileSystem>(fs);
+		}
+
+		public class State
+		{
+			class Rec
+			{
+				public string RootPath;
+				public string CurrentPath;
+				public Stack<string> VisitedPaths;
+			}
+
+			Stack<Rec> _stack = new Stack<Rec>();
+
+			public void Save(string rootPath, string currentPath, Stack<string> visitedPaths)
+			{
+				_stack.Push(new Rec
+				{
+					RootPath = rootPath,
+					CurrentPath = currentPath,
+					VisitedPaths = new Stack<string>(visitedPaths.AsEnumerable()),
+				});
+			}
+
+			public bool Restore(ref string rootPath, ref string currentPath, ref Stack<string> visitedPaths)
+			{
+				if (_stack.Count > 0)
+				{
+					Rec entry = _stack.Pop();
+					rootPath = entry.RootPath;
+					currentPath = entry.CurrentPath;
+					visitedPaths = entry.VisitedPaths;
+					return true;
+				}
+				return false;
+			}
 		}
 
 		State _state = new State();
@@ -274,14 +381,14 @@ namespace pbXNet
 			}
 		}
 
-		#region Tools
+#region Tools
 
 		protected virtual string GetFilePath(string filename)
 		{
 			return Path.Combine(CurrentPath, filename);
 		}
 
-		#endregion
+#endregion
 	}
 }
 
