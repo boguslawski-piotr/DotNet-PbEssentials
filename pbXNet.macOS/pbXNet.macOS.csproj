@@ -88,24 +88,12 @@
     <Compile Include="..\pbXNet\pbXNet.AssemblyInfo.cs">
       <Link>Properties\pbXNet.AssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="..\pbXNet\NETStd2\AesCryptographer.cs">
-      <Link>pbXNet\NETStd2\AesCryptographer.cs</Link>
-    </Compile>
-    <Compile Include="..\pbXNet\NETStd2\BinarySerializer.cs">
-      <Link>pbXNet\NETStd2\BinarySerializer.cs</Link>
-    </Compile>
-    <Compile Include="..\pbXNet\NETStd2\DeviceFileSystem.cs">
-      <Link>pbXNet\NETStd2\DeviceFileSystem.cs</Link>
-    </Compile>
-    <Compile Include="..\pbXNet\NETStd2\RsaCryptographer.cs">
-      <Link>pbXNet\NETStd2\RsaCryptographer.cs</Link>
-    </Compile>
-    <Compile Include="..\pbXNet\NETStd2\RsaCryptographerHelper.cs">
-      <Link>pbXNet\NETStd2\RsaCryptographerHelper.cs</Link>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="pbXNet\NETStd2\" />
   </ItemGroup>
   <Import Project="..\pbXNet\pbXNet.Shared.projitems" Label="Shared" Condition="Exists('..\pbXNet\pbXNet.Shared.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Mac\Xamarin.Mac.CSharp.targets" />

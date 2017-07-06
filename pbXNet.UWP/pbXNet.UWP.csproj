@@ -125,23 +125,11 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="../pbXNet/NETStd2/AesCryptographer.cs">
-      <Link>pbXNet\NETStd2\AesCryptographer.cs</Link>
-    </Compile>
-    <Compile Include="../pbXNet/NETStd2/DeviceFileSystem.cs">
-      <Link>pbXNet\NETStd2\DeviceFileSystem.cs</Link>
-    </Compile>
     <Compile Include="../pbXNet/UWP/Locale.cs">
       <Link>pbXNet\UWP\Locale.cs</Link>
     </Compile>
     <Compile Include="../pbXNet/UWP/DOAuthentication.cs">
       <Link>pbXNet\UWP\DOAuthentication.cs</Link>
-    </Compile>
-    <Compile Include="../pbXNet/NETStd2/RsaCryptographer.cs">
-      <Link>pbXNet\NETStd2\RsaCryptographer.cs</Link>
-    </Compile>
-    <Compile Include="../pbXNet/NETStd2/RsaCryptographerHelper.cs">
-      <Link>pbXNet\NETStd2\RsaCryptographerHelper.cs</Link>
     </Compile>
     <Compile Include="../pbXNet/UWP/Tools.cs">
       <Link>pbXNet\UWP\Tools.cs</Link>

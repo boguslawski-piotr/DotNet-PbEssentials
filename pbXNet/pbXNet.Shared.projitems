@@ -30,6 +30,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Singleton.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)AesCryptographer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)RsaCryptographer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)RsaCryptographerHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ICryptographer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ISecretsManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Obfuscator.cs" />
