@@ -52,7 +52,7 @@ namespace Tests
 		[Fact]
 		public async Task DeviceFileSystemConfigBasicTest()
 		{
-			IFileSystem fs = DeviceFileSystem.New(DeviceFileSystemRoot.LocalConfig);
+			IFileSystem fs = DeviceFileSystem.New(DeviceFileSystem.RootType.LocalConfig);
 			await IFileSystemBasicTest(fs);
 		}
 
