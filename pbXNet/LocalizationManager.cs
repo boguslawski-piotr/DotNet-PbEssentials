@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Reflection;
 using System.Resources;
@@ -52,25 +54,18 @@ namespace pbXNet
 			}
 		}
 
-		static readonly List<Resource> _resources = new List<Resource>();
+		static readonly Lazy<ConcurrentBag<Resource>> _resources = new Lazy<ConcurrentBag<Resource>>(() => new ConcurrentBag<Resource>(), true);
 		static int _numberOfInstalledDefaultResources = 0;
 
-		public static void AddResource(string baseName, Assembly assembly, bool first = false)
+		public static void AddResource(string baseName, Assembly assembly)
 		{
-			if (first)
-			{
-				_resources.Clear();
-				CultureInfo = null;
-				_numberOfInstalledDefaultResources = 0;
-			}
-
 			Resource resource = new Resource()
 			{
 				BaseName = baseName,
 				Assembly = assembly,
 			};
 
-			_resources.Add(resource);
+			_resources.Value.Add(resource);
 		}
 
 		public static void AddDefaultResources()
@@ -88,13 +83,13 @@ namespace pbXNet
 			if (name == null)
 				return "";
 
-			string value = null;
-
 			AddDefaultResources();
 
-			if (_resources.Count > 0)
+			string value = null;
+
+			if (_resources.Value.Count > 0)
 			{
-				foreach (var r in _resources)
+				foreach (var r in _resources.Value)
 				{
 					try
 					{
