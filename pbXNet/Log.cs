@@ -91,9 +91,23 @@ namespace pbXNet
 			}
 		}
 
+		public static string L(LogType type, Exception ex, object caller = null, [CallerMemberName]string callerName = null)
+		{
+			string message = ex.Message;
+			if (ex.InnerException != null)
+				message += $" {ex.InnerException.Message + (ex.InnerException.Message.EndsWith(".") ? "" : ".")}";
+			L(type, message, caller, callerName);
+			return message;
+		}
+
 		public static void E(string msg, object caller = null, [CallerMemberName]string callerName = null)
 		{
 			L(LogType.Error, msg, caller, callerName);
+		}
+
+		public static string E(Exception ex, object caller = null, [CallerMemberName]string callerName = null)
+		{
+			return L(LogType.Error, ex, caller, callerName);
 		}
 
 		public static void W(string msg, object caller = null, [CallerMemberName]string callerName = null)
@@ -101,15 +115,34 @@ namespace pbXNet
 			L(LogType.Warning, msg, caller, callerName);
 		}
 
+		public static string W(Exception ex, object caller = null, [CallerMemberName]string callerName = null)
+		{
+			return L(LogType.Warning, ex, caller, callerName);
+		}
+
 		public static void I(string msg, object caller = null, [CallerMemberName]string callerName = null)
 		{
 			L(LogType.Info, msg, caller, callerName);
+		}
+
+		public static string I(Exception ex, object caller = null, [CallerMemberName]string callerName = null)
+		{
+			return L(LogType.Info, ex, caller, callerName);
 		}
 
 		public static void D(string msg, object caller = null, [CallerMemberName]string callerName = null)
 		{
 #if DEBUG
 			L(LogType.Debug, msg, caller, callerName);
+#endif
+		}
+
+		public static string D(Exception ex, object caller = null, [CallerMemberName]string callerName = null)
+		{
+#if DEBUG
+			return L(LogType.Debug, ex, caller, callerName);
+#else
+			return null;
 #endif
 		}
 	}

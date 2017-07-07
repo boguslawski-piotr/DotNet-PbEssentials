@@ -112,10 +112,7 @@ namespace pbXNet
 			}
 			catch (Exception ex)
 			{
-				string message = $"{ex.Message}";
-				if (ex.InnerException != null)
-					message += $" {ex.InnerException.Message + (ex.InnerException.Message.EndsWith(".") ? "" : ".")}";
-				Log.E(message);
+				string message = Log.E(ex);
 				throw new StorageOnPbXStorageException(PbXStorageErrorCode.SystemException, message);
 			}
 		}
