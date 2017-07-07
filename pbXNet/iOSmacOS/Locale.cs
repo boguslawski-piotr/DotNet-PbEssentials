@@ -1,6 +1,5 @@
 ﻿#if __UNIFIED__
 
-using System;
 using System.Globalization;
 using System.Threading;
 using Foundation;
@@ -20,6 +19,7 @@ namespace pbXNet
 		CultureInfo _GetCurrentCultureInfo()
 		{
 			var netLanguage = "en";
+
 			if (NSLocale.PreferredLanguages.Length > 0)
 			{
 				var pref = NSLocale.PreferredLanguages[0];
@@ -33,7 +33,7 @@ namespace pbXNet
 			}
 			catch (CultureNotFoundException e1)
 			{
-				// iOS locale not valid .NET culture (eg. "en-ES" : English in Spain)
+				// locale not valid .NET culture (eg. "en-ES" : English in Spain)
 				// fallback to first characters, in this case "en"
 				try
 				{
@@ -42,7 +42,7 @@ namespace pbXNet
 				}
 				catch (CultureNotFoundException e2)
 				{
-					// iOS language not valid .NET culture, falling back to English
+					// language not valid .NET culture, falling back to English
 					ci = new System.Globalization.CultureInfo("en");
 				}
 			}
@@ -56,15 +56,14 @@ namespace pbXNet
 		{
 			var netLanguage = iOSLanguage;
 
-			//certain languages need to be converted to CultureInfo equivalent
 			switch (iOSLanguage)
 			{
 				case "ms-MY":   // "Malaysian (Malaysia)" not supported .NET culture
 				case "ms-SG":   // "Malaysian (Singapore)" not supported .NET culture
-					netLanguage = "ms"; // closest supported
+					netLanguage = "ms";
 					break;
 				case "gsw-CH":  // "Schwiizertüütsch (Swiss German)" not supported .NET culture
-					netLanguage = "de-CH"; // closest supported
+					netLanguage = "de-CH";
 					break;
 
 					// add more application-specific cases here (if required)

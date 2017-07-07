@@ -31,6 +31,7 @@ namespace pbXNet
 			}
 			set {
 				_cultureInfo = value;
+				_locale.SetLocale(_cultureInfo);
 			}
 		}
 

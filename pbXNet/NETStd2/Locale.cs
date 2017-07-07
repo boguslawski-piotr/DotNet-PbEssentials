@@ -8,6 +8,8 @@ namespace pbXNet
 	{
 		public void _SetLocale(CultureInfo ci)
 		{
+			Thread.CurrentThread.CurrentCulture = ci;
+			Thread.CurrentThread.CurrentUICulture = ci;
 		}
 
 		public CultureInfo _GetCurrentCultureInfo()
