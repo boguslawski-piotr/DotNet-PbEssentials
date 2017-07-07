@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Class StorageOnPbXStorageException
+    <title>Class DeviceFileSystem.State
    </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Class StorageOnPbXStorageException
+    <meta name="title" content="Class DeviceFileSystem.State
    ">
     <meta name="generator" content="docfx 2.19.2.0">
     
@@ -67,8 +67,8 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="pbXNet.StorageOnPbXStorageException">
-  <h1 id="pbXNet_StorageOnPbXStorageException" data-uid="pbXNet.StorageOnPbXStorageException">Class StorageOnPbXStorageException
+            <article class="content wrap" id="_content" data-uid="pbXNet.DeviceFileSystem.State">
+  <h1 id="pbXNet_DeviceFileSystem_State" data-uid="pbXNet.DeviceFileSystem.State">Class DeviceFileSystem.State
   </h1>
   <div class="markdown level0 summary"></div>
   <div class="markdown level0 conceptual"></div>
@@ -76,51 +76,66 @@
   <div class="inheritance">
     <h5>Inheritance</h5>
     <div class="level0"><a class="xref" href="https://msdn.microsoft.com/en-us/library/system.object(v=vs.110).aspx">Object</a></div>
-    <div class="level1"><a class="xref" href="https://msdn.microsoft.com/en-us/library/system.exception(v=vs.110).aspx">Exception</a></div>
-    <div class="level2"><a class="xref" href="pbXNet.StorageException.html">StorageException</a></div>
-    <div class="level3"><span class="xref">StorageOnPbXStorageException</span></div>
+    <div class="level1"><span class="xref">DeviceFileSystem.State</span></div>
   </div>
   
   
-  <h5 id="pbXNet_StorageOnPbXStorageException_syntax">Syntax</h5>
+  <h5 id="pbXNet_DeviceFileSystem_State_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class StorageOnPbXStorageException : StorageException</code></pre>
+    <pre><code class="lang-csharp hljs">public class State</code></pre>
   </div>
 
   
   
   
   
-  <h3 id="constructors">Constructors
+  <h3 id="methods">Methods
   </h3>
   
   
-  <a id="pbXNet_StorageOnPbXStorageException__ctor_" data-uid="pbXNet.StorageOnPbXStorageException.#ctor*"></a>
+  <a id="pbXNet_DeviceFileSystem_State_Restore_" data-uid="pbXNet.DeviceFileSystem.State.Restore*"></a>
   
-  <h4 id="pbXNet_StorageOnPbXStorageException__ctor_pbXNet_PbXStorageErrorCode_System_String_" data-uid="pbXNet.StorageOnPbXStorageException.#ctor(pbXNet.PbXStorageErrorCode,System.String)"><a href="#collapsible-pbXNet_StorageOnPbXStorageException__ctor_pbXNet_PbXStorageErrorCode_System_String_" class="expander" data-toggle="collapse">StorageOnPbXStorageException(PbXStorageErrorCode, String)</a></h4>
+  <h4 id="pbXNet_DeviceFileSystem_State_Restore_System_String__System_String__System_Collections_Generic_Stack_System_String___" data-uid="pbXNet.DeviceFileSystem.State.Restore(System.String@,System.String@,System.Collections.Generic.Stack{System.String}@)"><a href="#collapsible-pbXNet_DeviceFileSystem_State_Restore_System_String__System_String__System_Collections_Generic_Stack_System_String___" class="expander" data-toggle="collapse">Restore(ref String, ref String, ref Stack&lt;String&gt;)</a></h4>
   
-  <div id="collapsible-pbXNet_StorageOnPbXStorageException__ctor_pbXNet_PbXStorageErrorCode_System_String_" class="collapse in">
+  <div id="collapsible-pbXNet_DeviceFileSystem_State_Restore_System_String__System_String__System_Collections_Generic_Stack_System_String___" class="collapse in">
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public StorageOnPbXStorageException(PbXStorageErrorCode error, string message)</code></pre>
+    <pre><code class="lang-csharp hljs">public bool Restore(ref string rootPath, ref string currentPath, ref Stack&lt;string&gt; visitedPaths)</code></pre>
   </div>
 
   <h5 class="parameters">Parameters</h5>
   <table>
     <tr>
       <td>
-        <span class="pull-right"><a class="xref" href="pbXNet.PbXStorageErrorCode.html">PbXStorageErrorCode</a></span>
-        <span class="parametername">error</span>
+        <span class="pull-right"><a class="xref" href="https://msdn.microsoft.com/en-us/library/system.string(v=vs.110).aspx">String</a></span>
+        <span class="parametername">rootPath</span>
         <p>
       </td>
     </tr>
     <tr>
       <td>
         <span class="pull-right"><a class="xref" href="https://msdn.microsoft.com/en-us/library/system.string(v=vs.110).aspx">String</a></span>
-        <span class="parametername">message</span>
+        <span class="parametername">currentPath</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><span class="xref">System.Collections.Generic.Stack&lt;System.String&gt;</span></span>
+        <span class="parametername">visitedPaths</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://msdn.microsoft.com/en-us/library/system.boolean(v=vs.110).aspx">Boolean</a>
         <p>
       </td>
     </tr>
@@ -135,80 +150,49 @@
   
   
   
-  
   </div>
   
   
-  <a id="pbXNet_StorageOnPbXStorageException__ctor_" data-uid="pbXNet.StorageOnPbXStorageException.#ctor*"></a>
+  <a id="pbXNet_DeviceFileSystem_State_Save_" data-uid="pbXNet.DeviceFileSystem.State.Save*"></a>
   
-  <h4 id="pbXNet_StorageOnPbXStorageException__ctor_System_Int32_System_String_" data-uid="pbXNet.StorageOnPbXStorageException.#ctor(System.Int32,System.String)"><a href="#collapsible-pbXNet_StorageOnPbXStorageException__ctor_System_Int32_System_String_" class="expander" data-toggle="collapse">StorageOnPbXStorageException(Int32, String)</a></h4>
+  <h4 id="pbXNet_DeviceFileSystem_State_Save_System_String_System_String_System_Collections_Generic_Stack_System_String__" data-uid="pbXNet.DeviceFileSystem.State.Save(System.String,System.String,System.Collections.Generic.Stack{System.String})"><a href="#collapsible-pbXNet_DeviceFileSystem_State_Save_System_String_System_String_System_Collections_Generic_Stack_System_String__" class="expander" data-toggle="collapse">Save(String, String, Stack&lt;String&gt;)</a></h4>
   
-  <div id="collapsible-pbXNet_StorageOnPbXStorageException__ctor_System_Int32_System_String_" class="collapse in">
+  <div id="collapsible-pbXNet_DeviceFileSystem_State_Save_System_String_System_String_System_Collections_Generic_Stack_System_String__" class="collapse in">
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public StorageOnPbXStorageException(int error, string message)</code></pre>
+    <pre><code class="lang-csharp hljs">public void Save(string rootPath, string currentPath, Stack&lt;string&gt; visitedPaths)</code></pre>
   </div>
 
   <h5 class="parameters">Parameters</h5>
   <table>
     <tr>
       <td>
-        <span class="pull-right"><a class="xref" href="https://msdn.microsoft.com/en-us/library/system.int32(v=vs.110).aspx">Int32</a></span>
-        <span class="parametername">error</span>
+        <span class="pull-right"><a class="xref" href="https://msdn.microsoft.com/en-us/library/system.string(v=vs.110).aspx">String</a></span>
+        <span class="parametername">rootPath</span>
         <p>
       </td>
     </tr>
     <tr>
       <td>
         <span class="pull-right"><a class="xref" href="https://msdn.microsoft.com/en-us/library/system.string(v=vs.110).aspx">String</a></span>
-        <span class="parametername">message</span>
+        <span class="parametername">currentPath</span>
         <p>
       </td>
     </tr>
-  </table>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  </div>
-  <h3 id="fields">Fields
-  </h3>
-  
-  
-  
-  <h4 id="pbXNet_StorageOnPbXStorageException_Erorr" data-uid="pbXNet.StorageOnPbXStorageException.Erorr"><a href="#collapsible-pbXNet_StorageOnPbXStorageException_Erorr" class="expander" data-toggle="collapse">Erorr</a></h4>
-  
-  <div id="collapsible-pbXNet_StorageOnPbXStorageException_Erorr" class="collapse in">
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public int Erorr</code></pre>
-  </div>
-
-  
-  
-  
-  <h5 class="fieldValue">Field Value</h5>
-  <table>
     <tr>
       <td>
-        <a class="xref" href="https://msdn.microsoft.com/en-us/library/system.int32(v=vs.110).aspx">Int32</a>
+        <span class="pull-right"><span class="xref">System.Collections.Generic.Stack&lt;System.String&gt;</span></span>
+        <span class="parametername">visitedPaths</span>
         <p>
       </td>
     </tr>
   </table>
+  
+  
+  
   
   
   
@@ -222,33 +206,6 @@
   
   <div class="inheritedMembers">
   	<h3 id="inheritedmembers">Inherited Members</h3>
-  	<div>
-  		<a class="xref" href="https://msdn.microsoft.com/en-us/library/49kcee3b(v=vs.110).aspx">Exception.GetBaseException()</a>
-  	</div>
-  	<div>
-  		<a class="xref" href="https://msdn.microsoft.com/en-us/library/es4y6f7e(v=vs.110).aspx">Exception.ToString()</a>
-  	</div>
-  	<div>
-  		<a class="xref" href="https://msdn.microsoft.com/en-us/library/2wyfbc48(v=vs.110).aspx">Exception.Data</a>
-  	</div>
-  	<div>
-  		<a class="xref" href="https://msdn.microsoft.com/en-us/library/71tawy4s(v=vs.110).aspx">Exception.HelpLink</a>
-  	</div>
-  	<div>
-  		<a class="xref" href="https://msdn.microsoft.com/en-us/library/sh5cw61c(v=vs.110).aspx">Exception.HResult</a>
-  	</div>
-  	<div>
-  		<a class="xref" href="https://msdn.microsoft.com/en-us/library/902sca80(v=vs.110).aspx">Exception.InnerException</a>
-  	</div>
-  	<div>
-  		<a class="xref" href="https://msdn.microsoft.com/en-us/library/9btwf6wk(v=vs.110).aspx">Exception.Message</a>
-  	</div>
-  	<div>
-  		<a class="xref" href="https://msdn.microsoft.com/en-us/library/85weac5w(v=vs.110).aspx">Exception.Source</a>
-  	</div>
-  	<div>
-  		<a class="xref" href="https://msdn.microsoft.com/en-us/library/dxzhy005(v=vs.110).aspx">Exception.StackTrace</a>
-  	</div>
   	<div>
   		<a class="xref" href="https://msdn.microsoft.com/en-us/library/bsc2ak47(v=vs.110).aspx">Object.Equals(Object)</a>
   	</div>
@@ -266,6 +223,9 @@
   	</div>
   	<div>
   		<a class="xref" href="https://msdn.microsoft.com/en-us/library/hz2a0b8x(v=vs.110).aspx">Object.ReferenceEquals(Object, Object)</a>
+  	</div>
+  	<div>
+  		<a class="xref" href="https://msdn.microsoft.com/en-us/library/7bxwbwt2(v=vs.110).aspx">Object.ToString()</a>
   	</div>
   </div>
   

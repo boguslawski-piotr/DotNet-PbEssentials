@@ -34,11 +34,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="pbXNet\Droid\Log.cs" />
-    <Compile Include="pbXNet\NETStd2\AesCryptographer.cs" />
-    <Compile Include="pbXNet\NETStd2\RsaCryptographer.cs" />
-    <Compile Include="pbXNet\NETStd2\RsaCryptographerHelper.cs" />
-    <Compile Include="pbXNet\NETStd2\BinarySerializer.cs" />
-    <Compile Include="pbXNet\NETStd2\DeviceFileSystem.cs" />
     <Compile Include="pbXNet\iOSmacOS\Log.cs" />
   </ItemGroup>
   <ItemGroup>
