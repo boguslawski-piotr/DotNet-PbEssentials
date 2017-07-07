@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Linq.Expressions;
+using System.Reflection;
 using System.Text;
 
 namespace pbXNet
@@ -94,6 +96,20 @@ namespace pbXNet
 		public static MemoryStream ToMemoryStream(this string src)
 		{
 			return ConvertEx.ToMemoryStream(src);
+		}
+	}
+
+	/// <summary>
+	/// Linq expression extensions.
+	/// </summary>
+	public static class ExpressionExtensions
+	{
+		public static PropertyInfo AsPropertyInfo<T>(this Expression<Func<T, object>> property)
+		{
+			Expression body = property.Body;
+			if ((body as UnaryExpression)?.Operand is MemberExpression operand)
+				body = operand;
+			return (body as MemberExpression)?.Member as PropertyInfo;
 		}
 	}
 }
