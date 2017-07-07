@@ -23,7 +23,7 @@ namespace pbXNet
 		public StorageType Type;
 	}
 
-	public class StorageOnAzureStorage<T> : Storage<T>, ISearchableStorage<T> where T : class
+	public class StorageOnAzureStorage<T> : Storage<T>, ISearchableStorage<T>
 	{
 		public override StorageType Type => StorageType.RemoteService;
 
@@ -86,7 +86,7 @@ namespace pbXNet
 			}
 			catch (Exception ex)
 			{
-				Log.E(ex.Message, this);
+				Log.E(ex, this);
 				throw ex;
 			}
 		}
@@ -127,7 +127,7 @@ namespace pbXNet
 			}
 			catch (Exception ex)
 			{
-				Log.E(ex.Message, this);
+				Log.E(ex, this);
 				throw ex;
 			}
 		}
@@ -141,7 +141,7 @@ namespace pbXNet
 			}
 			catch (Exception ex)
 			{
-				Log.E(ex.Message, this);
+				Log.E(ex, this);
 				throw ex;
 			}
 		}
@@ -151,8 +151,9 @@ namespace pbXNet
 			try
 			{
 				var blob = Container.GetBlobReference(thingId);
+
 				if (!await blob.ExistsAsync().ConfigureAwait(false))
-					return DateTime.MinValue;
+					throw new StorageThingNotFoundException(thingId);
 
 				await blob.FetchAttributesAsync().ConfigureAwait(false);
 
@@ -160,7 +161,7 @@ namespace pbXNet
 			}
 			catch (Exception ex)
 			{
-				Log.E(ex.Message, this);
+				Log.E(ex, this);
 				throw ex;
 			}
 		}
@@ -170,8 +171,9 @@ namespace pbXNet
 			try
 			{
 				var blob = Container.GetBlobReference(thingId);
+
 				if (!await blob.ExistsAsync().ConfigureAwait(false))
-					return null;
+					throw new StorageThingNotFoundException(thingId);
 
 				await blob.FetchAttributesAsync().ConfigureAwait(false);
 
@@ -190,7 +192,7 @@ namespace pbXNet
 			}
 			catch (Exception ex)
 			{
-				Log.E(ex.Message, this);
+				Log.E(ex, this);
 				throw ex;
 			}
 		}
@@ -204,7 +206,7 @@ namespace pbXNet
 			}
 			catch (Exception ex)
 			{
-				Log.E(ex.Message, this);
+				Log.E(ex, this);
 				throw ex;
 			}
 		}
@@ -213,7 +215,7 @@ namespace pbXNet
 		{
 			try
 			{
-				List<string> ids = null;
+				List<string> ids = new List<string>();
 				BlobContinuationToken token = null;
 
 				do
@@ -224,8 +226,6 @@ namespace pbXNet
 						var idsSegment = segment.Results.Cast<CloudBlob>().Where(b => Regex.IsMatch(b.Name, pattern)).Select(b => b.Name);
 						if (idsSegment?.Count() > 0)
 						{
-							if (ids == null)
-								ids = new List<string>();
 							ids.AddRange(idsSegment);
 						}
 					}
@@ -238,7 +238,7 @@ namespace pbXNet
 			}
 			catch (Exception ex)
 			{
-				Log.E(ex.Message, this);
+				Log.E(ex, this);
 				throw ex;
 			}
 		}

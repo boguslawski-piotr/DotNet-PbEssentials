@@ -4,6 +4,17 @@ using System.Threading.Tasks;
 
 namespace pbXNet
 {
+	public class StorageException : Exception
+	{
+		public StorageException(string message)	: base(message)	{ }
+	}
+
+	public class StorageThingNotFoundException : StorageException
+	{
+		public StorageThingNotFoundException(string thingId) : base(pbXNet.T.Localized("S_ThingNotFound", thingId)) { }
+		public StorageThingNotFoundException(string message, string thingId) : base(string.Format(message, thingId)) { }
+	}
+
 	[Flags]
 	public enum StorageType
 	{
@@ -16,7 +27,7 @@ namespace pbXNet
 		Slow = RemoteIO | RemoteService,
 	}
 
-	public interface IStorage<T> where T : class
+	public interface IStorage<T>
 	{
 		StorageType Type { get; }
 
@@ -39,19 +50,19 @@ namespace pbXNet
 
 		/// <summary>
 		/// Returns modification date/time (as UTC) stored with data (see <see cref="StoreAsync">StoreAsync</see>).
-		/// If data with the given <paramref name="thingId"/> does not exist, should return DateTime.MinValue.
+		/// If data with the given <paramref name="thingId"/> does not exist, should throw StorageThingNotFoundException.
 		/// </summary>
 		Task<DateTime> GetModifiedOnAsync(string thingId);
 
 		/// <summary>
 		/// Gets a copy of data identified by <paramref name="thingId"/> from the storage.
-		/// If data with the given <paramref name="thingId"/> does not exist, should return null.
+		/// If data with the given <paramref name="thingId"/> does not exist, should throw StorageThingNotFoundException.
 		/// </summary>
 		Task<T> GetACopyAsync(string thingId);
 
 		/// <summary>
 		/// Retrieves (== after this operation data is no longer stored) data identified by <paramref name="thingId"/> from the storage.
-		/// If data with the given <paramref name="thingId"/> does not exist, should return null.
+		/// If data with the given <paramref name="thingId"/> does not exist, should throw StorageThingNotFoundException.
 		/// </summary>
 		Task<T> RetrieveAsync(string thingId);
 
@@ -61,11 +72,11 @@ namespace pbXNet
 		Task DiscardAsync(string thingId);
 	}
 
-	public interface ISearchableStorage<T> : IStorage<T> where T : class
+	public interface ISearchableStorage<T> : IStorage<T>
 	{
 		/// <summary>
 		/// Finds the identifiers matching a <paramref name="pattern"/> (.NET Regex).
-		/// If nothing was found, should return null.
+		/// If nothing was found, should return Enumerable.Empty&ltT&gt;().
 		/// </summary>
 		Task<IEnumerable<string>> FindIdsAsync(string pattern);
 	}

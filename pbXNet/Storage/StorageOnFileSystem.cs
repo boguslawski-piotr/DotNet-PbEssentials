@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace pbXNet
 {
-	public class StorageOnFileSystem<T> : Storage<T>, ISearchableStorage<T> where T : class
+	public class StorageOnFileSystem<T> : Storage<T>, ISearchableStorage<T>
 	{
 		public override StorageType Type => Fs.Type == FileSystemType.Local ? StorageType.LocalIO : StorageType.RemoteIO;
 
@@ -63,7 +64,7 @@ namespace pbXNet
 		public override async Task<DateTime> GetModifiedOnAsync(string thingId)
 		{
 			if (!await ExistsAsync(thingId).ConfigureAwait(false))
-				return DateTime.MinValue;
+				throw new StorageThingNotFoundException(thingId);
 
 			IFileSystem fs = await GetFsAsync().ConfigureAwait(false);
 			return await fs.GetFileModifiedOnAsync(thingId).ConfigureAwait(false);
@@ -72,7 +73,7 @@ namespace pbXNet
 		public override async Task<T> GetACopyAsync(string thingId)
 		{
 			if (!await ExistsAsync(thingId).ConfigureAwait(false))
-				return null;
+				throw new StorageThingNotFoundException(thingId);
 
 			IFileSystem fs = await GetFsAsync().ConfigureAwait(false);
 
@@ -91,7 +92,7 @@ namespace pbXNet
 
 			await Fs.SetCurrentDirectoryAsync(null).ConfigureAwait(false);
 			if (!await Fs.DirectoryExistsAsync(Id).ConfigureAwait(false))
-				return null;
+				return Enumerable.Empty<string>();
 
 			await Fs.SetCurrentDirectoryAsync(Id).ConfigureAwait(false);
 			return await Fs.GetFilesAsync(pattern).ConfigureAwait(false);

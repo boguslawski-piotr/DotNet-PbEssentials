@@ -177,4 +177,7 @@
   <data name="SOPXS_RepoDoesntExist" xml:space="preserve">
     <value>Repository doesn't exist.</value>
   </data>
+  <data name="S_ThingNotFound" xml:space="preserve">
+    <value>'{0}' was not found.</value>
+  </data>
 </root>

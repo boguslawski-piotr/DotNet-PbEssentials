@@ -33,10 +33,11 @@ namespace pbXNet
 		IncorrectAppToken = 2000,
 		OpenStorageFailed = 2001,
 		IncorrectStorageToken = 3000,
-		ThingOperationFailed = 3001,
+		ThingNotFound = 3001,
+		ThingOperationFailed = 3002,
 	}
 
-	public class StorageOnPbXStorageException : Exception
+	public class StorageOnPbXStorageException : StorageException
 	{
 		public int Erorr;
 
@@ -107,8 +108,11 @@ namespace pbXNet
 			}
 			catch (StorageOnPbXStorageException ex)
 			{
-				Log.E(ex.Message);
-				throw ex;
+				Log.E(ex);
+				if (ex.Erorr == (int)PbXStorageErrorCode.ThingNotFound)
+					throw new StorageThingNotFoundException(ex.Message, null);
+				else
+					throw ex;
 			}
 			catch (Exception ex)
 			{

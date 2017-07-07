@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace pbXNet
 {
-	public abstract class Storage<T> : IStorage<T> where T : class
+	public abstract class Storage<T> : IStorage<T>
 	{
 		public abstract StorageType Type { get; }
 
@@ -37,8 +37,7 @@ namespace pbXNet
 		public virtual async Task<T> RetrieveAsync(string thingId)
 		{
 			T data = await GetACopyAsync(thingId).ConfigureAwait(false);
-			if (data != null)
-				await DiscardAsync(thingId).ConfigureAwait(false);
+			await DiscardAsync(thingId).ConfigureAwait(false);
 			return data;
 		}
 	}
