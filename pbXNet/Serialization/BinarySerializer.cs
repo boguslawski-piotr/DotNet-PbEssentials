@@ -1,4 +1,6 @@
-﻿using System;
+﻿#if !NETSTANDARD1_6 && !WINDOWS_UWP
+
+using System;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Runtime.Serialization;
@@ -43,3 +45,5 @@ namespace pbXNet
 		}
 	}
 }
+
+#endif
