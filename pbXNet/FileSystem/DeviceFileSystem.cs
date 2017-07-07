@@ -65,7 +65,7 @@ namespace pbXNet
 
 		public string CurrentPath { get; protected set; }
 
-		Stack<string> _visitedPaths = new Stack<string>();
+		protected Stack<string> VisitedPaths = new Stack<string>();
 
 		string _userDefinedRootPath;
 
@@ -84,6 +84,9 @@ namespace pbXNet
 			fs.Initialize();
 			return fs;
 		}
+
+		public static async Task<IFileSystem> NewAsync(RootType root = RootType.Local, string userDefinedRootPath = null) 
+			=> New(root, userDefinedRootPath);
 
 #if NETSTANDARD1_6 || __MACOS__ || WINDOWS_UWP
 		string SpecialFolderUserProfile
@@ -162,12 +165,12 @@ namespace pbXNet
 			}
 
 			CurrentPath = RootPath;
-			_visitedPaths.Clear();
+			VisitedPaths.Clear();
 		}
 
 		public virtual void Dispose()
 		{
-			_visitedPaths.Clear();
+			VisitedPaths.Clear();
 			RootPath = CurrentPath = null;
 		}
 
@@ -177,7 +180,7 @@ namespace pbXNet
 			{
 				RootPath = this.RootPath,
 				CurrentPath = this.CurrentPath,
-				_visitedPaths = new Stack<string>(_visitedPaths.AsEnumerable()),
+				VisitedPaths = new Stack<string>(VisitedPaths.AsEnumerable()),
 			};
 			return Task.FromResult<IFileSystem>(fs);
 		}
@@ -217,36 +220,33 @@ namespace pbXNet
 			}
 		}
 
-		State _state = new State();
+		protected State States = new State();
 
-		public virtual Task SaveStateAsync()
+		public virtual async Task SaveStateAsync()
 		{
-			_state.Save(RootPath, CurrentPath, _visitedPaths);
-			return Task.FromResult(true);
+			States.Save(RootPath, CurrentPath, VisitedPaths);
 		}
 
-		public virtual Task RestoreStateAsync()
+		public virtual async Task RestoreStateAsync()
 		{
 			string rootPath = "", currentPath = "";
-			if (_state.Restore(ref rootPath, ref currentPath, ref _visitedPaths))
+			if (States.Restore(ref rootPath, ref currentPath, ref VisitedPaths))
 			{
 				RootPath = rootPath;
 				CurrentPath = currentPath;
 			}
-			return Task.FromResult(true);
 		}
 
-
-		public virtual Task SetCurrentDirectoryAsync(string dirname)
+		public virtual async Task SetCurrentDirectoryAsync(string dirname)
 		{
 			if (string.IsNullOrEmpty(dirname))
 			{
 				CurrentPath = RootPath;
-				_visitedPaths.Clear();
+				VisitedPaths.Clear();
 			}
 			else if (dirname == "..")
 			{
-				CurrentPath = _visitedPaths.Count > 0 ? _visitedPaths.Pop() : RootPath;
+				CurrentPath = VisitedPaths.Count > 0 ? VisitedPaths.Pop() : RootPath;
 			}
 			else
 			{
@@ -254,33 +254,39 @@ namespace pbXNet
 				if (!Directory.Exists(dirpath))
 					throw new DirectoryNotFoundException(T.Localized("FS_DirNotFound", CurrentPath, dirname));
 
-				_visitedPaths.Push(CurrentPath);
+				VisitedPaths.Push(CurrentPath);
 				CurrentPath = dirpath;
 			}
-			return Task.FromResult(true);
 		}
 
-		public virtual Task<IEnumerable<string>> GetDirectoriesAsync(string pattern = "")
+		public virtual async Task<IEnumerable<string>> GetDirectoriesAsync(string pattern = "")
 		{
-			IEnumerable<string> dirnames =
-				from dirpath in Directory.EnumerateDirectories(CurrentPath)
-				let dirname = Path.GetFileName(dirpath)
-				where Regex.IsMatch(dirname, pattern)
-				select dirname;
-			return Task.FromResult(dirnames);
+			IEnumerable<string> dirnames = Enumerable.Empty<string>();
+
+			await Task.Factory.StartNew(() =>
+			{
+				bool emptyPattern = string.IsNullOrWhiteSpace(pattern);
+				dirnames =
+					from dirpath in Directory.EnumerateDirectories(CurrentPath)
+					let dirname = Path.GetFileName(dirpath)
+					where emptyPattern || Regex.IsMatch(dirname, pattern)
+					select dirname;
+			})
+			.ConfigureAwait(false);
+
+			return dirnames;
 		}
 
-		public virtual Task<bool> DirectoryExistsAsync(string dirname)
+		public virtual async Task<bool> DirectoryExistsAsync(string dirname)
 		{
 			if (string.IsNullOrEmpty(dirname))
-				return Task.FromResult(false);
+				return false;
 
 			string dirpath = GetFilePath(dirname);
-			bool exists = Directory.Exists(dirpath);
-			return Task.FromResult(exists);
+			return Directory.Exists(dirpath);
 		}
 
-		public virtual Task CreateDirectoryAsync(string dirname)
+		public virtual async Task CreateDirectoryAsync(string dirname)
 		{
 			if (string.IsNullOrEmpty(dirname))
 				throw new ArgumentNullException(nameof(dirname));
@@ -289,12 +295,11 @@ namespace pbXNet
 			if(!Directory.Exists(dirpath))
 				Directory.CreateDirectory(dirpath);
 
-			_visitedPaths.Push(CurrentPath);
+			VisitedPaths.Push(CurrentPath);
 			CurrentPath = dirpath;
-			return Task.FromResult(true);
 		}
 
-		public virtual Task DeleteDirectoryAsync(string dirname)
+		public virtual async Task DeleteDirectoryAsync(string dirname)
 		{
 			if (string.IsNullOrEmpty(dirname))
 				throw new ArgumentNullException(nameof(dirname));
@@ -302,32 +307,36 @@ namespace pbXNet
 			string dirpath = GetFilePath(dirname);
 			if (Directory.Exists(dirpath))
 				Directory.Delete(dirpath);
-
-			return Task.FromResult(true);
 		}
 
-
-		public virtual Task<IEnumerable<string>> GetFilesAsync(string pattern = "")
+		public virtual async Task<IEnumerable<string>> GetFilesAsync(string pattern = "")
 		{
-			IEnumerable<string> filenames =
-				from filepath in Directory.EnumerateFiles(CurrentPath)
-				let filename = Path.GetFileName(filepath)
-				where Regex.IsMatch(filename, pattern)
-				select filename;
-			return Task.FromResult(filenames);
+			IEnumerable<string> filenames = Enumerable.Empty<string>();
+
+			await Task.Factory.StartNew(() =>
+			{
+				bool emptyPattern = string.IsNullOrWhiteSpace(pattern);
+				filenames =
+					from filepath in Directory.EnumerateFiles(CurrentPath)
+					let filename = Path.GetFileName(filepath)
+					where emptyPattern || Regex.IsMatch(filename, pattern)
+					select filename;
+			})
+			.ConfigureAwait(false);
+
+			return filenames;
 		}
 
-		public virtual Task<bool> FileExistsAsync(string filename)
+		public virtual async Task<bool> FileExistsAsync(string filename)
 		{
 			if (string.IsNullOrEmpty(filename))
-				return Task.FromResult(false);
+				return false;
 
 			string filepath = GetFilePath(filename);
-			bool exists = File.Exists(filepath);
-			return Task.FromResult(exists);
+			return File.Exists(filepath);
 		}
 
-		public virtual Task DeleteFileAsync(string filename)
+		public virtual async Task DeleteFileAsync(string filename)
 		{
 			if (string.IsNullOrEmpty(filename))
 				throw new ArgumentNullException(nameof(filename));
@@ -335,26 +344,23 @@ namespace pbXNet
 			string filepath = GetFilePath(filename);
 			if (File.Exists(filepath))
 				File.Delete(filepath);
-
-			return Task.FromResult(true);
 		}
 
-		public virtual Task SetFileModifiedOnAsync(string filename, DateTime modifiedOn)
+		public virtual async Task SetFileModifiedOnAsync(string filename, DateTime modifiedOn)
 		{
 			if (string.IsNullOrEmpty(filename))
 				throw new ArgumentNullException(nameof(filename));
 
 			File.SetLastWriteTimeUtc(GetFilePath(filename), modifiedOn.ToUniversalTime());
-			return Task.FromResult(true);
 		}
 
-		public virtual Task<DateTime> GetFileModifiedOnAsync(string filename)
+		public virtual async Task<DateTime> GetFileModifiedOnAsync(string filename)
 		{
 			if (string.IsNullOrEmpty(filename))
 				throw new ArgumentNullException(nameof(filename));
 
 			DateTime modifiedOn = File.GetLastWriteTimeUtc(GetFilePath(filename));
-			return Task.FromResult(modifiedOn);
+			return modifiedOn;
 		}
 
 		public virtual async Task WriteTextAsync(string filename, string text)
