@@ -26,11 +26,11 @@ namespace Tests
 		[Fact]
 		public async Task SimpleDatabaseInMemoryBasicTest()
 		{
-			ISimpleDatabase db = new SimpleDatabaseInMemory();
+			IDatabase db = new SimpleDatabaseInMemory();
 			await IDatabaseBasicTest(db);
 		}
 
-		public async Task IDatabaseBasicTest(ISimpleDatabase db)
+		public async Task IDatabaseBasicTest(IDatabase db)
 		{
 			var t = await db.CreateTableAsync<Row>("Tests");
 			//await t.CreatePrimaryKeyAsync("Path");

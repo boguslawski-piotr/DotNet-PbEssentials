@@ -130,6 +130,8 @@ namespace Tests
 
 			Assert.Single(l);
 
+			Assert.True(l.First() == "ftest5");
+
 			l = await fs.GetFilesAsync("15$");
 
 			Assert.Empty(l);
