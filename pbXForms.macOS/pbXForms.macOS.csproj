@@ -51,19 +51,19 @@
     <Reference Include="System.Core" />
     <Reference Include="Xamarin.Mac" />
     <Reference Include="Xamarin.Forms.Core">
-      <HintPath>..\..\SafeNotebooks\packages\Xamarin.Forms.2.3.5.255-pre5\lib\Xamarin.Mac\Xamarin.Forms.Core.dll</HintPath>
+      <HintPath>..\..\SafeNotebooks\packages\Xamarin.Forms.2.3.5.256-pre6\lib\Xamarin.Mac\Xamarin.Forms.Core.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Xamarin.Forms.Platform">
-      <HintPath>..\..\SafeNotebooks\packages\Xamarin.Forms.2.3.5.255-pre5\lib\Xamarin.Mac\Xamarin.Forms.Platform.dll</HintPath>
+      <HintPath>..\..\SafeNotebooks\packages\Xamarin.Forms.2.3.5.256-pre6\lib\Xamarin.Mac\Xamarin.Forms.Platform.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Xamarin.Forms.Platform.macOS">
-      <HintPath>..\..\SafeNotebooks\packages\Xamarin.Forms.2.3.5.255-pre5\lib\Xamarin.Mac\Xamarin.Forms.Platform.macOS.dll</HintPath>
+      <HintPath>..\..\SafeNotebooks\packages\Xamarin.Forms.2.3.5.256-pre6\lib\Xamarin.Mac\Xamarin.Forms.Platform.macOS.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Xamarin.Forms.Xaml">
-      <HintPath>..\..\SafeNotebooks\packages\Xamarin.Forms.2.3.5.255-pre5\lib\Xamarin.Mac\Xamarin.Forms.Xaml.dll</HintPath>
+      <HintPath>..\..\SafeNotebooks\packages\Xamarin.Forms.2.3.5.256-pre6\lib\Xamarin.Mac\Xamarin.Forms.Xaml.dll</HintPath>
       <Private>False</Private>
     </Reference>
   </ItemGroup>
@@ -87,5 +87,5 @@
   <Import Project="..\pbXForms\pbXForms.Shared.projitems" Label="Shared" Condition="Exists('..\pbXForms\pbXForms.Shared.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Mac\Xamarin.Mac.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Forms.2.3.5.239-pre3\build\netstandard1.0\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.2.3.5.239-pre3\build\netstandard1.0\Xamarin.Forms.targets')" />
-  <Import Project="..\..\SafeNotebooks\packages\Xamarin.Forms.2.3.5.255-pre5\build\netstandard1.0\Xamarin.Forms.targets" Condition="Exists('..\..\SafeNotebooks\packages\Xamarin.Forms.2.3.5.255-pre5\build\netstandard1.0\Xamarin.Forms.targets')" />
+  <Import Project="..\..\SafeNotebooks\packages\Xamarin.Forms.2.3.5.256-pre6\build\netstandard1.0\Xamarin.Forms.targets" Condition="Exists('..\..\SafeNotebooks\packages\Xamarin.Forms.2.3.5.256-pre6\build\netstandard1.0\Xamarin.Forms.targets')" />
 </Project>
