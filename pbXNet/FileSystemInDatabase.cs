@@ -24,8 +24,6 @@ namespace pbXNet
 
 		Stack<string> _visitedPaths = new Stack<string>();
 
-		ISimpleDatabase _db;
-
 		class FsEntry
 		{
 			public string Path { get; set; }
@@ -36,16 +34,18 @@ namespace pbXNet
 			public DateTime ModifiedOn { get; set; }
 		}
 
+		IDatabase _db;
+		ITable<FsEntry> _t;
 		FsEntry _pk = new FsEntry();
 
-		protected FileSystemInDatabase(string id, ISimpleDatabase db)
+		protected FileSystemInDatabase(string id, IDatabase db)
 		{
 			Id = id ?? throw new ArgumentNullException(nameof(id));
 			_db = db ?? throw new ArgumentNullException(nameof(db));
 			RootPath = CurrentPath = "/";
 		}
 
-		public static async Task<IFileSystem> NewAsync(string id, ISimpleDatabase db)
+		public static async Task<IFileSystem> NewAsync(string id, IDatabase db)
 		{
 			if (id == null)
 				throw new ArgumentNullException(nameof(id));
@@ -64,13 +64,10 @@ namespace pbXNet
 
 		public virtual async Task InitializeAsync()
 		{
-			await _db.InitializeAsync().ConfigureAwait(false);
+			_t = await _db.CreateTableAsync<FsEntry>(Id).ConfigureAwait(false);
 
-			ITable<FsEntry> t = await _db.CreateTableAsync<FsEntry>(Id).ConfigureAwait(false);
-
-			FsEntry entry;
-			await t.CreatePrimaryKeyAsync(nameof(entry.Path), nameof(entry.Name)).ConfigureAwait(false);
-			await t.CreateIndexAsync(false, nameof(entry.Path)).ConfigureAwait(false);
+			await _t.CreatePrimaryKeyAsync(e => e.Path, e => e.Name).ConfigureAwait(false);
+			await _t.CreateIndexAsync(false, e => e.Path).ConfigureAwait(false);
 		}
 
 		public void Dispose()
@@ -133,12 +130,12 @@ namespace pbXNet
 		public async Task<IEnumerable<string>> GetDirectoriesAsync(string pattern = "")
 		{
 			bool emptyPattern = string.IsNullOrWhiteSpace(pattern);
-			var q = await
-				_db.Table<FsEntry>(Id)
-				.Rows
-				.Where(e => e.Path == CurrentPath && e.IsDirectory && (emptyPattern || Regex.IsMatch(e.Name, pattern)))
-				.PrepareAsync();
-			return q.Select((e) => e.Name);
+			return
+				(await _t.Rows
+					.Where(e => e.Path == CurrentPath && e.IsDirectory)
+					.Where(e => emptyPattern || Regex.IsMatch(e.Name, pattern))
+					.PrepareAsync())
+					.Select((e) => e.Name);
 		}
 
 		public async Task<bool> DirectoryExistsAsync(string dirname)
@@ -148,7 +145,7 @@ namespace pbXNet
 
 			_pk.Path = CurrentPath;
 			_pk.Name = dirname;
-			return await _db.Table<FsEntry>(Id).FindAsync(_pk).ConfigureAwait(false) != null;
+			return await _t.FindAsync(_pk).ConfigureAwait(false) != null;
 		}
 
 		public async Task CreateDirectoryAsync(string dirname)
@@ -158,7 +155,7 @@ namespace pbXNet
 
 			if (!await DirectoryExistsAsync(dirname).ConfigureAwait(false))
 			{
-				await _db.Table<FsEntry>(Id).InsertAsync(
+				await _t.InsertAsync(
 					new FsEntry
 					{
 						Path = CurrentPath,
@@ -182,20 +179,23 @@ namespace pbXNet
 			if (!await DirectoryExistsAsync(dirname).ConfigureAwait(false))
 				return;
 
-			var l = _db.Table<FsEntry>(Id).Rows.Where(e => e.Path == GetFilePath(dirname));
-			if (await l.AnyAsync().ConfigureAwait(false))
+			string dirpath = GetFilePath(dirname);
+			var q = _t.Rows.Where(e => e.Path == dirpath);
+			if (await q.AnyAsync().ConfigureAwait(false))
 				throw new IOException(T.Localized("FS_DirNotEmpty", CurrentPath, dirname));
 
 			_pk.Path = CurrentPath;
 			_pk.Name = dirname;
-			await _db.Table<FsEntry>(Id).DeleteAsync(_pk).ConfigureAwait(false);
+			await _t.DeleteAsync(_pk).ConfigureAwait(false);
 		}
 
 		public async Task<IEnumerable<string>> GetFilesAsync(string pattern = "")
 		{
 			bool emptyPattern = string.IsNullOrWhiteSpace(pattern);
-			return (await _db.Table<FsEntry>(Id).Rows
-					.Where(e => e.Path == CurrentPath && !e.IsDirectory && (emptyPattern || Regex.IsMatch(e.Name, pattern)))
+			return 
+				(await _t.Rows
+					.Where(e => e.Path == CurrentPath && !e.IsDirectory)
+					.Where(e => emptyPattern || Regex.IsMatch(e.Name, pattern))
 					.PrepareAsync())
 					.Select((e) => e.Name);
 		}
@@ -204,7 +204,7 @@ namespace pbXNet
 		{
 			_pk.Path = CurrentPath;
 			_pk.Name = filename;
-			return await _db.Table<FsEntry>(Id).FindAsync(_pk).ConfigureAwait(false);
+			return await _t.FindAsync(_pk).ConfigureAwait(false);
 		}
 
 		public async Task<bool> FileExistsAsync(string filename)
@@ -225,7 +225,7 @@ namespace pbXNet
 
 			_pk.Path = CurrentPath;
 			_pk.Name = filename;
-			await _db.Table<FsEntry>(Id).DeleteAsync(_pk).ConfigureAwait(false);
+			await _t.DeleteAsync(_pk).ConfigureAwait(false);
 		}
 
 		public async Task SetFileModifiedOnAsync(string filename, DateTime modifiedOn)
@@ -238,7 +238,7 @@ namespace pbXNet
 				throw new FileNotFoundException(T.Localized("FS_FileNotFound", CurrentPath, filename));
 
 			e.ModifiedOn = modifiedOn.ToUniversalTime();
-			await _db.Table<FsEntry>(Id).UpdateAsync(e).ConfigureAwait(false);
+			await _t.UpdateAsync(e).ConfigureAwait(false);
 		}
 
 		public async Task<DateTime> GetFileModifiedOnAsync(string filename)
@@ -258,7 +258,7 @@ namespace pbXNet
 			if (string.IsNullOrEmpty(filename))
 				throw new ArgumentNullException(nameof(filename));
 
-			await _db.Table<FsEntry>(Id).InsertAsync(
+			await _t.InsertAsync(
 				new FsEntry
 				{
 					Path = CurrentPath,

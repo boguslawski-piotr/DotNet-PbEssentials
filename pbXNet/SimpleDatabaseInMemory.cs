@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace pbXNet
 {
-	public class SimpleDatabaseInMemory : ISimpleDatabase
+	public class SimpleDatabaseInMemory : IDatabase
 	{
 		public string Name { get; } = T.Localized("SDIM_Name");
 
@@ -93,20 +93,19 @@ namespace pbXNet
 				);
 			}
 
-			public async Task CreatePrimaryKeyAsync(params string[] columnNames)
+			public async Task CreatePrimaryKeyAsync(params Expression<Func<T, object>>[] columns)
 			{
 				_primaryKey.Clear();
-				_primaryKey.AddRange(
-#if NETSTANDARD1_6
-					typeof(T).GetRuntimeProperties()
-#else
-					typeof(T).GetProperties()
-#endif
-						.Where((p) => columnNames.Contains(p.Name))
-				);
+				foreach (var c in columns)
+				{
+					PropertyInfo p = c.AsPropertyInfo<T>();
+					if (p == null)
+						throw new ArgumentException(pbXNet.T.Localized("DB_NotPropertyExpression", Type.FullName), c.ToString());
+					_primaryKey.Add(p);
+				}
 			}
 
-			public async Task CreateIndexAsync(bool unique, params string[] columnNames)
+			public async Task CreateIndexAsync(bool unique, params Expression<Func<T, object>>[] columns)
 			{
 			}
 
@@ -141,6 +140,7 @@ namespace pbXNet
 			public async Task InsertAsync(T o)
 			{
 				T obj = default(T);
+
 				if (_primaryKey.Count > 0)
 					obj = await FindAsync(o).ConfigureAwait(false);
 
@@ -148,7 +148,9 @@ namespace pbXNet
 				try
 				{
 					if (obj == null || obj.Equals(default(T)))
+					{
 						_rows.Add(o);
+					}
 					else
 					{
 						if (!object.ReferenceEquals(obj, o))
@@ -181,20 +183,30 @@ namespace pbXNet
 				}
 			}
 
-			public async Task DeleteAsync(T pk)
+			public async Task DeleteAsync(T o)
 			{
-				T obj = await FindAsync(pk).ConfigureAwait(false);
-				if (obj == null || obj.Equals(default(T)))
-					throw new Exception<T>(pbXNet.T.Localized("SDIM_ObjectDoesntExist"));
-
-				await LockAsync();
-				try
+				if (_primaryKey.Count <= 0)
 				{
-					_rows.Remove(obj);
+					// TODO: delete all that matching o
+					return;
 				}
-				finally
+
+				T obj = await FindAsync(o).ConfigureAwait(false);
+				if (obj == null || obj.Equals(default(T)))
 				{
-					Unlock();
+					// do nothing
+				}
+				else
+				{
+					await LockAsync();
+					try
+					{
+						_rows.Remove(obj);
+					}
+					finally
+					{
+						Unlock();
+					}
 				}
 			}
 
@@ -221,9 +233,6 @@ namespace pbXNet
 		}
 
 		ConcurrentDictionary<string, object> _tables = new ConcurrentDictionary<string, object>();
-
-		public async Task InitializeAsync()
-		{ }
 
 		public async Task<ITable<T>> CreateTableAsync<T>(string tableName)
 		{

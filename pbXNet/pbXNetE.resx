@@ -123,6 +123,9 @@
   <data name="AES_UnsupportedParams" xml:space="preserve">
     <value>Unsupported Aes parameters.</value>
   </data>
+  <data name="DB_NotPropertyExpression" xml:space="preserve">
+    <value>The expression did not return the correct '{0}' field/property.</value>
+  </data>
   <data name="FS_DirNotEmpty" xml:space="preserve">
     <value>Directory '{0}/{1}' is not empty.</value>
   </data>

@@ -11,7 +11,7 @@
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)FileSystemInDatabase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ISimpleCryptographer.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ISimpleDatabase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IDatabase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)NewtonsoftJsonSerializer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ObservableCollectionEx.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SimpleDatabaseInMemory.cs" />
