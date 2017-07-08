@@ -1,9 +1,9 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard1.6</TargetFramework>
     <RootNamespace>pbXNet</RootNamespace>
-    <ReleaseVersion>1.0.0.21</ReleaseVersion>
+    <ReleaseVersion>1.0.0.22</ReleaseVersion>
     <SynchReleaseVersion>false</SynchReleaseVersion>
     <AssemblyName>pbXNet</AssemblyName>
   </PropertyGroup>
