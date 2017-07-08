@@ -4,23 +4,11 @@ VisualStudioVersion = 15.0.26430.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "pbXNet.Tests", "pbXNet\pbXNet.Tests.shproj", "{3F753A30-8FDA-4E69-BF4E-A1F0DDB8F4D8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pbXNet.Droid", "..\pbXNet.Droid\pbXNet.Droid.csproj", "{09F056D8-6ECD-4398-B06C-AFE32E911B85}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pbXNet.iOS", "..\pbXNet.iOS\pbXNet.iOS.csproj", "{885C3BD5-106C-47FA-83D1-B86217610C25}"
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "pbXNet.Shared", "..\pbXNet\pbXNet.Shared.shproj", "{0F24CC4F-7A9B-4835-8F00-4DC291773539}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pbXNet.NET", "..\pbXNet.NET\pbXNet.NET.csproj", "{BA60D111-A7E1-4455-B192-450846976D49}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NET", "NET\NET.csproj", "{6456BD00-9723-4AD3-8172-6C42B80E16E3}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UWP", "UWP\UWP.csproj", "{E5835438-6CB8-4AE0-9B99-7EA9002E2B53}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pbXNet.UWP", "..\pbXNet.UWP\pbXNet.UWP.csproj", "{2BCD8750-CA4E-4E5A-BBC3-29A4FDC8E680}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "iOS", "iOS\iOS.csproj", "{BD82D1E2-67EF-413E-AFB4-D723E45EFE13}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Droid", "Droid\Droid.csproj", "{EDD4345C-DF68-4383-9AC3-712A8605AFFB}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
