@@ -15,10 +15,7 @@ namespace pbXNet
 
 		protected Storage(string id, ISerializer serializer = null)
 		{
-			if (id == null)
-				throw new ArgumentNullException(nameof(id));
-			
-			Id = id;
+			Id = id ?? throw new ArgumentNullException(nameof(id));
 			Serializer = new StringOptimizedSerializer(serializer ?? new NewtonsoftJsonSerializer());
 		}
 

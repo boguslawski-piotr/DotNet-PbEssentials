@@ -76,7 +76,7 @@ namespace pbXNet
 	{
 		/// <summary>
 		/// Finds the identifiers matching a <paramref name="pattern"/> (.NET Regex).
-		/// If nothing was found, should return Enumerable.Empty&ltT&gt;().
+		/// If nothing was found, should return empty IEnumerable&lt;string&gt;.
 		/// </summary>
 		Task<IEnumerable<string>> FindIdsAsync(string pattern);
 	}

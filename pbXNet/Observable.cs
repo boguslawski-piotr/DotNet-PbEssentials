@@ -43,15 +43,17 @@ namespace pbXNet
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
-		protected void SetValue<T>(ref T storage, T value, [CallerMemberName]string name = null)
+		protected bool SetValue<T>(ref T storage, T value, [CallerMemberName]string name = null)
 		{
 			if (Equals(storage, value))
 			{
-				return;
+				return false;
 			}
 
 			storage = value;
 			OnPropertyChanged(name);
+
+			return true;
 		}
 
 		protected virtual void OnPropertyChanged(string name)

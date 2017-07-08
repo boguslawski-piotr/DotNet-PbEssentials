@@ -65,7 +65,12 @@ namespace pbXNet
 				return;
 
 			// TODO: async as sync -> sprawdzic wyjatki i czy na pewno jest to ok rozwiazanie
-			string d = Task.Run(async () => await _storage.GetACopyAsync(_secretsDataId)).GetAwaiter().GetResult();
+			string d = null;
+			try
+			{
+				d = Task.Run(async () => await _storage.GetACopyAsync(_secretsDataId)).GetAwaiter().GetResult();
+			}
+			catch (StorageThingNotFoundException) { }
 			//string d = await _storage.GetACopyAsync(_ckeysDataId);
 
 			if (!string.IsNullOrEmpty(d))

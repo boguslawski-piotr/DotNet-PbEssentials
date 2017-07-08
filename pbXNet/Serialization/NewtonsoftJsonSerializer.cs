@@ -21,6 +21,7 @@ namespace pbXNet
 				{
 					_settings = new JsonSerializerSettings()
 					{
+						TypeNameHandling = TypeNameHandling.Auto,
 						DateTimeZoneHandling = DateTimeZoneHandling.Utc,
 						NullValueHandling = NullValueHandling.Ignore,
 #if DEBUG
