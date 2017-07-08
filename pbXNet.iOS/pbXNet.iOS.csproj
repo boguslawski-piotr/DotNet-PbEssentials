@@ -65,6 +65,8 @@
     <Reference Include="Microsoft.WindowsAzure.Storage">
       <HintPath>..\..\SafeNotebooks\packages\WindowsAzure.Storage.8.1.4\lib\netstandard1.3\Microsoft.WindowsAzure.Storage.dll</HintPath>
     </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Xml.Serialization" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />

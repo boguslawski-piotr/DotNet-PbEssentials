@@ -53,6 +53,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)FileSystem\IFileSystem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Database\IDatabase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Database\SimpleDatabaseInMemory.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Serialization\DataContractSerializer.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)pbXNetT.resx">

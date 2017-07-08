@@ -34,6 +34,11 @@ namespace pbXNet
 			return da;
 		}
 
+		public static string ToString(byte[] src)
+		{
+			return Encoding.UTF8.GetString(src);
+		}
+
 		public static string ToString(MemoryStream src)
 		{
 			return Encoding.UTF8.GetString(src.ToArray(), 0, (int)src.Length);
