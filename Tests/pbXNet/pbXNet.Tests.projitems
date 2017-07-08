@@ -6,10 +6,11 @@
     <SharedGUID>{3F753A30-8FDA-4E69-BF4E-A1F0DDB8F4D8}</SharedGUID>
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
-    <Import_RootNamespace>Tests</Import_RootNamespace>
+    <Import_RootNamespace>pbXNet</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)IDatabase_Tests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Settings_Tests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Tools_Tests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)AesCryptographer_Tests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IFileSystem_Tests.cs" />

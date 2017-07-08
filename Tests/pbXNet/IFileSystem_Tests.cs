@@ -4,7 +4,7 @@ using pbXNet;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace Tests
+namespace pbXNet
 {
 	public class IFileSystem_Tests
 	{

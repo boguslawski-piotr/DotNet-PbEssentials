@@ -2,7 +2,7 @@
 using System.Text;
 using Xunit;
 
-namespace pbXNet.Tests
+namespace pbXNet
 {
 	public class AesCryptographer_Tests
 	{
