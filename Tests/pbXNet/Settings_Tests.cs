@@ -38,8 +38,6 @@ namespace pbXNet
 			Assert.True(s.BoolSetting);
 			Assert.True(s.StringSetting == "some value");
 
-			await s.LoadAsync();
-
 			s.BoolSetting = false;
 			s.StringSetting = "another value";
 
@@ -47,6 +45,7 @@ namespace pbXNet
 			Assert.False(s.StringSetting == "some value");
 
 			MySettings s2 = new MySettings("pbXNet.Tests");
+
 			await s2.LoadAsync();
 
 			Assert.False(s.BoolSetting);

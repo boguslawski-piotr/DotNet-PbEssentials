@@ -11,11 +11,10 @@ namespace pbXNet
 	public partial class PlatformSettings : Settings
 	{
 #if !NETSTANDARD1_6
-		//static IsolatedStorageFile _store => IsolatedStorageFile.GetUserStoreForApplication();
 		static IsolatedStorageFile _store => IsolatedStorageFile.GetUserStoreForDomain();
 #else
 		IFileSystem _fs;
-		IFileSystem Fs
+		IFileSystem _Fs
 		{
 			get {
 				if (_fs == null)
@@ -24,7 +23,7 @@ namespace pbXNet
 					try
 					{
 						string dirname = this.GetType().GetTypeInfo().Assembly.ManifestModule.Name;
-						_fs.CreateDirectoryAsync(dirname);
+						Task.Run(() => _fs.CreateDirectoryAsync(dirname)).GetAwaiter().GetResult();
 					}
 					catch { }
 				}
@@ -44,8 +43,8 @@ namespace pbXNet
 				}
 			}
 #else
-			if (await Fs.FileExistsAsync(id))
-				return await Fs.ReadTextAsync(id);
+			if (await _Fs.FileExistsAsync(id))
+				return await _Fs.ReadTextAsync(id);
 			return null;
 #endif
 		}
@@ -61,7 +60,7 @@ namespace pbXNet
 				}
 			}
 #else
-			await Fs.WriteTextAsync(id, d);
+			await _Fs.WriteTextAsync(id, d);
 #endif
 		}
 	}
