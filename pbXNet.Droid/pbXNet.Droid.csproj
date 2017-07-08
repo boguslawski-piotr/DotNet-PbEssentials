@@ -108,6 +108,9 @@
     <Compile Include="..\pbXNet\Droid\Log.cs">
       <Link>pbXNet\Droid\Log.cs</Link>
     </Compile>
+    <Compile Include="../pbXNet/Droid/PlatformSettings.cs">
+      <Link>pbXNet\Droid\PlatformSettings.cs</Link>
+    </Compile>
     <Compile Include="..\pbXNet\pbXNet.AssemblyInfo.cs">
       <Link>Properties\pbXNet.AssemblyInfo.cs</Link>
     </Compile>

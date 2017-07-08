@@ -10,6 +10,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)ObservableCollectionEx.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PlatformSettings.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Settings.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SettingsInStorage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Tools.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DeflateCompressor.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ICompressor.cs" />

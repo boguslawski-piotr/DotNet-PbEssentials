@@ -85,15 +85,15 @@
     <Compile Include="..\pbXNet\iOSmacOS\Log.cs">
       <Link>pbXNet\iOSmacOS\Log.cs</Link>
     </Compile>
+    <Compile Include="../pbXNet/iOSmacOS/PlatformSettings.cs">
+      <Link>pbXNet\iOSmacOS\PlatformSettings.cs</Link>
+    </Compile>
     <Compile Include="..\pbXNet\pbXNet.AssemblyInfo.cs">
       <Link>Properties\pbXNet.AssemblyInfo.cs</Link>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="pbXNet\NETStd2\" />
   </ItemGroup>
   <Import Project="..\pbXNet\pbXNet.Shared.projitems" Label="Shared" Condition="Exists('..\pbXNet\pbXNet.Shared.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Mac\Xamarin.Mac.CSharp.targets" />

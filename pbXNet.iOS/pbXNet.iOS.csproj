@@ -82,6 +82,9 @@
     <Compile Include="..\pbXNet\iOSmacOS\Log.cs">
       <Link>pbXNet\iOSmacOS\Log.cs</Link>
     </Compile>
+    <Compile Include="../pbXNet/iOSmacOS/PlatformSettings.cs">
+      <Link>pbXNet\iOSmacOS\PlatformSettings.cs</Link>
+    </Compile>
     <Compile Include="..\pbXNet\pbXNet.AssemblyInfo.cs">
       <Link>Properties\pbXNet.AssemblyInfo.cs</Link>
     </Compile>
