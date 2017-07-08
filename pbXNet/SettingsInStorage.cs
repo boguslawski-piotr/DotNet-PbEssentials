@@ -32,8 +32,10 @@ namespace pbXNet
 			try
 			{
 				string d = await Storage.GetACopyAsync(Id);
-				if(d != null)
+				if (!string.IsNullOrWhiteSpace(d))
 					KeysAndValues = Serializer.Deserialize<ConcurrentDictionary<string, object>>(d);
+				else
+					KeysAndValues?.Clear();
 			}
 			catch (StorageThingNotFoundException) { }
 		}
@@ -41,7 +43,8 @@ namespace pbXNet
 		public override async Task SaveAsync(string changedValueKey = null)
 		{
 			string d = Serializer.Serialize(KeysAndValues);
-			await Storage.StoreAsync(Id, d, DateTime.Now);
+			if (d != null)
+				await Storage.StoreAsync(Id, d, DateTime.Now);
 		}
 	}
 }

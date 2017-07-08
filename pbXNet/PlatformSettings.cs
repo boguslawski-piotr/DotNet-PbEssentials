@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Text;
+using System.IO;
 using System.Threading.Tasks;
+using System.Xml;
 
 namespace pbXNet
 {
@@ -25,21 +25,66 @@ namespace pbXNet
 			return s;
 		}
 
+		//string Serialize()
+		//{
+		//	using (var dwriter = new StringWriter())
+		//	using (var xmlwriter = XmlWriter.Create(dwriter))
+		//	{
+		//		try
+		//		{
+		//			var dcs = new System.Runtime.Serialization.DataContractSerializer(typeof(ConcurrentDictionary<string, object>));
+		//			dcs.WriteObject(xmlwriter, KeysAndValues);
+		//			xmlwriter.Flush();
+		//			return dwriter.ToString();
+		//		}
+		//		catch (Exception ex)
+		//		{
+		//			Log.E(ex, this);
+		//			return null;
+		//		}
+		//	}
+		//}
+
+		//ConcurrentDictionary<string, object> Deserialize(string d)
+		//{
+		//	using(var dreader = new StringReader(d))
+		//	using(var xmlreader = XmlReader.Create(dreader))
+		//	{
+		//		try
+		//		{
+		//			var dcs = new System.Runtime.Serialization.DataContractSerializer(typeof(ConcurrentDictionary<string, object>));
+		//			return (ConcurrentDictionary<string, object>)dcs.ReadObject(xmlreader);
+		//		}
+		//		catch (Exception ex)
+		//		{
+		//			Log.E(ex, this);
+		//			return null;
+		//		}
+		//	}
+		//}
+
 		public override async Task LoadAsync()
 		{
 			string d = await _GetStringAsync(Id);
-			if (d != null)
+			if (!string.IsNullOrWhiteSpace(d))
 			{
 				d = Obfuscator.DeObfuscate(d);
+				//KeysAndValues = Deserialize(d);
 				KeysAndValues = Serializer.Deserialize<ConcurrentDictionary<string, object>>(d);
 			}
+			else
+				KeysAndValues?.Clear();
 		}
 
 		public override async Task SaveAsync(string changedValueKey = null)
 		{
+			//string d = Serialize();
 			string d = Serializer.Serialize(KeysAndValues);
-			d = Obfuscator.Obfuscate(d);
-			await _SetStringAsync(Id, d);
+			if (d != null)
+			{
+				d = Obfuscator.Obfuscate(d);
+				await _SetStringAsync(Id, d);
+			}
 		}
 	}
 }
