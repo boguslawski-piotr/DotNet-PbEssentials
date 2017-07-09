@@ -6,9 +6,9 @@
     <title>pbX Settings Plugin for Windows, Universal Windows Platform, iOS, macOS, tvOS, watchOS, Android</title>
     <authors>Piotr Boguslawski</authors>
     <owners>Piotr Boguslawski</owners>
-    <licenseUrl>https://github.com/boguslawski-piotr/pbX/tree/master/Plugin.pbXSettings/LICENSE</licenseUrl>
     <projectUrl>https://github.com/boguslawski-piotr/pbX/tree/master/Plugin.pbXSettings</projectUrl>
-    <iconUrl>https://github.com/boguslawski-piotr/pbX/tree/master/Plugin.pbXSettings/icon.png</iconUrl>
+    <licenseUrl>https://github.com/boguslawski-piotr/pbX/blob/master/Plugin.pbXSettings/LICENSE</licenseUrl>
+    <iconUrl>https://github.com/boguslawski-piotr/pbX/blob/master/Plugin.pbXSettings/icon.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>
 		TODO...
@@ -18,12 +18,12 @@
     <dependencies>
     </dependencies>
     <releaseNotes>
-      See Changelog: https://github.com/boguslawski-piotr/pbX/tree/master/Plugin.pbXSettings/CHANGELOG.md
+      See Changelog: https://github.com/boguslawski-piotr/pbX/blob/master/Plugin.pbXSettings/CHANGELOG.md
     </releaseNotes>
-
   </metadata>
 
-<!-- portable-net45+wp80+win8+wpa81+MonoAndroid10+Xamarin.iOS10+UAP10+Xamarin.Mac20+xamarintvOS+xamarinwatchOS -->
+  <!-- portable-net45+wp80+win8+wpa81+MonoAndroid10+Xamarin.iOS10+UAP10+Xamarin.Mac20+xamarintvOS+xamarinwatchOS -->
+  
   <files>
     <!--PCL-->
     <file src="Plugin.pbXSettings.PCL\bin\Release\Plugin.pbXSettings.*" target="lib\portable-net45+wp80+win8+wpa81" />
