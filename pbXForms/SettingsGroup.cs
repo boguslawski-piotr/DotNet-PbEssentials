@@ -125,6 +125,8 @@ namespace pbXForms
 				Margin = new Thickness(0)
 			};
 
+			InnerHeaderLayout.GestureRecognizers.Add(tgr);
+
 			HeaderText = new SettingsGroupText()
 			{
 				FontSize = Device.GetNamedSize(NamedSize.Small, typeof(Label)),

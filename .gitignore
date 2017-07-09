@@ -53,3 +53,4 @@ pbXForms.Droid/Resources/Resource.designer.cs
 pbXNet.Droid/Resources/Resource.designer.cs
 Samples/**/Resources/Resource.Designer.cs
 Tests/.vs/config/applicationhost.config
+*.bak
