@@ -9,6 +9,7 @@
     <RootNamespace>Plugin.pbXSettings</RootNamespace>
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
     <AssemblyName>Plugin.pbXSettings</AssemblyName>
+    <ReleaseVersion>1.0.0.0</ReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -51,5 +52,6 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="..\Plugin.pbXSettings.Shared\Plugin.pbXSettings.Shared.projitems" Label="Shared" />
+  <Import Project="..\..\pbXNet\pbXNet.For.Plugin.pbXSettings.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\TVOS\Xamarin.TVOS.CSharp.targets" />
 </Project>

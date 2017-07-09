@@ -11,6 +11,5 @@
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Settings.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SettingsStorage.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Observable.cs" />
   </ItemGroup>
 </Project>

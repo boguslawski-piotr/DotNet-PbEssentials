@@ -120,19 +120,22 @@ namespace pbXNet
 
 		/// <summary>
 		/// Gets the current value (as an object) for a <paramref name="key"/> or if <paramref name="key"/> doesn't exist
-		/// the default value: specified in <see cref="DefaultAttribute"/> attribute, provided by <see cref="GetDefault(string)" /> or null.
+		/// the default value: specified in <see cref="DefaultAttribute"/> attribute for property, 
+		/// provided by <see cref="GetDefault(string)" /> or null.
 		/// </summary>
 		public virtual object Get([CallerMemberName]string key = null) => this[key];
 
 		/// <summary>
 		/// Gets the current value (as an object type <typeparamref name="T"/>) for a <paramref name="key"/> or if <paramref name="key"/> doesn't exist
-		/// the default value: specified in <see cref="DefaultAttribute"/> attribute, provided by <see cref="GetDefault(string)" /> or default(T).
+		/// the default value: specified in <see cref="DefaultAttribute"/> attribute for property, 
+		/// provided by <see cref="GetDefault(string)" /> or default(T).
 		/// </summary>
 		public virtual T Get<T>([CallerMemberName]string key = null) => (T)(ConvertTo(this[key], typeof(T)) ?? default(T));
 
 		/// <summary>
 		/// Gets the current value (as an object) for a <paramref name="key"/> or if <paramref name="key"/> doesn't exist
-		/// the default value: specified in <see cref="DefaultAttribute"/> attribute, provided by <see cref="GetDefault(string)" /> or null.
+		/// the default value: specified in <see cref="DefaultAttribute"/> attribute for property, 
+		/// provided by <see cref="GetDefault(string)" /> or null.
 		/// </summary>
 		public virtual object this[string key]
 		{
@@ -255,7 +258,7 @@ namespace pbXNet
 			Type valueType = value == null ? typeof(object) : value.GetType();
 
 			if (!type.Equals(valueType)
-#if !NETSTANDARD1_6
+#if !NETSTANDARD1_6 && !__PCL__
 				&& !type.IsAssignableFrom(valueType)
 #endif
 			)

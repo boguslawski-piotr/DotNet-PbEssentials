@@ -9,6 +9,7 @@
     <RootNamespace>Plugin.pbXSettings</RootNamespace>
     <AssemblyName>Plugin.pbXSettings</AssemblyName>
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
+    <ReleaseVersion>1.0.0.0</ReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -51,7 +52,7 @@
     <Reference Include="System.Runtime.Serialization" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\Plugin.pbXSettings.iOS\SettingsStorage.cs" >
+    <Compile Include="..\Plugin.pbXSettings.iOS\SettingsStorage.cs">
       <Link>SettingsStorage.cs</Link>
     </Compile>
     <Compile Include="..\AssemblyInfo.cs" />
@@ -63,5 +64,6 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="..\Plugin.pbXSettings.Shared\Plugin.pbXSettings.Shared.projitems" Label="Shared" />
+  <Import Project="..\..\pbXNet\pbXNet.For.Plugin.pbXSettings.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\WatchOS\Xamarin.WatchOS.CSharp.targets" />
 </Project>

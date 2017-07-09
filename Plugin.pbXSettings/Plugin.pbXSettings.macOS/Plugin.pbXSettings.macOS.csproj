@@ -11,6 +11,7 @@
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <TargetFrameworkIdentifier>Xamarin.Mac</TargetFrameworkIdentifier>
     <MonoMacResourcePrefix>Resources</MonoMacResourcePrefix>
+    <ReleaseVersion>1.0.0.0</ReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -79,5 +80,6 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="..\Plugin.pbXSettings.Shared\Plugin.pbXSettings.Shared.projitems" Label="Shared" Condition="Exists('..\Plugin.pbXSettings.Shared\Plugin.pbXSettings.Shared.projitems')" />
+  <Import Project="..\..\pbXNet\pbXNet.For.Plugin.pbXSettings.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Mac\Xamarin.Mac.CSharp.targets" />
 </Project>
