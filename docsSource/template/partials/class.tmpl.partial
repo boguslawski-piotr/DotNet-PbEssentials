@@ -24,96 +24,19 @@
 <h4 id="{{id}}" data-uid="{{uid}}"><a href="#collapsible-{{id}}" class="expander" data-toggle="collapse">{{name.0.value}}</a></h4>
 
 <div id="collapsible-{{id}}" class="collapse in">
-<div class="markdown level1 summary">{{{summary}}}</div>
-<div class="markdown level1 conceptual">{{{conceptual}}}</div>
-<h5 class="decalaration">{{__global.declaration}}</h5>
-
 {{#syntax}}
 <div class="codewrapper">
   <pre><code class="lang-{{_lang}} hljs">{{syntax.content.0.value}}</code></pre>
 </div>
-
-{{#parameters.0}}
-<h5 class="parameters">{{__global.parameters}}</h5>
-<table>
-{{/parameters.0}}
-{{#parameters}}
-  <tr>
-    <td>
-      <span class="pull-right">{{{type.specName.0.value}}}</span>
-      <span class="parametername">{{{id}}}</span>
-      <p>{{{description}}}</p>
-    </td>
-  </tr>
-{{/parameters}}
-{{#parameters.0}}
-</table>
-{{/parameters.0}}
-
-{{#return}}
-<h5 class="returns">{{__global.returns}}</h5>
-<table>
-  <tr>
-    <td>
-      {{{type.specName.0.value}}}
-      <p>{{{description}}}</p>
-    </td>
-  </tr>
-</table>
-{{/return}}
-
-{{#typeParameters.0}}
-<h5 class="typeParameters">{{__global.typeParameters}}</h5>
-<table>
-{{/typeParameters.0}}
-{{#typeParameters}}
-  <tr>
-    <td>
-      <span class="parametername">{{{id}}}</span>
-      <p>{{{description}}}</p>
-    </td>
-  </tr>
-{{/typeParameters}}
-{{#typeParameters.0}}
-</table>
-{{/typeParameters.0}}
-
-{{#fieldValue}}
-<h5 class="fieldValue">{{__global.fieldValue}}</h5>
-<table>
-  <tr>
-    <td>
-      {{{type.specName.0.value}}}
-      <p>{{{description}}}</p>
-    </td>
-  </tr>
-</table>
-{{/fieldValue}}
-
-{{#propertyValue}}
-<h5 class="propertyValue">{{__global.propertyValue}}</h5>
-<table>
-  <tr>
-    <td>
-      {{{type.specName.0.value}}}
-      <p>{{{description}}}</p>
-    </td>
-  </tr>
-</table>
-{{/propertyValue}}
-
-{{#eventType}}
-<h5 class="eventType">{{__global.eventType}}</h5>
-<table>
-  <tr>
-    <td>
-      {{{type.specName.0.value}}}
-      <p>{{{description}}}</p>
-    </td>
-  </tr>
-</table>
-{{/eventType}}
 {{/syntax}}
+
+<div class="markdown level1 summary">{{{summary}}}</div>
+<div class="markdown level1 conceptual">{{{conceptual}}}</div>
+
+{{#remarks}}
+<h5 id="{{id}}_remarks">{{__global.remarks}}</h5>
+<div class="markdown level1 remarks">{{{remarks}}}</div>
+{{/remarks}}
 
 {{#overridden}}
 <h5 class="overrides">{{__global.overrides}}</h5>
@@ -131,11 +54,6 @@
     <div><xref uid="{{uid}}" altProperty="fullName" displayProperty="nameWithType"/></div>
   {{/definition}}
 {{/implements}}
-
-{{#remarks}}
-<h5 id="{{id}}_remarks">{{__global.remarks}}</h5>
-<div class="markdown level1 remarks">{{{remarks}}}</div>
-{{/remarks}}
 
 {{#example.0}}
 <h5 id="{{id}}_examples">{{__global.examples}}</h5>

@@ -10,7 +10,7 @@
 }
 
 #search {
-    display: block;
+    display: none;
     border: none;
 }
 
@@ -373,7 +373,7 @@ article h3 {
 article h4 {
     margin-top: 35px;
     padding-bottom: 8px;
-    border-bottom: 1px solid #ccc;
+    /*border-bottom: 1px solid #ccc;*/
 }
 
 .inheritance .level6:before,
@@ -417,4 +417,8 @@ article h4 {
 .nav .level2 {
 	font-weight: normal;
 	font-size: 11px;
+}
+
+.summary {
+	font-size: 120%;
 }

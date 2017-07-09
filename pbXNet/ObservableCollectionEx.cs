@@ -13,7 +13,6 @@ namespace pbXNet
 	/// </summary> 
 	/// <typeparam name="T"></typeparam> 
 	/// <seealso cref="System.Collections.ObjectModel.ObservableCollection{T}"/>
-	/// <seealso cref="System.Collections.ObjectModel"/>
 	public class ObservableCollectionEx<T> : ObservableCollection<T>
 	{
 		/// <summary> 
@@ -24,16 +23,15 @@ namespace pbXNet
 		}
 
 		/// <summary> 
-		/// Initializes a new instance of the ObservableCollectionEx&lt;T&gt; class that contains elements copied from the specified collection. 
+		/// Initializes a new instance of the ObservableCollectionEx&lt;T&gt; class that contains elements copied from the specified <paramref name="collection"/>. 
 		/// </summary> 
-		/// <param name="collection">The collection from which the elements are copied.</param> 
 		/// <exception cref="System.ArgumentNullException">The collection parameter cannot be null.</exception> 
 		public ObservableCollectionEx(IEnumerable<T> collection) : base(collection)
 		{
 		}
 
 		/// <summary> 
-		/// Initializes a new instance of the ObservableCollectionEx&lt;T&gt; class that contains elements copied from the specified list. 
+		/// Initializes a new instance of the ObservableCollectionEx&lt;T&gt; class that contains elements copied from the specified <paramref name="list"/>. 
 		/// </summary> 
 		/// <param name="list">The list from which the elements are copied.</param> 
 		/// <exception cref="System.ArgumentNullException">The list parameter cannot be null.</exception> 
@@ -42,8 +40,9 @@ namespace pbXNet
 		}
 
 		/// <summary> 
-		/// Adds the elements of the specified collection to the end of the ObservableCollectionEx&lt;T&gt;. 
+		/// Adds the elements of the specified <paramref name="collection"/> to the end of the current collection. 
 		/// </summary> 
+		/// <exception cref="System.ArgumentNullException">The <paramref name="collection"/> parameter cannot be null.</exception> 
 		public void AddRange(IEnumerable<T> collection, NotifyCollectionChangedAction notificationMode = NotifyCollectionChangedAction.Add)
 		{
 			if (collection == null)
@@ -78,8 +77,9 @@ namespace pbXNet
 		}
 
 		/// <summary> 
-		/// Removes the first occurence of each item in the specified collection from ObservableCollectionEx&lt;T&gt;. 
+		/// Removes the first occurence of each item in the specified <paramref name="collection"/> from current collection. 
 		/// </summary> 
+		/// <exception cref="System.ArgumentNullException">The <paramref name="collection"/> parameter cannot be null.</exception> 
 		public void RemoveRange(IEnumerable<T> collection)
 		{
 			if (collection == null)
@@ -91,7 +91,7 @@ namespace pbXNet
 		}
 
 		/// <summary> 
-		/// Clears the current collection and replaces it with the specified item. 
+		/// Clears the current collection and replaces it with the specified <paramref name="item"/>. 
 		/// </summary> 
 		public void Replace(T item)
 		{
@@ -99,8 +99,9 @@ namespace pbXNet
 		}
 
 		/// <summary> 
-		/// Clears the current collection and replaces it with the specified collection. 
+		/// Clears the current collection and replaces it with the specified <paramref name="collection"/>. 
 		/// </summary> 
+		/// <exception cref="System.ArgumentNullException">The <paramref name="collection"/> parameter cannot be null.</exception> 
 		public void ReplaceRange(IEnumerable<T> collection)
 		{
 			if (collection == null)
@@ -111,24 +112,23 @@ namespace pbXNet
 		}
 
 		/// <summary>
-		/// Searches for an element that matches the conditions defined by the specified predicate, and returns the first occurrence within the entire collection.
+		/// Searches for an element that matches the conditions defined by the specified <paramref name="predicate"/>, and returns the first occurrence within the entire collection.
 		/// </summary>
-		/// <param name="match">The Predicate&lt;T&gt; delegate that defines the conditions of the element to search for.</param>
-		public T Find(Predicate<T> match)
+		/// <exception cref="System.ArgumentNullException">The <paramref name="predicate"/> parameter cannot be null.</exception> 
+		public T Find(Predicate<T> predicate)
 		{
-			if (match == null)
-				throw new ArgumentNullException(nameof(match));
+			if (predicate == null)
+				throw new ArgumentNullException(nameof(predicate));
 
 			List<T> items = Items as List<T>;
 			if (items == null)
 				items = new List<T>(Items);
-			return items.Find(match);
+			return items.Find(predicate);
 		}
 
 		/// <summary>
-		/// Sorts the elements in the entire collection.
+		/// Sorts the elements in the entire collection using specified <paramref name="comparison"/> or default comparer when <paramref name="comparison"/> is null.
 		/// </summary>
-		/// <param name="comparison">The Comparison&lt;T&gt; to use when comparing elements, or null to use the default comparer.</param>
 		public void Sort(Comparison<T> comparison = null)
 		{
 			List<T> items = new List<T>(Items);
@@ -140,20 +140,17 @@ namespace pbXNet
 		}
 
 		/// <summary>
-		/// Sorts the elements in the entire collection.
+		/// Sorts the elements in the entire collection using specified or default <paramref name="comparer"/>.
 		/// </summary>
-		/// <param name="comparer">The IComparer&lt;T&gt; implementation to use when comparing elements, or null to use the default comparer.</param>
 		public void Sort(IComparer<T> comparer = null)
 		{
 			Sort(0, Count, comparer);
 		}
 
 		/// <summary>
-		/// Sorts the elements in a range of elements in collection.
+		/// Sorts the elements in a range (from <paramref name="index"/> to <paramref name="index"/> + <paramref name="count"/>) 
+		/// of elements in collection using specified or default <paramref name="comparer"/>.
 		/// </summary>
-		/// <param name="index">The zero-based starting index of the range to sort.</param>
-		/// <param name="count">The length of the range to sort.</param>
-		/// <param name="comparer">The IComparer&lt;T&gt; implementation to use when comparing elements, or null to use the default comparer.</param>
 		public void Sort(int index, int count, IComparer<T> comparer = null)
 		{
 			List<T> items = new List<T>(Items);

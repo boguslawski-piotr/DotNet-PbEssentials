@@ -70,25 +70,21 @@
             <article class="content wrap" id="_content" data-uid="pbXNet.NewtonsoftJsonSerializer">
   <h1 id="pbXNet_NewtonsoftJsonSerializer" data-uid="pbXNet.NewtonsoftJsonSerializer">Class NewtonsoftJsonSerializer
   </h1>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class NewtonsoftJsonSerializer : object, ISerializer</code></pre>
+  </div>
+  
   <div class="markdown level0 summary"><p>A serializer that uses the Newtonsoft.Json library.
 <p>See: <a href="http://www.newtonsoft.com/json">http://www.newtonsoft.com/json</a> </p></p>
 </div>
   <div class="markdown level0 conceptual"></div>
 
+  
   <div class="inheritance">
-    <h5>Inheritance</h5>
+    <h3>Inheritance</h3>
     <div class="level0"><a class="xref" href="https://msdn.microsoft.com/en-us/library/system.object(v=vs.110).aspx">Object</a></div>
     <div class="level1"><span class="xref">NewtonsoftJsonSerializer</span></div>
   </div>
-  
-  
-  <h5 id="pbXNet_NewtonsoftJsonSerializer_syntax">Syntax</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class NewtonsoftJsonSerializer : ISerializer</code></pre>
-  </div>
-
-  
-  
   
   
   <h3 id="properties">Properties
@@ -100,30 +96,14 @@
   <h4 id="pbXNet_NewtonsoftJsonSerializer_Settings" data-uid="pbXNet.NewtonsoftJsonSerializer.Settings"><a href="#collapsible-pbXNet_NewtonsoftJsonSerializer_Settings" class="expander" data-toggle="collapse">Settings</a></h4>
   
   <div id="collapsible-pbXNet_NewtonsoftJsonSerializer_Settings" class="collapse in">
-  <div class="markdown level1 summary"><p>Settings to use with <a class="xref" href="pbXNet.NewtonsoftJsonSerializer.html#pbXNet_NewtonsoftJsonSerializer_Serialize__1___0_System_String_">Serialize&lt;T&gt;(T, String)</a> and <a class="xref" href="pbXNet.NewtonsoftJsonSerializer.html#pbXNet_NewtonsoftJsonSerializer_Deserialize__1_System_String_System_String_">Deserialize&lt;T&gt;(String, String)</a> methods.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public virtual JsonSerializerSettings Settings { get; set; }</code></pre>
   </div>
+  
+  <div class="markdown level1 summary"><p>Settings to use with <a class="xref" href="pbXNet.NewtonsoftJsonSerializer.html#pbXNet_NewtonsoftJsonSerializer_Serialize__1___0_System_String_">Serialize&lt;T&gt;(T, String)</a> and <a class="xref" href="pbXNet.NewtonsoftJsonSerializer.html#pbXNet_NewtonsoftJsonSerializer_Deserialize__1_System_String_System_String_">Deserialize&lt;T&gt;(String, String)</a> methods.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
 
-  
-  
-  
-  
-  <h5 class="propertyValue">Property Value</h5>
-  <table>
-    <tr>
-      <td>
-        <span class="xref">Newtonsoft.Json.JsonSerializerSettings</span>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
-  
   
   
   
@@ -139,60 +119,18 @@
   <h4 id="pbXNet_NewtonsoftJsonSerializer_Deserialize__1_System_String_System_String_" data-uid="pbXNet.NewtonsoftJsonSerializer.Deserialize``1(System.String,System.String)"><a href="#collapsible-pbXNet_NewtonsoftJsonSerializer_Deserialize__1_System_String_System_String_" class="expander" data-toggle="collapse">Deserialize&lt;T&gt;(String, String)</a></h4>
   
   <div id="collapsible-pbXNet_NewtonsoftJsonSerializer_Deserialize__1_System_String_System_String_" class="collapse in">
-  <div class="markdown level1 summary"><p>Deserializes <span class="typeparamref">T</span> object with optional <span class="paramref">id</span> from json string <span class="paramref">d</span>.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public T Deserialize&lt;T&gt;(string d, string id = null)</code></pre>
   </div>
+  
+  <div class="markdown level1 summary"><p>Deserializes <span class="typeparamref">T</span> object with optional <span class="paramref">id</span> from json string <span class="paramref">d</span>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
 
-  <h5 class="parameters">Parameters</h5>
-  <table>
-    <tr>
-      <td>
-        <span class="pull-right"><a class="xref" href="https://msdn.microsoft.com/en-us/library/system.string(v=vs.110).aspx">String</a></span>
-        <span class="parametername">d</span>
-        <p>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <span class="pull-right"><a class="xref" href="https://msdn.microsoft.com/en-us/library/system.string(v=vs.110).aspx">String</a></span>
-        <span class="parametername">id</span>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
-  <h5 class="returns">Returns</h5>
-  <table>
-    <tr>
-      <td>
-        <span class="xref">T</span>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
-  <h5 class="typeParameters">Type Parameters</h5>
-  <table>
-    <tr>
-      <td>
-        <span class="parametername">T</span>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
-  
-  
   
   
   <h5 class="implements">Implements</h5>
       <div><a class="xref" href="pbXNet.ISerializer.html#pbXNet_ISerializer_Deserialize__1_System_String_System_String_">ISerializer.Deserialize&lt;T&gt;(String, String)</a></div>
-  
   
   
   
@@ -204,55 +142,14 @@
   <h4 id="pbXNet_NewtonsoftJsonSerializer_Serialize__1___0_System_String_" data-uid="pbXNet.NewtonsoftJsonSerializer.Serialize``1(``0,System.String)"><a href="#collapsible-pbXNet_NewtonsoftJsonSerializer_Serialize__1___0_System_String_" class="expander" data-toggle="collapse">Serialize&lt;T&gt;(T, String)</a></h4>
   
   <div id="collapsible-pbXNet_NewtonsoftJsonSerializer_Serialize__1___0_System_String_" class="collapse in">
-  <div class="markdown level1 summary"><p>Serializes object <span class="typeparamref">T</span> <span class="paramref">o</span> to json string and optionally giving it a given <span class="paramref">id</span>.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public string Serialize&lt;T&gt;(T o, string id = null)</code></pre>
   </div>
+  
+  <div class="markdown level1 summary"><p>Serializes object <span class="typeparamref">T</span> <span class="paramref">o</span> to json string and optionally giving it a given <span class="paramref">id</span>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
 
-  <h5 class="parameters">Parameters</h5>
-  <table>
-    <tr>
-      <td>
-        <span class="pull-right"><span class="xref">T</span></span>
-        <span class="parametername">o</span>
-        <p>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <span class="pull-right"><a class="xref" href="https://msdn.microsoft.com/en-us/library/system.string(v=vs.110).aspx">String</a></span>
-        <span class="parametername">id</span>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
-  <h5 class="returns">Returns</h5>
-  <table>
-    <tr>
-      <td>
-        <a class="xref" href="https://msdn.microsoft.com/en-us/library/system.string(v=vs.110).aspx">String</a>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
-  <h5 class="typeParameters">Type Parameters</h5>
-  <table>
-    <tr>
-      <td>
-        <span class="parametername">T</span>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
-  
-  
   
   
   <h5 class="implements">Implements</h5>
@@ -260,34 +157,9 @@
   
   
   
-  
   </div>
   
   
-  <div class="inheritedMembers">
-  	<h3 id="inheritedmembers">Inherited Members</h3>
-  	<div>
-  		<a class="xref" href="https://msdn.microsoft.com/en-us/library/bsc2ak47(v=vs.110).aspx">Object.Equals(Object)</a>
-  	</div>
-  	<div>
-  		<a class="xref" href="https://msdn.microsoft.com/en-us/library/w4hkze5k(v=vs.110).aspx">Object.Equals(Object, Object)</a>
-  	</div>
-  	<div>
-  		<a class="xref" href="https://msdn.microsoft.com/en-us/library/zdee4b3y(v=vs.110).aspx">Object.GetHashCode()</a>
-  	</div>
-  	<div>
-  		<a class="xref" href="https://msdn.microsoft.com/en-us/library/dfwy45w9(v=vs.110).aspx">Object.GetType()</a>
-  	</div>
-  	<div>
-  		<a class="xref" href="https://msdn.microsoft.com/en-us/library/57ctke0a(v=vs.110).aspx">Object.MemberwiseClone()</a>
-  	</div>
-  	<div>
-  		<a class="xref" href="https://msdn.microsoft.com/en-us/library/hz2a0b8x(v=vs.110).aspx">Object.ReferenceEquals(Object, Object)</a>
-  	</div>
-  	<div>
-  		<a class="xref" href="https://msdn.microsoft.com/en-us/library/7bxwbwt2(v=vs.110).aspx">Object.ToString()</a>
-  	</div>
-  </div>
   
   
   
@@ -305,20 +177,7 @@
           </div>
         </div>
       </div>
-      
-      <footer>
-        <div class="grad-bottom"></div>
-        <div class="footer">
-          <div class="container">
-            <span class="pull-right">
-              <a href="#top">Back to top</a>
-            </span>
-            
-            <span>Copyright © 2017 Piotr Boguslawski<br>Copyright © 2015-2017 Microsoft<br>Generated by <strong>DocFX</strong></span>
           </div>
-        </div>
-      </footer>
-    </div>
     
     <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
     <script type="text/javascript" src="../styles/docfx.js"></script>

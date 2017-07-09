@@ -70,25 +70,21 @@
             <article class="content wrap" id="_content" data-uid="pbXNet.SettingsInStorage">
   <h1 id="pbXNet_SettingsInStorage" data-uid="pbXNet.SettingsInStorage">Class SettingsInStorage
   </h1>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class SettingsInStorage : Settings</code></pre>
+  </div>
+  
   <div class="markdown level0 summary"></div>
   <div class="markdown level0 conceptual"></div>
 
+  
   <div class="inheritance">
-    <h5>Inheritance</h5>
+    <h3>Inheritance</h3>
     <div class="level0"><a class="xref" href="https://msdn.microsoft.com/en-us/library/system.object(v=vs.110).aspx">Object</a></div>
     <div class="level1"><a class="xref" href="pbXNet.Observable.html">Observable</a></div>
     <div class="level2"><a class="xref" href="pbXNet.Settings.html">Settings</a></div>
     <div class="level3"><span class="xref">SettingsInStorage</span></div>
   </div>
-  
-  
-  <h5 id="pbXNet_SettingsInStorage_syntax">Syntax</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class SettingsInStorage : Settings, INotifyPropertyChanged</code></pre>
-  </div>
-
-  
-  
   
   
   <h3 id="constructors">Constructors
@@ -100,44 +96,13 @@
   <h4 id="pbXNet_SettingsInStorage__ctor_System_String_pbXNet_IStorage_System_String__pbXNet_ISerializer_" data-uid="pbXNet.SettingsInStorage.#ctor(System.String,pbXNet.IStorage{System.String},pbXNet.ISerializer)"><a href="#collapsible-pbXNet_SettingsInStorage__ctor_System_String_pbXNet_IStorage_System_String__pbXNet_ISerializer_" class="expander" data-toggle="collapse">SettingsInStorage(String, IStorage&lt;String&gt;, ISerializer)</a></h4>
   
   <div id="collapsible-pbXNet_SettingsInStorage__ctor_System_String_pbXNet_IStorage_System_String__pbXNet_ISerializer_" class="collapse in">
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public SettingsInStorage(string id, IStorage&lt;string&gt; storage, ISerializer serializer = null)</code></pre>
   </div>
+  
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
 
-  <h5 class="parameters">Parameters</h5>
-  <table>
-    <tr>
-      <td>
-        <span class="pull-right"><a class="xref" href="https://msdn.microsoft.com/en-us/library/system.string(v=vs.110).aspx">String</a></span>
-        <span class="parametername">id</span>
-        <p>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <span class="pull-right"><a class="xref" href="pbXNet.IStorage-1.html">IStorage</a>&lt;<a class="xref" href="https://msdn.microsoft.com/en-us/library/system.string(v=vs.110).aspx">String</a>&gt;</span>
-        <span class="parametername">storage</span>
-        <p>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <span class="pull-right"><a class="xref" href="pbXNet.ISerializer.html">ISerializer</a></span>
-        <span class="parametername">serializer</span>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
-  
-  
-  
-  
-  
   
   
   
@@ -149,67 +114,16 @@
   
   
   
-  <h4 id="pbXNet_SettingsInStorage_Id" data-uid="pbXNet.SettingsInStorage.Id"><a href="#collapsible-pbXNet_SettingsInStorage_Id" class="expander" data-toggle="collapse">Id</a></h4>
-  
-  <div id="collapsible-pbXNet_SettingsInStorage_Id" class="collapse in">
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public string Id</code></pre>
-  </div>
-
-  
-  
-  
-  <h5 class="fieldValue">Field Value</h5>
-  <table>
-    <tr>
-      <td>
-        <a class="xref" href="https://msdn.microsoft.com/en-us/library/system.string(v=vs.110).aspx">String</a>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
-  
-  
-  
-  
-  
-  
-  
-  </div>
-  
-  
-  
   <h4 id="pbXNet_SettingsInStorage_Serializer" data-uid="pbXNet.SettingsInStorage.Serializer"><a href="#collapsible-pbXNet_SettingsInStorage_Serializer" class="expander" data-toggle="collapse">Serializer</a></h4>
   
   <div id="collapsible-pbXNet_SettingsInStorage_Serializer" class="collapse in">
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected readonly ISerializer Serializer</code></pre>
+  </div>
+  
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
 
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected ISerializer Serializer</code></pre>
-  </div>
-
-  
-  
-  
-  <h5 class="fieldValue">Field Value</h5>
-  <table>
-    <tr>
-      <td>
-        <a class="xref" href="pbXNet.ISerializer.html">ISerializer</a>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
-  
-  
   
   
   
@@ -222,29 +136,35 @@
   <h4 id="pbXNet_SettingsInStorage_Storage" data-uid="pbXNet.SettingsInStorage.Storage"><a href="#collapsible-pbXNet_SettingsInStorage_Storage" class="expander" data-toggle="collapse">Storage</a></h4>
   
   <div id="collapsible-pbXNet_SettingsInStorage_Storage" class="collapse in">
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected readonly IStorage&lt;string&gt; Storage</code></pre>
+  </div>
+  
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
 
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected IStorage&lt;string&gt; Storage</code></pre>
+  
+  
+  
+  
+  
   </div>
+  <h3 id="properties">Properties
+  </h3>
+  
+  
+  <a id="pbXNet_SettingsInStorage_Id_" data-uid="pbXNet.SettingsInStorage.Id*"></a>
+  
+  <h4 id="pbXNet_SettingsInStorage_Id" data-uid="pbXNet.SettingsInStorage.Id"><a href="#collapsible-pbXNet_SettingsInStorage_Id" class="expander" data-toggle="collapse">Id</a></h4>
+  
+  <div id="collapsible-pbXNet_SettingsInStorage_Id" class="collapse in">
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string Id { get; }</code></pre>
+  </div>
+  
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
 
-  
-  
-  
-  <h5 class="fieldValue">Field Value</h5>
-  <table>
-    <tr>
-      <td>
-        <a class="xref" href="pbXNet.IStorage-1.html">IStorage</a>&lt;<a class="xref" href="https://msdn.microsoft.com/en-us/library/system.string(v=vs.110).aspx">String</a>&gt;
-        <p>
-      </td>
-    </tr>
-  </table>
-  
-  
-  
   
   
   
@@ -260,32 +180,16 @@
   <h4 id="pbXNet_SettingsInStorage_LoadAsync" data-uid="pbXNet.SettingsInStorage.LoadAsync"><a href="#collapsible-pbXNet_SettingsInStorage_LoadAsync" class="expander" data-toggle="collapse">LoadAsync()</a></h4>
   
   <div id="collapsible-pbXNet_SettingsInStorage_LoadAsync" class="collapse in">
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public override Task LoadAsync()</code></pre>
   </div>
+  
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
 
-  
-  <h5 class="returns">Returns</h5>
-  <table>
-    <tr>
-      <td>
-        <a class="xref" href="https://msdn.microsoft.com/en-us/library/system.threading.tasks.task(v=vs.110).aspx">Task</a>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
-  
-  
-  
   
   <h5 class="overrides">Overrides</h5>
   <div><a class="xref" href="pbXNet.Settings.html#pbXNet_Settings_LoadAsync">Settings.LoadAsync()</a></div>
-  
   
   
   
@@ -298,53 +202,13 @@
   <h4 id="pbXNet_SettingsInStorage_NewAsync_System_String_pbXNet_IStorage_System_String__pbXNet_ISerializer_" data-uid="pbXNet.SettingsInStorage.NewAsync(System.String,pbXNet.IStorage{System.String},pbXNet.ISerializer)"><a href="#collapsible-pbXNet_SettingsInStorage_NewAsync_System_String_pbXNet_IStorage_System_String__pbXNet_ISerializer_" class="expander" data-toggle="collapse">NewAsync(String, IStorage&lt;String&gt;, ISerializer)</a></h4>
   
   <div id="collapsible-pbXNet_SettingsInStorage_NewAsync_System_String_pbXNet_IStorage_System_String__pbXNet_ISerializer_" class="collapse in">
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static Task&lt;SettingsInStorage&gt; NewAsync(string id, IStorage&lt;string&gt; storage, ISerializer serializer = null)</code></pre>
   </div>
+  
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
 
-  <h5 class="parameters">Parameters</h5>
-  <table>
-    <tr>
-      <td>
-        <span class="pull-right"><a class="xref" href="https://msdn.microsoft.com/en-us/library/system.string(v=vs.110).aspx">String</a></span>
-        <span class="parametername">id</span>
-        <p>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <span class="pull-right"><a class="xref" href="pbXNet.IStorage-1.html">IStorage</a>&lt;<a class="xref" href="https://msdn.microsoft.com/en-us/library/system.string(v=vs.110).aspx">String</a>&gt;</span>
-        <span class="parametername">storage</span>
-        <p>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <span class="pull-right"><a class="xref" href="pbXNet.ISerializer.html">ISerializer</a></span>
-        <span class="parametername">serializer</span>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
-  <h5 class="returns">Returns</h5>
-  <table>
-    <tr>
-      <td>
-        <a class="xref" href="https://msdn.microsoft.com/en-us/library/dd321424(v=vs.110).aspx">Task</a>&lt;<a class="xref" href="pbXNet.SettingsInStorage.html">SettingsInStorage</a>&gt;
-        <p>
-      </td>
-    </tr>
-  </table>
-  
-  
-  
-  
-  
   
   
   
@@ -358,42 +222,16 @@
   <h4 id="pbXNet_SettingsInStorage_SaveAsync_System_String_" data-uid="pbXNet.SettingsInStorage.SaveAsync(System.String)"><a href="#collapsible-pbXNet_SettingsInStorage_SaveAsync_System_String_" class="expander" data-toggle="collapse">SaveAsync(String)</a></h4>
   
   <div id="collapsible-pbXNet_SettingsInStorage_SaveAsync_System_String_" class="collapse in">
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public override Task SaveAsync(string changedValueKey = null)</code></pre>
   </div>
+  
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
 
-  <h5 class="parameters">Parameters</h5>
-  <table>
-    <tr>
-      <td>
-        <span class="pull-right"><a class="xref" href="https://msdn.microsoft.com/en-us/library/system.string(v=vs.110).aspx">String</a></span>
-        <span class="parametername">changedValueKey</span>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
-  <h5 class="returns">Returns</h5>
-  <table>
-    <tr>
-      <td>
-        <a class="xref" href="https://msdn.microsoft.com/en-us/library/system.threading.tasks.task(v=vs.110).aspx">Task</a>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
-  
-  
-  
   
   <h5 class="overrides">Overrides</h5>
   <div><a class="xref" href="pbXNet.Settings.html#pbXNet_Settings_SaveAsync_System_String_">Settings.SaveAsync(String)</a></div>
-  
   
   
   
@@ -407,19 +245,34 @@
   		<a class="xref" href="pbXNet.Settings.html#pbXNet_Settings_KeysAndValues">Settings.KeysAndValues</a>
   	</div>
   	<div>
+  		<a class="xref" href="pbXNet.Settings.html#pbXNet_Settings_Set_System_Object_System_String_">Settings.Set(Object, String)</a>
+  	</div>
+  	<div>
   		<a class="xref" href="pbXNet.Settings.html#pbXNet_Settings_Get_System_String_">Settings.Get(String)</a>
   	</div>
   	<div>
   		<a class="xref" href="pbXNet.Settings.html#pbXNet_Settings_Get__1_System_String_">Settings.Get&lt;T&gt;(String)</a>
   	</div>
   	<div>
-  		<a class="xref" href="pbXNet.Settings.html#pbXNet_Settings_Set_System_Object_System_String_">Settings.Set(Object, String)</a>
-  	</div>
-  	<div>
-  		<a class="xref" href="pbXNet.Settings.html#pbXNet_Settings_Set__1___0_System_String_">Settings.Set&lt;T&gt;(T, String)</a>
-  	</div>
-  	<div>
   		<a class="xref" href="pbXNet.Settings.html#pbXNet_Settings_Item_System_String_">Settings.Item[String]</a>
+  	</div>
+  	<div>
+  		<a class="xref" href="pbXNet.Settings.html#pbXNet_Settings_Contains_System_String_">Settings.Contains(String)</a>
+  	</div>
+  	<div>
+  		<a class="xref" href="pbXNet.Settings.html#pbXNet_Settings_Remove_System_String_">Settings.Remove(String)</a>
+  	</div>
+  	<div>
+  		<a class="xref" href="pbXNet.Settings.html#pbXNet_Settings_Clear">Settings.Clear()</a>
+  	</div>
+  	<div>
+  		<a class="xref" href="pbXNet.Settings.html#pbXNet_Settings_GetDefault_System_String_">Settings.GetDefault(String)</a>
+  	</div>
+  	<div>
+  		<a class="xref" href="pbXNet.Settings.html#pbXNet_Settings_Load">Settings.Load()</a>
+  	</div>
+  	<div>
+  		<a class="xref" href="pbXNet.Settings.html#pbXNet_Settings_Save_System_String_">Settings.Save(String)</a>
   	</div>
   	<div>
   		<a class="xref" href="pbXNet.Observable.html#pbXNet_Observable_PropertyChanged">Observable.PropertyChanged</a>
@@ -429,27 +282,6 @@
   	</div>
   	<div>
   		<a class="xref" href="pbXNet.Observable.html#pbXNet_Observable_OnPropertyChanged_System_String_">Observable.OnPropertyChanged(String)</a>
-  	</div>
-  	<div>
-  		<a class="xref" href="https://msdn.microsoft.com/en-us/library/bsc2ak47(v=vs.110).aspx">Object.Equals(Object)</a>
-  	</div>
-  	<div>
-  		<a class="xref" href="https://msdn.microsoft.com/en-us/library/w4hkze5k(v=vs.110).aspx">Object.Equals(Object, Object)</a>
-  	</div>
-  	<div>
-  		<a class="xref" href="https://msdn.microsoft.com/en-us/library/zdee4b3y(v=vs.110).aspx">Object.GetHashCode()</a>
-  	</div>
-  	<div>
-  		<a class="xref" href="https://msdn.microsoft.com/en-us/library/dfwy45w9(v=vs.110).aspx">Object.GetType()</a>
-  	</div>
-  	<div>
-  		<a class="xref" href="https://msdn.microsoft.com/en-us/library/57ctke0a(v=vs.110).aspx">Object.MemberwiseClone()</a>
-  	</div>
-  	<div>
-  		<a class="xref" href="https://msdn.microsoft.com/en-us/library/hz2a0b8x(v=vs.110).aspx">Object.ReferenceEquals(Object, Object)</a>
-  	</div>
-  	<div>
-  		<a class="xref" href="https://msdn.microsoft.com/en-us/library/7bxwbwt2(v=vs.110).aspx">Object.ToString()</a>
   	</div>
   </div>
   
@@ -469,20 +301,7 @@
           </div>
         </div>
       </div>
-      
-      <footer>
-        <div class="grad-bottom"></div>
-        <div class="footer">
-          <div class="container">
-            <span class="pull-right">
-              <a href="#top">Back to top</a>
-            </span>
-            
-            <span>Copyright © 2017 Piotr Boguslawski<br>Copyright © 2015-2017 Microsoft<br>Generated by <strong>DocFX</strong></span>
           </div>
-        </div>
-      </footer>
-    </div>
     
     <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
     <script type="text/javascript" src="../styles/docfx.js"></script>

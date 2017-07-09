@@ -70,24 +70,20 @@
             <article class="content wrap" id="_content" data-uid="pbXNet.Tools">
   <h1 id="pbXNet_Tools" data-uid="pbXNet.Tools">Class Tools
   </h1>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static class Tools : object</code></pre>
+  </div>
+  
   <div class="markdown level0 summary"><p>Various useful functions.</p>
 </div>
   <div class="markdown level0 conceptual"></div>
 
+  
   <div class="inheritance">
-    <h5>Inheritance</h5>
+    <h3>Inheritance</h3>
     <div class="level0"><a class="xref" href="https://msdn.microsoft.com/en-us/library/system.object(v=vs.110).aspx">Object</a></div>
     <div class="level1"><span class="xref">Tools</span></div>
   </div>
-  
-  
-  <h5 id="pbXNet_Tools_syntax">Syntax</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static class Tools</code></pre>
-  </div>
-
-  
-  
   
   
   <h3 id="methods">Methods
@@ -99,30 +95,14 @@
   <h4 id="pbXNet_Tools_CreateGuid" data-uid="pbXNet.Tools.CreateGuid"><a href="#collapsible-pbXNet_Tools_CreateGuid" class="expander" data-toggle="collapse">CreateGuid()</a></h4>
   
   <div id="collapsible-pbXNet_Tools_CreateGuid" class="collapse in">
-  <div class="markdown level1 summary"><p>Creates the GUID (Global Unique IDentifier) in the most compact form.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static string CreateGuid()</code></pre>
   </div>
+  
+  <div class="markdown level1 summary"><p>Creates the GUID (Global Unique IDentifier) in the most compact form.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
 
-  
-  <h5 class="returns">Returns</h5>
-  <table>
-    <tr>
-      <td>
-        <a class="xref" href="https://msdn.microsoft.com/en-us/library/system.string(v=vs.110).aspx">String</a>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
-  
-  
-  
-  
   
   
   
@@ -136,30 +116,14 @@
   <h4 id="pbXNet_Tools_CreateGuidEx" data-uid="pbXNet.Tools.CreateGuidEx"><a href="#collapsible-pbXNet_Tools_CreateGuidEx" class="expander" data-toggle="collapse">CreateGuidEx()</a></h4>
   
   <div id="collapsible-pbXNet_Tools_CreateGuidEx" class="collapse in">
-  <div class="markdown level1 summary"><p>Creates the GUIDex (Global Unique IDentifier extended) in the most compact form.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static string CreateGuidEx()</code></pre>
   </div>
+  
+  <div class="markdown level1 summary"><p>Creates the GUIDex (Global Unique IDentifier extended) in the most compact form.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
 
-  
-  <h5 class="returns">Returns</h5>
-  <table>
-    <tr>
-      <td>
-        <a class="xref" href="https://msdn.microsoft.com/en-us/library/system.string(v=vs.110).aspx">String</a>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
-  
-  
-  
-  
   
   
   
@@ -173,34 +137,16 @@
   <h4 id="pbXNet_Tools_GetUaqpid" data-uid="pbXNet.Tools.GetUaqpid"><a href="#collapsible-pbXNet_Tools_GetUaqpid" class="expander" data-toggle="collapse">GetUaqpid()</a></h4>
   
   <div id="collapsible-pbXNet_Tools_GetUaqpid" class="collapse in">
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static string GetUaqpid()</code></pre>
+  </div>
+  
   <div class="markdown level1 summary"><p>Gets the Uaqpid (Unique And Quite Permanent IDentifier ;))
 which will be quite permanent and really unique accross all devices with the same operating system,
 but there is no guarantee that this Id will be the same for all eternity.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
 
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static string GetUaqpid()</code></pre>
-  </div>
-
-  
-  <h5 class="returns">Returns</h5>
-  <table>
-    <tr>
-      <td>
-        <a class="xref" href="https://msdn.microsoft.com/en-us/library/system.string(v=vs.110).aspx">String</a>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
-  
-  
-  
-  
-  
-  
   <h5 id="pbXNet_Tools_GetUaqpid_remarks">Remarks</h5>
   <div class="markdown level1 remarks"><p>Uaqpid is different for different applications that use this library.
 It may change after uninstalling the application or after reinstalling the operating system.
@@ -215,6 +161,8 @@ It is different for different users on some systems.
   
   
   
+  
+  
   </div>
   
   
@@ -223,57 +171,15 @@ It is different for different users on some systems.
   <h4 id="pbXNet_Tools_MakeIdenticalIfDifferent__1___0___0__" data-uid="pbXNet.Tools.MakeIdenticalIfDifferent``1(``0,``0@)"><a href="#collapsible-pbXNet_Tools_MakeIdenticalIfDifferent__1___0___0__" class="expander" data-toggle="collapse">MakeIdenticalIfDifferent&lt;T&gt;(T, ref T)</a></h4>
   
   <div id="collapsible-pbXNet_Tools_MakeIdenticalIfDifferent__1___0___0__" class="collapse in">
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool MakeIdenticalIfDifferent&lt;T&gt;(T a, ref T b)</code></pre>
+  </div>
+  
   <div class="markdown level1 summary"><p>Compares a with b and if they are identical then it returns false doing nothing. 
 When a and b are different then b becomes equal to a and the function returns true.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
 
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static bool MakeIdenticalIfDifferent&lt;T&gt;(T a, ref T b)</code></pre>
-  </div>
-
-  <h5 class="parameters">Parameters</h5>
-  <table>
-    <tr>
-      <td>
-        <span class="pull-right"><span class="xref">T</span></span>
-        <span class="parametername">a</span>
-        <p>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <span class="pull-right"><span class="xref">T</span></span>
-        <span class="parametername">b</span>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
-  <h5 class="returns">Returns</h5>
-  <table>
-    <tr>
-      <td>
-        <a class="xref" href="https://msdn.microsoft.com/en-us/library/system.boolean(v=vs.110).aspx">Boolean</a>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
-  <h5 class="typeParameters">Type Parameters</h5>
-  <table>
-    <tr>
-      <td>
-        <span class="parametername">T</span>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
-  
-  
-  
   
   
   
@@ -294,30 +200,6 @@ protected override void OnSizeAllocated(double width, double height)
   </div>
   
   
-  <div class="inheritedMembers">
-  	<h3 id="inheritedmembers">Inherited Members</h3>
-  	<div>
-  		<a class="xref" href="https://msdn.microsoft.com/en-us/library/bsc2ak47(v=vs.110).aspx">Object.Equals(Object)</a>
-  	</div>
-  	<div>
-  		<a class="xref" href="https://msdn.microsoft.com/en-us/library/w4hkze5k(v=vs.110).aspx">Object.Equals(Object, Object)</a>
-  	</div>
-  	<div>
-  		<a class="xref" href="https://msdn.microsoft.com/en-us/library/zdee4b3y(v=vs.110).aspx">Object.GetHashCode()</a>
-  	</div>
-  	<div>
-  		<a class="xref" href="https://msdn.microsoft.com/en-us/library/dfwy45w9(v=vs.110).aspx">Object.GetType()</a>
-  	</div>
-  	<div>
-  		<a class="xref" href="https://msdn.microsoft.com/en-us/library/57ctke0a(v=vs.110).aspx">Object.MemberwiseClone()</a>
-  	</div>
-  	<div>
-  		<a class="xref" href="https://msdn.microsoft.com/en-us/library/hz2a0b8x(v=vs.110).aspx">Object.ReferenceEquals(Object, Object)</a>
-  	</div>
-  	<div>
-  		<a class="xref" href="https://msdn.microsoft.com/en-us/library/7bxwbwt2(v=vs.110).aspx">Object.ToString()</a>
-  	</div>
-  </div>
   
   
   
@@ -335,20 +217,7 @@ protected override void OnSizeAllocated(double width, double height)
           </div>
         </div>
       </div>
-      
-      <footer>
-        <div class="grad-bottom"></div>
-        <div class="footer">
-          <div class="container">
-            <span class="pull-right">
-              <a href="#top">Back to top</a>
-            </span>
-            
-            <span>Copyright © 2017 Piotr Boguslawski<br>Copyright © 2015-2017 Microsoft<br>Generated by <strong>DocFX</strong></span>
           </div>
-        </div>
-      </footer>
-    </div>
     
     <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
     <script type="text/javascript" src="../styles/docfx.js"></script>

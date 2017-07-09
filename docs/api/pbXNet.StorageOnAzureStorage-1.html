@@ -70,33 +70,20 @@
             <article class="content wrap" id="_content" data-uid="pbXNet.StorageOnAzureStorage`1">
   <h1 id="pbXNet_StorageOnAzureStorage_1" data-uid="pbXNet.StorageOnAzureStorage`1">Class StorageOnAzureStorage&lt;T&gt;
   </h1>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class StorageOnAzureStorage&lt;T&gt; : Storage&lt;T&gt;, ISearchableStorage&lt;T&gt;, IStorage&lt;T&gt;</code></pre>
+  </div>
+  
   <div class="markdown level0 summary"></div>
   <div class="markdown level0 conceptual"></div>
 
+  
   <div class="inheritance">
-    <h5>Inheritance</h5>
+    <h3>Inheritance</h3>
     <div class="level0"><a class="xref" href="https://msdn.microsoft.com/en-us/library/system.object(v=vs.110).aspx">Object</a></div>
     <div class="level1"><span class="xref">pbXNet.Storage&lt;T&gt;</span></div>
     <div class="level2"><span class="xref">StorageOnAzureStorage&lt;T&gt;</span></div>
   </div>
-  
-  
-  <h5 id="pbXNet_StorageOnAzureStorage_1_syntax">Syntax</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class StorageOnAzureStorage&lt;T&gt; : Storage&lt;T&gt;, ISearchableStorage&lt;T&gt;, IStorage&lt;T&gt;</code></pre>
-  </div>
-
-  
-  
-  <h5 class="typeParameters">Type Parameters</h5>
-  <table>
-    <tr>
-      <td>
-        <span class="parametername">T</span>
-        <p>
-      </td>
-    </tr>
-  </table>
   
   
   <h3 id="constructors">Constructors
@@ -108,44 +95,13 @@
   <h4 id="pbXNet_StorageOnAzureStorage_1__ctor_System_String_pbXNet_AzureStorageSettings_pbXNet_ISerializer_" data-uid="pbXNet.StorageOnAzureStorage`1.#ctor(System.String,pbXNet.AzureStorageSettings,pbXNet.ISerializer)"><a href="#collapsible-pbXNet_StorageOnAzureStorage_1__ctor_System_String_pbXNet_AzureStorageSettings_pbXNet_ISerializer_" class="expander" data-toggle="collapse">StorageOnAzureStorage(String, AzureStorageSettings, ISerializer)</a></h4>
   
   <div id="collapsible-pbXNet_StorageOnAzureStorage_1__ctor_System_String_pbXNet_AzureStorageSettings_pbXNet_ISerializer_" class="collapse in">
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public StorageOnAzureStorage(string id, AzureStorageSettings settings, ISerializer serializer = null)</code></pre>
   </div>
+  
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
 
-  <h5 class="parameters">Parameters</h5>
-  <table>
-    <tr>
-      <td>
-        <span class="pull-right"><a class="xref" href="https://msdn.microsoft.com/en-us/library/system.string(v=vs.110).aspx">String</a></span>
-        <span class="parametername">id</span>
-        <p>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <span class="pull-right"><a class="xref" href="pbXNet.AzureStorageSettings.html">AzureStorageSettings</a></span>
-        <span class="parametername">settings</span>
-        <p>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <span class="pull-right"><a class="xref" href="pbXNet.ISerializer.html">ISerializer</a></span>
-        <span class="parametername">serializer</span>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
-  
-  
-  
-  
-  
   
   
   
@@ -160,29 +116,13 @@
   <h4 id="pbXNet_StorageOnAzureStorage_1_Account" data-uid="pbXNet.StorageOnAzureStorage`1.Account"><a href="#collapsible-pbXNet_StorageOnAzureStorage_1_Account" class="expander" data-toggle="collapse">Account</a></h4>
   
   <div id="collapsible-pbXNet_StorageOnAzureStorage_1_Account" class="collapse in">
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">protected CloudStorageAccount Account</code></pre>
   </div>
+  
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
 
-  
-  
-  
-  <h5 class="fieldValue">Field Value</h5>
-  <table>
-    <tr>
-      <td>
-        <span class="xref">CloudStorageAccount</span>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
-  
-  
   
   
   
@@ -195,29 +135,13 @@
   <h4 id="pbXNet_StorageOnAzureStorage_1_Client" data-uid="pbXNet.StorageOnAzureStorage`1.Client"><a href="#collapsible-pbXNet_StorageOnAzureStorage_1_Client" class="expander" data-toggle="collapse">Client</a></h4>
   
   <div id="collapsible-pbXNet_StorageOnAzureStorage_1_Client" class="collapse in">
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">protected CloudBlobClient Client</code></pre>
   </div>
+  
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
 
-  
-  
-  
-  <h5 class="fieldValue">Field Value</h5>
-  <table>
-    <tr>
-      <td>
-        <span class="xref">CloudBlobClient</span>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
-  
-  
   
   
   
@@ -230,29 +154,13 @@
   <h4 id="pbXNet_StorageOnAzureStorage_1_Container" data-uid="pbXNet.StorageOnAzureStorage`1.Container"><a href="#collapsible-pbXNet_StorageOnAzureStorage_1_Container" class="expander" data-toggle="collapse">Container</a></h4>
   
   <div id="collapsible-pbXNet_StorageOnAzureStorage_1_Container" class="collapse in">
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">protected CloudBlobContainer Container</code></pre>
   </div>
+  
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
 
-  
-  
-  
-  <h5 class="fieldValue">Field Value</h5>
-  <table>
-    <tr>
-      <td>
-        <span class="xref">CloudBlobContainer</span>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
-  
-  
   
   
   
@@ -265,29 +173,13 @@
   <h4 id="pbXNet_StorageOnAzureStorage_1_Settings" data-uid="pbXNet.StorageOnAzureStorage`1.Settings"><a href="#collapsible-pbXNet_StorageOnAzureStorage_1_Settings" class="expander" data-toggle="collapse">Settings</a></h4>
   
   <div id="collapsible-pbXNet_StorageOnAzureStorage_1_Settings" class="collapse in">
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">protected AzureStorageSettings Settings</code></pre>
   </div>
+  
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
 
-  
-  
-  
-  <h5 class="fieldValue">Field Value</h5>
-  <table>
-    <tr>
-      <td>
-        <a class="xref" href="pbXNet.AzureStorageSettings.html">AzureStorageSettings</a>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
-  
-  
   
   
   
@@ -303,35 +195,19 @@
   <h4 id="pbXNet_StorageOnAzureStorage_1_Name" data-uid="pbXNet.StorageOnAzureStorage`1.Name"><a href="#collapsible-pbXNet_StorageOnAzureStorage_1_Name" class="expander" data-toggle="collapse">Name</a></h4>
   
   <div id="collapsible-pbXNet_StorageOnAzureStorage_1_Name" class="collapse in">
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public override string Name { get; }</code></pre>
   </div>
+  
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
 
-  
-  
-  
-  
-  <h5 class="propertyValue">Property Value</h5>
-  <table>
-    <tr>
-      <td>
-        <a class="xref" href="https://msdn.microsoft.com/en-us/library/system.string(v=vs.110).aspx">String</a>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
   
   <h5 class="overrides">Overrides</h5>
   <div><span class="xref">pbXNet.Storage&lt;T&gt;.Name</span></div>
   
   <h5 class="implements">Implements</h5>
       <div><a class="xref" href="pbXNet.IStorage-1.html#pbXNet_IStorage_1_Name">IStorage&lt;T&gt;.Name</a></div>
-  
   
   
   
@@ -343,35 +219,19 @@
   <h4 id="pbXNet_StorageOnAzureStorage_1_Type" data-uid="pbXNet.StorageOnAzureStorage`1.Type"><a href="#collapsible-pbXNet_StorageOnAzureStorage_1_Type" class="expander" data-toggle="collapse">Type</a></h4>
   
   <div id="collapsible-pbXNet_StorageOnAzureStorage_1_Type" class="collapse in">
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public override StorageType Type { get; }</code></pre>
   </div>
+  
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
 
-  
-  
-  
-  
-  <h5 class="propertyValue">Property Value</h5>
-  <table>
-    <tr>
-      <td>
-        <a class="xref" href="pbXNet.StorageType.html">StorageType</a>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
   
   <h5 class="overrides">Overrides</h5>
   <div><span class="xref">pbXNet.Storage&lt;T&gt;.Type</span></div>
   
   <h5 class="implements">Implements</h5>
       <div><a class="xref" href="pbXNet.IStorage-1.html#pbXNet_IStorage_1_Type">IStorage&lt;T&gt;.Type</a></div>
-  
   
   
   
@@ -385,45 +245,19 @@
   <h4 id="pbXNet_StorageOnAzureStorage_1_DiscardAsync_System_String_" data-uid="pbXNet.StorageOnAzureStorage`1.DiscardAsync(System.String)"><a href="#collapsible-pbXNet_StorageOnAzureStorage_1_DiscardAsync_System_String_" class="expander" data-toggle="collapse">DiscardAsync(String)</a></h4>
   
   <div id="collapsible-pbXNet_StorageOnAzureStorage_1_DiscardAsync_System_String_" class="collapse in">
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public override Task DiscardAsync(string thingId)</code></pre>
   </div>
+  
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
 
-  <h5 class="parameters">Parameters</h5>
-  <table>
-    <tr>
-      <td>
-        <span class="pull-right"><a class="xref" href="https://msdn.microsoft.com/en-us/library/system.string(v=vs.110).aspx">String</a></span>
-        <span class="parametername">thingId</span>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
-  <h5 class="returns">Returns</h5>
-  <table>
-    <tr>
-      <td>
-        <a class="xref" href="https://msdn.microsoft.com/en-us/library/system.threading.tasks.task(v=vs.110).aspx">Task</a>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
-  
-  
-  
   
   <h5 class="overrides">Overrides</h5>
   <div><span class="xref">pbXNet.Storage&lt;T&gt;.DiscardAsync(System.String)</span></div>
   
   <h5 class="implements">Implements</h5>
       <div><a class="xref" href="pbXNet.IStorage-1.html#pbXNet_IStorage_1_DiscardAsync_System_String_">IStorage&lt;T&gt;.DiscardAsync(String)</a></div>
-  
   
   
   
@@ -435,45 +269,19 @@
   <h4 id="pbXNet_StorageOnAzureStorage_1_ExistsAsync_System_String_" data-uid="pbXNet.StorageOnAzureStorage`1.ExistsAsync(System.String)"><a href="#collapsible-pbXNet_StorageOnAzureStorage_1_ExistsAsync_System_String_" class="expander" data-toggle="collapse">ExistsAsync(String)</a></h4>
   
   <div id="collapsible-pbXNet_StorageOnAzureStorage_1_ExistsAsync_System_String_" class="collapse in">
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public override Task&lt;bool&gt; ExistsAsync(string thingId)</code></pre>
   </div>
+  
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
 
-  <h5 class="parameters">Parameters</h5>
-  <table>
-    <tr>
-      <td>
-        <span class="pull-right"><a class="xref" href="https://msdn.microsoft.com/en-us/library/system.string(v=vs.110).aspx">String</a></span>
-        <span class="parametername">thingId</span>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
-  <h5 class="returns">Returns</h5>
-  <table>
-    <tr>
-      <td>
-        <span class="xref">System.Threading.Tasks.Task&lt;System.Boolean&gt;</span>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
-  
-  
-  
   
   <h5 class="overrides">Overrides</h5>
   <div><span class="xref">pbXNet.Storage&lt;T&gt;.ExistsAsync(System.String)</span></div>
   
   <h5 class="implements">Implements</h5>
       <div><a class="xref" href="pbXNet.IStorage-1.html#pbXNet_IStorage_1_ExistsAsync_System_String_">IStorage&lt;T&gt;.ExistsAsync(String)</a></div>
-  
   
   
   
@@ -485,43 +293,17 @@
   <h4 id="pbXNet_StorageOnAzureStorage_1_FindIdsAsync_System_String_" data-uid="pbXNet.StorageOnAzureStorage`1.FindIdsAsync(System.String)"><a href="#collapsible-pbXNet_StorageOnAzureStorage_1_FindIdsAsync_System_String_" class="expander" data-toggle="collapse">FindIdsAsync(String)</a></h4>
   
   <div id="collapsible-pbXNet_StorageOnAzureStorage_1_FindIdsAsync_System_String_" class="collapse in">
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public virtual Task&lt;IEnumerable&lt;string&gt;&gt; FindIdsAsync(string pattern)</code></pre>
   </div>
+  
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
 
-  <h5 class="parameters">Parameters</h5>
-  <table>
-    <tr>
-      <td>
-        <span class="pull-right"><a class="xref" href="https://msdn.microsoft.com/en-us/library/system.string(v=vs.110).aspx">String</a></span>
-        <span class="parametername">pattern</span>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
-  <h5 class="returns">Returns</h5>
-  <table>
-    <tr>
-      <td>
-        <span class="xref">System.Threading.Tasks.Task&lt;System.Collections.Generic.IEnumerable&lt;System.String&gt;&gt;</span>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
-  
-  
-  
   
   
   <h5 class="implements">Implements</h5>
       <div><a class="xref" href="pbXNet.ISearchableStorage-1.html#pbXNet_ISearchableStorage_1_FindIdsAsync_System_String_">ISearchableStorage&lt;T&gt;.FindIdsAsync(String)</a></div>
-  
   
   
   
@@ -533,45 +315,19 @@
   <h4 id="pbXNet_StorageOnAzureStorage_1_GetACopyAsync_System_String_" data-uid="pbXNet.StorageOnAzureStorage`1.GetACopyAsync(System.String)"><a href="#collapsible-pbXNet_StorageOnAzureStorage_1_GetACopyAsync_System_String_" class="expander" data-toggle="collapse">GetACopyAsync(String)</a></h4>
   
   <div id="collapsible-pbXNet_StorageOnAzureStorage_1_GetACopyAsync_System_String_" class="collapse in">
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public override Task&lt;T&gt; GetACopyAsync(string thingId)</code></pre>
   </div>
+  
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
 
-  <h5 class="parameters">Parameters</h5>
-  <table>
-    <tr>
-      <td>
-        <span class="pull-right"><a class="xref" href="https://msdn.microsoft.com/en-us/library/system.string(v=vs.110).aspx">String</a></span>
-        <span class="parametername">thingId</span>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
-  <h5 class="returns">Returns</h5>
-  <table>
-    <tr>
-      <td>
-        <span class="xref">System.Threading.Tasks.Task&lt;T&gt;</span>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
-  
-  
-  
   
   <h5 class="overrides">Overrides</h5>
   <div><span class="xref">pbXNet.Storage&lt;T&gt;.GetACopyAsync(System.String)</span></div>
   
   <h5 class="implements">Implements</h5>
       <div><a class="xref" href="pbXNet.IStorage-1.html#pbXNet_IStorage_1_GetACopyAsync_System_String_">IStorage&lt;T&gt;.GetACopyAsync(String)</a></div>
-  
   
   
   
@@ -583,45 +339,19 @@
   <h4 id="pbXNet_StorageOnAzureStorage_1_GetModifiedOnAsync_System_String_" data-uid="pbXNet.StorageOnAzureStorage`1.GetModifiedOnAsync(System.String)"><a href="#collapsible-pbXNet_StorageOnAzureStorage_1_GetModifiedOnAsync_System_String_" class="expander" data-toggle="collapse">GetModifiedOnAsync(String)</a></h4>
   
   <div id="collapsible-pbXNet_StorageOnAzureStorage_1_GetModifiedOnAsync_System_String_" class="collapse in">
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public override Task&lt;DateTime&gt; GetModifiedOnAsync(string thingId)</code></pre>
   </div>
+  
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
 
-  <h5 class="parameters">Parameters</h5>
-  <table>
-    <tr>
-      <td>
-        <span class="pull-right"><a class="xref" href="https://msdn.microsoft.com/en-us/library/system.string(v=vs.110).aspx">String</a></span>
-        <span class="parametername">thingId</span>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
-  <h5 class="returns">Returns</h5>
-  <table>
-    <tr>
-      <td>
-        <span class="xref">System.Threading.Tasks.Task&lt;System.DateTime&gt;</span>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
-  
-  
-  
   
   <h5 class="overrides">Overrides</h5>
   <div><span class="xref">pbXNet.Storage&lt;T&gt;.GetModifiedOnAsync(System.String)</span></div>
   
   <h5 class="implements">Implements</h5>
       <div><a class="xref" href="pbXNet.IStorage-1.html#pbXNet_IStorage_1_GetModifiedOnAsync_System_String_">IStorage&lt;T&gt;.GetModifiedOnAsync(String)</a></div>
-  
   
   
   
@@ -633,35 +363,19 @@
   <h4 id="pbXNet_StorageOnAzureStorage_1_InitializeAsync" data-uid="pbXNet.StorageOnAzureStorage`1.InitializeAsync"><a href="#collapsible-pbXNet_StorageOnAzureStorage_1_InitializeAsync" class="expander" data-toggle="collapse">InitializeAsync()</a></h4>
   
   <div id="collapsible-pbXNet_StorageOnAzureStorage_1_InitializeAsync" class="collapse in">
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public override Task InitializeAsync()</code></pre>
   </div>
+  
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
 
-  
-  <h5 class="returns">Returns</h5>
-  <table>
-    <tr>
-      <td>
-        <a class="xref" href="https://msdn.microsoft.com/en-us/library/system.threading.tasks.task(v=vs.110).aspx">Task</a>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
-  
-  
-  
   
   <h5 class="overrides">Overrides</h5>
   <div><span class="xref">pbXNet.Storage&lt;T&gt;.InitializeAsync()</span></div>
   
   <h5 class="implements">Implements</h5>
       <div><a class="xref" href="pbXNet.IStorage-1.html#pbXNet_IStorage_1_InitializeAsync">IStorage&lt;T&gt;.InitializeAsync()</a></div>
-  
   
   
   
@@ -673,53 +387,13 @@
   <h4 id="pbXNet_StorageOnAzureStorage_1_NewAsync_System_String_pbXNet_AzureStorageSettings_pbXNet_ISerializer_" data-uid="pbXNet.StorageOnAzureStorage`1.NewAsync(System.String,pbXNet.AzureStorageSettings,pbXNet.ISerializer)"><a href="#collapsible-pbXNet_StorageOnAzureStorage_1_NewAsync_System_String_pbXNet_AzureStorageSettings_pbXNet_ISerializer_" class="expander" data-toggle="collapse">NewAsync(String, AzureStorageSettings, ISerializer)</a></h4>
   
   <div id="collapsible-pbXNet_StorageOnAzureStorage_1_NewAsync_System_String_pbXNet_AzureStorageSettings_pbXNet_ISerializer_" class="collapse in">
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static Task&lt;StorageOnAzureStorage&lt;T&gt;&gt; NewAsync(string id, AzureStorageSettings settings, ISerializer serializer = null)</code></pre>
   </div>
+  
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
 
-  <h5 class="parameters">Parameters</h5>
-  <table>
-    <tr>
-      <td>
-        <span class="pull-right"><a class="xref" href="https://msdn.microsoft.com/en-us/library/system.string(v=vs.110).aspx">String</a></span>
-        <span class="parametername">id</span>
-        <p>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <span class="pull-right"><a class="xref" href="pbXNet.AzureStorageSettings.html">AzureStorageSettings</a></span>
-        <span class="parametername">settings</span>
-        <p>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <span class="pull-right"><a class="xref" href="pbXNet.ISerializer.html">ISerializer</a></span>
-        <span class="parametername">serializer</span>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
-  <h5 class="returns">Returns</h5>
-  <table>
-    <tr>
-      <td>
-        <span class="xref">System.Threading.Tasks.Task&lt;pbXNet.StorageOnAzureStorage&lt;T&gt;&gt;</span>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
-  
-  
-  
-  
   
   
   
@@ -730,62 +404,22 @@
   
   <a id="pbXNet_StorageOnAzureStorage_1_StoreAsync_" data-uid="pbXNet.StorageOnAzureStorage`1.StoreAsync*"></a>
   
-  <h4 id="pbXNet_StorageOnAzureStorage_1_StoreAsync_System_String__0_System_DateTime_" data-uid="pbXNet.StorageOnAzureStorage`1.StoreAsync(System.String,`0,System.DateTime)"><a href="#collapsible-pbXNet_StorageOnAzureStorage_1_StoreAsync_System_String__0_System_DateTime_" class="expander" data-toggle="collapse">StoreAsync(String, T, DateTime)</a></h4>
+  <h4 id="pbXNet_StorageOnAzureStorage_1_StoreAsync_System_String__0_DateTime_" data-uid="pbXNet.StorageOnAzureStorage`1.StoreAsync(System.String,`0,DateTime)"><a href="#collapsible-pbXNet_StorageOnAzureStorage_1_StoreAsync_System_String__0_DateTime_" class="expander" data-toggle="collapse">StoreAsync(String, T, DateTime)</a></h4>
   
-  <div id="collapsible-pbXNet_StorageOnAzureStorage_1_StoreAsync_System_String__0_System_DateTime_" class="collapse in">
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-
+  <div id="collapsible-pbXNet_StorageOnAzureStorage_1_StoreAsync_System_String__0_DateTime_" class="collapse in">
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public override Task StoreAsync(string thingId, T data, DateTime modifiedOn)</code></pre>
   </div>
+  
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
 
-  <h5 class="parameters">Parameters</h5>
-  <table>
-    <tr>
-      <td>
-        <span class="pull-right"><a class="xref" href="https://msdn.microsoft.com/en-us/library/system.string(v=vs.110).aspx">String</a></span>
-        <span class="parametername">thingId</span>
-        <p>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <span class="pull-right"><span class="xref">T</span></span>
-        <span class="parametername">data</span>
-        <p>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <span class="pull-right"><a class="xref" href="https://msdn.microsoft.com/en-us/library/system.datetime(v=vs.110).aspx">DateTime</a></span>
-        <span class="parametername">modifiedOn</span>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
-  <h5 class="returns">Returns</h5>
-  <table>
-    <tr>
-      <td>
-        <a class="xref" href="https://msdn.microsoft.com/en-us/library/system.threading.tasks.task(v=vs.110).aspx">Task</a>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
-  
-  
-  
   
   <h5 class="overrides">Overrides</h5>
-  <div><span class="xref">pbXNet.Storage&lt;T&gt;.StoreAsync(System.String, T, System.DateTime)</span></div>
+  <div><span class="xref">pbXNet.Storage&lt;T&gt;.StoreAsync(System.String, T, DateTime)</span></div>
   
   <h5 class="implements">Implements</h5>
-      <div><a class="xref" href="pbXNet.IStorage-1.html#pbXNet_IStorage_1_StoreAsync_System_String__0_System_DateTime_">IStorage&lt;T&gt;.StoreAsync(String, T, DateTime)</a></div>
-  
+      <div><a class="xref" href="pbXNet.IStorage-1.html#pbXNet_IStorage_1_StoreAsync_System_String__0_DateTime_">IStorage&lt;T&gt;.StoreAsync(String, T, DateTime)</a></div>
   
   
   
@@ -802,27 +436,6 @@
   	</div>
   	<div>
   		<a class="xref" href="pbXNet.Storage-1.html#pbXNet_Storage_1_RetrieveAsync_System_String_">Storage&lt;T&gt;.RetrieveAsync(String)</a>
-  	</div>
-  	<div>
-  		<a class="xref" href="https://msdn.microsoft.com/en-us/library/bsc2ak47(v=vs.110).aspx">Object.Equals(Object)</a>
-  	</div>
-  	<div>
-  		<a class="xref" href="https://msdn.microsoft.com/en-us/library/w4hkze5k(v=vs.110).aspx">Object.Equals(Object, Object)</a>
-  	</div>
-  	<div>
-  		<a class="xref" href="https://msdn.microsoft.com/en-us/library/zdee4b3y(v=vs.110).aspx">Object.GetHashCode()</a>
-  	</div>
-  	<div>
-  		<a class="xref" href="https://msdn.microsoft.com/en-us/library/dfwy45w9(v=vs.110).aspx">Object.GetType()</a>
-  	</div>
-  	<div>
-  		<a class="xref" href="https://msdn.microsoft.com/en-us/library/57ctke0a(v=vs.110).aspx">Object.MemberwiseClone()</a>
-  	</div>
-  	<div>
-  		<a class="xref" href="https://msdn.microsoft.com/en-us/library/hz2a0b8x(v=vs.110).aspx">Object.ReferenceEquals(Object, Object)</a>
-  	</div>
-  	<div>
-  		<a class="xref" href="https://msdn.microsoft.com/en-us/library/7bxwbwt2(v=vs.110).aspx">Object.ToString()</a>
   	</div>
   </div>
   
@@ -842,20 +455,7 @@
           </div>
         </div>
       </div>
-      
-      <footer>
-        <div class="grad-bottom"></div>
-        <div class="footer">
-          <div class="container">
-            <span class="pull-right">
-              <a href="#top">Back to top</a>
-            </span>
-            
-            <span>Copyright © 2017 Piotr Boguslawski<br>Copyright © 2015-2017 Microsoft<br>Generated by <strong>DocFX</strong></span>
           </div>
-        </div>
-      </footer>
-    </div>
     
     <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
     <script type="text/javascript" src="../styles/docfx.js"></script>

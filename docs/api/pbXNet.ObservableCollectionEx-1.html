@@ -70,35 +70,20 @@
             <article class="content wrap" id="_content" data-uid="pbXNet.ObservableCollectionEx`1">
   <h1 id="pbXNet_ObservableCollectionEx_1" data-uid="pbXNet.ObservableCollectionEx`1">Class ObservableCollectionEx&lt;T&gt;
   </h1>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class ObservableCollectionEx&lt;T&gt; : ObservableCollection&lt;T&gt;</code></pre>
+  </div>
+  
   <div class="markdown level0 summary"><p>Represents a dynamic data collection that provides notifications when items get added, removed, or when the whole list is refreshed. </p>
 </div>
   <div class="markdown level0 conceptual"></div>
 
+  
   <div class="inheritance">
-    <h5>Inheritance</h5>
+    <h3>Inheritance</h3>
     <div class="level0"><a class="xref" href="https://msdn.microsoft.com/en-us/library/system.object(v=vs.110).aspx">Object</a></div>
-    <div class="level1"><span class="xref">System.Collections.ObjectModel.Collection&lt;T&gt;</span></div>
-    <div class="level2"><span class="xref">System.Collections.ObjectModel.ObservableCollection&lt;T&gt;</span></div>
-    <div class="level3"><span class="xref">ObservableCollectionEx&lt;T&gt;</span></div>
+    <div class="level1"><span class="xref">ObservableCollectionEx&lt;T&gt;</span></div>
   </div>
-  
-  
-  <h5 id="pbXNet_ObservableCollectionEx_1_syntax">Syntax</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class ObservableCollectionEx&lt;T&gt; : ObservableCollection&lt;T&gt;, IList&lt;T&gt;, ICollection&lt;T&gt;, IReadOnlyList&lt;T&gt;, IReadOnlyCollection&lt;T&gt;, IEnumerable&lt;T&gt;, IList, ICollection, IEnumerable, INotifyCollectionChanged, INotifyPropertyChanged</code></pre>
-  </div>
-
-  
-  
-  <h5 class="typeParameters">Type Parameters</h5>
-  <table>
-    <tr>
-      <td>
-        <span class="parametername">T</span>
-        <p>
-      </td>
-    </tr>
-  </table>
   
   
   <h3 id="constructors">Constructors
@@ -110,21 +95,14 @@
   <h4 id="pbXNet_ObservableCollectionEx_1__ctor" data-uid="pbXNet.ObservableCollectionEx`1.#ctor"><a href="#collapsible-pbXNet_ObservableCollectionEx_1__ctor" class="expander" data-toggle="collapse">ObservableCollectionEx()</a></h4>
   
   <div id="collapsible-pbXNet_ObservableCollectionEx_1__ctor" class="collapse in">
-  <div class="markdown level1 summary"><p>Initializes a new instance of the ObservableCollectionEx&lt;T&gt; class that contains no elements. </p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public ObservableCollectionEx()</code></pre>
   </div>
+  
+  <div class="markdown level1 summary"><p>Initializes a new instance of the ObservableCollectionEx&lt;T&gt; class that contains no elements. </p>
+</div>
+  <div class="markdown level1 conceptual"></div>
 
-  
-  
-  
-  
-  
-  
   
   
   
@@ -135,98 +113,42 @@
   
   <a id="pbXNet_ObservableCollectionEx_1__ctor_" data-uid="pbXNet.ObservableCollectionEx`1.#ctor*"></a>
   
-  <h4 id="pbXNet_ObservableCollectionEx_1__ctor_System_Collections_Generic_IEnumerable__0__" data-uid="pbXNet.ObservableCollectionEx`1.#ctor(System.Collections.Generic.IEnumerable{`0})"><a href="#collapsible-pbXNet_ObservableCollectionEx_1__ctor_System_Collections_Generic_IEnumerable__0__" class="expander" data-toggle="collapse">ObservableCollectionEx(IEnumerable&lt;T&gt;)</a></h4>
+  <h4 id="pbXNet_ObservableCollectionEx_1__ctor_IEnumerable__0__" data-uid="pbXNet.ObservableCollectionEx`1.#ctor(IEnumerable{`0})"><a href="#collapsible-pbXNet_ObservableCollectionEx_1__ctor_IEnumerable__0__" class="expander" data-toggle="collapse">ObservableCollectionEx(IEnumerable&lt;T&gt;)</a></h4>
   
-  <div id="collapsible-pbXNet_ObservableCollectionEx_1__ctor_System_Collections_Generic_IEnumerable__0__" class="collapse in">
-  <div class="markdown level1 summary"><p>Initializes a new instance of the ObservableCollectionEx&lt;T&gt; class that contains elements copied from the specified collection. </p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-
+  <div id="collapsible-pbXNet_ObservableCollectionEx_1__ctor_IEnumerable__0__" class="collapse in">
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public ObservableCollectionEx(IEnumerable&lt;T&gt; collection)</code></pre>
   </div>
+  
+  <div class="markdown level1 summary"><p>Initializes a new instance of the ObservableCollectionEx&lt;T&gt; class that contains elements copied from the specified <span class="paramref">collection</span>. </p>
+</div>
+  <div class="markdown level1 conceptual"></div>
 
-  <h5 class="parameters">Parameters</h5>
-  <table>
-    <tr>
-      <td>
-        <span class="pull-right"><span class="xref">System.Collections.Generic.IEnumerable&lt;T&gt;</span></span>
-        <span class="parametername">collection</span>
-        <p><p>The collection from which the elements are copied.</p>
-</p>
-      </td>
-    </tr>
-  </table>
   
   
   
   
-  
-  
-  
-  
-  
-  
-  <h5 class="exceptions">Exceptions</h5>
-  <table>
-    <tr>
-      <td>
-        <a class="xref" href="https://msdn.microsoft.com/en-us/library/system.argumentnullexception(v=vs.110).aspx">ArgumentNullException</a>
-        <p><p>The collection parameter cannot be null.</p>
-</p>
-      </td>
-    </tr>
-  </table>
   
   </div>
   
   
   <a id="pbXNet_ObservableCollectionEx_1__ctor_" data-uid="pbXNet.ObservableCollectionEx`1.#ctor*"></a>
   
-  <h4 id="pbXNet_ObservableCollectionEx_1__ctor_System_Collections_Generic_List__0__" data-uid="pbXNet.ObservableCollectionEx`1.#ctor(System.Collections.Generic.List{`0})"><a href="#collapsible-pbXNet_ObservableCollectionEx_1__ctor_System_Collections_Generic_List__0__" class="expander" data-toggle="collapse">ObservableCollectionEx(List&lt;T&gt;)</a></h4>
+  <h4 id="pbXNet_ObservableCollectionEx_1__ctor_List__0__" data-uid="pbXNet.ObservableCollectionEx`1.#ctor(List{`0})"><a href="#collapsible-pbXNet_ObservableCollectionEx_1__ctor_List__0__" class="expander" data-toggle="collapse">ObservableCollectionEx(List&lt;T&gt;)</a></h4>
   
-  <div id="collapsible-pbXNet_ObservableCollectionEx_1__ctor_System_Collections_Generic_List__0__" class="collapse in">
-  <div class="markdown level1 summary"><p>Initializes a new instance of the ObservableCollectionEx&lt;T&gt; class that contains elements copied from the specified list. </p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-
+  <div id="collapsible-pbXNet_ObservableCollectionEx_1__ctor_List__0__" class="collapse in">
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public ObservableCollectionEx(List&lt;T&gt; list)</code></pre>
   </div>
+  
+  <div class="markdown level1 summary"><p>Initializes a new instance of the ObservableCollectionEx&lt;T&gt; class that contains elements copied from the specified <span class="paramref">list</span>. </p>
+</div>
+  <div class="markdown level1 conceptual"></div>
 
-  <h5 class="parameters">Parameters</h5>
-  <table>
-    <tr>
-      <td>
-        <span class="pull-right"><span class="xref">System.Collections.Generic.List&lt;T&gt;</span></span>
-        <span class="parametername">list</span>
-        <p><p>The list from which the elements are copied.</p>
-</p>
-      </td>
-    </tr>
-  </table>
   
   
   
   
-  
-  
-  
-  
-  
-  
-  <h5 class="exceptions">Exceptions</h5>
-  <table>
-    <tr>
-      <td>
-        <a class="xref" href="https://msdn.microsoft.com/en-us/library/system.argumentnullexception(v=vs.110).aspx">ArgumentNullException</a>
-        <p><p>The list parameter cannot be null.</p>
-</p>
-      </td>
-    </tr>
-  </table>
   
   </div>
   <h3 id="methods">Methods
@@ -235,41 +157,17 @@
   
   <a id="pbXNet_ObservableCollectionEx_1_AddRange_" data-uid="pbXNet.ObservableCollectionEx`1.AddRange*"></a>
   
-  <h4 id="pbXNet_ObservableCollectionEx_1_AddRange_System_Collections_Generic_IEnumerable__0__System_Collections_Specialized_NotifyCollectionChangedAction_" data-uid="pbXNet.ObservableCollectionEx`1.AddRange(System.Collections.Generic.IEnumerable{`0},System.Collections.Specialized.NotifyCollectionChangedAction)"><a href="#collapsible-pbXNet_ObservableCollectionEx_1_AddRange_System_Collections_Generic_IEnumerable__0__System_Collections_Specialized_NotifyCollectionChangedAction_" class="expander" data-toggle="collapse">AddRange(IEnumerable&lt;T&gt;, NotifyCollectionChangedAction)</a></h4>
+  <h4 id="pbXNet_ObservableCollectionEx_1_AddRange_IEnumerable__0__NotifyCollectionChangedAction_" data-uid="pbXNet.ObservableCollectionEx`1.AddRange(IEnumerable{`0},NotifyCollectionChangedAction)"><a href="#collapsible-pbXNet_ObservableCollectionEx_1_AddRange_IEnumerable__0__NotifyCollectionChangedAction_" class="expander" data-toggle="collapse">AddRange(IEnumerable&lt;T&gt;, NotifyCollectionChangedAction)</a></h4>
   
-  <div id="collapsible-pbXNet_ObservableCollectionEx_1_AddRange_System_Collections_Generic_IEnumerable__0__System_Collections_Specialized_NotifyCollectionChangedAction_" class="collapse in">
-  <div class="markdown level1 summary"><p>Adds the elements of the specified collection to the end of the ObservableCollectionEx&lt;T&gt;. </p>
+  <div id="collapsible-pbXNet_ObservableCollectionEx_1_AddRange_IEnumerable__0__NotifyCollectionChangedAction_" class="collapse in">
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void AddRange(IEnumerable&lt;T&gt; collection, NotifyCollectionChangedAction notificationMode = null)</code></pre>
+  </div>
+  
+  <div class="markdown level1 summary"><p>Adds the elements of the specified <span class="paramref">collection</span> to the end of the current collection. </p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
 
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void AddRange(IEnumerable&lt;T&gt; collection, NotifyCollectionChangedAction notificationMode = NotifyCollectionChangedAction.Add)</code></pre>
-  </div>
-
-  <h5 class="parameters">Parameters</h5>
-  <table>
-    <tr>
-      <td>
-        <span class="pull-right"><span class="xref">System.Collections.Generic.IEnumerable&lt;T&gt;</span></span>
-        <span class="parametername">collection</span>
-        <p>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <span class="pull-right"><a class="xref" href="https://msdn.microsoft.com/en-us/library/system.collections.specialized.notifycollectionchangedaction(v=vs.110).aspx">NotifyCollectionChangedAction</a></span>
-        <span class="parametername">notificationMode</span>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
-  
-  
-  
-  
-  
   
   
   
@@ -280,44 +178,17 @@
   
   <a id="pbXNet_ObservableCollectionEx_1_Find_" data-uid="pbXNet.ObservableCollectionEx`1.Find*"></a>
   
-  <h4 id="pbXNet_ObservableCollectionEx_1_Find_System_Predicate__0__" data-uid="pbXNet.ObservableCollectionEx`1.Find(System.Predicate{`0})"><a href="#collapsible-pbXNet_ObservableCollectionEx_1_Find_System_Predicate__0__" class="expander" data-toggle="collapse">Find(Predicate&lt;T&gt;)</a></h4>
+  <h4 id="pbXNet_ObservableCollectionEx_1_Find_Predicate__0__" data-uid="pbXNet.ObservableCollectionEx`1.Find(Predicate{`0})"><a href="#collapsible-pbXNet_ObservableCollectionEx_1_Find_Predicate__0__" class="expander" data-toggle="collapse">Find(Predicate&lt;T&gt;)</a></h4>
   
-  <div id="collapsible-pbXNet_ObservableCollectionEx_1_Find_System_Predicate__0__" class="collapse in">
-  <div class="markdown level1 summary"><p>Searches for an element that matches the conditions defined by the specified predicate, and returns the first occurrence within the entire collection.</p>
+  <div id="collapsible-pbXNet_ObservableCollectionEx_1_Find_Predicate__0__" class="collapse in">
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public T Find(Predicate&lt;T&gt; predicate)</code></pre>
+  </div>
+  
+  <div class="markdown level1 summary"><p>Searches for an element that matches the conditions defined by the specified <span class="paramref">predicate</span>, and returns the first occurrence within the entire collection.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
 
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public T Find(Predicate&lt;T&gt; match)</code></pre>
-  </div>
-
-  <h5 class="parameters">Parameters</h5>
-  <table>
-    <tr>
-      <td>
-        <span class="pull-right"><span class="xref">System.Predicate&lt;T&gt;</span></span>
-        <span class="parametername">match</span>
-        <p><p>The Predicate&lt;T&gt; delegate that defines the conditions of the element to search for.</p>
-</p>
-      </td>
-    </tr>
-  </table>
-  
-  <h5 class="returns">Returns</h5>
-  <table>
-    <tr>
-      <td>
-        <span class="xref">T</span>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
-  
-  
-  
-  
   
   
   
@@ -328,34 +199,17 @@
   
   <a id="pbXNet_ObservableCollectionEx_1_RemoveRange_" data-uid="pbXNet.ObservableCollectionEx`1.RemoveRange*"></a>
   
-  <h4 id="pbXNet_ObservableCollectionEx_1_RemoveRange_System_Collections_Generic_IEnumerable__0__" data-uid="pbXNet.ObservableCollectionEx`1.RemoveRange(System.Collections.Generic.IEnumerable{`0})"><a href="#collapsible-pbXNet_ObservableCollectionEx_1_RemoveRange_System_Collections_Generic_IEnumerable__0__" class="expander" data-toggle="collapse">RemoveRange(IEnumerable&lt;T&gt;)</a></h4>
+  <h4 id="pbXNet_ObservableCollectionEx_1_RemoveRange_IEnumerable__0__" data-uid="pbXNet.ObservableCollectionEx`1.RemoveRange(IEnumerable{`0})"><a href="#collapsible-pbXNet_ObservableCollectionEx_1_RemoveRange_IEnumerable__0__" class="expander" data-toggle="collapse">RemoveRange(IEnumerable&lt;T&gt;)</a></h4>
   
-  <div id="collapsible-pbXNet_ObservableCollectionEx_1_RemoveRange_System_Collections_Generic_IEnumerable__0__" class="collapse in">
-  <div class="markdown level1 summary"><p>Removes the first occurence of each item in the specified collection from ObservableCollectionEx&lt;T&gt;. </p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-
+  <div id="collapsible-pbXNet_ObservableCollectionEx_1_RemoveRange_IEnumerable__0__" class="collapse in">
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public void RemoveRange(IEnumerable&lt;T&gt; collection)</code></pre>
   </div>
+  
+  <div class="markdown level1 summary"><p>Removes the first occurence of each item in the specified <span class="paramref">collection</span> from current collection. </p>
+</div>
+  <div class="markdown level1 conceptual"></div>
 
-  <h5 class="parameters">Parameters</h5>
-  <table>
-    <tr>
-      <td>
-        <span class="pull-right"><span class="xref">System.Collections.Generic.IEnumerable&lt;T&gt;</span></span>
-        <span class="parametername">collection</span>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
-  
-  
-  
-  
-  
   
   
   
@@ -369,31 +223,14 @@
   <h4 id="pbXNet_ObservableCollectionEx_1_Replace__0_" data-uid="pbXNet.ObservableCollectionEx`1.Replace(`0)"><a href="#collapsible-pbXNet_ObservableCollectionEx_1_Replace__0_" class="expander" data-toggle="collapse">Replace(T)</a></h4>
   
   <div id="collapsible-pbXNet_ObservableCollectionEx_1_Replace__0_" class="collapse in">
-  <div class="markdown level1 summary"><p>Clears the current collection and replaces it with the specified item. </p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public void Replace(T item)</code></pre>
   </div>
+  
+  <div class="markdown level1 summary"><p>Clears the current collection and replaces it with the specified <span class="paramref">item</span>. </p>
+</div>
+  <div class="markdown level1 conceptual"></div>
 
-  <h5 class="parameters">Parameters</h5>
-  <table>
-    <tr>
-      <td>
-        <span class="pull-right"><span class="xref">T</span></span>
-        <span class="parametername">item</span>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
-  
-  
-  
-  
-  
   
   
   
@@ -404,34 +241,17 @@
   
   <a id="pbXNet_ObservableCollectionEx_1_ReplaceRange_" data-uid="pbXNet.ObservableCollectionEx`1.ReplaceRange*"></a>
   
-  <h4 id="pbXNet_ObservableCollectionEx_1_ReplaceRange_System_Collections_Generic_IEnumerable__0__" data-uid="pbXNet.ObservableCollectionEx`1.ReplaceRange(System.Collections.Generic.IEnumerable{`0})"><a href="#collapsible-pbXNet_ObservableCollectionEx_1_ReplaceRange_System_Collections_Generic_IEnumerable__0__" class="expander" data-toggle="collapse">ReplaceRange(IEnumerable&lt;T&gt;)</a></h4>
+  <h4 id="pbXNet_ObservableCollectionEx_1_ReplaceRange_IEnumerable__0__" data-uid="pbXNet.ObservableCollectionEx`1.ReplaceRange(IEnumerable{`0})"><a href="#collapsible-pbXNet_ObservableCollectionEx_1_ReplaceRange_IEnumerable__0__" class="expander" data-toggle="collapse">ReplaceRange(IEnumerable&lt;T&gt;)</a></h4>
   
-  <div id="collapsible-pbXNet_ObservableCollectionEx_1_ReplaceRange_System_Collections_Generic_IEnumerable__0__" class="collapse in">
-  <div class="markdown level1 summary"><p>Clears the current collection and replaces it with the specified collection. </p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-
+  <div id="collapsible-pbXNet_ObservableCollectionEx_1_ReplaceRange_IEnumerable__0__" class="collapse in">
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public void ReplaceRange(IEnumerable&lt;T&gt; collection)</code></pre>
   </div>
+  
+  <div class="markdown level1 summary"><p>Clears the current collection and replaces it with the specified <span class="paramref">collection</span>. </p>
+</div>
+  <div class="markdown level1 conceptual"></div>
 
-  <h5 class="parameters">Parameters</h5>
-  <table>
-    <tr>
-      <td>
-        <span class="pull-right"><span class="xref">System.Collections.Generic.IEnumerable&lt;T&gt;</span></span>
-        <span class="parametername">collection</span>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
-  
-  
-  
-  
-  
   
   
   
@@ -442,74 +262,17 @@
   
   <a id="pbXNet_ObservableCollectionEx_1_Sort_" data-uid="pbXNet.ObservableCollectionEx`1.Sort*"></a>
   
-  <h4 id="pbXNet_ObservableCollectionEx_1_Sort_System_Collections_Generic_IComparer__0__" data-uid="pbXNet.ObservableCollectionEx`1.Sort(System.Collections.Generic.IComparer{`0})"><a href="#collapsible-pbXNet_ObservableCollectionEx_1_Sort_System_Collections_Generic_IComparer__0__" class="expander" data-toggle="collapse">Sort(IComparer&lt;T&gt;)</a></h4>
+  <h4 id="pbXNet_ObservableCollectionEx_1_Sort_Comparison__0__" data-uid="pbXNet.ObservableCollectionEx`1.Sort(Comparison{`0})"><a href="#collapsible-pbXNet_ObservableCollectionEx_1_Sort_Comparison__0__" class="expander" data-toggle="collapse">Sort(Comparison&lt;T&gt;)</a></h4>
   
-  <div id="collapsible-pbXNet_ObservableCollectionEx_1_Sort_System_Collections_Generic_IComparer__0__" class="collapse in">
-  <div class="markdown level1 summary"><p>Sorts the elements in the entire collection.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void Sort(IComparer&lt;T&gt; comparer = null)</code></pre>
-  </div>
-
-  <h5 class="parameters">Parameters</h5>
-  <table>
-    <tr>
-      <td>
-        <span class="pull-right"><span class="xref">System.Collections.Generic.IComparer&lt;T&gt;</span></span>
-        <span class="parametername">comparer</span>
-        <p><p>The IComparer&lt;T&gt; implementation to use when comparing elements, or null to use the default comparer.</p>
-</p>
-      </td>
-    </tr>
-  </table>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  </div>
-  
-  
-  <a id="pbXNet_ObservableCollectionEx_1_Sort_" data-uid="pbXNet.ObservableCollectionEx`1.Sort*"></a>
-  
-  <h4 id="pbXNet_ObservableCollectionEx_1_Sort_System_Comparison__0__" data-uid="pbXNet.ObservableCollectionEx`1.Sort(System.Comparison{`0})"><a href="#collapsible-pbXNet_ObservableCollectionEx_1_Sort_System_Comparison__0__" class="expander" data-toggle="collapse">Sort(Comparison&lt;T&gt;)</a></h4>
-  
-  <div id="collapsible-pbXNet_ObservableCollectionEx_1_Sort_System_Comparison__0__" class="collapse in">
-  <div class="markdown level1 summary"><p>Sorts the elements in the entire collection.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-
+  <div id="collapsible-pbXNet_ObservableCollectionEx_1_Sort_Comparison__0__" class="collapse in">
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public void Sort(Comparison&lt;T&gt; comparison = null)</code></pre>
   </div>
+  
+  <div class="markdown level1 summary"><p>Sorts the elements in the entire collection using specified <span class="paramref">comparison</span> or default comparer when <span class="paramref">comparison</span> is null.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
 
-  <h5 class="parameters">Parameters</h5>
-  <table>
-    <tr>
-      <td>
-        <span class="pull-right"><span class="xref">System.Comparison&lt;T&gt;</span></span>
-        <span class="parametername">comparison</span>
-        <p><p>The Comparison&lt;T&gt; to use when comparing elements, or null to use the default comparer.</p>
-</p>
-      </td>
-    </tr>
-  </table>
-  
-  
-  
-  
-  
-  
   
   
   
@@ -520,51 +283,39 @@
   
   <a id="pbXNet_ObservableCollectionEx_1_Sort_" data-uid="pbXNet.ObservableCollectionEx`1.Sort*"></a>
   
-  <h4 id="pbXNet_ObservableCollectionEx_1_Sort_System_Int32_System_Int32_System_Collections_Generic_IComparer__0__" data-uid="pbXNet.ObservableCollectionEx`1.Sort(System.Int32,System.Int32,System.Collections.Generic.IComparer{`0})"><a href="#collapsible-pbXNet_ObservableCollectionEx_1_Sort_System_Int32_System_Int32_System_Collections_Generic_IComparer__0__" class="expander" data-toggle="collapse">Sort(Int32, Int32, IComparer&lt;T&gt;)</a></h4>
+  <h4 id="pbXNet_ObservableCollectionEx_1_Sort_IComparer__0__" data-uid="pbXNet.ObservableCollectionEx`1.Sort(IComparer{`0})"><a href="#collapsible-pbXNet_ObservableCollectionEx_1_Sort_IComparer__0__" class="expander" data-toggle="collapse">Sort(IComparer&lt;T&gt;)</a></h4>
   
-  <div id="collapsible-pbXNet_ObservableCollectionEx_1_Sort_System_Int32_System_Int32_System_Collections_Generic_IComparer__0__" class="collapse in">
-  <div class="markdown level1 summary"><p>Sorts the elements in a range of elements in collection.</p>
+  <div id="collapsible-pbXNet_ObservableCollectionEx_1_Sort_IComparer__0__" class="collapse in">
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Sort(IComparer&lt;T&gt; comparer = null)</code></pre>
+  </div>
+  
+  <div class="markdown level1 summary"><p>Sorts the elements in the entire collection using specified or default <span class="paramref">comparer</span>.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
 
+  
+  
+  
+  
+  
+  </div>
+  
+  
+  <a id="pbXNet_ObservableCollectionEx_1_Sort_" data-uid="pbXNet.ObservableCollectionEx`1.Sort*"></a>
+  
+  <h4 id="pbXNet_ObservableCollectionEx_1_Sort_System_Int32_System_Int32_IComparer__0__" data-uid="pbXNet.ObservableCollectionEx`1.Sort(System.Int32,System.Int32,IComparer{`0})"><a href="#collapsible-pbXNet_ObservableCollectionEx_1_Sort_System_Int32_System_Int32_IComparer__0__" class="expander" data-toggle="collapse">Sort(Int32, Int32, IComparer&lt;T&gt;)</a></h4>
+  
+  <div id="collapsible-pbXNet_ObservableCollectionEx_1_Sort_System_Int32_System_Int32_IComparer__0__" class="collapse in">
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public void Sort(int index, int count, IComparer&lt;T&gt; comparer = null)</code></pre>
   </div>
+  
+  <div class="markdown level1 summary"><p>Sorts the elements in a range (from <span class="paramref">index</span> to <span class="paramref">index</span> + <span class="paramref">count</span>) 
+of elements in collection using specified or default <span class="paramref">comparer</span>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
 
-  <h5 class="parameters">Parameters</h5>
-  <table>
-    <tr>
-      <td>
-        <span class="pull-right"><a class="xref" href="https://msdn.microsoft.com/en-us/library/system.int32(v=vs.110).aspx">Int32</a></span>
-        <span class="parametername">index</span>
-        <p><p>The zero-based starting index of the range to sort.</p>
-</p>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <span class="pull-right"><a class="xref" href="https://msdn.microsoft.com/en-us/library/system.int32(v=vs.110).aspx">Int32</a></span>
-        <span class="parametername">count</span>
-        <p><p>The length of the range to sort.</p>
-</p>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <span class="pull-right"><span class="xref">System.Collections.Generic.IComparer&lt;T&gt;</span></span>
-        <span class="parametername">comparer</span>
-        <p><p>The IComparer&lt;T&gt; implementation to use when comparing elements, or null to use the default comparer.</p>
-</p>
-      </td>
-    </tr>
-  </table>
-  
-  
-  
-  
-  
-  
   
   
   
@@ -573,156 +324,7 @@
   </div>
   
   
-  <div class="inheritedMembers">
-  	<h3 id="inheritedmembers">Inherited Members</h3>
-  	<div>
-  		<a class="xref" href="https://msdn.microsoft.com/en-us/library/ms654919(v=vs.110).aspx">ObservableCollection&lt;T&gt;.BlockReentrancy()</a>
-  	</div>
-  	<div>
-  		<a class="xref" href="https://msdn.microsoft.com/en-us/library/ms654921(v=vs.110).aspx">ObservableCollection&lt;T&gt;.CheckReentrancy()</a>
-  	</div>
-  	<div>
-  		<a class="xref" href="https://msdn.microsoft.com/en-us/library/ms654925(v=vs.110).aspx">ObservableCollection&lt;T&gt;.ClearItems()</a>
-  	</div>
-  	<div>
-  		<a class="xref" href="https://msdn.microsoft.com/en-us/library/ms654928(v=vs.110).aspx">ObservableCollection&lt;T&gt;.InsertItem(Int32, T)</a>
-  	</div>
-  	<div>
-  		<a class="xref" href="https://msdn.microsoft.com/en-us/library/ms654933(v=vs.110).aspx">ObservableCollection&lt;T&gt;.Move(Int32, Int32)</a>
-  	</div>
-  	<div>
-  		<a class="xref" href="https://msdn.microsoft.com/en-us/library/ms654931(v=vs.110).aspx">ObservableCollection&lt;T&gt;.MoveItem(Int32, Int32)</a>
-  	</div>
-  	<div>
-  		<a class="xref" href="https://msdn.microsoft.com/en-us/library/ms654934(v=vs.110).aspx">ObservableCollection&lt;T&gt;.OnCollectionChanged(NotifyCollectionChangedEventArgs)</a>
-  	</div>
-  	<div>
-  		<a class="xref" href="https://msdn.microsoft.com/en-us/library/ms654935(v=vs.110).aspx">ObservableCollection&lt;T&gt;.OnPropertyChanged(PropertyChangedEventArgs)</a>
-  	</div>
-  	<div>
-  		<a class="xref" href="https://msdn.microsoft.com/en-us/library/ms654938(v=vs.110).aspx">ObservableCollection&lt;T&gt;.RemoveItem(Int32)</a>
-  	</div>
-  	<div>
-  		<a class="xref" href="https://msdn.microsoft.com/en-us/library/ms654940(v=vs.110).aspx">ObservableCollection&lt;T&gt;.SetItem(Int32, T)</a>
-  	</div>
-  	<div>
-  		<a class="xref" href="https://msdn.microsoft.com/en-us/library/ms653375(v=vs.110).aspx">ObservableCollection&lt;T&gt;.CollectionChanged</a>
-  	</div>
-  	<div>
-  		<a class="xref" href="https://msdn.microsoft.com/en-us/library/ms653376(v=vs.110).aspx">ObservableCollection&lt;T&gt;.PropertyChanged</a>
-  	</div>
-  	<div>
-  		<a class="xref" href="https://msdn.microsoft.com/en-us/library/bb460458(v=vs.110).aspx">ObservableCollection&lt;T&gt;.INotifyPropertyChanged.PropertyChanged</a>
-  	</div>
-  	<div>
-  		<span class="xref">System.Collections.ObjectModel.Collection&lt;T&gt;.System.Collections.IList.get_Item(System.Int32)</span>
-  	</div>
-  	<div>
-  		<span class="xref">System.Collections.ObjectModel.Collection&lt;T&gt;.System.Collections.IList.set_Item(System.Int32, System.Object)</span>
-  	</div>
-  	<div>
-  		<a class="xref" href="https://msdn.microsoft.com/en-us/library/ms132404(v=vs.110).aspx">Collection&lt;T&gt;.Add(T)</a>
-  	</div>
-  	<div>
-  		<a class="xref" href="https://msdn.microsoft.com/en-us/library/ms132405(v=vs.110).aspx">Collection&lt;T&gt;.Clear()</a>
-  	</div>
-  	<div>
-  		<a class="xref" href="https://msdn.microsoft.com/en-us/library/ms132407(v=vs.110).aspx">Collection&lt;T&gt;.Contains(T)</a>
-  	</div>
-  	<div>
-  		<a class="xref" href="https://msdn.microsoft.com/en-us/library/ms132408(v=vs.110).aspx">Collection&lt;T&gt;.CopyTo(T[], Int32)</a>
-  	</div>
-  	<div>
-  		<a class="xref" href="https://msdn.microsoft.com/en-us/library/ms132409(v=vs.110).aspx">Collection&lt;T&gt;.GetEnumerator()</a>
-  	</div>
-  	<div>
-  		<a class="xref" href="https://msdn.microsoft.com/en-us/library/ms132410(v=vs.110).aspx">Collection&lt;T&gt;.IndexOf(T)</a>
-  	</div>
-  	<div>
-  		<a class="xref" href="https://msdn.microsoft.com/en-us/library/ms132411(v=vs.110).aspx">Collection&lt;T&gt;.Insert(Int32, T)</a>
-  	</div>
-  	<div>
-  		<a class="xref" href="https://msdn.microsoft.com/en-us/library/ms132413(v=vs.110).aspx">Collection&lt;T&gt;.Remove(T)</a>
-  	</div>
-  	<div>
-  		<a class="xref" href="https://msdn.microsoft.com/en-us/library/ms132414(v=vs.110).aspx">Collection&lt;T&gt;.RemoveAt(Int32)</a>
-  	</div>
-  	<div>
-  		<a class="xref" href="https://msdn.microsoft.com/en-us/library/bb359761(v=vs.110).aspx">Collection&lt;T&gt;.ICollection.CopyTo(Array, Int32)</a>
-  	</div>
-  	<div>
-  		<a class="xref" href="https://msdn.microsoft.com/en-us/library/bb292894(v=vs.110).aspx">Collection&lt;T&gt;.IEnumerable.GetEnumerator()</a>
-  	</div>
-  	<div>
-  		<a class="xref" href="https://msdn.microsoft.com/en-us/library/bb344391(v=vs.110).aspx">Collection&lt;T&gt;.IList.Add(Object)</a>
-  	</div>
-  	<div>
-  		<a class="xref" href="https://msdn.microsoft.com/en-us/library/bb354791(v=vs.110).aspx">Collection&lt;T&gt;.IList.Contains(Object)</a>
-  	</div>
-  	<div>
-  		<a class="xref" href="https://msdn.microsoft.com/en-us/library/bb346828(v=vs.110).aspx">Collection&lt;T&gt;.IList.IndexOf(Object)</a>
-  	</div>
-  	<div>
-  		<a class="xref" href="https://msdn.microsoft.com/en-us/library/bb341421(v=vs.110).aspx">Collection&lt;T&gt;.IList.Insert(Int32, Object)</a>
-  	</div>
-  	<div>
-  		<a class="xref" href="https://msdn.microsoft.com/en-us/library/bb291893(v=vs.110).aspx">Collection&lt;T&gt;.IList.Remove(Object)</a>
-  	</div>
-  	<div>
-  		<a class="xref" href="https://msdn.microsoft.com/en-us/library/ms132433(v=vs.110).aspx">Collection&lt;T&gt;.Count</a>
-  	</div>
-  	<div>
-  		<a class="xref" href="https://msdn.microsoft.com/en-us/library/ms132434(v=vs.110).aspx">Collection&lt;T&gt;.Item[Int32]</a>
-  	</div>
-  	<div>
-  		<a class="xref" href="https://msdn.microsoft.com/en-us/library/ms132435(v=vs.110).aspx">Collection&lt;T&gt;.Items</a>
-  	</div>
-  	<div>
-  		<a class="xref" href="https://msdn.microsoft.com/en-us/library/cc673026(v=vs.110).aspx">Collection&lt;T&gt;.ICollection&lt;T&gt;.IsReadOnly</a>
-  	</div>
-  	<div>
-  		<a class="xref" href="https://msdn.microsoft.com/en-us/library/bb359587(v=vs.110).aspx">Collection&lt;T&gt;.ICollection.IsSynchronized</a>
-  	</div>
-  	<div>
-  		<a class="xref" href="https://msdn.microsoft.com/en-us/library/bb353794(v=vs.110).aspx">Collection&lt;T&gt;.ICollection.SyncRoot</a>
-  	</div>
-  	<div>
-  		<a class="xref" href="https://msdn.microsoft.com/en-us/library/bb353493(v=vs.110).aspx">Collection&lt;T&gt;.IList.IsFixedSize</a>
-  	</div>
-  	<div>
-  		<a class="xref" href="https://msdn.microsoft.com/en-us/library/bb335589(v=vs.110).aspx">Collection&lt;T&gt;.IList.IsReadOnly</a>
-  	</div>
-  	<div>
-  		<a class="xref" href="https://msdn.microsoft.com/en-us/library/bb357453(v=vs.110).aspx">Collection&lt;T&gt;.IList.Item[Int32]</a>
-  	</div>
-  	<div>
-  		<a class="xref" href="https://msdn.microsoft.com/en-us/library/bsc2ak47(v=vs.110).aspx">Object.Equals(Object)</a>
-  	</div>
-  	<div>
-  		<a class="xref" href="https://msdn.microsoft.com/en-us/library/w4hkze5k(v=vs.110).aspx">Object.Equals(Object, Object)</a>
-  	</div>
-  	<div>
-  		<a class="xref" href="https://msdn.microsoft.com/en-us/library/zdee4b3y(v=vs.110).aspx">Object.GetHashCode()</a>
-  	</div>
-  	<div>
-  		<a class="xref" href="https://msdn.microsoft.com/en-us/library/dfwy45w9(v=vs.110).aspx">Object.GetType()</a>
-  	</div>
-  	<div>
-  		<a class="xref" href="https://msdn.microsoft.com/en-us/library/57ctke0a(v=vs.110).aspx">Object.MemberwiseClone()</a>
-  	</div>
-  	<div>
-  		<a class="xref" href="https://msdn.microsoft.com/en-us/library/hz2a0b8x(v=vs.110).aspx">Object.ReferenceEquals(Object, Object)</a>
-  	</div>
-  	<div>
-  		<a class="xref" href="https://msdn.microsoft.com/en-us/library/7bxwbwt2(v=vs.110).aspx">Object.ToString()</a>
-  	</div>
-  </div>
   
-  <h3 id="seealso">See Also</h3>
-  <div class="seealso">
-      <div><a class="xref" href="https://msdn.microsoft.com/en-us/library/ms668604(v=vs.110).aspx">ObservableCollection&lt;T&gt;</a></div>
-      <div><a class="xref" href="https://msdn.microsoft.com/en-us/library/system.collections.objectmodel(v=vs.110).aspx">System.Collections.ObjectModel</a></div>
-  </div>
   
   
 
@@ -739,20 +341,7 @@
           </div>
         </div>
       </div>
-      
-      <footer>
-        <div class="grad-bottom"></div>
-        <div class="footer">
-          <div class="container">
-            <span class="pull-right">
-              <a href="#top">Back to top</a>
-            </span>
-            
-            <span>Copyright © 2017 Piotr Boguslawski<br>Copyright © 2015-2017 Microsoft<br>Generated by <strong>DocFX</strong></span>
           </div>
-        </div>
-      </footer>
-    </div>
     
     <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
     <script type="text/javascript" src="../styles/docfx.js"></script>

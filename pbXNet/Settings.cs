@@ -32,8 +32,9 @@ namespace pbXNet
 	///			s.BoolSetting = false;
 	///			s.StringSetting = "another value";
 	///			
-	///			// Assuming that the data has been saved -> you implemented virtual functions LoadAsync and SaveAsync 
-	///			// or used <see cref="PlatformSettings"/> or <see cref="SettingsInStorage"/> as base class for MySettings.
+	///			// Assuming that the data has been saved, that is you implemented 
+	///			// virtual functions LoadAsync and SaveAsync or
+	///			// used <see cref="PlatformSettings"/> or <see cref="SettingsInStorage"/> as base class for MySettings.
 	///			//
 	///			// The first time you start the program, you should see:
 	///			//	
@@ -67,7 +68,7 @@ namespace pbXNet
 	///		
 	///		public override async Task LoadAsync()
 	///		{
-	///			// Load your settings the way you like...
+	///			// Load your settings the way you like.
 	///			
 	///			// Or use as a base class one of the predefined classes 
 	///			// in pbXNet that support read and write settings.
@@ -118,7 +119,7 @@ namespace pbXNet
 		public virtual void Set(object value, [CallerMemberName]string key = null) => this[key] = value;
 
 		/// <summary>
-		/// Gets the current value (as an <see cref="object"/>) for a <paramref name="key"/> or if <paramref name="key"/> doesn't exist
+		/// Gets the current value (as an object) for a <paramref name="key"/> or if <paramref name="key"/> doesn't exist
 		/// the default value: specified in <see cref="DefaultAttribute"/> attribute, provided by <see cref="GetDefault(string)" /> or null.
 		/// </summary>
 		public virtual object Get([CallerMemberName]string key = null) => this[key];
@@ -130,7 +131,7 @@ namespace pbXNet
 		public virtual T Get<T>([CallerMemberName]string key = null) => (T)(ConvertTo(this[key], typeof(T)) ?? default(T));
 
 		/// <summary>
-		/// Gets the current value (as an <see cref="object"/>) for a <paramref name="key"/> or if <paramref name="key"/> doesn't exist
+		/// Gets the current value (as an object) for a <paramref name="key"/> or if <paramref name="key"/> doesn't exist
 		/// the default value: specified in <see cref="DefaultAttribute"/> attribute, provided by <see cref="GetDefault(string)" /> or null.
 		/// </summary>
 		public virtual object this[string key]

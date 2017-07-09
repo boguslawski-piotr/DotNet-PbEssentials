@@ -70,6 +70,10 @@
             <article class="content wrap" id="_content" data-uid="pbXNet.EncryptedFileSystem">
   <h1 id="pbXNet_EncryptedFileSystem" data-uid="pbXNet.EncryptedFileSystem">Class EncryptedFileSystem
   </h1>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class EncryptedFileSystem : object, IFileSystem, IDisposable</code></pre>
+  </div>
+  
   <div class="markdown level0 summary"><p>Decorator for classes that implement the <a class="xref" href="pbXNet.IFileSystem.html">IFileSystem</a> interface 
 which provides encryption of stored files and of course decrypting when reading.
 <p>Id passed to constructor will be used as directory name in the root of file system. 
@@ -79,20 +83,12 @@ The data in another directories (unless the Id was set to null or empty string) 
 </div>
   <div class="markdown level0 conceptual"></div>
 
+  
   <div class="inheritance">
-    <h5>Inheritance</h5>
+    <h3>Inheritance</h3>
     <div class="level0"><a class="xref" href="https://msdn.microsoft.com/en-us/library/system.object(v=vs.110).aspx">Object</a></div>
     <div class="level1"><span class="xref">EncryptedFileSystem</span></div>
   </div>
-  
-  
-  <h5 id="pbXNet_EncryptedFileSystem_syntax">Syntax</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class EncryptedFileSystem : IFileSystem, IDisposable</code></pre>
-  </div>
-
-  
-  
   
   
   <h3 id="constructors">Constructors
@@ -104,54 +100,16 @@ The data in another directories (unless the Id was set to null or empty string) 
   <h4 id="pbXNet_EncryptedFileSystem__ctor_System_String_pbXNet_IFileSystem_pbXNet_IByteBuffer_pbXNet_ICryptographer_" data-uid="pbXNet.EncryptedFileSystem.#ctor(System.String,pbXNet.IFileSystem,pbXNet.IByteBuffer,pbXNet.ICryptographer)"><a href="#collapsible-pbXNet_EncryptedFileSystem__ctor_System_String_pbXNet_IFileSystem_pbXNet_IByteBuffer_pbXNet_ICryptographer_" class="expander" data-toggle="collapse">EncryptedFileSystem(String, IFileSystem, IByteBuffer, ICryptographer)</a></h4>
   
   <div id="collapsible-pbXNet_EncryptedFileSystem__ctor_System_String_pbXNet_IFileSystem_pbXNet_IByteBuffer_pbXNet_ICryptographer_" class="collapse in">
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public EncryptedFileSystem(string id, IFileSystem fs, IByteBuffer ckey, ICryptographer cryptographer = null)</code></pre>
+  </div>
+  
   <div class="markdown level1 summary"><p>IMPORTANT NOTE: 
 Passed ckey can be completely cleaned (zeros) at an unspecified moment.
 You should not use this data anymore after it was passed to the EncryptedFileSystem class constructor.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
 
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public EncryptedFileSystem(string id, IFileSystem fs, IByteBuffer ckey, ICryptographer cryptographer = null)</code></pre>
-  </div>
-
-  <h5 class="parameters">Parameters</h5>
-  <table>
-    <tr>
-      <td>
-        <span class="pull-right"><a class="xref" href="https://msdn.microsoft.com/en-us/library/system.string(v=vs.110).aspx">String</a></span>
-        <span class="parametername">id</span>
-        <p>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <span class="pull-right"><a class="xref" href="pbXNet.IFileSystem.html">IFileSystem</a></span>
-        <span class="parametername">fs</span>
-        <p>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <span class="pull-right"><a class="xref" href="pbXNet.IByteBuffer.html">IByteBuffer</a></span>
-        <span class="parametername">ckey</span>
-        <p>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <span class="pull-right"><a class="xref" href="pbXNet.ICryptographer.html">ICryptographer</a></span>
-        <span class="parametername">cryptographer</span>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
-  
-  
-  
-  
-  
   
   
   
@@ -165,44 +123,13 @@ You should not use this data anymore after it was passed to the EncryptedFileSys
   <h4 id="pbXNet_EncryptedFileSystem__ctor_System_String_pbXNet_IFileSystem_pbXNet_ICryptographer_" data-uid="pbXNet.EncryptedFileSystem.#ctor(System.String,pbXNet.IFileSystem,pbXNet.ICryptographer)"><a href="#collapsible-pbXNet_EncryptedFileSystem__ctor_System_String_pbXNet_IFileSystem_pbXNet_ICryptographer_" class="expander" data-toggle="collapse">EncryptedFileSystem(String, IFileSystem, ICryptographer)</a></h4>
   
   <div id="collapsible-pbXNet_EncryptedFileSystem__ctor_System_String_pbXNet_IFileSystem_pbXNet_ICryptographer_" class="collapse in">
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">protected EncryptedFileSystem(string id, IFileSystem fs, ICryptographer cryptographer = null)</code></pre>
   </div>
+  
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
 
-  <h5 class="parameters">Parameters</h5>
-  <table>
-    <tr>
-      <td>
-        <span class="pull-right"><a class="xref" href="https://msdn.microsoft.com/en-us/library/system.string(v=vs.110).aspx">String</a></span>
-        <span class="parametername">id</span>
-        <p>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <span class="pull-right"><a class="xref" href="pbXNet.IFileSystem.html">IFileSystem</a></span>
-        <span class="parametername">fs</span>
-        <p>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <span class="pull-right"><a class="xref" href="pbXNet.ICryptographer.html">ICryptographer</a></span>
-        <span class="parametername">cryptographer</span>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
-  
-  
-  
-  
-  
   
   
   
@@ -216,54 +143,16 @@ You should not use this data anymore after it was passed to the EncryptedFileSys
   <h4 id="pbXNet_EncryptedFileSystem__ctor_System_String_pbXNet_IFileSystem_pbXNet_IPassword_pbXNet_ICryptographer_" data-uid="pbXNet.EncryptedFileSystem.#ctor(System.String,pbXNet.IFileSystem,pbXNet.IPassword,pbXNet.ICryptographer)"><a href="#collapsible-pbXNet_EncryptedFileSystem__ctor_System_String_pbXNet_IFileSystem_pbXNet_IPassword_pbXNet_ICryptographer_" class="expander" data-toggle="collapse">EncryptedFileSystem(String, IFileSystem, IPassword, ICryptographer)</a></h4>
   
   <div id="collapsible-pbXNet_EncryptedFileSystem__ctor_System_String_pbXNet_IFileSystem_pbXNet_IPassword_pbXNet_ICryptographer_" class="collapse in">
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public EncryptedFileSystem(string id, IFileSystem fs, IPassword passwd, ICryptographer cryptographer = null)</code></pre>
+  </div>
+  
   <div class="markdown level1 summary"><p>IMPORTANT NOTE: 
 Passed passwd is completely cleaned (zeros) as soon as possible.
 You should not use this data anymore after it was passed to the EncryptedFileSystem class constructor.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
 
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public EncryptedFileSystem(string id, IFileSystem fs, IPassword passwd, ICryptographer cryptographer = null)</code></pre>
-  </div>
-
-  <h5 class="parameters">Parameters</h5>
-  <table>
-    <tr>
-      <td>
-        <span class="pull-right"><a class="xref" href="https://msdn.microsoft.com/en-us/library/system.string(v=vs.110).aspx">String</a></span>
-        <span class="parametername">id</span>
-        <p>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <span class="pull-right"><a class="xref" href="pbXNet.IFileSystem.html">IFileSystem</a></span>
-        <span class="parametername">fs</span>
-        <p>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <span class="pull-right"><a class="xref" href="pbXNet.IPassword.html">IPassword</a></span>
-        <span class="parametername">passwd</span>
-        <p>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <span class="pull-right"><a class="xref" href="pbXNet.ICryptographer.html">ICryptographer</a></span>
-        <span class="parametername">cryptographer</span>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
-  
-  
-  
-  
-  
   
   
   
@@ -279,33 +168,17 @@ You should not use this data anymore after it was passed to the EncryptedFileSys
   <h4 id="pbXNet_EncryptedFileSystem_CurrentPath" data-uid="pbXNet.EncryptedFileSystem.CurrentPath"><a href="#collapsible-pbXNet_EncryptedFileSystem_CurrentPath" class="expander" data-toggle="collapse">CurrentPath</a></h4>
   
   <div id="collapsible-pbXNet_EncryptedFileSystem_CurrentPath" class="collapse in">
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public string CurrentPath { get; }</code></pre>
   </div>
+  
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
 
-  
-  
-  
-  
-  <h5 class="propertyValue">Property Value</h5>
-  <table>
-    <tr>
-      <td>
-        <a class="xref" href="https://msdn.microsoft.com/en-us/library/system.string(v=vs.110).aspx">String</a>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
   
   
   <h5 class="implements">Implements</h5>
       <div><a class="xref" href="pbXNet.IFileSystem.html#pbXNet_IFileSystem_CurrentPath">IFileSystem.CurrentPath</a></div>
-  
   
   
   
@@ -317,33 +190,17 @@ You should not use this data anymore after it was passed to the EncryptedFileSys
   <h4 id="pbXNet_EncryptedFileSystem_Id" data-uid="pbXNet.EncryptedFileSystem.Id"><a href="#collapsible-pbXNet_EncryptedFileSystem_Id" class="expander" data-toggle="collapse">Id</a></h4>
   
   <div id="collapsible-pbXNet_EncryptedFileSystem_Id" class="collapse in">
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public string Id { get; }</code></pre>
   </div>
+  
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
 
-  
-  
-  
-  
-  <h5 class="propertyValue">Property Value</h5>
-  <table>
-    <tr>
-      <td>
-        <a class="xref" href="https://msdn.microsoft.com/en-us/library/system.string(v=vs.110).aspx">String</a>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
   
   
   <h5 class="implements">Implements</h5>
       <div><a class="xref" href="pbXNet.IFileSystem.html#pbXNet_IFileSystem_Id">IFileSystem.Id</a></div>
-  
   
   
   
@@ -355,33 +212,17 @@ You should not use this data anymore after it was passed to the EncryptedFileSys
   <h4 id="pbXNet_EncryptedFileSystem_Name" data-uid="pbXNet.EncryptedFileSystem.Name"><a href="#collapsible-pbXNet_EncryptedFileSystem_Name" class="expander" data-toggle="collapse">Name</a></h4>
   
   <div id="collapsible-pbXNet_EncryptedFileSystem_Name" class="collapse in">
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public string Name { get; }</code></pre>
   </div>
+  
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
 
-  
-  
-  
-  
-  <h5 class="propertyValue">Property Value</h5>
-  <table>
-    <tr>
-      <td>
-        <a class="xref" href="https://msdn.microsoft.com/en-us/library/system.string(v=vs.110).aspx">String</a>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
   
   
   <h5 class="implements">Implements</h5>
       <div><a class="xref" href="pbXNet.IFileSystem.html#pbXNet_IFileSystem_Name">IFileSystem.Name</a></div>
-  
   
   
   
@@ -393,33 +234,17 @@ You should not use this data anymore after it was passed to the EncryptedFileSys
   <h4 id="pbXNet_EncryptedFileSystem_RootPath" data-uid="pbXNet.EncryptedFileSystem.RootPath"><a href="#collapsible-pbXNet_EncryptedFileSystem_RootPath" class="expander" data-toggle="collapse">RootPath</a></h4>
   
   <div id="collapsible-pbXNet_EncryptedFileSystem_RootPath" class="collapse in">
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public string RootPath { get; }</code></pre>
   </div>
+  
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
 
-  
-  
-  
-  
-  <h5 class="propertyValue">Property Value</h5>
-  <table>
-    <tr>
-      <td>
-        <a class="xref" href="https://msdn.microsoft.com/en-us/library/system.string(v=vs.110).aspx">String</a>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
   
   
   <h5 class="implements">Implements</h5>
       <div><a class="xref" href="pbXNet.IFileSystem.html#pbXNet_IFileSystem_RootPath">IFileSystem.RootPath</a></div>
-  
   
   
   
@@ -431,33 +256,17 @@ You should not use this data anymore after it was passed to the EncryptedFileSys
   <h4 id="pbXNet_EncryptedFileSystem_Type" data-uid="pbXNet.EncryptedFileSystem.Type"><a href="#collapsible-pbXNet_EncryptedFileSystem_Type" class="expander" data-toggle="collapse">Type</a></h4>
   
   <div id="collapsible-pbXNet_EncryptedFileSystem_Type" class="collapse in">
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public FileSystemType Type { get; }</code></pre>
   </div>
+  
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
 
-  
-  
-  
-  
-  <h5 class="propertyValue">Property Value</h5>
-  <table>
-    <tr>
-      <td>
-        <a class="xref" href="pbXNet.FileSystemType.html">FileSystemType</a>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
   
   
   <h5 class="implements">Implements</h5>
       <div><a class="xref" href="pbXNet.IFileSystem.html#pbXNet_IFileSystem_Type">IFileSystem.Type</a></div>
-  
   
   
   
@@ -471,33 +280,17 @@ You should not use this data anymore after it was passed to the EncryptedFileSys
   <h4 id="pbXNet_EncryptedFileSystem_CloneAsync" data-uid="pbXNet.EncryptedFileSystem.CloneAsync"><a href="#collapsible-pbXNet_EncryptedFileSystem_CloneAsync" class="expander" data-toggle="collapse">CloneAsync()</a></h4>
   
   <div id="collapsible-pbXNet_EncryptedFileSystem_CloneAsync" class="collapse in">
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Task&lt;IFileSystem&gt; CloneAsync()</code></pre>
   </div>
+  
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
 
-  
-  <h5 class="returns">Returns</h5>
-  <table>
-    <tr>
-      <td>
-        <span class="xref">System.Threading.Tasks.Task&lt;pbXNet.IFileSystem&gt;</span>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
-  
-  
-  
   
   
   <h5 class="implements">Implements</h5>
       <div><a class="xref" href="pbXNet.IFileSystem.html#pbXNet_IFileSystem_CloneAsync">IFileSystem.CloneAsync()</a></div>
-  
   
   
   
@@ -509,43 +302,17 @@ You should not use this data anymore after it was passed to the EncryptedFileSys
   <h4 id="pbXNet_EncryptedFileSystem_CreateDirectoryAsync_System_String_" data-uid="pbXNet.EncryptedFileSystem.CreateDirectoryAsync(System.String)"><a href="#collapsible-pbXNet_EncryptedFileSystem_CreateDirectoryAsync_System_String_" class="expander" data-toggle="collapse">CreateDirectoryAsync(String)</a></h4>
   
   <div id="collapsible-pbXNet_EncryptedFileSystem_CreateDirectoryAsync_System_String_" class="collapse in">
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Task CreateDirectoryAsync(string dirname)</code></pre>
   </div>
+  
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
 
-  <h5 class="parameters">Parameters</h5>
-  <table>
-    <tr>
-      <td>
-        <span class="pull-right"><a class="xref" href="https://msdn.microsoft.com/en-us/library/system.string(v=vs.110).aspx">String</a></span>
-        <span class="parametername">dirname</span>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
-  <h5 class="returns">Returns</h5>
-  <table>
-    <tr>
-      <td>
-        <a class="xref" href="https://msdn.microsoft.com/en-us/library/system.threading.tasks.task(v=vs.110).aspx">Task</a>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
-  
-  
-  
   
   
   <h5 class="implements">Implements</h5>
       <div><a class="xref" href="pbXNet.IFileSystem.html#pbXNet_IFileSystem_CreateDirectoryAsync_System_String_">IFileSystem.CreateDirectoryAsync(String)</a></div>
-  
   
   
   
@@ -557,43 +324,17 @@ You should not use this data anymore after it was passed to the EncryptedFileSys
   <h4 id="pbXNet_EncryptedFileSystem_DeleteDirectoryAsync_System_String_" data-uid="pbXNet.EncryptedFileSystem.DeleteDirectoryAsync(System.String)"><a href="#collapsible-pbXNet_EncryptedFileSystem_DeleteDirectoryAsync_System_String_" class="expander" data-toggle="collapse">DeleteDirectoryAsync(String)</a></h4>
   
   <div id="collapsible-pbXNet_EncryptedFileSystem_DeleteDirectoryAsync_System_String_" class="collapse in">
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Task DeleteDirectoryAsync(string dirname)</code></pre>
   </div>
+  
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
 
-  <h5 class="parameters">Parameters</h5>
-  <table>
-    <tr>
-      <td>
-        <span class="pull-right"><a class="xref" href="https://msdn.microsoft.com/en-us/library/system.string(v=vs.110).aspx">String</a></span>
-        <span class="parametername">dirname</span>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
-  <h5 class="returns">Returns</h5>
-  <table>
-    <tr>
-      <td>
-        <a class="xref" href="https://msdn.microsoft.com/en-us/library/system.threading.tasks.task(v=vs.110).aspx">Task</a>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
-  
-  
-  
   
   
   <h5 class="implements">Implements</h5>
       <div><a class="xref" href="pbXNet.IFileSystem.html#pbXNet_IFileSystem_DeleteDirectoryAsync_System_String_">IFileSystem.DeleteDirectoryAsync(String)</a></div>
-  
   
   
   
@@ -605,43 +346,17 @@ You should not use this data anymore after it was passed to the EncryptedFileSys
   <h4 id="pbXNet_EncryptedFileSystem_DeleteFileAsync_System_String_" data-uid="pbXNet.EncryptedFileSystem.DeleteFileAsync(System.String)"><a href="#collapsible-pbXNet_EncryptedFileSystem_DeleteFileAsync_System_String_" class="expander" data-toggle="collapse">DeleteFileAsync(String)</a></h4>
   
   <div id="collapsible-pbXNet_EncryptedFileSystem_DeleteFileAsync_System_String_" class="collapse in">
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Task DeleteFileAsync(string filename)</code></pre>
   </div>
+  
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
 
-  <h5 class="parameters">Parameters</h5>
-  <table>
-    <tr>
-      <td>
-        <span class="pull-right"><a class="xref" href="https://msdn.microsoft.com/en-us/library/system.string(v=vs.110).aspx">String</a></span>
-        <span class="parametername">filename</span>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
-  <h5 class="returns">Returns</h5>
-  <table>
-    <tr>
-      <td>
-        <a class="xref" href="https://msdn.microsoft.com/en-us/library/system.threading.tasks.task(v=vs.110).aspx">Task</a>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
-  
-  
-  
   
   
   <h5 class="implements">Implements</h5>
       <div><a class="xref" href="pbXNet.IFileSystem.html#pbXNet_IFileSystem_DeleteFileAsync_System_String_">IFileSystem.DeleteFileAsync(String)</a></div>
-  
   
   
   
@@ -653,43 +368,17 @@ You should not use this data anymore after it was passed to the EncryptedFileSys
   <h4 id="pbXNet_EncryptedFileSystem_DirectoryExistsAsync_System_String_" data-uid="pbXNet.EncryptedFileSystem.DirectoryExistsAsync(System.String)"><a href="#collapsible-pbXNet_EncryptedFileSystem_DirectoryExistsAsync_System_String_" class="expander" data-toggle="collapse">DirectoryExistsAsync(String)</a></h4>
   
   <div id="collapsible-pbXNet_EncryptedFileSystem_DirectoryExistsAsync_System_String_" class="collapse in">
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Task&lt;bool&gt; DirectoryExistsAsync(string dirname)</code></pre>
   </div>
+  
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
 
-  <h5 class="parameters">Parameters</h5>
-  <table>
-    <tr>
-      <td>
-        <span class="pull-right"><a class="xref" href="https://msdn.microsoft.com/en-us/library/system.string(v=vs.110).aspx">String</a></span>
-        <span class="parametername">dirname</span>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
-  <h5 class="returns">Returns</h5>
-  <table>
-    <tr>
-      <td>
-        <span class="xref">System.Threading.Tasks.Task&lt;System.Boolean&gt;</span>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
-  
-  
-  
   
   
   <h5 class="implements">Implements</h5>
       <div><a class="xref" href="pbXNet.IFileSystem.html#pbXNet_IFileSystem_DirectoryExistsAsync_System_String_">IFileSystem.DirectoryExistsAsync(String)</a></div>
-  
   
   
   
@@ -701,23 +390,14 @@ You should not use this data anymore after it was passed to the EncryptedFileSys
   <h4 id="pbXNet_EncryptedFileSystem_Dispose" data-uid="pbXNet.EncryptedFileSystem.Dispose"><a href="#collapsible-pbXNet_EncryptedFileSystem_Dispose" class="expander" data-toggle="collapse">Dispose()</a></h4>
   
   <div id="collapsible-pbXNet_EncryptedFileSystem_Dispose" class="collapse in">
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public void Dispose()</code></pre>
   </div>
+  
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
 
   
-  
-  
-  
-  
-  
-  
-  <h5 class="implements">Implements</h5>
-      <div><a class="xref" href="https://msdn.microsoft.com/en-us/library/es4s3w1d(v=vs.110).aspx">IDisposable.Dispose()</a></div>
   
   
   
@@ -730,43 +410,17 @@ You should not use this data anymore after it was passed to the EncryptedFileSys
   <h4 id="pbXNet_EncryptedFileSystem_FileExistsAsync_System_String_" data-uid="pbXNet.EncryptedFileSystem.FileExistsAsync(System.String)"><a href="#collapsible-pbXNet_EncryptedFileSystem_FileExistsAsync_System_String_" class="expander" data-toggle="collapse">FileExistsAsync(String)</a></h4>
   
   <div id="collapsible-pbXNet_EncryptedFileSystem_FileExistsAsync_System_String_" class="collapse in">
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Task&lt;bool&gt; FileExistsAsync(string filename)</code></pre>
   </div>
+  
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
 
-  <h5 class="parameters">Parameters</h5>
-  <table>
-    <tr>
-      <td>
-        <span class="pull-right"><a class="xref" href="https://msdn.microsoft.com/en-us/library/system.string(v=vs.110).aspx">String</a></span>
-        <span class="parametername">filename</span>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
-  <h5 class="returns">Returns</h5>
-  <table>
-    <tr>
-      <td>
-        <span class="xref">System.Threading.Tasks.Task&lt;System.Boolean&gt;</span>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
-  
-  
-  
   
   
   <h5 class="implements">Implements</h5>
       <div><a class="xref" href="pbXNet.IFileSystem.html#pbXNet_IFileSystem_FileExistsAsync_System_String_">IFileSystem.FileExistsAsync(String)</a></div>
-  
   
   
   
@@ -778,43 +432,17 @@ You should not use this data anymore after it was passed to the EncryptedFileSys
   <h4 id="pbXNet_EncryptedFileSystem_GetDirectoriesAsync_System_String_" data-uid="pbXNet.EncryptedFileSystem.GetDirectoriesAsync(System.String)"><a href="#collapsible-pbXNet_EncryptedFileSystem_GetDirectoriesAsync_System_String_" class="expander" data-toggle="collapse">GetDirectoriesAsync(String)</a></h4>
   
   <div id="collapsible-pbXNet_EncryptedFileSystem_GetDirectoriesAsync_System_String_" class="collapse in">
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Task&lt;IEnumerable&lt;string&gt;&gt; GetDirectoriesAsync(string pattern = &quot;&quot;)</code></pre>
   </div>
+  
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
 
-  <h5 class="parameters">Parameters</h5>
-  <table>
-    <tr>
-      <td>
-        <span class="pull-right"><a class="xref" href="https://msdn.microsoft.com/en-us/library/system.string(v=vs.110).aspx">String</a></span>
-        <span class="parametername">pattern</span>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
-  <h5 class="returns">Returns</h5>
-  <table>
-    <tr>
-      <td>
-        <span class="xref">System.Threading.Tasks.Task&lt;System.Collections.Generic.IEnumerable&lt;System.String&gt;&gt;</span>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
-  
-  
-  
   
   
   <h5 class="implements">Implements</h5>
       <div><a class="xref" href="pbXNet.IFileSystem.html#pbXNet_IFileSystem_GetDirectoriesAsync_System_String_">IFileSystem.GetDirectoriesAsync(String)</a></div>
-  
   
   
   
@@ -826,43 +454,17 @@ You should not use this data anymore after it was passed to the EncryptedFileSys
   <h4 id="pbXNet_EncryptedFileSystem_GetFileModifiedOnAsync_System_String_" data-uid="pbXNet.EncryptedFileSystem.GetFileModifiedOnAsync(System.String)"><a href="#collapsible-pbXNet_EncryptedFileSystem_GetFileModifiedOnAsync_System_String_" class="expander" data-toggle="collapse">GetFileModifiedOnAsync(String)</a></h4>
   
   <div id="collapsible-pbXNet_EncryptedFileSystem_GetFileModifiedOnAsync_System_String_" class="collapse in">
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Task&lt;DateTime&gt; GetFileModifiedOnAsync(string filename)</code></pre>
   </div>
+  
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
 
-  <h5 class="parameters">Parameters</h5>
-  <table>
-    <tr>
-      <td>
-        <span class="pull-right"><a class="xref" href="https://msdn.microsoft.com/en-us/library/system.string(v=vs.110).aspx">String</a></span>
-        <span class="parametername">filename</span>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
-  <h5 class="returns">Returns</h5>
-  <table>
-    <tr>
-      <td>
-        <span class="xref">System.Threading.Tasks.Task&lt;System.DateTime&gt;</span>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
-  
-  
-  
   
   
   <h5 class="implements">Implements</h5>
       <div><a class="xref" href="pbXNet.IFileSystem.html#pbXNet_IFileSystem_GetFileModifiedOnAsync_System_String_">IFileSystem.GetFileModifiedOnAsync(String)</a></div>
-  
   
   
   
@@ -874,43 +476,17 @@ You should not use this data anymore after it was passed to the EncryptedFileSys
   <h4 id="pbXNet_EncryptedFileSystem_GetFilesAsync_System_String_" data-uid="pbXNet.EncryptedFileSystem.GetFilesAsync(System.String)"><a href="#collapsible-pbXNet_EncryptedFileSystem_GetFilesAsync_System_String_" class="expander" data-toggle="collapse">GetFilesAsync(String)</a></h4>
   
   <div id="collapsible-pbXNet_EncryptedFileSystem_GetFilesAsync_System_String_" class="collapse in">
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Task&lt;IEnumerable&lt;string&gt;&gt; GetFilesAsync(string pattern = &quot;&quot;)</code></pre>
   </div>
+  
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
 
-  <h5 class="parameters">Parameters</h5>
-  <table>
-    <tr>
-      <td>
-        <span class="pull-right"><a class="xref" href="https://msdn.microsoft.com/en-us/library/system.string(v=vs.110).aspx">String</a></span>
-        <span class="parametername">pattern</span>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
-  <h5 class="returns">Returns</h5>
-  <table>
-    <tr>
-      <td>
-        <span class="xref">System.Threading.Tasks.Task&lt;System.Collections.Generic.IEnumerable&lt;System.String&gt;&gt;</span>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
-  
-  
-  
   
   
   <h5 class="implements">Implements</h5>
       <div><a class="xref" href="pbXNet.IFileSystem.html#pbXNet_IFileSystem_GetFilesAsync_System_String_">IFileSystem.GetFilesAsync(String)</a></div>
-  
   
   
   
@@ -922,24 +498,17 @@ You should not use this data anymore after it was passed to the EncryptedFileSys
   <h4 id="pbXNet_EncryptedFileSystem_Initialize" data-uid="pbXNet.EncryptedFileSystem.Initialize"><a href="#collapsible-pbXNet_EncryptedFileSystem_Initialize" class="expander" data-toggle="collapse">Initialize()</a></h4>
   
   <div id="collapsible-pbXNet_EncryptedFileSystem_Initialize" class="collapse in">
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public void Initialize()</code></pre>
   </div>
+  
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
 
-  
-  
-  
-  
-  
   
   
   <h5 class="implements">Implements</h5>
       <div><a class="xref" href="pbXNet.IFileSystem.html#pbXNet_IFileSystem_Initialize">IFileSystem.Initialize()</a></div>
-  
   
   
   
@@ -951,29 +520,13 @@ You should not use this data anymore after it was passed to the EncryptedFileSys
   <h4 id="pbXNet_EncryptedFileSystem_InitializeAsync" data-uid="pbXNet.EncryptedFileSystem.InitializeAsync"><a href="#collapsible-pbXNet_EncryptedFileSystem_InitializeAsync" class="expander" data-toggle="collapse">InitializeAsync()</a></h4>
   
   <div id="collapsible-pbXNet_EncryptedFileSystem_InitializeAsync" class="collapse in">
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public virtual Task InitializeAsync()</code></pre>
   </div>
+  
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
 
-  
-  <h5 class="returns">Returns</h5>
-  <table>
-    <tr>
-      <td>
-        <a class="xref" href="https://msdn.microsoft.com/en-us/library/system.threading.tasks.task(v=vs.110).aspx">Task</a>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
-  
-  
-  
-  
   
   
   
@@ -987,43 +540,17 @@ You should not use this data anymore after it was passed to the EncryptedFileSys
   <h4 id="pbXNet_EncryptedFileSystem_ReadTextAsync_System_String_" data-uid="pbXNet.EncryptedFileSystem.ReadTextAsync(System.String)"><a href="#collapsible-pbXNet_EncryptedFileSystem_ReadTextAsync_System_String_" class="expander" data-toggle="collapse">ReadTextAsync(String)</a></h4>
   
   <div id="collapsible-pbXNet_EncryptedFileSystem_ReadTextAsync_System_String_" class="collapse in">
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public virtual Task&lt;string&gt; ReadTextAsync(string filename)</code></pre>
   </div>
+  
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
 
-  <h5 class="parameters">Parameters</h5>
-  <table>
-    <tr>
-      <td>
-        <span class="pull-right"><a class="xref" href="https://msdn.microsoft.com/en-us/library/system.string(v=vs.110).aspx">String</a></span>
-        <span class="parametername">filename</span>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
-  <h5 class="returns">Returns</h5>
-  <table>
-    <tr>
-      <td>
-        <span class="xref">System.Threading.Tasks.Task&lt;System.String&gt;</span>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
-  
-  
-  
   
   
   <h5 class="implements">Implements</h5>
       <div><a class="xref" href="pbXNet.IFileSystem.html#pbXNet_IFileSystem_ReadTextAsync_System_String_">IFileSystem.ReadTextAsync(String)</a></div>
-  
   
   
   
@@ -1035,33 +562,17 @@ You should not use this data anymore after it was passed to the EncryptedFileSys
   <h4 id="pbXNet_EncryptedFileSystem_RestoreStateAsync" data-uid="pbXNet.EncryptedFileSystem.RestoreStateAsync"><a href="#collapsible-pbXNet_EncryptedFileSystem_RestoreStateAsync" class="expander" data-toggle="collapse">RestoreStateAsync()</a></h4>
   
   <div id="collapsible-pbXNet_EncryptedFileSystem_RestoreStateAsync" class="collapse in">
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Task RestoreStateAsync()</code></pre>
   </div>
+  
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
 
-  
-  <h5 class="returns">Returns</h5>
-  <table>
-    <tr>
-      <td>
-        <a class="xref" href="https://msdn.microsoft.com/en-us/library/system.threading.tasks.task(v=vs.110).aspx">Task</a>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
-  
-  
-  
   
   
   <h5 class="implements">Implements</h5>
       <div><a class="xref" href="pbXNet.IFileSystem.html#pbXNet_IFileSystem_RestoreStateAsync">IFileSystem.RestoreStateAsync()</a></div>
-  
   
   
   
@@ -1073,33 +584,17 @@ You should not use this data anymore after it was passed to the EncryptedFileSys
   <h4 id="pbXNet_EncryptedFileSystem_SaveStateAsync" data-uid="pbXNet.EncryptedFileSystem.SaveStateAsync"><a href="#collapsible-pbXNet_EncryptedFileSystem_SaveStateAsync" class="expander" data-toggle="collapse">SaveStateAsync()</a></h4>
   
   <div id="collapsible-pbXNet_EncryptedFileSystem_SaveStateAsync" class="collapse in">
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Task SaveStateAsync()</code></pre>
   </div>
+  
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
 
-  
-  <h5 class="returns">Returns</h5>
-  <table>
-    <tr>
-      <td>
-        <a class="xref" href="https://msdn.microsoft.com/en-us/library/system.threading.tasks.task(v=vs.110).aspx">Task</a>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
-  
-  
-  
   
   
   <h5 class="implements">Implements</h5>
       <div><a class="xref" href="pbXNet.IFileSystem.html#pbXNet_IFileSystem_SaveStateAsync">IFileSystem.SaveStateAsync()</a></div>
-  
   
   
   
@@ -1111,43 +606,17 @@ You should not use this data anymore after it was passed to the EncryptedFileSys
   <h4 id="pbXNet_EncryptedFileSystem_SetCurrentDirectoryAsync_System_String_" data-uid="pbXNet.EncryptedFileSystem.SetCurrentDirectoryAsync(System.String)"><a href="#collapsible-pbXNet_EncryptedFileSystem_SetCurrentDirectoryAsync_System_String_" class="expander" data-toggle="collapse">SetCurrentDirectoryAsync(String)</a></h4>
   
   <div id="collapsible-pbXNet_EncryptedFileSystem_SetCurrentDirectoryAsync_System_String_" class="collapse in">
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Task SetCurrentDirectoryAsync(string dirname)</code></pre>
   </div>
+  
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
 
-  <h5 class="parameters">Parameters</h5>
-  <table>
-    <tr>
-      <td>
-        <span class="pull-right"><a class="xref" href="https://msdn.microsoft.com/en-us/library/system.string(v=vs.110).aspx">String</a></span>
-        <span class="parametername">dirname</span>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
-  <h5 class="returns">Returns</h5>
-  <table>
-    <tr>
-      <td>
-        <a class="xref" href="https://msdn.microsoft.com/en-us/library/system.threading.tasks.task(v=vs.110).aspx">Task</a>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
-  
-  
-  
   
   
   <h5 class="implements">Implements</h5>
       <div><a class="xref" href="pbXNet.IFileSystem.html#pbXNet_IFileSystem_SetCurrentDirectoryAsync_System_String_">IFileSystem.SetCurrentDirectoryAsync(String)</a></div>
-  
   
   
   
@@ -1156,53 +625,20 @@ You should not use this data anymore after it was passed to the EncryptedFileSys
   
   <a id="pbXNet_EncryptedFileSystem_SetFileModifiedOnAsync_" data-uid="pbXNet.EncryptedFileSystem.SetFileModifiedOnAsync*"></a>
   
-  <h4 id="pbXNet_EncryptedFileSystem_SetFileModifiedOnAsync_System_String_System_DateTime_" data-uid="pbXNet.EncryptedFileSystem.SetFileModifiedOnAsync(System.String,System.DateTime)"><a href="#collapsible-pbXNet_EncryptedFileSystem_SetFileModifiedOnAsync_System_String_System_DateTime_" class="expander" data-toggle="collapse">SetFileModifiedOnAsync(String, DateTime)</a></h4>
+  <h4 id="pbXNet_EncryptedFileSystem_SetFileModifiedOnAsync_System_String_DateTime_" data-uid="pbXNet.EncryptedFileSystem.SetFileModifiedOnAsync(System.String,DateTime)"><a href="#collapsible-pbXNet_EncryptedFileSystem_SetFileModifiedOnAsync_System_String_DateTime_" class="expander" data-toggle="collapse">SetFileModifiedOnAsync(String, DateTime)</a></h4>
   
-  <div id="collapsible-pbXNet_EncryptedFileSystem_SetFileModifiedOnAsync_System_String_System_DateTime_" class="collapse in">
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-
+  <div id="collapsible-pbXNet_EncryptedFileSystem_SetFileModifiedOnAsync_System_String_DateTime_" class="collapse in">
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Task SetFileModifiedOnAsync(string filename, DateTime modifiedOn)</code></pre>
   </div>
+  
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
 
-  <h5 class="parameters">Parameters</h5>
-  <table>
-    <tr>
-      <td>
-        <span class="pull-right"><a class="xref" href="https://msdn.microsoft.com/en-us/library/system.string(v=vs.110).aspx">String</a></span>
-        <span class="parametername">filename</span>
-        <p>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <span class="pull-right"><a class="xref" href="https://msdn.microsoft.com/en-us/library/system.datetime(v=vs.110).aspx">DateTime</a></span>
-        <span class="parametername">modifiedOn</span>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
-  <h5 class="returns">Returns</h5>
-  <table>
-    <tr>
-      <td>
-        <a class="xref" href="https://msdn.microsoft.com/en-us/library/system.threading.tasks.task(v=vs.110).aspx">Task</a>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
-  
-  
-  
   
   
   <h5 class="implements">Implements</h5>
-      <div><a class="xref" href="pbXNet.IFileSystem.html#pbXNet_IFileSystem_SetFileModifiedOnAsync_System_String_System_DateTime_">IFileSystem.SetFileModifiedOnAsync(String, DateTime)</a></div>
-  
+      <div><a class="xref" href="pbXNet.IFileSystem.html#pbXNet_IFileSystem_SetFileModifiedOnAsync_System_String_DateTime_">IFileSystem.SetFileModifiedOnAsync(String, DateTime)</a></div>
   
   
   
@@ -1214,45 +650,13 @@ You should not use this data anymore after it was passed to the EncryptedFileSys
   <h4 id="pbXNet_EncryptedFileSystem_WriteTextAsync_System_String_System_String_" data-uid="pbXNet.EncryptedFileSystem.WriteTextAsync(System.String,System.String)"><a href="#collapsible-pbXNet_EncryptedFileSystem_WriteTextAsync_System_String_System_String_" class="expander" data-toggle="collapse">WriteTextAsync(String, String)</a></h4>
   
   <div id="collapsible-pbXNet_EncryptedFileSystem_WriteTextAsync_System_String_System_String_" class="collapse in">
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public virtual Task WriteTextAsync(string filename, string text)</code></pre>
   </div>
+  
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
 
-  <h5 class="parameters">Parameters</h5>
-  <table>
-    <tr>
-      <td>
-        <span class="pull-right"><a class="xref" href="https://msdn.microsoft.com/en-us/library/system.string(v=vs.110).aspx">String</a></span>
-        <span class="parametername">filename</span>
-        <p>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <span class="pull-right"><a class="xref" href="https://msdn.microsoft.com/en-us/library/system.string(v=vs.110).aspx">String</a></span>
-        <span class="parametername">text</span>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
-  <h5 class="returns">Returns</h5>
-  <table>
-    <tr>
-      <td>
-        <a class="xref" href="https://msdn.microsoft.com/en-us/library/system.threading.tasks.task(v=vs.110).aspx">Task</a>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
-  
-  
-  
   
   
   <h5 class="implements">Implements</h5>
@@ -1260,34 +664,9 @@ You should not use this data anymore after it was passed to the EncryptedFileSys
   
   
   
-  
   </div>
   
   
-  <div class="inheritedMembers">
-  	<h3 id="inheritedmembers">Inherited Members</h3>
-  	<div>
-  		<a class="xref" href="https://msdn.microsoft.com/en-us/library/bsc2ak47(v=vs.110).aspx">Object.Equals(Object)</a>
-  	</div>
-  	<div>
-  		<a class="xref" href="https://msdn.microsoft.com/en-us/library/w4hkze5k(v=vs.110).aspx">Object.Equals(Object, Object)</a>
-  	</div>
-  	<div>
-  		<a class="xref" href="https://msdn.microsoft.com/en-us/library/zdee4b3y(v=vs.110).aspx">Object.GetHashCode()</a>
-  	</div>
-  	<div>
-  		<a class="xref" href="https://msdn.microsoft.com/en-us/library/dfwy45w9(v=vs.110).aspx">Object.GetType()</a>
-  	</div>
-  	<div>
-  		<a class="xref" href="https://msdn.microsoft.com/en-us/library/57ctke0a(v=vs.110).aspx">Object.MemberwiseClone()</a>
-  	</div>
-  	<div>
-  		<a class="xref" href="https://msdn.microsoft.com/en-us/library/hz2a0b8x(v=vs.110).aspx">Object.ReferenceEquals(Object, Object)</a>
-  	</div>
-  	<div>
-  		<a class="xref" href="https://msdn.microsoft.com/en-us/library/7bxwbwt2(v=vs.110).aspx">Object.ToString()</a>
-  	</div>
-  </div>
   
   
   
@@ -1305,20 +684,7 @@ You should not use this data anymore after it was passed to the EncryptedFileSys
           </div>
         </div>
       </div>
-      
-      <footer>
-        <div class="grad-bottom"></div>
-        <div class="footer">
-          <div class="container">
-            <span class="pull-right">
-              <a href="#top">Back to top</a>
-            </span>
-            
-            <span>Copyright © 2017 Piotr Boguslawski<br>Copyright © 2015-2017 Microsoft<br>Generated by <strong>DocFX</strong></span>
           </div>
-        </div>
-      </footer>
-    </div>
     
     <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
     <script type="text/javascript" src="../styles/docfx.js"></script>

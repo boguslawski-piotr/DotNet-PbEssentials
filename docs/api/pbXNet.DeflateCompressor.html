@@ -70,23 +70,19 @@
             <article class="content wrap" id="_content" data-uid="pbXNet.DeflateCompressor">
   <h1 id="pbXNet_DeflateCompressor" data-uid="pbXNet.DeflateCompressor">Class DeflateCompressor
   </h1>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class DeflateCompressor : object, ICompressor</code></pre>
+  </div>
+  
   <div class="markdown level0 summary"></div>
   <div class="markdown level0 conceptual"></div>
 
+  
   <div class="inheritance">
-    <h5>Inheritance</h5>
+    <h3>Inheritance</h3>
     <div class="level0"><a class="xref" href="https://msdn.microsoft.com/en-us/library/system.object(v=vs.110).aspx">Object</a></div>
     <div class="level1"><span class="xref">DeflateCompressor</span></div>
   </div>
-  
-  
-  <h5 id="pbXNet_DeflateCompressor_syntax">Syntax</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class DeflateCompressor : ICompressor</code></pre>
-  </div>
-
-  
-  
   
   
   <h3 id="methods">Methods
@@ -98,50 +94,17 @@
   <h4 id="pbXNet_DeflateCompressor_Compress_System_String_System_Boolean_" data-uid="pbXNet.DeflateCompressor.Compress(System.String,System.Boolean)"><a href="#collapsible-pbXNet_DeflateCompressor_Compress_System_String_System_Boolean_" class="expander" data-toggle="collapse">Compress(String, Boolean)</a></h4>
   
   <div id="collapsible-pbXNet_DeflateCompressor_Compress_System_String_System_Boolean_" class="collapse in">
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public string Compress(string d, bool returnAsBase64 = false)</code></pre>
   </div>
+  
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
 
-  <h5 class="parameters">Parameters</h5>
-  <table>
-    <tr>
-      <td>
-        <span class="pull-right"><a class="xref" href="https://msdn.microsoft.com/en-us/library/system.string(v=vs.110).aspx">String</a></span>
-        <span class="parametername">d</span>
-        <p>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <span class="pull-right"><a class="xref" href="https://msdn.microsoft.com/en-us/library/system.boolean(v=vs.110).aspx">Boolean</a></span>
-        <span class="parametername">returnAsBase64</span>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
-  <h5 class="returns">Returns</h5>
-  <table>
-    <tr>
-      <td>
-        <a class="xref" href="https://msdn.microsoft.com/en-us/library/system.string(v=vs.110).aspx">String</a>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
-  
-  
-  
   
   
   <h5 class="implements">Implements</h5>
       <div><a class="xref" href="pbXNet.ICompressor.html#pbXNet_ICompressor_Compress_System_String_System_Boolean_">ICompressor.Compress(String, Boolean)</a></div>
-  
   
   
   
@@ -150,55 +113,20 @@
   
   <a id="pbXNet_DeflateCompressor_Compress_" data-uid="pbXNet.DeflateCompressor.Compress*"></a>
   
-  <h4 id="pbXNet_DeflateCompressor_Compress__1_System_IO_Stream_" data-uid="pbXNet.DeflateCompressor.Compress``1(System.IO.Stream)"><a href="#collapsible-pbXNet_DeflateCompressor_Compress__1_System_IO_Stream_" class="expander" data-toggle="collapse">Compress&lt;T&gt;(Stream)</a></h4>
+  <h4 id="pbXNet_DeflateCompressor_Compress__1_Stream_" data-uid="pbXNet.DeflateCompressor.Compress``1(Stream)"><a href="#collapsible-pbXNet_DeflateCompressor_Compress__1_Stream_" class="expander" data-toggle="collapse">Compress&lt;T&gt;(Stream)</a></h4>
   
-  <div id="collapsible-pbXNet_DeflateCompressor_Compress__1_System_IO_Stream_" class="collapse in">
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-
+  <div id="collapsible-pbXNet_DeflateCompressor_Compress__1_Stream_" class="collapse in">
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public T Compress&lt;T&gt;(Stream from)where T : Stream, new ()</code></pre>
   </div>
+  
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
 
-  <h5 class="parameters">Parameters</h5>
-  <table>
-    <tr>
-      <td>
-        <span class="pull-right"><a class="xref" href="https://msdn.microsoft.com/en-us/library/system.io.stream(v=vs.110).aspx">Stream</a></span>
-        <span class="parametername">from</span>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
-  <h5 class="returns">Returns</h5>
-  <table>
-    <tr>
-      <td>
-        <span class="xref">T</span>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
-  <h5 class="typeParameters">Type Parameters</h5>
-  <table>
-    <tr>
-      <td>
-        <span class="parametername">T</span>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
-  
-  
   
   
   <h5 class="implements">Implements</h5>
-      <div><a class="xref" href="pbXNet.ICompressor.html#pbXNet_ICompressor_Compress__1_System_IO_Stream_">ICompressor.Compress&lt;T&gt;(Stream)</a></div>
-  
+      <div><a class="xref" href="pbXNet.ICompressor.html#pbXNet_ICompressor_Compress__1_Stream_">ICompressor.Compress&lt;T&gt;(Stream)</a></div>
   
   
   
@@ -210,50 +138,17 @@
   <h4 id="pbXNet_DeflateCompressor_Decompress_System_String_System_Boolean_" data-uid="pbXNet.DeflateCompressor.Decompress(System.String,System.Boolean)"><a href="#collapsible-pbXNet_DeflateCompressor_Decompress_System_String_System_Boolean_" class="expander" data-toggle="collapse">Decompress(String, Boolean)</a></h4>
   
   <div id="collapsible-pbXNet_DeflateCompressor_Decompress_System_String_System_Boolean_" class="collapse in">
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public string Decompress(string d, bool fromBase64 = false)</code></pre>
   </div>
+  
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
 
-  <h5 class="parameters">Parameters</h5>
-  <table>
-    <tr>
-      <td>
-        <span class="pull-right"><a class="xref" href="https://msdn.microsoft.com/en-us/library/system.string(v=vs.110).aspx">String</a></span>
-        <span class="parametername">d</span>
-        <p>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <span class="pull-right"><a class="xref" href="https://msdn.microsoft.com/en-us/library/system.boolean(v=vs.110).aspx">Boolean</a></span>
-        <span class="parametername">fromBase64</span>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
-  <h5 class="returns">Returns</h5>
-  <table>
-    <tr>
-      <td>
-        <a class="xref" href="https://msdn.microsoft.com/en-us/library/system.string(v=vs.110).aspx">String</a>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
-  
-  
-  
   
   
   <h5 class="implements">Implements</h5>
       <div><a class="xref" href="pbXNet.ICompressor.html#pbXNet_ICompressor_Decompress_System_String_System_Boolean_">ICompressor.Decompress(String, Boolean)</a></div>
-  
   
   
   
@@ -262,85 +157,26 @@
   
   <a id="pbXNet_DeflateCompressor_Decompress_" data-uid="pbXNet.DeflateCompressor.Decompress*"></a>
   
-  <h4 id="pbXNet_DeflateCompressor_Decompress__1_System_IO_Stream_" data-uid="pbXNet.DeflateCompressor.Decompress``1(System.IO.Stream)"><a href="#collapsible-pbXNet_DeflateCompressor_Decompress__1_System_IO_Stream_" class="expander" data-toggle="collapse">Decompress&lt;T&gt;(Stream)</a></h4>
+  <h4 id="pbXNet_DeflateCompressor_Decompress__1_Stream_" data-uid="pbXNet.DeflateCompressor.Decompress``1(Stream)"><a href="#collapsible-pbXNet_DeflateCompressor_Decompress__1_Stream_" class="expander" data-toggle="collapse">Decompress&lt;T&gt;(Stream)</a></h4>
   
-  <div id="collapsible-pbXNet_DeflateCompressor_Decompress__1_System_IO_Stream_" class="collapse in">
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-
+  <div id="collapsible-pbXNet_DeflateCompressor_Decompress__1_Stream_" class="collapse in">
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public T Decompress&lt;T&gt;(Stream from)where T : Stream, new ()</code></pre>
   </div>
+  
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
 
-  <h5 class="parameters">Parameters</h5>
-  <table>
-    <tr>
-      <td>
-        <span class="pull-right"><a class="xref" href="https://msdn.microsoft.com/en-us/library/system.io.stream(v=vs.110).aspx">Stream</a></span>
-        <span class="parametername">from</span>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
-  <h5 class="returns">Returns</h5>
-  <table>
-    <tr>
-      <td>
-        <span class="xref">T</span>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
-  <h5 class="typeParameters">Type Parameters</h5>
-  <table>
-    <tr>
-      <td>
-        <span class="parametername">T</span>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
-  
-  
   
   
   <h5 class="implements">Implements</h5>
-      <div><a class="xref" href="pbXNet.ICompressor.html#pbXNet_ICompressor_Decompress__1_System_IO_Stream_">ICompressor.Decompress&lt;T&gt;(Stream)</a></div>
-  
+      <div><a class="xref" href="pbXNet.ICompressor.html#pbXNet_ICompressor_Decompress__1_Stream_">ICompressor.Decompress&lt;T&gt;(Stream)</a></div>
   
   
   
   </div>
   
   
-  <div class="inheritedMembers">
-  	<h3 id="inheritedmembers">Inherited Members</h3>
-  	<div>
-  		<a class="xref" href="https://msdn.microsoft.com/en-us/library/bsc2ak47(v=vs.110).aspx">Object.Equals(Object)</a>
-  	</div>
-  	<div>
-  		<a class="xref" href="https://msdn.microsoft.com/en-us/library/w4hkze5k(v=vs.110).aspx">Object.Equals(Object, Object)</a>
-  	</div>
-  	<div>
-  		<a class="xref" href="https://msdn.microsoft.com/en-us/library/zdee4b3y(v=vs.110).aspx">Object.GetHashCode()</a>
-  	</div>
-  	<div>
-  		<a class="xref" href="https://msdn.microsoft.com/en-us/library/dfwy45w9(v=vs.110).aspx">Object.GetType()</a>
-  	</div>
-  	<div>
-  		<a class="xref" href="https://msdn.microsoft.com/en-us/library/57ctke0a(v=vs.110).aspx">Object.MemberwiseClone()</a>
-  	</div>
-  	<div>
-  		<a class="xref" href="https://msdn.microsoft.com/en-us/library/hz2a0b8x(v=vs.110).aspx">Object.ReferenceEquals(Object, Object)</a>
-  	</div>
-  	<div>
-  		<a class="xref" href="https://msdn.microsoft.com/en-us/library/7bxwbwt2(v=vs.110).aspx">Object.ToString()</a>
-  	</div>
-  </div>
   
   
   
@@ -358,20 +194,7 @@
           </div>
         </div>
       </div>
-      
-      <footer>
-        <div class="grad-bottom"></div>
-        <div class="footer">
-          <div class="container">
-            <span class="pull-right">
-              <a href="#top">Back to top</a>
-            </span>
-            
-            <span>Copyright © 2017 Piotr Boguslawski<br>Copyright © 2015-2017 Microsoft<br>Generated by <strong>DocFX</strong></span>
           </div>
-        </div>
-      </footer>
-    </div>
     
     <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
     <script type="text/javascript" src="../styles/docfx.js"></script>

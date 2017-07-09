@@ -38,7 +38,7 @@ namespace pbXNet
 	/// }
 	/// </code>
 	/// </example>
-	/// <seealso cref="System.ComponentModel.INotifyPropertyChanged"/>
+	/// <seealso cref="INotifyPropertyChanged"/>
 	public class Observable : INotifyPropertyChanged
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
