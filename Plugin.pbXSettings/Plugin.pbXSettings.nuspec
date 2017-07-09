@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata minClientVersion="2.8.1">
+    <id>Xam.Plugins.pbXSettings</id>
+    <version>1.0.0</version>
+    <title>pbX Settings Plugin for Windows, Universal Windows Platform, iOS, macOS, tvOS, watchOS, Android</title>
+    <authors>Piotr Boguslawski</authors>
+    <owners>Piotr Boguslawski</owners>
+    <licenseUrl>https://github.com/boguslawski-piotr/pbX/tree/master/Plugin.pbXSettings/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/boguslawski-piotr/pbX/tree/master/Plugin.pbXSettings</projectUrl>
+    <iconUrl>https://github.com/boguslawski-piotr/pbX/tree/master/Plugin.pbXSettings/icon.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>
+		TODO...
+    </description>
+    <summary>TODO...</summary>
+    <tags>plugin, settings, preferences, xamarin, plugin for xamarin, xamarin.forms, windows, uwp, pcl, ios, macos, tvos, watchos, monoandroid, monodroid, monotouch, android</tags>
+    <dependencies>
+    </dependencies>
+    <releaseNotes>
+      See Changelog: https://github.com/boguslawski-piotr/pbX/tree/master/Plugin.pbXSettings/CHANGELOG.md
+    </releaseNotes>
+
+  </metadata>
+
+<!-- portable-net45+wp80+win8+wpa81+MonoAndroid10+Xamarin.iOS10+UAP10+Xamarin.Mac20+xamarintvOS+xamarinwatchOS -->
+  <files>
+    <!--PCL-->
+    <file src="Plugin.pbXSettings.PCL\bin\Release\Plugin.pbXSettings.*" target="lib\portable-net45+wp80+win8+wpa81" />
+    
+    <!--Xamarin.Android-->
+    <file src="Plugin.pbXSettings.Android\bin\Release\Plugin.pbXSettings.*" target="lib\MonoAndroid10" />
+    
+    <!--Xamarin.iOS -->
+    <file src="Plugin.pbXSettings.iOS\bin\Release\Plugin.pbXSettings.*" target="lib\Xamarin.iOS10" />
+
+    <!--Xamarin.macOS -->
+    <file src="Plugin.pbXSettings.macOS\bin\Release\Plugin.pbXSettings.*" target="lib\Xamarin.Mac20" />
+
+    <!--Xamarin.tvOS -->
+    <file src="Plugin.pbXSettings.tvOS\bin\Release\Plugin.pbXSettings.*" target="lib\xamarintvOS" />
+
+    <!--Xamarin.watchOS -->
+    <file src="Plugin.pbXSettings.watchOS\bin\Release\Plugin.pbXSettings.*" target="lib\xamarinwatchOS" />
+
+    <!--UWP-->
+    <file src="Plugin.pbXSettings.UWP\bin\Release\Plugin.pbXSettings.*" target="lib\UAP10" />
+
+    <!--Net 45-->
+    <file src="Plugin.pbXSettings.Net45\bin\Release\Plugin.pbXSettings.*" target="lib\net45" />
+
+  </files>
+</package>

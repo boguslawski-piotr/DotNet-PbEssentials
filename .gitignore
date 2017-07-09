@@ -54,3 +54,5 @@ pbXNet.Droid/Resources/Resource.designer.cs
 Samples/**/Resources/Resource.Designer.cs
 Tests/.vs/config/applicationhost.config
 *.bak
+*.nupkg
+Plugin.pbXSettings/Plugin.pbXSettings.UWP/project.lock.json
