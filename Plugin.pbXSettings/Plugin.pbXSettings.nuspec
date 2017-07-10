@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata minClientVersion="2.8.1">
     <id>Xam.Plugins.pbXSettings</id>
-    <version>1.0.44</version>
+    <version>1.0.45</version>
     <title>pbX Settings Plugin for UWP, iOS, macOS, tvOS, watchOS, Android and .NET</title>
     <authors>Piotr Boguslawski</authors>
     <owners>Piotr Boguslawski</owners>
