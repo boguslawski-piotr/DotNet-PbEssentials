@@ -1,6 +1,11 @@
 ﻿using System;
 
+#if PLUGIN_PBXSETTINGS
+namespace Plugin.pbXSettings.pbXNet
+#else
 namespace pbXNet
+#endif
+
 {
 	public interface ISerializer
 	{

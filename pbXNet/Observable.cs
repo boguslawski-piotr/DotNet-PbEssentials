@@ -1,7 +1,12 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
+#if PLUGIN_PBXSETTINGS
+namespace Plugin.pbXSettings.pbXNet
+#else
 namespace pbXNet
+#endif
+
 {
 	/// <summary>
 	/// A base class that allows you to observe changes in properties.

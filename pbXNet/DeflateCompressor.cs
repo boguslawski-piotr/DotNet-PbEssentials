@@ -3,7 +3,12 @@ using System.IO;
 using System.IO.Compression;
 using System.Threading.Tasks;
 
+#if PLUGIN_PBXSETTINGS
+namespace Plugin.pbXSettings.pbXNet
+#else
 namespace pbXNet
+#endif
+
 {
 	public class DeflateCompressor : ICompressor
 	{

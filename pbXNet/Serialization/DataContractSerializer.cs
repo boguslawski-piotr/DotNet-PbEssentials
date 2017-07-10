@@ -5,7 +5,11 @@ using System.IO;
 using System.Text.RegularExpressions;
 using System.Xml;
 
+#if PLUGIN_PBXSETTINGS
+namespace Plugin.pbXSettings.pbXNet
+#else
 namespace pbXNet
+#endif
 {
 	/// <summary>
 	/// 

@@ -1,4 +1,8 @@
-﻿namespace pbXNet
+﻿#if PLUGIN_PBXSETTINGS
+namespace Plugin.pbXSettings.pbXNet
+#else
+namespace pbXNet
+#endif
 {
 	public static class Obfuscator
 	{

@@ -8,7 +8,12 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
 
+#if PLUGIN_PBXSETTINGS
+namespace Plugin.pbXSettings.pbXNet
+#else
 namespace pbXNet
+#endif
+
 {
 	/// <summary>
 	/// Arrays extensions.

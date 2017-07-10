@@ -1,7 +1,12 @@
 ﻿using System.IO;
 using System.Threading.Tasks;
 
+#if PLUGIN_PBXSETTINGS
+namespace Plugin.pbXSettings.pbXNet
+#else
 namespace pbXNet
+#endif
+
 {
 	public interface ICompressor
 	{
