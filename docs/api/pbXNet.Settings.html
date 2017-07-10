@@ -71,7 +71,7 @@
   <h1 id="pbXNet_Settings" data-uid="pbXNet.Settings">Class Settings
   </h1>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class Settings : Observable</code></pre>
+    <pre><code class="lang-csharp hljs">public class Settings : Observable, IEnumerable&lt;KeyValuePair&lt;string, object&gt;&gt;</code></pre>
   </div>
   
   <div class="markdown level0 summary"><p>
@@ -80,6 +80,9 @@
 </p>
 <p>
     The class is fully ready for use in binding systems because it inherits after <a class="xref" href="pbXNet.Observable.html">Observable</a>.
+</p>
+<p>
+    The class can also be used as a regular collection, that is, it can be enumerated :)
 </p>
 </div>
   <div class="markdown level0 conceptual"></div>
@@ -113,7 +116,7 @@
 
         // Assuming that the data has been saved, that is you implemented 
         // virtual functions LoadAsync and SaveAsync or
-        // used <a class="xref" href="pbXNet.PlatformSettings.html">PlatformSettings</a> or <a class="xref" href="pbXNet.SettingsInStorage.html">SettingsInStorage</a> as base class for MySettings.
+        // used <a class="xref" href="pbXNet.SettingsInStorage.html">SettingsInStorage</a> as base class for MySettings.
         //
         // The first time you start the program, you should see:
         //  
@@ -198,7 +201,9 @@ public class MySettings : Settings
   </div>
   
   <div class="markdown level1 summary"><p>Gets the current value (as an object) for a <span class="paramref">key</span> or if <span class="paramref">key</span> doesn&apos;t exist
-the default value: specified in <a class="xref" href="pbXNet.Settings.DefaultAttribute.html">Settings.DefaultAttribute</a> attribute, provided by <a class="xref" href="pbXNet.Settings.html#pbXNet_Settings_GetDefault_System_String_">GetDefault(String)</a> or null.</p>
+the default value: specified in <a class="xref" href="pbXNet.Settings.DefaultAttribute.html">Settings.DefaultAttribute</a> attribute for property or
+provided by <a class="xref" href="pbXNet.Settings.html#pbXNet_Settings_GetDefault_System_String_">GetDefault(String)</a> or 
+null.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
@@ -256,15 +261,18 @@ the default value: specified in <a class="xref" href="pbXNet.Settings.DefaultAtt
   
   <a id="pbXNet_Settings_Get_" data-uid="pbXNet.Settings.Get*"></a>
   
-  <h4 id="pbXNet_Settings_Get_System_String_" data-uid="pbXNet.Settings.Get(System.String)"><a href="#collapsible-pbXNet_Settings_Get_System_String_" class="expander" data-toggle="collapse">Get(String)</a></h4>
+  <h4 id="pbXNet_Settings_Get_System_String_System_Object_" data-uid="pbXNet.Settings.Get(System.String,System.Object)"><a href="#collapsible-pbXNet_Settings_Get_System_String_System_Object_" class="expander" data-toggle="collapse">Get(String, Object)</a></h4>
   
-  <div id="collapsible-pbXNet_Settings_Get_System_String_" class="collapse in">
+  <div id="collapsible-pbXNet_Settings_Get_System_String_System_Object_" class="collapse in">
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual object Get(string key = null)</code></pre>
+    <pre><code class="lang-csharp hljs">public virtual object Get(string key = null, object def = null)</code></pre>
   </div>
   
   <div class="markdown level1 summary"><p>Gets the current value (as an object) for a <span class="paramref">key</span> or if <span class="paramref">key</span> doesn&apos;t exist
-the default value: specified in <a class="xref" href="pbXNet.Settings.DefaultAttribute.html">Settings.DefaultAttribute</a> attribute, provided by <a class="xref" href="pbXNet.Settings.html#pbXNet_Settings_GetDefault_System_String_">GetDefault(String)</a> or null.</p>
+the default value: specified in <a class="xref" href="pbXNet.Settings.DefaultAttribute.html">Settings.DefaultAttribute</a> attribute for property or 
+provided by <a class="xref" href="pbXNet.Settings.html#pbXNet_Settings_GetDefault_System_String_">GetDefault(String)</a> or 
+specified in parameter <span class="paramref">def</span> or
+null.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
@@ -278,15 +286,18 @@ the default value: specified in <a class="xref" href="pbXNet.Settings.DefaultAtt
   
   <a id="pbXNet_Settings_Get_" data-uid="pbXNet.Settings.Get*"></a>
   
-  <h4 id="pbXNet_Settings_Get__1_System_String_" data-uid="pbXNet.Settings.Get``1(System.String)"><a href="#collapsible-pbXNet_Settings_Get__1_System_String_" class="expander" data-toggle="collapse">Get&lt;T&gt;(String)</a></h4>
+  <h4 id="pbXNet_Settings_Get__1_System_String___0_" data-uid="pbXNet.Settings.Get``1(System.String,``0)"><a href="#collapsible-pbXNet_Settings_Get__1_System_String___0_" class="expander" data-toggle="collapse">Get&lt;T&gt;(String, T)</a></h4>
   
-  <div id="collapsible-pbXNet_Settings_Get__1_System_String_" class="collapse in">
+  <div id="collapsible-pbXNet_Settings_Get__1_System_String___0_" class="collapse in">
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual T Get&lt;T&gt;(string key = null)</code></pre>
+    <pre><code class="lang-csharp hljs">public virtual T Get&lt;T&gt;(string key = null, T def = null)</code></pre>
   </div>
   
   <div class="markdown level1 summary"><p>Gets the current value (as an object type <span class="typeparamref">T</span>) for a <span class="paramref">key</span> or if <span class="paramref">key</span> doesn&apos;t exist
-the default value: specified in <a class="xref" href="pbXNet.Settings.DefaultAttribute.html">Settings.DefaultAttribute</a> attribute, provided by <a class="xref" href="pbXNet.Settings.html#pbXNet_Settings_GetDefault_System_String_">GetDefault(String)</a> or default(T).</p>
+the default value: specified in <a class="xref" href="pbXNet.Settings.DefaultAttribute.html">Settings.DefaultAttribute</a> attribute for property or
+provided by <a class="xref" href="pbXNet.Settings.html#pbXNet_Settings_GetDefault_System_String_">GetDefault(String)</a> or 
+specified in parameter <span class="paramref">def</span> or 
+default(T).</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
@@ -310,6 +321,53 @@ the default value: specified in <a class="xref" href="pbXNet.Settings.DefaultAtt
   <div class="markdown level1 summary"><p>Gets default value, specified in <a class="xref" href="pbXNet.Settings.DefaultAttribute.html">Settings.DefaultAttribute</a> attribute, for a property whose name matches the content of <span class="paramref">key</span>.
 <p>The function can be overrided and used to provide more complex default values that can not be passed with the <a class="xref" href="pbXNet.Settings.DefaultAttribute.html">Settings.DefaultAttribute</a> attribute.</p></p>
 </div>
+  <div class="markdown level1 conceptual"></div>
+
+  
+  
+  
+  
+  
+  </div>
+  
+  
+  <a id="pbXNet_Settings_GetEnumerator_" data-uid="pbXNet.Settings.GetEnumerator*"></a>
+  
+  <h4 id="pbXNet_Settings_GetEnumerator" data-uid="pbXNet.Settings.GetEnumerator"><a href="#collapsible-pbXNet_Settings_GetEnumerator" class="expander" data-toggle="collapse">GetEnumerator()</a></h4>
+  
+  <div id="collapsible-pbXNet_Settings_GetEnumerator" class="collapse in">
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IEnumerator&lt;KeyValuePair&lt;string, object&gt;&gt; GetEnumerator()</code></pre>
+  </div>
+  
+  <div class="markdown level1 summary"><p>Returns an enumerator <see cref="!:I​Dictionary​Enumerator"></see> that iterates through the entire settings collection.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <h5 id="pbXNet_Settings_GetEnumerator_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>The enumerator is safe to use concurrently with reads and writes to the settings collection, 
+however it does not represent a moment-in-time snapshot.
+The contents exposed through the enumerator may contain modifications made 
+to the settings collection after GetEnumerator was called.</p>
+</div>
+  
+  
+  
+  
+  
+  </div>
+  
+  
+  <a id="pbXNet_Settings_IsInternalProperty_" data-uid="pbXNet.Settings.IsInternalProperty*"></a>
+  
+  <h4 id="pbXNet_Settings_IsInternalProperty_System_String_" data-uid="pbXNet.Settings.IsInternalProperty(System.String)"><a href="#collapsible-pbXNet_Settings_IsInternalProperty_System_String_" class="expander" data-toggle="collapse">IsInternalProperty(String)</a></h4>
+  
+  <div id="collapsible-pbXNet_Settings_IsInternalProperty_System_String_" class="collapse in">
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual bool IsInternalProperty(string name)</code></pre>
+  </div>
+  
+  <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
 
   
@@ -371,7 +429,7 @@ the default value: specified in <a class="xref" href="pbXNet.Settings.DefaultAtt
     <pre><code class="lang-csharp hljs">public virtual void Remove(string key)</code></pre>
   </div>
   
-  <div class="markdown level1 summary"><p>Removes a <span class="paramref">key</span> and the corresponding value.</p>
+  <div class="markdown level1 summary"><p>Removes (or turns to default value for properties) a <span class="paramref">key</span> and the corresponding value.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
@@ -462,7 +520,6 @@ or save entire collection when <span class="paramref">changedValueKey</span> is 
   
   <h3 id="seealso">See Also</h3>
   <div class="seealso">
-      <div><a class="xref" href="pbXNet.PlatformSettings.html">PlatformSettings</a></div>
       <div><a class="xref" href="pbXNet.SettingsInStorage.html">SettingsInStorage</a></div>
   </div>
   

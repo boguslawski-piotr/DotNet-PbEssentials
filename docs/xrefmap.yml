@@ -3458,8 +3458,11 @@ references:
   name: Implicit
   href: api/pbXNet.ByteBuffer.html#pbXNet_ByteBuffer_op_Implicit_
   commentId: Overload:pbXNet.ByteBuffer.op_Implicit
+  name.vb: Widening
   fullName: pbXNet.ByteBuffer.Implicit
+  fullName.vb: pbXNet.ByteBuffer.Widening
   nameWithType: ByteBuffer.Implicit
+  nameWithType.vb: ByteBuffer.Widening
 - uid: pbXNet.ByteBuffer.ToHexString
   name: ToHexString()
   href: api/pbXNet.ByteBuffer.html#pbXNet_ByteBuffer_ToHexString
@@ -7922,27 +7925,27 @@ references:
   commentId: Overload:pbXNet.Settings.DefaultAttribute.#ctor
   fullName: pbXNet.Settings.DefaultAttribute.DefaultAttribute
   nameWithType: Settings.DefaultAttribute.DefaultAttribute
-- uid: pbXNet.Settings.Get(System.String)
-  name: Get(String)
-  href: api/pbXNet.Settings.html#pbXNet_Settings_Get_System_String_
-  commentId: M:pbXNet.Settings.Get(System.String)
-  fullName: pbXNet.Settings.Get(System.String)
-  nameWithType: Settings.Get(String)
+- uid: pbXNet.Settings.Get(System.String,System.Object)
+  name: Get(String, Object)
+  href: api/pbXNet.Settings.html#pbXNet_Settings_Get_System_String_System_Object_
+  commentId: M:pbXNet.Settings.Get(System.String,System.Object)
+  fullName: pbXNet.Settings.Get(System.String, System.Object)
+  nameWithType: Settings.Get(String, Object)
 - uid: pbXNet.Settings.Get*
   name: Get
   href: api/pbXNet.Settings.html#pbXNet_Settings_Get_
   commentId: Overload:pbXNet.Settings.Get
   fullName: pbXNet.Settings.Get
   nameWithType: Settings.Get
-- uid: pbXNet.Settings.Get``1(System.String)
-  name: Get<T>(String)
-  href: api/pbXNet.Settings.html#pbXNet_Settings_Get__1_System_String_
-  commentId: M:pbXNet.Settings.Get``1(System.String)
-  name.vb: Get(Of T)(String)
-  fullName: pbXNet.Settings.Get<T>(System.String)
-  fullName.vb: pbXNet.Settings.Get(Of T)(System.String)
-  nameWithType: Settings.Get<T>(String)
-  nameWithType.vb: Settings.Get(Of T)(String)
+- uid: pbXNet.Settings.Get``1(System.String,``0)
+  name: Get<T>(String, T)
+  href: api/pbXNet.Settings.html#pbXNet_Settings_Get__1_System_String___0_
+  commentId: M:pbXNet.Settings.Get``1(System.String,``0)
+  name.vb: Get(Of T)(String, T)
+  fullName: pbXNet.Settings.Get<T>(System.String, T)
+  fullName.vb: pbXNet.Settings.Get(Of T)(System.String, T)
+  nameWithType: Settings.Get<T>(String, T)
+  nameWithType.vb: Settings.Get(Of T)(String, T)
 - uid: pbXNet.Settings.GetDefault(System.String)
   name: GetDefault(String)
   href: api/pbXNet.Settings.html#pbXNet_Settings_GetDefault_System_String_
@@ -7955,6 +7958,30 @@ references:
   commentId: Overload:pbXNet.Settings.GetDefault
   fullName: pbXNet.Settings.GetDefault
   nameWithType: Settings.GetDefault
+- uid: pbXNet.Settings.GetEnumerator
+  name: GetEnumerator()
+  href: api/pbXNet.Settings.html#pbXNet_Settings_GetEnumerator
+  commentId: M:pbXNet.Settings.GetEnumerator
+  fullName: pbXNet.Settings.GetEnumerator()
+  nameWithType: Settings.GetEnumerator()
+- uid: pbXNet.Settings.GetEnumerator*
+  name: GetEnumerator
+  href: api/pbXNet.Settings.html#pbXNet_Settings_GetEnumerator_
+  commentId: Overload:pbXNet.Settings.GetEnumerator
+  fullName: pbXNet.Settings.GetEnumerator
+  nameWithType: Settings.GetEnumerator
+- uid: pbXNet.Settings.IsInternalProperty(System.String)
+  name: IsInternalProperty(String)
+  href: api/pbXNet.Settings.html#pbXNet_Settings_IsInternalProperty_System_String_
+  commentId: M:pbXNet.Settings.IsInternalProperty(System.String)
+  fullName: pbXNet.Settings.IsInternalProperty(System.String)
+  nameWithType: Settings.IsInternalProperty(String)
+- uid: pbXNet.Settings.IsInternalProperty*
+  name: IsInternalProperty
+  href: api/pbXNet.Settings.html#pbXNet_Settings_IsInternalProperty_
+  commentId: Overload:pbXNet.Settings.IsInternalProperty
+  fullName: pbXNet.Settings.IsInternalProperty
+  nameWithType: Settings.IsInternalProperty
 - uid: pbXNet.Settings.Item(System.String)
   name: Item[String]
   href: api/pbXNet.Settings.html#pbXNet_Settings_Item_System_String_

@@ -71,7 +71,7 @@
   <h1 id="pbXNet_PlatformSettings" data-uid="pbXNet.PlatformSettings">Class PlatformSettings
   </h1>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class PlatformSettings : Settings</code></pre>
+    <pre><code class="lang-csharp hljs">public class PlatformSettings : Settings, IEnumerable&lt;KeyValuePair&lt;string, object&gt;&gt;</code></pre>
   </div>
   
   <div class="markdown level0 summary"></div>
@@ -229,13 +229,16 @@
   		<a class="xref" href="pbXNet.Settings.html#pbXNet_Settings_Set_System_Object_System_String_">Settings.Set(Object, String)</a>
   	</div>
   	<div>
-  		<a class="xref" href="pbXNet.Settings.html#pbXNet_Settings_Get_System_String_">Settings.Get(String)</a>
+  		<a class="xref" href="pbXNet.Settings.html#pbXNet_Settings_Get_System_String_System_Object_">Settings.Get(String, Object)</a>
   	</div>
   	<div>
-  		<a class="xref" href="pbXNet.Settings.html#pbXNet_Settings_Get__1_System_String_">Settings.Get&lt;T&gt;(String)</a>
+  		<a class="xref" href="pbXNet.Settings.html#pbXNet_Settings_Get__1_System_String___0_">Settings.Get&lt;T&gt;(String, T)</a>
   	</div>
   	<div>
   		<a class="xref" href="pbXNet.Settings.html#pbXNet_Settings_Item_System_String_">Settings.Item[String]</a>
+  	</div>
+  	<div>
+  		<a class="xref" href="pbXNet.Settings.html#pbXNet_Settings_GetDefault_System_String_">Settings.GetDefault(String)</a>
   	</div>
   	<div>
   		<a class="xref" href="pbXNet.Settings.html#pbXNet_Settings_Contains_System_String_">Settings.Contains(String)</a>
@@ -247,13 +250,16 @@
   		<a class="xref" href="pbXNet.Settings.html#pbXNet_Settings_Clear">Settings.Clear()</a>
   	</div>
   	<div>
-  		<a class="xref" href="pbXNet.Settings.html#pbXNet_Settings_GetDefault_System_String_">Settings.GetDefault(String)</a>
-  	</div>
-  	<div>
   		<a class="xref" href="pbXNet.Settings.html#pbXNet_Settings_Load">Settings.Load()</a>
   	</div>
   	<div>
   		<a class="xref" href="pbXNet.Settings.html#pbXNet_Settings_Save_System_String_">Settings.Save(String)</a>
+  	</div>
+  	<div>
+  		<a class="xref" href="pbXNet.Settings.html#pbXNet_Settings_GetEnumerator">Settings.GetEnumerator()</a>
+  	</div>
+  	<div>
+  		<a class="xref" href="pbXNet.Settings.html#pbXNet_Settings_IsInternalProperty_System_String_">Settings.IsInternalProperty(String)</a>
   	</div>
   	<div>
   		<a class="xref" href="pbXNet.Observable.html#pbXNet_Observable_PropertyChanged">Observable.PropertyChanged</a>
