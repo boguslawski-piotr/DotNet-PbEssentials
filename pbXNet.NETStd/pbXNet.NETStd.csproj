@@ -19,9 +19,6 @@
     <Compile Include="..\pbXNet\NETStd2\Locale.cs">
       <Link>pbXNet\NETStd2\Locale.cs</Link>
     </Compile>
-    <Compile Include="..\pbXNet\NETStd2\PlatformSettings.cs">
-      <Link>pbXNet\NETStd2\PlatformSettings.cs</Link>
-    </Compile>
     <Compile Include="..\pbXNet\Templates\DOAuthentication.cs">
       <Link>pbXNet\Templates\DOAuthentication.cs</Link>
     </Compile>

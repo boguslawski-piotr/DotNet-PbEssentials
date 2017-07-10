@@ -134,9 +134,6 @@
     <Compile Include="../pbXNet/UWP/Tools.cs">
       <Link>pbXNet\UWP\Tools.cs</Link>
     </Compile>
-    <Compile Include="../pbXNet/UWP/PlatformSettings.cs">
-      <Link>pbXNet\UWP\PlatformSettings.cs</Link>
-    </Compile>
     <Compile Include="..\pbXNet\pbXNet.AssemblyInfo.cs">
       <Link>Properties\pbXNet.AssemblyInfo.cs</Link>
     </Compile>
