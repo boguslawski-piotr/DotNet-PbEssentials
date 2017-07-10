@@ -13,7 +13,7 @@ This plugin uses the native settings storage, which means all settings are persi
 
 The main plugin class `Plugin.pbXSettings.Settings` is fully ready for use in any binding systems because implements interface INotifyPropertyChanged. Can also be used as a regular collection, that is, it can be enumerated :)
 
-This plugin uses _.NET_ `DataContractSerializer` for savig and restoring keys and values, which means you can put and retrieve practically any valid _.NET_ object as long as it meets the requirements of this serialization technolgy: [https://docs.microsoft.com/en-us/dotnet/api/system.runtime.serialization.datacontractserializer?view=netframework-4.5.1](https://docs.microsoft.com/en-us/dotnet/api/system.runtime.serialization.datacontractserializer?view=netframework-4.5.1)
+This plugin uses _.NET_ `DataContractSerializer` for saving and restoring keys and values, which means you can put and retrieve practically any valid _.NET_ object as long as it meets the requirements of this serialization technolgy: [https://docs.microsoft.com/en-us/dotnet/api/system.runtime.serialization.datacontractserializer?view=netframework-4.5.1](https://docs.microsoft.com/en-us/dotnet/api/system.runtime.serialization.datacontractserializer?view=netframework-4.5.1)
 	
 ## Installation
 
@@ -24,9 +24,9 @@ Just install NuGet package `Xam.Plugins.pbXSettings` into your PCL project (if y
 - Universal Windows Platform
 - Xamarin.iOS
 - Xamarin.Mac
-- Xamarin.Android (compiled for API 19)
 - Xamarin.watchOS
 - Xamarin.tvOS
+- Xamarin.Android (compiled for API 19)
 - .NET 4.5 (and later versions)
 - .NET Core 2 / .NET STandard 2 (soon)
 

@@ -13,7 +13,7 @@
     <summary>Plugin that makes it easy to handle all sorts of settings, more precisely, values of any type that is accessed through a key.</summary>
     <description>
 Plugin that makes it easy to handle all sorts of settings, more precisely, values of any type that is accessed through a key. 
-This plugin was inspired by another similar component by James Montemagno, but I used a different approach to data handling and usage.
+This plugin was inspired by another similar component written by James Montemagno, but I used a different approach to data handling and usage.
 This plugin uses the native settings storage, which means all settings are persisted across app updates, saved natively, and on some platforms synchronized between devices.
 
 - Android: SharedPreferences
@@ -23,7 +23,7 @@ This plugin uses the native settings storage, which means all settings are persi
 
 The main plugin class (Plugin.pbXSettings.Settings) is fully ready for use in any binding systems because implements interface INotifyPropertyChanged. Can also be used as a regular collection, that is, it can be enumerated :)
 
-The class uses .NET DataContractSerializer for savig and restoring keys and values, which means you can put and retrieve practically any valid .NET object as long as it meets the requirements of this serialization technolgy.
+The class uses .NET DataContractSerializer for saving and restoring keys and values, which means you can put and retrieve practically any valid .NET object as long as it meets the requirements of this serialization technolgy.
     </description>
     <tags>plugin, settings, preferences, xamarin, plugin for xamarin, xamarin.forms, windows, uwp, pcl, ios, macos, tvos, watchos, monoandroid, monodroid, android</tags>
     <releaseNotes>
