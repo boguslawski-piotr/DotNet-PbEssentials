@@ -33,7 +33,7 @@
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE;__PCL__</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>3</WarningLevel>
+    <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="..\AssemblyInfo.cs" />

@@ -2,31 +2,43 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata minClientVersion="2.8.1">
     <id>Xam.Plugins.pbXSettings</id>
-    <version>1.0.0</version>
-    <title>pbX Settings Plugin for Windows, Universal Windows Platform, iOS, macOS, tvOS, watchOS, Android</title>
+    <version>1.0.41</version>
+    <title>pbX Settings Plugin for UWP, iOS, macOS, tvOS, watchOS, Android and .NET</title>
     <authors>Piotr Boguslawski</authors>
     <owners>Piotr Boguslawski</owners>
     <projectUrl>https://github.com/boguslawski-piotr/pbX/tree/master/Plugin.pbXSettings</projectUrl>
     <licenseUrl>https://raw.githubusercontent.com/boguslawski-piotr/pbX/master/Plugin.pbXSettings/LICENSE</licenseUrl>
     <iconUrl>https://raw.githubusercontent.com/boguslawski-piotr/pbX/master/Plugin.pbXSettings/icon.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <summary>Plugin that makes it easy to handle all sorts of settings, more precisely, values of any type that is accessed through a key.</summary>
     <description>
-		TODO...
+Plugin that makes it easy to handle all sorts of settings, more precisely, values of any type that is accessed through a key. 
+This plugin was inspired by another similar component by James Montemagno, but I used a different approach to data handling and usage.
+This plugin uses the native settings storage, which means all settings are persisted across app updates, saved natively, and on some platforms synchronized between devices.
+
+- Android: SharedPreferences
+- Apple: NSUserDefaults
+- UWP: ApplicationDataContainer
+- .NET / .NET Core 2: UserStore -> IsolatedStorageFile
+
+The main plugin class (Plugin.pbXSettings.Settings) is fully ready for use in any binding systems because implements interface INotifyPropertyChanged. Can also be used as a regular collection, that is, it can be enumerated :)
+
+The class uses .NET DataContractSerializer for savig and restoring keys and values, which means you can put and retrieve practically any valid .NET object as long as it meets the requirements of this serialization technolgy.
     </description>
-    <summary>TODO...</summary>
-    <tags>plugin, settings, preferences, xamarin, plugin for xamarin, xamarin.forms, windows, uwp, pcl, ios, macos, tvos, watchos, monoandroid, monodroid, monotouch, android</tags>
-    <dependencies>
-    </dependencies>
+    <tags>plugin, settings, preferences, xamarin, plugin for xamarin, xamarin.forms, windows, uwp, pcl, ios, macos, tvos, watchos, monoandroid, monodroid, android</tags>
     <releaseNotes>
       See Changelog: https://github.com/boguslawski-piotr/pbX/blob/master/Plugin.pbXSettings/CHANGELOG.md
     </releaseNotes>
+    <frameworkAssemblies>
+      <frameworkAssembly assemblyName="System.Xml.ReaderWriter"  />
+    </frameworkAssemblies>
+    <dependencies>
+    </dependencies>
   </metadata>
 
-  <!-- portable-net45+wp80+win8+wpa81+MonoAndroid10+Xamarin.iOS10+UAP10+Xamarin.Mac20+xamarintvOS+xamarinwatchOS -->
-  
   <files>
     <!--PCL-->
-    <file src="Plugin.pbXSettings.PCL\bin\Release\Plugin.pbXSettings.*" target="lib\portable-net45+wp80+win8+wpa81" />
+    <file src="Plugin.pbXSettings.PCL\bin\Release\Plugin.pbXSettings.*" target="lib\portable-net45+wp8+win8+wpa81" />
     
     <!--Xamarin.Android-->
     <file src="Plugin.pbXSettings.Android\bin\Release\Plugin.pbXSettings.*" target="lib\MonoAndroid10" />

@@ -1,0 +1,52 @@
+[
+	{
+		"FileNames": [
+			"AssemblyInfo.cs",
+			"Test.Net45/Properties/AssemblyInfo.cs",
+		],
+		"Entries": [
+			{
+				"Pattern": "AssemblyVersion\\(\"([0-9]+)\\.([0-9]+)\\.([0-9]+)\\.([0-9*]+)\"\\)"
+			},
+			{
+				"Pattern": "AssemblyFileVersion\\(\"([0-9]+)\\.([0-9]+)\\.([0-9]+)\\.([0-9*]+)\"\\)"
+			}
+		]
+	},
+	{
+		"FileNames": [
+			"Plugin.pbXSettings.Abstractions/Plugin.pbXSettings.Abstractions.csproj",
+			"Plugin.pbXSettings.Android/Plugin.pbXSettings.Android.csproj",
+			"Plugin.pbXSettings.iOS/Plugin.pbXSettings.iOS.csproj",
+			"Plugin.pbXSettings.macOS/Plugin.pbXSettings.macOS.csproj",
+			"Plugin.pbXSettings.Net45/Plugin.pbXSettings.Net45.csproj",
+			"Plugin.pbXSettings.tvOS/Plugin.pbXSettings.tvOS.csproj",
+			"Plugin.pbXSettings.UWP/Plugin.pbXSettings.UWP.csproj",
+			"Plugin.pbXSettings.watchOS/Plugin.pbXSettings.watchOS.csproj",
+			"Plugin.pbXSettings.Shared/Plugin.pbXSettings.Shared.shproj",
+			"Test.Net45/Test.Net45.csproj",
+		],
+		"Entries": [
+			{
+				"Pattern": "<ReleaseVersion>\\s*([0-9]+)\\.([0-9]+)\\.([0-9]+)\\.([0-9]+)\\s*</ReleaseVersion>"
+			}
+		]
+	},
+	{
+		"FileName": "Plugin.pbXSettings.sln",
+		"Entries": [
+			{
+				"Pattern": "version\\s*=\\s*([0-9]+)\\.([0-9]+)\\.([0-9]+)\\.([0-9*]+)"
+			}
+		]
+	},
+	{
+		"FileName": "Plugin.pbXSettings.nuspec",
+		"Entries": [
+			{
+				"Pattern": "<version>\\s*([0-9]+)\\.([0-9]+)\\.([0-9]+)\\s*</version>",
+				"RevisionGroup": -1
+			}
+		]
+	},
+]

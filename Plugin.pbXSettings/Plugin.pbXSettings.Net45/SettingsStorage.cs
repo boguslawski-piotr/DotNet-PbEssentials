@@ -1,9 +1,6 @@
-﻿using System.Threading.Tasks;
-using System.IO;
-using System.Reflection;
-using System.Threading.Tasks;
-using System;
+﻿using System.IO;
 using System.IO.IsolatedStorage;
+using System.Threading.Tasks;
 using Plugin.pbXSettings.Abstractions;
 
 namespace Plugin.pbXSettings

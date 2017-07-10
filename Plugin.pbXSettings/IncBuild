@@ -1,0 +1,6 @@
+#!/bin/bash
+
+cd $HOME/Projects/pbX/Plugin.pbXSettings
+../../Tools/Versions/Versions --build Versions.json 
+
+git commit -am "Next: Build"

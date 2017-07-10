@@ -77,5 +77,12 @@ namespace Plugin.pbXSettings
 				await SettingsStorage.Current.SetStringAsync(Id, d);
 			}
 		}
+
+		protected override bool IsInternalProperty(string name)
+		{
+			if (name == nameof(Id))
+				return true;
+			return base.IsInternalProperty(name);
+		}
 	}
 }
