@@ -22,6 +22,7 @@
 			"Plugin.pbXSettings.Net45/Plugin.pbXSettings.Net45.csproj",
 			"Plugin.pbXSettings.tvOS/Plugin.pbXSettings.tvOS.csproj",
 			"Plugin.pbXSettings.UWP/Plugin.pbXSettings.UWP.csproj",
+			"Plugin.pbXSettings.PCL/Plugin.pbXSettings.PCL.csproj",
 			"Plugin.pbXSettings.watchOS/Plugin.pbXSettings.watchOS.csproj",
 			"Plugin.pbXSettings.Shared/Plugin.pbXSettings.Shared.shproj",
 			"Test.Net45/Test.Net45.csproj",
