@@ -29,11 +29,6 @@ The class uses .NET DataContractSerializer for saving and restoring keys and val
     <releaseNotes>
       See Changelog: https://github.com/boguslawski-piotr/pbX/blob/master/Plugin.pbXSettings/CHANGELOG.md
     </releaseNotes>
-    <frameworkAssemblies>
-      <frameworkAssembly assemblyName="System.Xml.ReaderWriter"  />
-    </frameworkAssemblies>
-    <dependencies>
-    </dependencies>
   </metadata>
 
   <files>

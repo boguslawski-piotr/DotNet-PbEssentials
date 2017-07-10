@@ -17,7 +17,7 @@ This plugin uses _.NET_ `DataContractSerializer` for saving and restoring keys a
 	
 ## Installation
 
-Just install NuGet package `Xam.Plugins.pbXSettings` into your PCL project (if you have any)) and all application projects (for each platform there is at least one project).
+Just install NuGet package [`Xam.Plugins.pbXSettings`](https://www.nuget.org/packages/Xam.Plugins.pbXSettings) [![NuGet](https://img.shields.io/nuget/v/Xam.Plugins.pbXSettings.svg?label=NuGet)](https://www.nuget.org/packages/Xam.Plugins.pbXSettings) into your PCL project (if you have any)) and all application projects (for each platform there is at least one project).
 
 ## Platform Support
 
