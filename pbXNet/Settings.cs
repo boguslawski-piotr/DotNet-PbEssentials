@@ -172,7 +172,7 @@ namespace pbXNet
 		}
 
 		/// <summary>
-		/// Gets default value, specified in <see cref="DefaultAttribute"/> attribute, for a property whose name matches the content of <paramref name="key"/>.
+		/// Gets default value, specified in <see cref="DefaultAttribute"/> attribute, for a property whose name matches the content of a <paramref name="key"/>.
 		/// <para>The function can be overrided and used to provide more complex default values that can not be passed with the <see cref="DefaultAttribute"/> attribute.</para>
 		/// </summary>
 		protected virtual object GetDefault(string key)
@@ -225,7 +225,7 @@ namespace pbXNet
 		}
 
 		/// <summary>
-		/// Removes all keys and corresponding values from settings.
+		/// Removes all keys and corresponding values from settings set.
 		/// </summary>
 		public virtual void Clear()
 		{
@@ -239,12 +239,14 @@ namespace pbXNet
 		// That is why (for convenience) these functions are not abstract ;).
 
 		/// <summary>
+		/// By default it does nothing.
 		/// When overridden should load entire collection of keys and values into <see cref="KeysAndValues"/>.
 		/// </summary>
 		public virtual async Task LoadAsync()
 		{ }
 
 		/// <summary>
+		/// By default it does nothing.
 		/// When overridden should save <paramref name="changedValueKey"/> key and corresponding value 
 		/// or save entire collection when <paramref name="changedValueKey"/> is set to null.
 		/// </summary>
@@ -262,7 +264,7 @@ namespace pbXNet
 		public void Save(string changedValueKey = null) => SaveAsync(changedValueKey).GetAwaiter().GetResult();
 
 		/// <summary>
-		/// Returns an enumerator <see cref="I​Dictionary​Enumerator"/> that iterates through the entire settings collection.
+		/// Returns an enumerator <see cref="System.Collections.IDictionaryEnumerator"/> that iterates through the entire settings set.
 		/// </summary>
 		/// <remarks>
 		/// The enumerator is safe to use concurrently with reads and writes to the settings collection, 
@@ -277,7 +279,7 @@ namespace pbXNet
 		}
 
 		/// <summary>
-		/// Returns an enumerator <see cref="I​Dictionary​Enumerator"/> that iterates through the entire settings collection.
+		/// Returns an enumerator <see cref="System.Collections.IDictionaryEnumerator"/> that iterates through the entire settings set.
 		/// </summary>
 		/// <remarks>
 		/// The enumerator is safe to use concurrently with reads and writes to the settings collection, 
@@ -293,6 +295,9 @@ namespace pbXNet
 
 		#region Tools
 
+		/// <summary>
+		/// Should return true for properties which are not settings and should not be seen when enumerating settings set.
+		/// </summary>
 		protected virtual bool IsInternalProperty(string name)
 		{
 			if (name == "Item") // -> public virtual object this[string key]
