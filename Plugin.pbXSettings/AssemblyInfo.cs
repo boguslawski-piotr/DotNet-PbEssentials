@@ -2,7 +2,7 @@ using System.Reflection;
 using System.Resources;
 
 [assembly: AssemblyTitle("Plugin.pbXSettings")]
-[assembly: AssemblyDescription("pbX Settings Plugin for Windows, Universal Windows Platform, iOS, macOS, tvOS, watchOS, Android")]
+[assembly: AssemblyDescription("pbX Settings Plugin for UWP, iOS, macOS, tvOS, watchOS, Android and .NET")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Plugin.pbXSettings")]
