@@ -23,6 +23,7 @@ namespace pbXNet
 		{
 			var defaults = NSUserDefaults.StandardUserDefaults;
 			defaults.SetString(d, id);
+			defaults.Synchronize();
 		}
 	}
 }

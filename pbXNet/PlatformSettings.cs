@@ -15,7 +15,7 @@ namespace pbXNet
 		public PlatformSettings(string id, ISerializer serializer = null)
 		{
 			Id = id ?? throw new ArgumentNullException(nameof(id));
-			Serializer = new StringOptimizedSerializer(serializer ?? new NewtonsoftJsonSerializer());
+			Serializer = serializer ?? new NewtonsoftJsonSerializer();
 		}
 
 		public static async Task<PlatformSettings> NewAsync(string id, ISerializer serializer = null)

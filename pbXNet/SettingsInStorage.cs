@@ -17,7 +17,7 @@ namespace pbXNet
 		{
 			Id = id ?? throw new ArgumentNullException(nameof(id));
 			Storage = storage ?? throw new ArgumentNullException(nameof(storage));
-			Serializer = new StringOptimizedSerializer(serializer ?? new NewtonsoftJsonSerializer());
+			Serializer = serializer ?? new NewtonsoftJsonSerializer();
 		}
 
 		public static async Task<SettingsInStorage> NewAsync(string id, IStorage<string> storage, ISerializer serializer = null)

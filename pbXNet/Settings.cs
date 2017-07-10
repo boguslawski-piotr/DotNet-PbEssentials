@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
@@ -14,6 +16,9 @@ namespace pbXNet
 	/// </para>
 	/// <para>
 	///		The class is fully ready for use in binding systems because it inherits after <see cref="Observable"/>.
+	/// </para>
+	/// <para>
+	///		The class can also be used as a regular collection, that is, it can be enumerated :)
 	/// </para>
 	/// </summary>
 	/// <example>
@@ -34,7 +39,7 @@ namespace pbXNet
 	///			
 	///			// Assuming that the data has been saved, that is you implemented 
 	///			// virtual functions LoadAsync and SaveAsync or
-	///			// used <see cref="PlatformSettings"/> or <see cref="SettingsInStorage"/> as base class for MySettings.
+	///			// used <see cref="SettingsInStorage"/> as base class for MySettings.
 	///			//
 	///			// The first time you start the program, you should see:
 	///			//	
@@ -84,9 +89,8 @@ namespace pbXNet
 	/// }
 	/// </code>
 	/// </example>
-	/// <seealso cref="PlatformSettings"/>
 	/// <seealso cref="SettingsInStorage"/>
-	public class Settings : Observable
+	public class Settings : Observable, IEnumerable<KeyValuePair<string, object>>
 	{
 		/// <summary>
 		/// Thread-safe container for keys and values.
@@ -120,68 +124,51 @@ namespace pbXNet
 
 		/// <summary>
 		/// Gets the current value (as an object) for a <paramref name="key"/> or if <paramref name="key"/> doesn't exist
-		/// the default value: specified in <see cref="DefaultAttribute"/> attribute for property, 
-		/// provided by <see cref="GetDefault(string)" /> or null.
+		/// the default value: specified in <see cref="DefaultAttribute"/> attribute for property or 
+		/// provided by <see cref="GetDefault(string)" /> or 
+		/// specified in parameter <paramref name="def"/> or
+		/// null.
 		/// </summary>
-		public virtual object Get([CallerMemberName]string key = null) => this[key];
+		public virtual object Get([CallerMemberName]string key = null, object def = null)
+		{
+			if (!KeysAndValues.TryGetValue(key, out object value))
+				value = GetDefault(key);
+
+			try
+			{
+				PropertyInfo property = this.GetType().GetRuntimeProperties().First((_p) => _p.Name == key);
+				return ConvertTo(value, property.PropertyType, def);
+			}
+			catch { }
+
+			return value;
+		}
 
 		/// <summary>
 		/// Gets the current value (as an object type <typeparamref name="T"/>) for a <paramref name="key"/> or if <paramref name="key"/> doesn't exist
-		/// the default value: specified in <see cref="DefaultAttribute"/> attribute for property, 
-		/// provided by <see cref="GetDefault(string)" /> or default(T).
+		/// the default value: specified in <see cref="DefaultAttribute"/> attribute for property or
+		/// provided by <see cref="GetDefault(string)" /> or 
+		/// specified in parameter <paramref name="def"/> or 
+		/// default(T).
 		/// </summary>
-		public virtual T Get<T>([CallerMemberName]string key = null) => (T)(ConvertTo(this[key], typeof(T)) ?? default(T));
+		public virtual T Get<T>([CallerMemberName]string key = null, T def = default(T))
+		{
+			if (!KeysAndValues.TryGetValue(key, out object value))
+				value = GetDefault(key);
+
+			return (T)(ConvertTo(value, typeof(T), def) ?? default(T));
+		}
 
 		/// <summary>
 		/// Gets the current value (as an object) for a <paramref name="key"/> or if <paramref name="key"/> doesn't exist
-		/// the default value: specified in <see cref="DefaultAttribute"/> attribute for property, 
-		/// provided by <see cref="GetDefault(string)" /> or null.
+		/// the default value: specified in <see cref="DefaultAttribute"/> attribute for property or
+		/// provided by <see cref="GetDefault(string)" /> or 
+		/// null.
 		/// </summary>
 		public virtual object this[string key]
 		{
-			get {
-				if (!KeysAndValues.TryGetValue(key, out object value))
-					value = GetDefault(key);
-
-				try
-				{
-					PropertyInfo property = this.GetType().GetRuntimeProperties().First((_p) => _p.Name == key);
-					return ConvertTo(value, property.PropertyType);
-				}
-				catch { }
-
-				return value;
-			}
-
-			set {
-				SetAsync(value, key);
-			}
-		}
-
-		/// <summary>
-		/// Checks whether there is a value described by <paramref name="key"/>.
-		/// </summary>
-		public virtual bool Contains(string key)
-		{
-			return KeysAndValues.ContainsKey(key);
-		}
-
-		/// <summary>
-		/// Removes a <paramref name="key"/> and the corresponding value.
-		/// </summary>
-		public virtual void Remove(string key)
-		{
-			if (KeysAndValues.TryRemove(key, out object _))
-				SaveAsync(null);
-		}
-
-		/// <summary>
-		/// Removes all keys and corresponding values from settings.
-		/// </summary>
-		public virtual void Clear()
-		{
-			KeysAndValues.Clear();
-			SaveAsync(null);
+			get => Get(key, null);
+			set => SetAsync(value, key);
 		}
 
 		/// <summary>
@@ -201,13 +188,49 @@ namespace pbXNet
 				}
 				catch (Exception)
 				{
-					return Activator.CreateInstance(property.PropertyType);
+					return null;
 				}
 			}
 			catch (Exception)
 			{
 				return null;
 			}
+		}
+
+		/// <summary>
+		/// Checks whether there is a value described by <paramref name="key"/>.
+		/// </summary>
+		public virtual bool Contains(string key)
+		{
+			if (KeysAndValues.ContainsKey(key))
+				return true;
+			try
+			{
+				PropertyInfo property = this.GetType().GetRuntimeProperties().First((_p) => _p.Name == key);
+				return true;
+			}
+			catch
+			{
+				return false;
+			}
+		}
+
+		/// <summary>
+		/// Removes (or turns to default value for properties) a <paramref name="key"/> and the corresponding value.
+		/// </summary>
+		public virtual void Remove(string key)
+		{
+			if (KeysAndValues.TryRemove(key, out object _))
+				SaveAsync(null);
+		}
+
+		/// <summary>
+		/// Removes all keys and corresponding values from settings.
+		/// </summary>
+		public virtual void Clear()
+		{
+			KeysAndValues.Clear();
+			SaveAsync(null);
 		}
 
 		// At first glance it looks like LoadAsync and SaveAsync should be abstract 
@@ -238,7 +261,60 @@ namespace pbXNet
 		/// </summary>
 		public void Save(string changedValueKey = null) => SaveAsync(changedValueKey).GetAwaiter().GetResult();
 
+		/// <summary>
+		/// Returns an enumerator <see cref="I​Dictionary​Enumerator"/> that iterates through the entire settings collection.
+		/// </summary>
+		/// <remarks>
+		/// The enumerator is safe to use concurrently with reads and writes to the settings collection, 
+		/// however it does not represent a moment-in-time snapshot.
+		/// The contents exposed through the enumerator may contain modifications made 
+		/// to the settings collection after GetEnumerator was called.
+		/// </remarks>
+		public IEnumerator<KeyValuePair<string, object>> GetEnumerator()
+		{
+			PrepareEnumerator();
+			return KeysAndValues.GetEnumerator();
+		}
+
+		/// <summary>
+		/// Returns an enumerator <see cref="I​Dictionary​Enumerator"/> that iterates through the entire settings collection.
+		/// </summary>
+		/// <remarks>
+		/// The enumerator is safe to use concurrently with reads and writes to the settings collection, 
+		/// however it does not represent a moment-in-time snapshot.
+		/// The contents exposed through the enumerator may contain modifications made 
+		/// to the settings collection after GetEnumerator was called.
+		/// </remarks>
+		IEnumerator IEnumerable.GetEnumerator()
+		{
+			PrepareEnumerator();
+			return KeysAndValues.GetEnumerator();
+		}
+
 		#region Tools
+
+		protected virtual bool IsInternalProperty(string name)
+		{
+			if (name == "Item") // -> public virtual object this[string key]
+				return true;
+			return false;
+		}
+
+		void PrepareEnumerator()
+		{
+			foreach (var p in this.GetType().GetRuntimeProperties())
+			{
+				if (!IsInternalProperty(p.Name) && !KeysAndValues.ContainsKey(p.Name))
+				{
+					try
+					{
+						object o = p.GetMethod?.Invoke(this, new object[] { });
+						KeysAndValues[p.Name] = o;
+					}
+					catch { }
+				}
+			}
+		}
 
 		async Task SetAsync(object newValue, string key)
 		{
@@ -253,8 +329,11 @@ namespace pbXNet
 				await SaveAsync(key);
 		}
 
-		object ConvertTo(object value, Type type)
+		object ConvertTo(object value, Type type, object def)
 		{
+			if (value == null)
+				value = def;
+
 			Type valueType = value == null ? typeof(object) : value.GetType();
 
 			if (!type.Equals(valueType)
