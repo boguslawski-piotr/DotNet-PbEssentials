@@ -3027,7 +3027,9 @@ references:
   href: api/pbXNet.ArrayExtensions.Enumerator-1.html#pbXNet_ArrayExtensions_Enumerator_1__ctor_
   commentId: Overload:pbXNet.ArrayExtensions.Enumerator`1.#ctor
   fullName: pbXNet.ArrayExtensions.Enumerator<T>.Enumerator
+  fullName.vb: pbXNet.ArrayExtensions.Enumerator(Of T).Enumerator
   nameWithType: ArrayExtensions.Enumerator<T>.Enumerator
+  nameWithType.vb: ArrayExtensions.Enumerator(Of T).Enumerator
 - uid: pbXNet.ArrayExtensions.Enumerator`1.Current
   name: Current
   href: api/pbXNet.ArrayExtensions.Enumerator-1.html#pbXNet_ArrayExtensions_Enumerator_1_Current
@@ -3041,7 +3043,9 @@ references:
   href: api/pbXNet.ArrayExtensions.Enumerator-1.html#pbXNet_ArrayExtensions_Enumerator_1_Current_
   commentId: Overload:pbXNet.ArrayExtensions.Enumerator`1.Current
   fullName: pbXNet.ArrayExtensions.Enumerator<T>.Current
+  fullName.vb: pbXNet.ArrayExtensions.Enumerator(Of T).Current
   nameWithType: ArrayExtensions.Enumerator<T>.Current
+  nameWithType.vb: ArrayExtensions.Enumerator(Of T).Current
 - uid: pbXNet.ArrayExtensions.Enumerator`1.MoveNext
   name: MoveNext()
   href: api/pbXNet.ArrayExtensions.Enumerator-1.html#pbXNet_ArrayExtensions_Enumerator_1_MoveNext
@@ -3055,7 +3059,9 @@ references:
   href: api/pbXNet.ArrayExtensions.Enumerator-1.html#pbXNet_ArrayExtensions_Enumerator_1_MoveNext_
   commentId: Overload:pbXNet.ArrayExtensions.Enumerator`1.MoveNext
   fullName: pbXNet.ArrayExtensions.Enumerator<T>.MoveNext
+  fullName.vb: pbXNet.ArrayExtensions.Enumerator(Of T).MoveNext
   nameWithType: ArrayExtensions.Enumerator<T>.MoveNext
+  nameWithType.vb: ArrayExtensions.Enumerator(Of T).MoveNext
 - uid: pbXNet.ArrayExtensions.Enumerator`1.Reset
   name: Reset()
   href: api/pbXNet.ArrayExtensions.Enumerator-1.html#pbXNet_ArrayExtensions_Enumerator_1_Reset
@@ -3069,7 +3075,9 @@ references:
   href: api/pbXNet.ArrayExtensions.Enumerator-1.html#pbXNet_ArrayExtensions_Enumerator_1_Reset_
   commentId: Overload:pbXNet.ArrayExtensions.Enumerator`1.Reset
   fullName: pbXNet.ArrayExtensions.Enumerator<T>.Reset
+  fullName.vb: pbXNet.ArrayExtensions.Enumerator(Of T).Reset
   nameWithType: ArrayExtensions.Enumerator<T>.Reset
+  nameWithType.vb: ArrayExtensions.Enumerator(Of T).Reset
 - uid: pbXNet.ArrayExtensions.FillWith*
   name: FillWith
   href: api/pbXNet.ArrayExtensions.html#pbXNet_ArrayExtensions_FillWith_
@@ -3499,12 +3507,6 @@ references:
   commentId: T:pbXNet.CollectionExtensions
   fullName: pbXNet.CollectionExtensions
   nameWithType: CollectionExtensions
-- uid: pbXNet.CollectionExtensions.Sort*
-  name: Sort
-  href: api/pbXNet.CollectionExtensions.html#pbXNet_CollectionExtensions_Sort_
-  commentId: Overload:pbXNet.CollectionExtensions.Sort
-  fullName: pbXNet.CollectionExtensions.Sort
-  nameWithType: CollectionExtensions.Sort
 - uid: pbXNet.CollectionExtensions.Sort``1(System.Collections.ObjectModel.ObservableCollection{``0},System.Comparison{``0})
   name: Sort<T>(ObservableCollection<T>, Comparison<T>)
   href: api/pbXNet.CollectionExtensions.html#pbXNet_CollectionExtensions_Sort__1_System_Collections_ObjectModel_ObservableCollection___0__System_Comparison___0__
@@ -5762,13 +5764,17 @@ references:
   href: api/pbXNet.IQueryResult-1.html#pbXNet_IQueryResult_1_AnyAsync_
   commentId: Overload:pbXNet.IQueryResult`1.AnyAsync
   fullName: pbXNet.IQueryResult<T>.AnyAsync
+  fullName.vb: pbXNet.IQueryResult(Of T).AnyAsync
   nameWithType: IQueryResult<T>.AnyAsync
+  nameWithType.vb: IQueryResult(Of T).AnyAsync
 - uid: pbXNet.IQueryResult`1.OrderBy*
   name: OrderBy
   href: api/pbXNet.IQueryResult-1.html#pbXNet_IQueryResult_1_OrderBy_
   commentId: Overload:pbXNet.IQueryResult`1.OrderBy
   fullName: pbXNet.IQueryResult<T>.OrderBy
+  fullName.vb: pbXNet.IQueryResult(Of T).OrderBy
   nameWithType: IQueryResult<T>.OrderBy
+  nameWithType.vb: IQueryResult(Of T).OrderBy
 - uid: pbXNet.IQueryResult`1.OrderBy``1(Expression{Func{`0,``0}})
   name: OrderBy<K>(Expression<Func<T, K>>)
   href: api/pbXNet.IQueryResult-1.html#pbXNet_IQueryResult_1_OrderBy__1_Expression_Func__0___0___
@@ -5783,7 +5789,9 @@ references:
   href: api/pbXNet.IQueryResult-1.html#pbXNet_IQueryResult_1_OrderByDescending_
   commentId: Overload:pbXNet.IQueryResult`1.OrderByDescending
   fullName: pbXNet.IQueryResult<T>.OrderByDescending
+  fullName.vb: pbXNet.IQueryResult(Of T).OrderByDescending
   nameWithType: IQueryResult<T>.OrderByDescending
+  nameWithType.vb: IQueryResult(Of T).OrderByDescending
 - uid: pbXNet.IQueryResult`1.OrderByDescending``1(Expression{Func{`0,``0}})
   name: OrderByDescending<K>(Expression<Func<T, K>>)
   href: api/pbXNet.IQueryResult-1.html#pbXNet_IQueryResult_1_OrderByDescending__1_Expression_Func__0___0___
@@ -5806,7 +5814,9 @@ references:
   href: api/pbXNet.IQueryResult-1.html#pbXNet_IQueryResult_1_PrepareAsync_
   commentId: Overload:pbXNet.IQueryResult`1.PrepareAsync
   fullName: pbXNet.IQueryResult<T>.PrepareAsync
+  fullName.vb: pbXNet.IQueryResult(Of T).PrepareAsync
   nameWithType: IQueryResult<T>.PrepareAsync
+  nameWithType.vb: IQueryResult(Of T).PrepareAsync
 - uid: pbXNet.IQueryResult`1.Where(Expression{Func{`0,System.Boolean}})
   name: Where(Expression<Func<T, Boolean>>)
   href: api/pbXNet.IQueryResult-1.html#pbXNet_IQueryResult_1_Where_Expression_Func__0_System_Boolean___
@@ -5821,7 +5831,9 @@ references:
   href: api/pbXNet.IQueryResult-1.html#pbXNet_IQueryResult_1_Where_
   commentId: Overload:pbXNet.IQueryResult`1.Where
   fullName: pbXNet.IQueryResult<T>.Where
+  fullName.vb: pbXNet.IQueryResult(Of T).Where
   nameWithType: IQueryResult<T>.Where
+  nameWithType.vb: IQueryResult(Of T).Where
 - uid: pbXNet.ISearchableStorage`1
   name: ISearchableStorage<T>
   href: api/pbXNet.ISearchableStorage-1.html
@@ -5844,7 +5856,9 @@ references:
   href: api/pbXNet.ISearchableStorage-1.html#pbXNet_ISearchableStorage_1_FindIdsAsync_
   commentId: Overload:pbXNet.ISearchableStorage`1.FindIdsAsync
   fullName: pbXNet.ISearchableStorage<T>.FindIdsAsync
+  fullName.vb: pbXNet.ISearchableStorage(Of T).FindIdsAsync
   nameWithType: ISearchableStorage<T>.FindIdsAsync
+  nameWithType.vb: ISearchableStorage(Of T).FindIdsAsync
 - uid: pbXNet.ISecretsManager
   name: ISecretsManager
   href: api/pbXNet.ISecretsManager.html
@@ -6125,7 +6139,9 @@ references:
   href: api/pbXNet.IStorage-1.html#pbXNet_IStorage_1_DiscardAsync_
   commentId: Overload:pbXNet.IStorage`1.DiscardAsync
   fullName: pbXNet.IStorage<T>.DiscardAsync
+  fullName.vb: pbXNet.IStorage(Of T).DiscardAsync
   nameWithType: IStorage<T>.DiscardAsync
+  nameWithType.vb: IStorage(Of T).DiscardAsync
 - uid: pbXNet.IStorage`1.ExistsAsync(System.String)
   name: ExistsAsync(String)
   href: api/pbXNet.IStorage-1.html#pbXNet_IStorage_1_ExistsAsync_System_String_
@@ -6139,7 +6155,9 @@ references:
   href: api/pbXNet.IStorage-1.html#pbXNet_IStorage_1_ExistsAsync_
   commentId: Overload:pbXNet.IStorage`1.ExistsAsync
   fullName: pbXNet.IStorage<T>.ExistsAsync
+  fullName.vb: pbXNet.IStorage(Of T).ExistsAsync
   nameWithType: IStorage<T>.ExistsAsync
+  nameWithType.vb: IStorage(Of T).ExistsAsync
 - uid: pbXNet.IStorage`1.GetACopyAsync(System.String)
   name: GetACopyAsync(String)
   href: api/pbXNet.IStorage-1.html#pbXNet_IStorage_1_GetACopyAsync_System_String_
@@ -6153,7 +6171,9 @@ references:
   href: api/pbXNet.IStorage-1.html#pbXNet_IStorage_1_GetACopyAsync_
   commentId: Overload:pbXNet.IStorage`1.GetACopyAsync
   fullName: pbXNet.IStorage<T>.GetACopyAsync
+  fullName.vb: pbXNet.IStorage(Of T).GetACopyAsync
   nameWithType: IStorage<T>.GetACopyAsync
+  nameWithType.vb: IStorage(Of T).GetACopyAsync
 - uid: pbXNet.IStorage`1.GetModifiedOnAsync(System.String)
   name: GetModifiedOnAsync(String)
   href: api/pbXNet.IStorage-1.html#pbXNet_IStorage_1_GetModifiedOnAsync_System_String_
@@ -6167,7 +6187,9 @@ references:
   href: api/pbXNet.IStorage-1.html#pbXNet_IStorage_1_GetModifiedOnAsync_
   commentId: Overload:pbXNet.IStorage`1.GetModifiedOnAsync
   fullName: pbXNet.IStorage<T>.GetModifiedOnAsync
+  fullName.vb: pbXNet.IStorage(Of T).GetModifiedOnAsync
   nameWithType: IStorage<T>.GetModifiedOnAsync
+  nameWithType.vb: IStorage(Of T).GetModifiedOnAsync
 - uid: pbXNet.IStorage`1.Id
   name: Id
   href: api/pbXNet.IStorage-1.html#pbXNet_IStorage_1_Id
@@ -6181,7 +6203,9 @@ references:
   href: api/pbXNet.IStorage-1.html#pbXNet_IStorage_1_Id_
   commentId: Overload:pbXNet.IStorage`1.Id
   fullName: pbXNet.IStorage<T>.Id
+  fullName.vb: pbXNet.IStorage(Of T).Id
   nameWithType: IStorage<T>.Id
+  nameWithType.vb: IStorage(Of T).Id
 - uid: pbXNet.IStorage`1.InitializeAsync
   name: InitializeAsync()
   href: api/pbXNet.IStorage-1.html#pbXNet_IStorage_1_InitializeAsync
@@ -6195,7 +6219,9 @@ references:
   href: api/pbXNet.IStorage-1.html#pbXNet_IStorage_1_InitializeAsync_
   commentId: Overload:pbXNet.IStorage`1.InitializeAsync
   fullName: pbXNet.IStorage<T>.InitializeAsync
+  fullName.vb: pbXNet.IStorage(Of T).InitializeAsync
   nameWithType: IStorage<T>.InitializeAsync
+  nameWithType.vb: IStorage(Of T).InitializeAsync
 - uid: pbXNet.IStorage`1.Name
   name: Name
   href: api/pbXNet.IStorage-1.html#pbXNet_IStorage_1_Name
@@ -6209,7 +6235,9 @@ references:
   href: api/pbXNet.IStorage-1.html#pbXNet_IStorage_1_Name_
   commentId: Overload:pbXNet.IStorage`1.Name
   fullName: pbXNet.IStorage<T>.Name
+  fullName.vb: pbXNet.IStorage(Of T).Name
   nameWithType: IStorage<T>.Name
+  nameWithType.vb: IStorage(Of T).Name
 - uid: pbXNet.IStorage`1.RetrieveAsync(System.String)
   name: RetrieveAsync(String)
   href: api/pbXNet.IStorage-1.html#pbXNet_IStorage_1_RetrieveAsync_System_String_
@@ -6223,7 +6251,9 @@ references:
   href: api/pbXNet.IStorage-1.html#pbXNet_IStorage_1_RetrieveAsync_
   commentId: Overload:pbXNet.IStorage`1.RetrieveAsync
   fullName: pbXNet.IStorage<T>.RetrieveAsync
+  fullName.vb: pbXNet.IStorage(Of T).RetrieveAsync
   nameWithType: IStorage<T>.RetrieveAsync
+  nameWithType.vb: IStorage(Of T).RetrieveAsync
 - uid: pbXNet.IStorage`1.StoreAsync(System.String,`0,DateTime)
   name: StoreAsync(String, T, DateTime)
   href: api/pbXNet.IStorage-1.html#pbXNet_IStorage_1_StoreAsync_System_String__0_DateTime_
@@ -6237,7 +6267,9 @@ references:
   href: api/pbXNet.IStorage-1.html#pbXNet_IStorage_1_StoreAsync_
   commentId: Overload:pbXNet.IStorage`1.StoreAsync
   fullName: pbXNet.IStorage<T>.StoreAsync
+  fullName.vb: pbXNet.IStorage(Of T).StoreAsync
   nameWithType: IStorage<T>.StoreAsync
+  nameWithType.vb: IStorage(Of T).StoreAsync
 - uid: pbXNet.IStorage`1.Type
   name: Type
   href: api/pbXNet.IStorage-1.html#pbXNet_IStorage_1_Type
@@ -6251,7 +6283,9 @@ references:
   href: api/pbXNet.IStorage-1.html#pbXNet_IStorage_1_Type_
   commentId: Overload:pbXNet.IStorage`1.Type
   fullName: pbXNet.IStorage<T>.Type
+  fullName.vb: pbXNet.IStorage(Of T).Type
   nameWithType: IStorage<T>.Type
+  nameWithType.vb: IStorage(Of T).Type
 - uid: pbXNet.ITable`1
   name: ITable<T>
   href: api/pbXNet.ITable-1.html
@@ -6275,7 +6309,9 @@ references:
   href: api/pbXNet.ITable-1.html#pbXNet_ITable_1_CreateIndexAsync_
   commentId: Overload:pbXNet.ITable`1.CreateIndexAsync
   fullName: pbXNet.ITable<T>.CreateIndexAsync
+  fullName.vb: pbXNet.ITable(Of T).CreateIndexAsync
   nameWithType: ITable<T>.CreateIndexAsync
+  nameWithType.vb: ITable(Of T).CreateIndexAsync
 - uid: pbXNet.ITable`1.CreatePrimaryKeyAsync(Expression{Func{`0,System.Object}}[])
   name: CreatePrimaryKeyAsync(Expression<Func<T, Object>>[])
   href: api/pbXNet.ITable-1.html#pbXNet_ITable_1_CreatePrimaryKeyAsync_Expression_Func__0_System_Object_____
@@ -6290,7 +6326,9 @@ references:
   href: api/pbXNet.ITable-1.html#pbXNet_ITable_1_CreatePrimaryKeyAsync_
   commentId: Overload:pbXNet.ITable`1.CreatePrimaryKeyAsync
   fullName: pbXNet.ITable<T>.CreatePrimaryKeyAsync
+  fullName.vb: pbXNet.ITable(Of T).CreatePrimaryKeyAsync
   nameWithType: ITable<T>.CreatePrimaryKeyAsync
+  nameWithType.vb: ITable(Of T).CreatePrimaryKeyAsync
 - uid: pbXNet.ITable`1.DeleteAsync(`0)
   name: DeleteAsync(T)
   href: api/pbXNet.ITable-1.html#pbXNet_ITable_1_DeleteAsync__0_
@@ -6304,7 +6342,9 @@ references:
   href: api/pbXNet.ITable-1.html#pbXNet_ITable_1_DeleteAsync_
   commentId: Overload:pbXNet.ITable`1.DeleteAsync
   fullName: pbXNet.ITable<T>.DeleteAsync
+  fullName.vb: pbXNet.ITable(Of T).DeleteAsync
   nameWithType: ITable<T>.DeleteAsync
+  nameWithType.vb: ITable(Of T).DeleteAsync
 - uid: pbXNet.ITable`1.FindAsync(`0)
   name: FindAsync(T)
   href: api/pbXNet.ITable-1.html#pbXNet_ITable_1_FindAsync__0_
@@ -6318,7 +6358,9 @@ references:
   href: api/pbXNet.ITable-1.html#pbXNet_ITable_1_FindAsync_
   commentId: Overload:pbXNet.ITable`1.FindAsync
   fullName: pbXNet.ITable<T>.FindAsync
+  fullName.vb: pbXNet.ITable(Of T).FindAsync
   nameWithType: ITable<T>.FindAsync
+  nameWithType.vb: ITable(Of T).FindAsync
 - uid: pbXNet.ITable`1.InsertAsync(`0)
   name: InsertAsync(T)
   href: api/pbXNet.ITable-1.html#pbXNet_ITable_1_InsertAsync__0_
@@ -6332,7 +6374,9 @@ references:
   href: api/pbXNet.ITable-1.html#pbXNet_ITable_1_InsertAsync_
   commentId: Overload:pbXNet.ITable`1.InsertAsync
   fullName: pbXNet.ITable<T>.InsertAsync
+  fullName.vb: pbXNet.ITable(Of T).InsertAsync
   nameWithType: ITable<T>.InsertAsync
+  nameWithType.vb: ITable(Of T).InsertAsync
 - uid: pbXNet.ITable`1.Rows
   name: Rows
   href: api/pbXNet.ITable-1.html#pbXNet_ITable_1_Rows
@@ -6346,7 +6390,9 @@ references:
   href: api/pbXNet.ITable-1.html#pbXNet_ITable_1_Rows_
   commentId: Overload:pbXNet.ITable`1.Rows
   fullName: pbXNet.ITable<T>.Rows
+  fullName.vb: pbXNet.ITable(Of T).Rows
   nameWithType: ITable<T>.Rows
+  nameWithType.vb: ITable(Of T).Rows
 - uid: pbXNet.ITable`1.UpdateAsync(`0)
   name: UpdateAsync(T)
   href: api/pbXNet.ITable-1.html#pbXNet_ITable_1_UpdateAsync__0_
@@ -6360,7 +6406,9 @@ references:
   href: api/pbXNet.ITable-1.html#pbXNet_ITable_1_UpdateAsync_
   commentId: Overload:pbXNet.ITable`1.UpdateAsync
   fullName: pbXNet.ITable<T>.UpdateAsync
+  fullName.vb: pbXNet.ITable(Of T).UpdateAsync
   nameWithType: ITable<T>.UpdateAsync
+  nameWithType.vb: ITable(Of T).UpdateAsync
 - uid: pbXNet.Locale
   name: Locale
   href: api/pbXNet.Locale.html
@@ -6779,7 +6827,9 @@ references:
   href: api/pbXNet.ObservableCollectionEx-1.html#pbXNet_ObservableCollectionEx_1__ctor_
   commentId: Overload:pbXNet.ObservableCollectionEx`1.#ctor
   fullName: pbXNet.ObservableCollectionEx<T>.ObservableCollectionEx
+  fullName.vb: pbXNet.ObservableCollectionEx(Of T).ObservableCollectionEx
   nameWithType: ObservableCollectionEx<T>.ObservableCollectionEx
+  nameWithType.vb: ObservableCollectionEx(Of T).ObservableCollectionEx
 - uid: pbXNet.ObservableCollectionEx`1.AddRange(IEnumerable{`0},NotifyCollectionChangedAction)
   name: AddRange(IEnumerable<T>, NotifyCollectionChangedAction)
   href: api/pbXNet.ObservableCollectionEx-1.html#pbXNet_ObservableCollectionEx_1_AddRange_IEnumerable__0__NotifyCollectionChangedAction_
@@ -6794,7 +6844,9 @@ references:
   href: api/pbXNet.ObservableCollectionEx-1.html#pbXNet_ObservableCollectionEx_1_AddRange_
   commentId: Overload:pbXNet.ObservableCollectionEx`1.AddRange
   fullName: pbXNet.ObservableCollectionEx<T>.AddRange
+  fullName.vb: pbXNet.ObservableCollectionEx(Of T).AddRange
   nameWithType: ObservableCollectionEx<T>.AddRange
+  nameWithType.vb: ObservableCollectionEx(Of T).AddRange
 - uid: pbXNet.ObservableCollectionEx`1.Find(Predicate{`0})
   name: Find(Predicate<T>)
   href: api/pbXNet.ObservableCollectionEx-1.html#pbXNet_ObservableCollectionEx_1_Find_Predicate__0__
@@ -6809,7 +6861,9 @@ references:
   href: api/pbXNet.ObservableCollectionEx-1.html#pbXNet_ObservableCollectionEx_1_Find_
   commentId: Overload:pbXNet.ObservableCollectionEx`1.Find
   fullName: pbXNet.ObservableCollectionEx<T>.Find
+  fullName.vb: pbXNet.ObservableCollectionEx(Of T).Find
   nameWithType: ObservableCollectionEx<T>.Find
+  nameWithType.vb: ObservableCollectionEx(Of T).Find
 - uid: pbXNet.ObservableCollectionEx`1.RemoveRange(IEnumerable{`0})
   name: RemoveRange(IEnumerable<T>)
   href: api/pbXNet.ObservableCollectionEx-1.html#pbXNet_ObservableCollectionEx_1_RemoveRange_IEnumerable__0__
@@ -6824,7 +6878,9 @@ references:
   href: api/pbXNet.ObservableCollectionEx-1.html#pbXNet_ObservableCollectionEx_1_RemoveRange_
   commentId: Overload:pbXNet.ObservableCollectionEx`1.RemoveRange
   fullName: pbXNet.ObservableCollectionEx<T>.RemoveRange
+  fullName.vb: pbXNet.ObservableCollectionEx(Of T).RemoveRange
   nameWithType: ObservableCollectionEx<T>.RemoveRange
+  nameWithType.vb: ObservableCollectionEx(Of T).RemoveRange
 - uid: pbXNet.ObservableCollectionEx`1.Replace(`0)
   name: Replace(T)
   href: api/pbXNet.ObservableCollectionEx-1.html#pbXNet_ObservableCollectionEx_1_Replace__0_
@@ -6838,7 +6894,9 @@ references:
   href: api/pbXNet.ObservableCollectionEx-1.html#pbXNet_ObservableCollectionEx_1_Replace_
   commentId: Overload:pbXNet.ObservableCollectionEx`1.Replace
   fullName: pbXNet.ObservableCollectionEx<T>.Replace
+  fullName.vb: pbXNet.ObservableCollectionEx(Of T).Replace
   nameWithType: ObservableCollectionEx<T>.Replace
+  nameWithType.vb: ObservableCollectionEx(Of T).Replace
 - uid: pbXNet.ObservableCollectionEx`1.ReplaceRange(IEnumerable{`0})
   name: ReplaceRange(IEnumerable<T>)
   href: api/pbXNet.ObservableCollectionEx-1.html#pbXNet_ObservableCollectionEx_1_ReplaceRange_IEnumerable__0__
@@ -6853,7 +6911,9 @@ references:
   href: api/pbXNet.ObservableCollectionEx-1.html#pbXNet_ObservableCollectionEx_1_ReplaceRange_
   commentId: Overload:pbXNet.ObservableCollectionEx`1.ReplaceRange
   fullName: pbXNet.ObservableCollectionEx<T>.ReplaceRange
+  fullName.vb: pbXNet.ObservableCollectionEx(Of T).ReplaceRange
   nameWithType: ObservableCollectionEx<T>.ReplaceRange
+  nameWithType.vb: ObservableCollectionEx(Of T).ReplaceRange
 - uid: pbXNet.ObservableCollectionEx`1.Sort(Comparison{`0})
   name: Sort(Comparison<T>)
   href: api/pbXNet.ObservableCollectionEx-1.html#pbXNet_ObservableCollectionEx_1_Sort_Comparison__0__
@@ -6886,7 +6946,9 @@ references:
   href: api/pbXNet.ObservableCollectionEx-1.html#pbXNet_ObservableCollectionEx_1_Sort_
   commentId: Overload:pbXNet.ObservableCollectionEx`1.Sort
   fullName: pbXNet.ObservableCollectionEx<T>.Sort
+  fullName.vb: pbXNet.ObservableCollectionEx(Of T).Sort
   nameWithType: ObservableCollectionEx<T>.Sort
+  nameWithType.vb: ObservableCollectionEx(Of T).Sort
 - uid: pbXNet.Password
   name: Password
   href: api/pbXNet.Password.html
@@ -8229,7 +8291,9 @@ references:
   href: api/pbXNet.SimpleDatabaseInMemory.Exception-1.html#pbXNet_SimpleDatabaseInMemory_Exception_1__ctor_
   commentId: Overload:pbXNet.SimpleDatabaseInMemory.Exception`1.#ctor
   fullName: pbXNet.SimpleDatabaseInMemory.Exception<T>.Exception
+  fullName.vb: pbXNet.SimpleDatabaseInMemory.Exception(Of T).Exception
   nameWithType: SimpleDatabaseInMemory.Exception<T>.Exception
+  nameWithType.vb: SimpleDatabaseInMemory.Exception(Of T).Exception
 - uid: pbXNet.SimpleDatabaseInMemory.Name
   name: Name
   href: api/pbXNet.SimpleDatabaseInMemory.html#pbXNet_SimpleDatabaseInMemory_Name
@@ -8285,7 +8349,9 @@ references:
   href: api/pbXNet.Storage-1.html#pbXNet_Storage_1__ctor_
   commentId: Overload:pbXNet.Storage`1.#ctor
   fullName: pbXNet.Storage<T>.Storage
+  fullName.vb: pbXNet.Storage(Of T).Storage
   nameWithType: Storage<T>.Storage
+  nameWithType.vb: Storage(Of T).Storage
 - uid: pbXNet.Storage`1.DiscardAsync(System.String)
   name: DiscardAsync(String)
   href: api/pbXNet.Storage-1.html#pbXNet_Storage_1_DiscardAsync_System_String_
@@ -8299,7 +8365,9 @@ references:
   href: api/pbXNet.Storage-1.html#pbXNet_Storage_1_DiscardAsync_
   commentId: Overload:pbXNet.Storage`1.DiscardAsync
   fullName: pbXNet.Storage<T>.DiscardAsync
+  fullName.vb: pbXNet.Storage(Of T).DiscardAsync
   nameWithType: Storage<T>.DiscardAsync
+  nameWithType.vb: Storage(Of T).DiscardAsync
 - uid: pbXNet.Storage`1.ExistsAsync(System.String)
   name: ExistsAsync(String)
   href: api/pbXNet.Storage-1.html#pbXNet_Storage_1_ExistsAsync_System_String_
@@ -8313,7 +8381,9 @@ references:
   href: api/pbXNet.Storage-1.html#pbXNet_Storage_1_ExistsAsync_
   commentId: Overload:pbXNet.Storage`1.ExistsAsync
   fullName: pbXNet.Storage<T>.ExistsAsync
+  fullName.vb: pbXNet.Storage(Of T).ExistsAsync
   nameWithType: Storage<T>.ExistsAsync
+  nameWithType.vb: Storage(Of T).ExistsAsync
 - uid: pbXNet.Storage`1.GetACopyAsync(System.String)
   name: GetACopyAsync(String)
   href: api/pbXNet.Storage-1.html#pbXNet_Storage_1_GetACopyAsync_System_String_
@@ -8327,7 +8397,9 @@ references:
   href: api/pbXNet.Storage-1.html#pbXNet_Storage_1_GetACopyAsync_
   commentId: Overload:pbXNet.Storage`1.GetACopyAsync
   fullName: pbXNet.Storage<T>.GetACopyAsync
+  fullName.vb: pbXNet.Storage(Of T).GetACopyAsync
   nameWithType: Storage<T>.GetACopyAsync
+  nameWithType.vb: Storage(Of T).GetACopyAsync
 - uid: pbXNet.Storage`1.GetModifiedOnAsync(System.String)
   name: GetModifiedOnAsync(String)
   href: api/pbXNet.Storage-1.html#pbXNet_Storage_1_GetModifiedOnAsync_System_String_
@@ -8341,7 +8413,9 @@ references:
   href: api/pbXNet.Storage-1.html#pbXNet_Storage_1_GetModifiedOnAsync_
   commentId: Overload:pbXNet.Storage`1.GetModifiedOnAsync
   fullName: pbXNet.Storage<T>.GetModifiedOnAsync
+  fullName.vb: pbXNet.Storage(Of T).GetModifiedOnAsync
   nameWithType: Storage<T>.GetModifiedOnAsync
+  nameWithType.vb: Storage(Of T).GetModifiedOnAsync
 - uid: pbXNet.Storage`1.Id
   name: Id
   href: api/pbXNet.Storage-1.html#pbXNet_Storage_1_Id
@@ -8355,7 +8429,9 @@ references:
   href: api/pbXNet.Storage-1.html#pbXNet_Storage_1_Id_
   commentId: Overload:pbXNet.Storage`1.Id
   fullName: pbXNet.Storage<T>.Id
+  fullName.vb: pbXNet.Storage(Of T).Id
   nameWithType: Storage<T>.Id
+  nameWithType.vb: Storage(Of T).Id
 - uid: pbXNet.Storage`1.InitializeAsync
   name: InitializeAsync()
   href: api/pbXNet.Storage-1.html#pbXNet_Storage_1_InitializeAsync
@@ -8369,7 +8445,9 @@ references:
   href: api/pbXNet.Storage-1.html#pbXNet_Storage_1_InitializeAsync_
   commentId: Overload:pbXNet.Storage`1.InitializeAsync
   fullName: pbXNet.Storage<T>.InitializeAsync
+  fullName.vb: pbXNet.Storage(Of T).InitializeAsync
   nameWithType: Storage<T>.InitializeAsync
+  nameWithType.vb: Storage(Of T).InitializeAsync
 - uid: pbXNet.Storage`1.Name
   name: Name
   href: api/pbXNet.Storage-1.html#pbXNet_Storage_1_Name
@@ -8383,7 +8461,9 @@ references:
   href: api/pbXNet.Storage-1.html#pbXNet_Storage_1_Name_
   commentId: Overload:pbXNet.Storage`1.Name
   fullName: pbXNet.Storage<T>.Name
+  fullName.vb: pbXNet.Storage(Of T).Name
   nameWithType: Storage<T>.Name
+  nameWithType.vb: Storage(Of T).Name
 - uid: pbXNet.Storage`1.RetrieveAsync(System.String)
   name: RetrieveAsync(String)
   href: api/pbXNet.Storage-1.html#pbXNet_Storage_1_RetrieveAsync_System_String_
@@ -8397,7 +8477,9 @@ references:
   href: api/pbXNet.Storage-1.html#pbXNet_Storage_1_RetrieveAsync_
   commentId: Overload:pbXNet.Storage`1.RetrieveAsync
   fullName: pbXNet.Storage<T>.RetrieveAsync
+  fullName.vb: pbXNet.Storage(Of T).RetrieveAsync
   nameWithType: Storage<T>.RetrieveAsync
+  nameWithType.vb: Storage(Of T).RetrieveAsync
 - uid: pbXNet.Storage`1.Serializer
   name: Serializer
   href: api/pbXNet.Storage-1.html#pbXNet_Storage_1_Serializer
@@ -8419,7 +8501,9 @@ references:
   href: api/pbXNet.Storage-1.html#pbXNet_Storage_1_StoreAsync_
   commentId: Overload:pbXNet.Storage`1.StoreAsync
   fullName: pbXNet.Storage<T>.StoreAsync
+  fullName.vb: pbXNet.Storage(Of T).StoreAsync
   nameWithType: Storage<T>.StoreAsync
+  nameWithType.vb: Storage(Of T).StoreAsync
 - uid: pbXNet.Storage`1.Type
   name: Type
   href: api/pbXNet.Storage-1.html#pbXNet_Storage_1_Type
@@ -8433,7 +8517,9 @@ references:
   href: api/pbXNet.Storage-1.html#pbXNet_Storage_1_Type_
   commentId: Overload:pbXNet.Storage`1.Type
   fullName: pbXNet.Storage<T>.Type
+  fullName.vb: pbXNet.Storage(Of T).Type
   nameWithType: Storage<T>.Type
+  nameWithType.vb: Storage(Of T).Type
 - uid: pbXNet.StorageException
   name: StorageException
   href: api/pbXNet.StorageException.html
@@ -8474,7 +8560,9 @@ references:
   href: api/pbXNet.StorageOnAzureStorage-1.html#pbXNet_StorageOnAzureStorage_1__ctor_
   commentId: Overload:pbXNet.StorageOnAzureStorage`1.#ctor
   fullName: pbXNet.StorageOnAzureStorage<T>.StorageOnAzureStorage
+  fullName.vb: pbXNet.StorageOnAzureStorage(Of T).StorageOnAzureStorage
   nameWithType: StorageOnAzureStorage<T>.StorageOnAzureStorage
+  nameWithType.vb: StorageOnAzureStorage(Of T).StorageOnAzureStorage
 - uid: pbXNet.StorageOnAzureStorage`1.Account
   name: Account
   href: api/pbXNet.StorageOnAzureStorage-1.html#pbXNet_StorageOnAzureStorage_1_Account
@@ -8512,7 +8600,9 @@ references:
   href: api/pbXNet.StorageOnAzureStorage-1.html#pbXNet_StorageOnAzureStorage_1_DiscardAsync_
   commentId: Overload:pbXNet.StorageOnAzureStorage`1.DiscardAsync
   fullName: pbXNet.StorageOnAzureStorage<T>.DiscardAsync
+  fullName.vb: pbXNet.StorageOnAzureStorage(Of T).DiscardAsync
   nameWithType: StorageOnAzureStorage<T>.DiscardAsync
+  nameWithType.vb: StorageOnAzureStorage(Of T).DiscardAsync
 - uid: pbXNet.StorageOnAzureStorage`1.ExistsAsync(System.String)
   name: ExistsAsync(String)
   href: api/pbXNet.StorageOnAzureStorage-1.html#pbXNet_StorageOnAzureStorage_1_ExistsAsync_System_String_
@@ -8526,7 +8616,9 @@ references:
   href: api/pbXNet.StorageOnAzureStorage-1.html#pbXNet_StorageOnAzureStorage_1_ExistsAsync_
   commentId: Overload:pbXNet.StorageOnAzureStorage`1.ExistsAsync
   fullName: pbXNet.StorageOnAzureStorage<T>.ExistsAsync
+  fullName.vb: pbXNet.StorageOnAzureStorage(Of T).ExistsAsync
   nameWithType: StorageOnAzureStorage<T>.ExistsAsync
+  nameWithType.vb: StorageOnAzureStorage(Of T).ExistsAsync
 - uid: pbXNet.StorageOnAzureStorage`1.FindIdsAsync(System.String)
   name: FindIdsAsync(String)
   href: api/pbXNet.StorageOnAzureStorage-1.html#pbXNet_StorageOnAzureStorage_1_FindIdsAsync_System_String_
@@ -8540,7 +8632,9 @@ references:
   href: api/pbXNet.StorageOnAzureStorage-1.html#pbXNet_StorageOnAzureStorage_1_FindIdsAsync_
   commentId: Overload:pbXNet.StorageOnAzureStorage`1.FindIdsAsync
   fullName: pbXNet.StorageOnAzureStorage<T>.FindIdsAsync
+  fullName.vb: pbXNet.StorageOnAzureStorage(Of T).FindIdsAsync
   nameWithType: StorageOnAzureStorage<T>.FindIdsAsync
+  nameWithType.vb: StorageOnAzureStorage(Of T).FindIdsAsync
 - uid: pbXNet.StorageOnAzureStorage`1.GetACopyAsync(System.String)
   name: GetACopyAsync(String)
   href: api/pbXNet.StorageOnAzureStorage-1.html#pbXNet_StorageOnAzureStorage_1_GetACopyAsync_System_String_
@@ -8554,7 +8648,9 @@ references:
   href: api/pbXNet.StorageOnAzureStorage-1.html#pbXNet_StorageOnAzureStorage_1_GetACopyAsync_
   commentId: Overload:pbXNet.StorageOnAzureStorage`1.GetACopyAsync
   fullName: pbXNet.StorageOnAzureStorage<T>.GetACopyAsync
+  fullName.vb: pbXNet.StorageOnAzureStorage(Of T).GetACopyAsync
   nameWithType: StorageOnAzureStorage<T>.GetACopyAsync
+  nameWithType.vb: StorageOnAzureStorage(Of T).GetACopyAsync
 - uid: pbXNet.StorageOnAzureStorage`1.GetModifiedOnAsync(System.String)
   name: GetModifiedOnAsync(String)
   href: api/pbXNet.StorageOnAzureStorage-1.html#pbXNet_StorageOnAzureStorage_1_GetModifiedOnAsync_System_String_
@@ -8568,7 +8664,9 @@ references:
   href: api/pbXNet.StorageOnAzureStorage-1.html#pbXNet_StorageOnAzureStorage_1_GetModifiedOnAsync_
   commentId: Overload:pbXNet.StorageOnAzureStorage`1.GetModifiedOnAsync
   fullName: pbXNet.StorageOnAzureStorage<T>.GetModifiedOnAsync
+  fullName.vb: pbXNet.StorageOnAzureStorage(Of T).GetModifiedOnAsync
   nameWithType: StorageOnAzureStorage<T>.GetModifiedOnAsync
+  nameWithType.vb: StorageOnAzureStorage(Of T).GetModifiedOnAsync
 - uid: pbXNet.StorageOnAzureStorage`1.InitializeAsync
   name: InitializeAsync()
   href: api/pbXNet.StorageOnAzureStorage-1.html#pbXNet_StorageOnAzureStorage_1_InitializeAsync
@@ -8582,7 +8680,9 @@ references:
   href: api/pbXNet.StorageOnAzureStorage-1.html#pbXNet_StorageOnAzureStorage_1_InitializeAsync_
   commentId: Overload:pbXNet.StorageOnAzureStorage`1.InitializeAsync
   fullName: pbXNet.StorageOnAzureStorage<T>.InitializeAsync
+  fullName.vb: pbXNet.StorageOnAzureStorage(Of T).InitializeAsync
   nameWithType: StorageOnAzureStorage<T>.InitializeAsync
+  nameWithType.vb: StorageOnAzureStorage(Of T).InitializeAsync
 - uid: pbXNet.StorageOnAzureStorage`1.Name
   name: Name
   href: api/pbXNet.StorageOnAzureStorage-1.html#pbXNet_StorageOnAzureStorage_1_Name
@@ -8596,7 +8696,9 @@ references:
   href: api/pbXNet.StorageOnAzureStorage-1.html#pbXNet_StorageOnAzureStorage_1_Name_
   commentId: Overload:pbXNet.StorageOnAzureStorage`1.Name
   fullName: pbXNet.StorageOnAzureStorage<T>.Name
+  fullName.vb: pbXNet.StorageOnAzureStorage(Of T).Name
   nameWithType: StorageOnAzureStorage<T>.Name
+  nameWithType.vb: StorageOnAzureStorage(Of T).Name
 - uid: pbXNet.StorageOnAzureStorage`1.NewAsync(System.String,pbXNet.AzureStorageSettings,pbXNet.ISerializer)
   name: NewAsync(String, AzureStorageSettings, ISerializer)
   href: api/pbXNet.StorageOnAzureStorage-1.html#pbXNet_StorageOnAzureStorage_1_NewAsync_System_String_pbXNet_AzureStorageSettings_pbXNet_ISerializer_
@@ -8610,7 +8712,9 @@ references:
   href: api/pbXNet.StorageOnAzureStorage-1.html#pbXNet_StorageOnAzureStorage_1_NewAsync_
   commentId: Overload:pbXNet.StorageOnAzureStorage`1.NewAsync
   fullName: pbXNet.StorageOnAzureStorage<T>.NewAsync
+  fullName.vb: pbXNet.StorageOnAzureStorage(Of T).NewAsync
   nameWithType: StorageOnAzureStorage<T>.NewAsync
+  nameWithType.vb: StorageOnAzureStorage(Of T).NewAsync
 - uid: pbXNet.StorageOnAzureStorage`1.Settings
   name: Settings
   href: api/pbXNet.StorageOnAzureStorage-1.html#pbXNet_StorageOnAzureStorage_1_Settings
@@ -8632,7 +8736,9 @@ references:
   href: api/pbXNet.StorageOnAzureStorage-1.html#pbXNet_StorageOnAzureStorage_1_StoreAsync_
   commentId: Overload:pbXNet.StorageOnAzureStorage`1.StoreAsync
   fullName: pbXNet.StorageOnAzureStorage<T>.StoreAsync
+  fullName.vb: pbXNet.StorageOnAzureStorage(Of T).StoreAsync
   nameWithType: StorageOnAzureStorage<T>.StoreAsync
+  nameWithType.vb: StorageOnAzureStorage(Of T).StoreAsync
 - uid: pbXNet.StorageOnAzureStorage`1.Type
   name: Type
   href: api/pbXNet.StorageOnAzureStorage-1.html#pbXNet_StorageOnAzureStorage_1_Type
@@ -8646,7 +8752,9 @@ references:
   href: api/pbXNet.StorageOnAzureStorage-1.html#pbXNet_StorageOnAzureStorage_1_Type_
   commentId: Overload:pbXNet.StorageOnAzureStorage`1.Type
   fullName: pbXNet.StorageOnAzureStorage<T>.Type
+  fullName.vb: pbXNet.StorageOnAzureStorage(Of T).Type
   nameWithType: StorageOnAzureStorage<T>.Type
+  nameWithType.vb: StorageOnAzureStorage(Of T).Type
 - uid: pbXNet.StorageOnFileSystem`1
   name: StorageOnFileSystem<T>
   href: api/pbXNet.StorageOnFileSystem-1.html
@@ -8669,7 +8777,9 @@ references:
   href: api/pbXNet.StorageOnFileSystem-1.html#pbXNet_StorageOnFileSystem_1__ctor_
   commentId: Overload:pbXNet.StorageOnFileSystem`1.#ctor
   fullName: pbXNet.StorageOnFileSystem<T>.StorageOnFileSystem
+  fullName.vb: pbXNet.StorageOnFileSystem(Of T).StorageOnFileSystem
   nameWithType: StorageOnFileSystem<T>.StorageOnFileSystem
+  nameWithType.vb: StorageOnFileSystem(Of T).StorageOnFileSystem
 - uid: pbXNet.StorageOnFileSystem`1.DiscardAsync(System.String)
   name: DiscardAsync(String)
   href: api/pbXNet.StorageOnFileSystem-1.html#pbXNet_StorageOnFileSystem_1_DiscardAsync_System_String_
@@ -8683,7 +8793,9 @@ references:
   href: api/pbXNet.StorageOnFileSystem-1.html#pbXNet_StorageOnFileSystem_1_DiscardAsync_
   commentId: Overload:pbXNet.StorageOnFileSystem`1.DiscardAsync
   fullName: pbXNet.StorageOnFileSystem<T>.DiscardAsync
+  fullName.vb: pbXNet.StorageOnFileSystem(Of T).DiscardAsync
   nameWithType: StorageOnFileSystem<T>.DiscardAsync
+  nameWithType.vb: StorageOnFileSystem(Of T).DiscardAsync
 - uid: pbXNet.StorageOnFileSystem`1.ExistsAsync(System.String)
   name: ExistsAsync(String)
   href: api/pbXNet.StorageOnFileSystem-1.html#pbXNet_StorageOnFileSystem_1_ExistsAsync_System_String_
@@ -8697,7 +8809,9 @@ references:
   href: api/pbXNet.StorageOnFileSystem-1.html#pbXNet_StorageOnFileSystem_1_ExistsAsync_
   commentId: Overload:pbXNet.StorageOnFileSystem`1.ExistsAsync
   fullName: pbXNet.StorageOnFileSystem<T>.ExistsAsync
+  fullName.vb: pbXNet.StorageOnFileSystem(Of T).ExistsAsync
   nameWithType: StorageOnFileSystem<T>.ExistsAsync
+  nameWithType.vb: StorageOnFileSystem(Of T).ExistsAsync
 - uid: pbXNet.StorageOnFileSystem`1.FindIdsAsync(System.String)
   name: FindIdsAsync(String)
   href: api/pbXNet.StorageOnFileSystem-1.html#pbXNet_StorageOnFileSystem_1_FindIdsAsync_System_String_
@@ -8711,7 +8825,9 @@ references:
   href: api/pbXNet.StorageOnFileSystem-1.html#pbXNet_StorageOnFileSystem_1_FindIdsAsync_
   commentId: Overload:pbXNet.StorageOnFileSystem`1.FindIdsAsync
   fullName: pbXNet.StorageOnFileSystem<T>.FindIdsAsync
+  fullName.vb: pbXNet.StorageOnFileSystem(Of T).FindIdsAsync
   nameWithType: StorageOnFileSystem<T>.FindIdsAsync
+  nameWithType.vb: StorageOnFileSystem(Of T).FindIdsAsync
 - uid: pbXNet.StorageOnFileSystem`1.Fs
   name: Fs
   href: api/pbXNet.StorageOnFileSystem-1.html#pbXNet_StorageOnFileSystem_1_Fs
@@ -8733,7 +8849,9 @@ references:
   href: api/pbXNet.StorageOnFileSystem-1.html#pbXNet_StorageOnFileSystem_1_GetACopyAsync_
   commentId: Overload:pbXNet.StorageOnFileSystem`1.GetACopyAsync
   fullName: pbXNet.StorageOnFileSystem<T>.GetACopyAsync
+  fullName.vb: pbXNet.StorageOnFileSystem(Of T).GetACopyAsync
   nameWithType: StorageOnFileSystem<T>.GetACopyAsync
+  nameWithType.vb: StorageOnFileSystem(Of T).GetACopyAsync
 - uid: pbXNet.StorageOnFileSystem`1.GetFsAsync
   name: GetFsAsync()
   href: api/pbXNet.StorageOnFileSystem-1.html#pbXNet_StorageOnFileSystem_1_GetFsAsync
@@ -8747,7 +8865,9 @@ references:
   href: api/pbXNet.StorageOnFileSystem-1.html#pbXNet_StorageOnFileSystem_1_GetFsAsync_
   commentId: Overload:pbXNet.StorageOnFileSystem`1.GetFsAsync
   fullName: pbXNet.StorageOnFileSystem<T>.GetFsAsync
+  fullName.vb: pbXNet.StorageOnFileSystem(Of T).GetFsAsync
   nameWithType: StorageOnFileSystem<T>.GetFsAsync
+  nameWithType.vb: StorageOnFileSystem(Of T).GetFsAsync
 - uid: pbXNet.StorageOnFileSystem`1.GetModifiedOnAsync(System.String)
   name: GetModifiedOnAsync(String)
   href: api/pbXNet.StorageOnFileSystem-1.html#pbXNet_StorageOnFileSystem_1_GetModifiedOnAsync_System_String_
@@ -8761,7 +8881,9 @@ references:
   href: api/pbXNet.StorageOnFileSystem-1.html#pbXNet_StorageOnFileSystem_1_GetModifiedOnAsync_
   commentId: Overload:pbXNet.StorageOnFileSystem`1.GetModifiedOnAsync
   fullName: pbXNet.StorageOnFileSystem<T>.GetModifiedOnAsync
+  fullName.vb: pbXNet.StorageOnFileSystem(Of T).GetModifiedOnAsync
   nameWithType: StorageOnFileSystem<T>.GetModifiedOnAsync
+  nameWithType.vb: StorageOnFileSystem(Of T).GetModifiedOnAsync
 - uid: pbXNet.StorageOnFileSystem`1.InitializeAsync
   name: InitializeAsync()
   href: api/pbXNet.StorageOnFileSystem-1.html#pbXNet_StorageOnFileSystem_1_InitializeAsync
@@ -8775,7 +8897,9 @@ references:
   href: api/pbXNet.StorageOnFileSystem-1.html#pbXNet_StorageOnFileSystem_1_InitializeAsync_
   commentId: Overload:pbXNet.StorageOnFileSystem`1.InitializeAsync
   fullName: pbXNet.StorageOnFileSystem<T>.InitializeAsync
+  fullName.vb: pbXNet.StorageOnFileSystem(Of T).InitializeAsync
   nameWithType: StorageOnFileSystem<T>.InitializeAsync
+  nameWithType.vb: StorageOnFileSystem(Of T).InitializeAsync
 - uid: pbXNet.StorageOnFileSystem`1.Name
   name: Name
   href: api/pbXNet.StorageOnFileSystem-1.html#pbXNet_StorageOnFileSystem_1_Name
@@ -8789,7 +8913,9 @@ references:
   href: api/pbXNet.StorageOnFileSystem-1.html#pbXNet_StorageOnFileSystem_1_Name_
   commentId: Overload:pbXNet.StorageOnFileSystem`1.Name
   fullName: pbXNet.StorageOnFileSystem<T>.Name
+  fullName.vb: pbXNet.StorageOnFileSystem(Of T).Name
   nameWithType: StorageOnFileSystem<T>.Name
+  nameWithType.vb: StorageOnFileSystem(Of T).Name
 - uid: pbXNet.StorageOnFileSystem`1.NewAsync(System.String,pbXNet.IFileSystem,pbXNet.ISerializer)
   name: NewAsync(String, IFileSystem, ISerializer)
   href: api/pbXNet.StorageOnFileSystem-1.html#pbXNet_StorageOnFileSystem_1_NewAsync_System_String_pbXNet_IFileSystem_pbXNet_ISerializer_
@@ -8803,7 +8929,9 @@ references:
   href: api/pbXNet.StorageOnFileSystem-1.html#pbXNet_StorageOnFileSystem_1_NewAsync_
   commentId: Overload:pbXNet.StorageOnFileSystem`1.NewAsync
   fullName: pbXNet.StorageOnFileSystem<T>.NewAsync
+  fullName.vb: pbXNet.StorageOnFileSystem(Of T).NewAsync
   nameWithType: StorageOnFileSystem<T>.NewAsync
+  nameWithType.vb: StorageOnFileSystem(Of T).NewAsync
 - uid: pbXNet.StorageOnFileSystem`1.StoreAsync(System.String,`0,DateTime)
   name: StoreAsync(String, T, DateTime)
   href: api/pbXNet.StorageOnFileSystem-1.html#pbXNet_StorageOnFileSystem_1_StoreAsync_System_String__0_DateTime_
@@ -8817,7 +8945,9 @@ references:
   href: api/pbXNet.StorageOnFileSystem-1.html#pbXNet_StorageOnFileSystem_1_StoreAsync_
   commentId: Overload:pbXNet.StorageOnFileSystem`1.StoreAsync
   fullName: pbXNet.StorageOnFileSystem<T>.StoreAsync
+  fullName.vb: pbXNet.StorageOnFileSystem(Of T).StoreAsync
   nameWithType: StorageOnFileSystem<T>.StoreAsync
+  nameWithType.vb: StorageOnFileSystem(Of T).StoreAsync
 - uid: pbXNet.StorageOnFileSystem`1.Type
   name: Type
   href: api/pbXNet.StorageOnFileSystem-1.html#pbXNet_StorageOnFileSystem_1_Type
@@ -8831,7 +8961,9 @@ references:
   href: api/pbXNet.StorageOnFileSystem-1.html#pbXNet_StorageOnFileSystem_1_Type_
   commentId: Overload:pbXNet.StorageOnFileSystem`1.Type
   fullName: pbXNet.StorageOnFileSystem<T>.Type
+  fullName.vb: pbXNet.StorageOnFileSystem(Of T).Type
   nameWithType: StorageOnFileSystem<T>.Type
+  nameWithType.vb: StorageOnFileSystem(Of T).Type
 - uid: pbXNet.StorageOnPbXStorage
   name: StorageOnPbXStorage
   href: api/pbXNet.StorageOnPbXStorage.html
