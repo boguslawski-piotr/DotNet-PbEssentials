@@ -9,7 +9,7 @@
     <RootNamespace>Plugin.pbXSettings</RootNamespace>
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
     <AssemblyName>Plugin.pbXSettings</AssemblyName>
-    <ReleaseVersion>1.0.41.0</ReleaseVersion>
+    <ReleaseVersion>1.0.42.0</ReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
