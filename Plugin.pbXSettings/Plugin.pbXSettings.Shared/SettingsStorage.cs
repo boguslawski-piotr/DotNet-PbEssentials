@@ -3,16 +3,20 @@ using Plugin.pbXSettings.Abstractions;
 
 namespace Plugin.pbXSettings
 {
+	/// <summary>
+	/// Class giving access to native settings storage.
+	/// </summary>
 	public static class SettingsStorage
 	{
 		/// <summary>
-		/// 
+		/// Indicates whether the current platform supports settings storage.
 		/// </summary>
 		public static bool IsSupported => _impl.Value == null ? false : true;
 
 		/// <summary>
-		/// 
+		/// Current native settings storage.
 		/// </summary>
+		/// <seealso cref="Abstractions.ISettingsStorage"/>
 		public static ISettingsStorage Current
 		{
 			get {
