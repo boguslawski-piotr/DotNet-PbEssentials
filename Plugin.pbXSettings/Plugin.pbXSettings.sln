@@ -332,6 +332,6 @@ Global
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = Plugin.pbXSettings\Plugin.pbXSettings.csproj
-		version = 1.0.45.0
+		version = 1.0.46.0
 	EndGlobalSection
 EndGlobal
