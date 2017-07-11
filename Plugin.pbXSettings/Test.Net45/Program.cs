@@ -47,6 +47,13 @@ namespace Test.Net45
 	{
 		static void Main(string[] args)
 		{
+			byte[] a = Settings.Current.Get<byte[]>("array");
+			if (a == null)
+			{
+				a = new byte[] { 101, 102, 103, 104, 105, 1, 2, 3, 4, 5 };
+				Settings.Current.Set(a, "array");
+			}
+
 			int i = Settings.Current.Get<int>("test");
 			Settings.Current.Set(1, "test");
 
