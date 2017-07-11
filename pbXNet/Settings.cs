@@ -12,7 +12,6 @@ namespace Plugin.pbXSettings.pbXNet
 #else
 namespace pbXNet
 #endif
-
 {
 	/// <summary>
 	/// <para>
@@ -343,6 +342,8 @@ namespace pbXNet
 				value = def;
 
 			Type valueType = value == null ? typeof(object) : value.GetType();
+			// valueType = Nullable.GetUnderlyingType(valueType) ?? valueType;
+			// valueType = valueType.GetTypeInfo().IsEnum ? Enum.GetUnderlyingType(valueType) : valueType;
 
 			if (!type.Equals(valueType)
 #if !NETSTANDARD1_6 && !__PCL__
