@@ -11,8 +11,6 @@ namespace pbXNet
 	/// <summary> 
 	/// Represents a dynamic data collection that provides notifications when items get added, removed, or when the whole list is refreshed. 
 	/// </summary> 
-	/// <typeparam name="T"></typeparam> 
-	/// <seealso cref="System.Collections.ObjectModel.ObservableCollection{T}"/>
 	public class ObservableCollectionEx<T> : ObservableCollection<T>
 	{
 		/// <summary> 

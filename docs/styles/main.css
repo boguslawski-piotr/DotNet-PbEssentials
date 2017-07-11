@@ -316,6 +316,13 @@ body {
     background-color: #f2f2f2;
 }
 
+header .navbar {
+  border-width: 0 0 1px;
+  border-radius: 0;
+  font-size: 100%;
+  padding: 2px;
+}
+
 .sidefilter {
     background-color: #f0f0f0;
 }

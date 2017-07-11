@@ -4,6 +4,24 @@ using System.Threading.Tasks;
 
 namespace Plugin.pbXSettings
 {
+	/// <summary>
+	/// Settings class that uses native for a platform settings storage, 
+	/// which means all settings are persisted across app updates, 
+	/// saved natively, and on some platforms synchronized between devices.
+	/// </summary>
+	/// <remarks>
+	/// <para>
+	/// This class uses <see cref="pbXNet.DataContractSerializer" /> for saving and restoring keys and values, 
+	/// which means you can put and retrieve practically any valid .NET object 
+	/// as long as it meets the requirements of this serialization technolgy:
+	/// https://docs.microsoft.com/en-us/dotnet/api/system.runtime.serialization.datacontractserializer
+	/// </para>
+	/// <para>Used native storages:</para>
+	/// <para>• Android: <c>SharedPreferences</c></para>
+	/// <para>• Apple: <c>NSUserDefaults</c></para>
+	/// <para>• UWP: <c>ApplicationDataContainer</c></para>
+	/// <para>• .NET: <c>UserStore -> IsolatedStorageFile</c></para>
+	/// </remarks>
 	public class Settings : pbXNet.Settings
 	{
 		/// <summary>

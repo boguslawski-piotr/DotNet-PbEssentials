@@ -1,0 +1,486 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class Settings
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class Settings
+   ">
+    <meta name="generator" content="docfx 2.19.2.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Plugin.pbXSettings.Settings">
+  <h1 id="Plugin_pbXSettings_Settings" data-uid="Plugin.pbXSettings.Settings">Class Settings
+  </h1>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class Settings : Settings, IEnumerable&lt;KeyValuePair&lt;string, object&gt;&gt;</code></pre>
+  </div>
+  
+  <div class="markdown level0 summary"><p>Settings class that uses the native settings storage, 
+which means all settings are persisted across app updates, 
+saved natively, and on some platforms synchronized between devices.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+
+  <h3 id="Plugin_pbXSettings_Settings_remarks">Remarks</h3>
+  <div class="markdown level0 remarks"><p>
+This class uses <a class="xref" href="pbXNet.DataContractSerializer.html">DataContractSerializer</a> for saving and restoring keys and values, 
+which means you can put and retrieve practically any valid .NET object 
+as long as it meets the requirements of this serialization technolgy:
+<a href="https://docs.microsoft.com/en-us/dotnet/api/system.runtime.serialization.datacontractserializer">https://docs.microsoft.com/en-us/dotnet/api/system.runtime.serialization.datacontractserializer</a>
+</p>
+<p>Used native storages:</p>
+<p>• Android: <code>SharedPreferences</code></p>
+<p>• Apple: <code>NSUserDefaults</code></p>
+<p>• UWP: <code>ApplicationDataContainer</code></p>
+<p>• .NET: <code>UserStore -&gt; IsolatedStorageFile</code></p>
+</div>
+  
+  <div class="inheritance">
+    <h3>Inheritance</h3>
+    <div class="level0"><a class="xref" href="https://msdn.microsoft.com/en-us/library/system.object(v=vs.110).aspx">Object</a></div>
+    <div class="level1"><a class="xref" href="pbXNet.Observable.html">Observable</a></div>
+    <div class="level2"><a class="xref" href="pbXNet.Settings.html">Settings</a></div>
+    <div class="level3"><span class="xref">Settings</span></div>
+  </div>
+  
+  
+  <h3 id="constructors">Constructors
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/boguslawski-piotr/pbX/new/master/apiSpec/new?filename=Plugin_pbXSettings_Settings__ctor.md&amp;value=---%0Auid%3A%20Plugin.pbXSettings.Settings.%23ctor%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/boguslawski-piotr/pbX/blob/master/Plugin.pbXSettings/Plugin.pbXSettings.Shared/Settings.cs/#L49" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Plugin_pbXSettings_Settings__ctor_" data-uid="Plugin.pbXSettings.Settings.#ctor*"></a>
+  
+  <h4 id="Plugin_pbXSettings_Settings__ctor" data-uid="Plugin.pbXSettings.Settings.#ctor"><a href="#collapsible-Plugin_pbXSettings_Settings__ctor" class="expander" data-toggle="collapse">Settings()</a></h4>
+  
+  <div id="collapsible-Plugin_pbXSettings_Settings__ctor" class="collapse in">
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Settings()</code></pre>
+  </div>
+  
+  <div class="markdown level1 summary"><p>Constructor for default settings set.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/boguslawski-piotr/pbX/new/master/apiSpec/new?filename=Plugin_pbXSettings_Settings__ctor_System_String_.md&amp;value=---%0Auid%3A%20Plugin.pbXSettings.Settings.%23ctor(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/boguslawski-piotr/pbX/blob/master/Plugin.pbXSettings/Plugin.pbXSettings.Shared/Settings.cs/#L59" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Plugin_pbXSettings_Settings__ctor_" data-uid="Plugin.pbXSettings.Settings.#ctor*"></a>
+  
+  <h4 id="Plugin_pbXSettings_Settings__ctor_System_String_" data-uid="Plugin.pbXSettings.Settings.#ctor(System.String)"><a href="#collapsible-Plugin_pbXSettings_Settings__ctor_System_String_" class="expander" data-toggle="collapse">Settings(String)</a></h4>
+  
+  <div id="collapsible-Plugin_pbXSettings_Settings__ctor_System_String_" class="collapse in">
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Settings(string id)</code></pre>
+  </div>
+  
+  <div class="markdown level1 summary"><p>Constructor for user defined settings set. 
+Parameter <span class="paramref">id</span> can be any string as long as can be used as file name.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  
+  
+  
+  
+  
+  </div>
+  <h3 id="fields">Fields
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/boguslawski-piotr/pbX/new/master/apiSpec/new?filename=Plugin_pbXSettings_Settings_Serializer.md&amp;value=---%0Auid%3A%20Plugin.pbXSettings.Settings.Serializer%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/boguslawski-piotr/pbX/blob/master/Plugin.pbXSettings/Plugin.pbXSettings.Shared/Settings.cs/#L44" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Plugin_pbXSettings_Settings_Serializer" data-uid="Plugin.pbXSettings.Settings.Serializer"><a href="#collapsible-Plugin_pbXSettings_Settings_Serializer" class="expander" data-toggle="collapse">Serializer</a></h4>
+  
+  <div id="collapsible-Plugin_pbXSettings_Settings_Serializer" class="collapse in">
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected readonly ISerializer Serializer</code></pre>
+  </div>
+  
+  <div class="markdown level1 summary"><p>Current serializer.
+Default: <a class="xref" href="pbXNet.DataContractSerializer.html">DataContractSerializer</a></p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  
+  
+  
+  
+  
+  </div>
+  <h3 id="properties">Properties
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/boguslawski-piotr/pbX/new/master/apiSpec/new?filename=Plugin_pbXSettings_Settings_Current.md&amp;value=---%0Auid%3A%20Plugin.pbXSettings.Settings.Current%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/boguslawski-piotr/pbX/blob/master/Plugin.pbXSettings/Plugin.pbXSettings.Shared/Settings.cs/#L30" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Plugin_pbXSettings_Settings_Current_" data-uid="Plugin.pbXSettings.Settings.Current*"></a>
+  
+  <h4 id="Plugin_pbXSettings_Settings_Current" data-uid="Plugin.pbXSettings.Settings.Current"><a href="#collapsible-Plugin_pbXSettings_Settings_Current" class="expander" data-toggle="collapse">Current</a></h4>
+  
+  <div id="collapsible-Plugin_pbXSettings_Settings_Current" class="collapse in">
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Settings Current { get; }</code></pre>
+  </div>
+  
+  <div class="markdown level1 summary"><p>Default settings set.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/boguslawski-piotr/pbX/new/master/apiSpec/new?filename=Plugin_pbXSettings_Settings_Id.md&amp;value=---%0Auid%3A%20Plugin.pbXSettings.Settings.Id%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/boguslawski-piotr/pbX/blob/master/Plugin.pbXSettings/Plugin.pbXSettings.Shared/Settings.cs/#L38" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Plugin_pbXSettings_Settings_Id_" data-uid="Plugin.pbXSettings.Settings.Id*"></a>
+  
+  <h4 id="Plugin_pbXSettings_Settings_Id" data-uid="Plugin.pbXSettings.Settings.Id"><a href="#collapsible-Plugin_pbXSettings_Settings_Id" class="expander" data-toggle="collapse">Id</a></h4>
+  
+  <div id="collapsible-Plugin_pbXSettings_Settings_Id" class="collapse in">
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string Id { get; }</code></pre>
+  </div>
+  
+  <div class="markdown level1 summary"><p>Settings set identifier. It can be any string as long as can be used as file name.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  
+  
+  
+  
+  
+  </div>
+  <h3 id="methods">Methods
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/boguslawski-piotr/pbX/new/master/apiSpec/new?filename=Plugin_pbXSettings_Settings_Deserialize_System_String_.md&amp;value=---%0Auid%3A%20Plugin.pbXSettings.Settings.Deserialize(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/boguslawski-piotr/pbX/blob/master/Plugin.pbXSettings/Plugin.pbXSettings.Shared/Settings.cs/#L108" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Plugin_pbXSettings_Settings_Deserialize_" data-uid="Plugin.pbXSettings.Settings.Deserialize*"></a>
+  
+  <h4 id="Plugin_pbXSettings_Settings_Deserialize_System_String_" data-uid="Plugin.pbXSettings.Settings.Deserialize(System.String)"><a href="#collapsible-Plugin_pbXSettings_Settings_Deserialize_System_String_" class="expander" data-toggle="collapse">Deserialize(String)</a></h4>
+  
+  <div id="collapsible-Plugin_pbXSettings_Settings_Deserialize_System_String_" class="collapse in">
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void Deserialize(string d)</code></pre>
+  </div>
+  
+  <div class="markdown level1 summary"><p>Deserializes <a class="xref" href="pbXNet.Settings.html#pbXNet_Settings_KeysAndValues">KeysAndValues</a> dictionary from string.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/boguslawski-piotr/pbX/new/master/apiSpec/new?filename=Plugin_pbXSettings_Settings_IsInternalProperty_System_String_.md&amp;value=---%0Auid%3A%20Plugin.pbXSettings.Settings.IsInternalProperty(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/boguslawski-piotr/pbX/blob/master/Plugin.pbXSettings/Plugin.pbXSettings.Shared/Settings.cs/#L116" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Plugin_pbXSettings_Settings_IsInternalProperty_" data-uid="Plugin.pbXSettings.Settings.IsInternalProperty*"></a>
+  
+  <h4 id="Plugin_pbXSettings_Settings_IsInternalProperty_System_String_" data-uid="Plugin.pbXSettings.Settings.IsInternalProperty(System.String)"><a href="#collapsible-Plugin_pbXSettings_Settings_IsInternalProperty_System_String_" class="expander" data-toggle="collapse">IsInternalProperty(String)</a></h4>
+  
+  <div id="collapsible-Plugin_pbXSettings_Settings_IsInternalProperty_System_String_" class="collapse in">
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override bool IsInternalProperty(string name)</code></pre>
+  </div>
+  
+  <div class="markdown level1 summary"><p>Should return true for properties which are not settings and should not be seen when enumerating settings set.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="pbXNet.Settings.html#pbXNet_Settings_IsInternalProperty_System_String_">Settings.IsInternalProperty(String)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/boguslawski-piotr/pbX/new/master/apiSpec/new?filename=Plugin_pbXSettings_Settings_LoadAsync.md&amp;value=---%0Auid%3A%20Plugin.pbXSettings.Settings.LoadAsync%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/boguslawski-piotr/pbX/blob/master/Plugin.pbXSettings/Plugin.pbXSettings.Shared/Settings.cs/#L70" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Plugin_pbXSettings_Settings_LoadAsync_" data-uid="Plugin.pbXSettings.Settings.LoadAsync*"></a>
+  
+  <h4 id="Plugin_pbXSettings_Settings_LoadAsync" data-uid="Plugin.pbXSettings.Settings.LoadAsync"><a href="#collapsible-Plugin_pbXSettings_Settings_LoadAsync" class="expander" data-toggle="collapse">LoadAsync()</a></h4>
+  
+  <div id="collapsible-Plugin_pbXSettings_Settings_LoadAsync" class="collapse in">
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override Task LoadAsync()</code></pre>
+  </div>
+  
+  <div class="markdown level1 summary"><p>Loads entire settings set using native settings storage.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="pbXNet.Settings.html#pbXNet_Settings_LoadAsync">Settings.LoadAsync()</a></div>
+  
+  
+  
+  
+  <h5 id="Plugin_pbXSettings_Settings_LoadAsync_seealso">See Also</h5>
+  <div class="seealso">
+      <div><a class="xref" href="Plugin.pbXSettings.SettingsStorage.html">SettingsStorage</a></div>
+      <div><a class="xref" href="Plugin.pbXSettings.Abstractions.ISettingsStorage.html">ISettingsStorage</a></div>
+  </div>
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/boguslawski-piotr/pbX/new/master/apiSpec/new?filename=Plugin_pbXSettings_Settings_SaveAsync_System_String_.md&amp;value=---%0Auid%3A%20Plugin.pbXSettings.Settings.SaveAsync(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/boguslawski-piotr/pbX/blob/master/Plugin.pbXSettings/Plugin.pbXSettings.Shared/Settings.cs/#L87" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Plugin_pbXSettings_Settings_SaveAsync_" data-uid="Plugin.pbXSettings.Settings.SaveAsync*"></a>
+  
+  <h4 id="Plugin_pbXSettings_Settings_SaveAsync_System_String_" data-uid="Plugin.pbXSettings.Settings.SaveAsync(System.String)"><a href="#collapsible-Plugin_pbXSettings_Settings_SaveAsync_System_String_" class="expander" data-toggle="collapse">SaveAsync(String)</a></h4>
+  
+  <div id="collapsible-Plugin_pbXSettings_Settings_SaveAsync_System_String_" class="collapse in">
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override Task SaveAsync(string changedValueKey = null)</code></pre>
+  </div>
+  
+  <div class="markdown level1 summary"><p>Saves entire settings set using native settings storage.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="pbXNet.Settings.html#pbXNet_Settings_SaveAsync_System_String_">Settings.SaveAsync(String)</a></div>
+  
+  
+  
+  
+  <h5 id="Plugin_pbXSettings_Settings_SaveAsync_System_String__seealso">See Also</h5>
+  <div class="seealso">
+      <div><a class="xref" href="Plugin.pbXSettings.SettingsStorage.html">SettingsStorage</a></div>
+      <div><a class="xref" href="Plugin.pbXSettings.Abstractions.ISettingsStorage.html">ISettingsStorage</a></div>
+  </div>
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/boguslawski-piotr/pbX/new/master/apiSpec/new?filename=Plugin_pbXSettings_Settings_Serialize.md&amp;value=---%0Auid%3A%20Plugin.pbXSettings.Settings.Serialize%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/boguslawski-piotr/pbX/blob/master/Plugin.pbXSettings/Plugin.pbXSettings.Shared/Settings.cs/#L100" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Plugin_pbXSettings_Settings_Serialize_" data-uid="Plugin.pbXSettings.Settings.Serialize*"></a>
+  
+  <h4 id="Plugin_pbXSettings_Settings_Serialize" data-uid="Plugin.pbXSettings.Settings.Serialize"><a href="#collapsible-Plugin_pbXSettings_Settings_Serialize" class="expander" data-toggle="collapse">Serialize()</a></h4>
+  
+  <div id="collapsible-Plugin_pbXSettings_Settings_Serialize" class="collapse in">
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual string Serialize()</code></pre>
+  </div>
+  
+  <div class="markdown level1 summary"><p>Serializes <a class="xref" href="pbXNet.Settings.html#pbXNet_Settings_KeysAndValues">KeysAndValues</a> dictionary to string.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  
+  
+  
+  
+  
+  </div>
+  
+  
+  <div class="inheritedMembers">
+  	<h3 id="inheritedmembers">Inherited Members</h3>
+  	<div>
+  		<a class="xref" href="pbXNet.Settings.html#pbXNet_Settings_KeysAndValues">Settings.KeysAndValues</a>
+  	</div>
+  	<div>
+  		<a class="xref" href="pbXNet.Settings.html#pbXNet_Settings_Set_System_Object_System_String_">Settings.Set(Object, String)</a>
+  	</div>
+  	<div>
+  		<a class="xref" href="pbXNet.Settings.html#pbXNet_Settings_Get_System_String_System_Object_">Settings.Get(String, Object)</a>
+  	</div>
+  	<div>
+  		<a class="xref" href="pbXNet.Settings.html#pbXNet_Settings_Get__1_System_String___0_">Settings.Get&lt;T&gt;(String, T)</a>
+  	</div>
+  	<div>
+  		<a class="xref" href="pbXNet.Settings.html#pbXNet_Settings_Item_System_String_">Settings.Item[String]</a>
+  	</div>
+  	<div>
+  		<a class="xref" href="pbXNet.Settings.html#pbXNet_Settings_GetDefault_System_String_">Settings.GetDefault(String)</a>
+  	</div>
+  	<div>
+  		<a class="xref" href="pbXNet.Settings.html#pbXNet_Settings_Contains_System_String_">Settings.Contains(String)</a>
+  	</div>
+  	<div>
+  		<a class="xref" href="pbXNet.Settings.html#pbXNet_Settings_Remove_System_String_">Settings.Remove(String)</a>
+  	</div>
+  	<div>
+  		<a class="xref" href="pbXNet.Settings.html#pbXNet_Settings_Clear">Settings.Clear()</a>
+  	</div>
+  	<div>
+  		<a class="xref" href="pbXNet.Settings.html#pbXNet_Settings_Load">Settings.Load()</a>
+  	</div>
+  	<div>
+  		<a class="xref" href="pbXNet.Settings.html#pbXNet_Settings_Save_System_String_">Settings.Save(String)</a>
+  	</div>
+  	<div>
+  		<a class="xref" href="pbXNet.Settings.html#pbXNet_Settings_GetEnumerator">Settings.GetEnumerator()</a>
+  	</div>
+  	<div>
+  		<a class="xref" href="pbXNet.Observable.html#pbXNet_Observable_PropertyChanged">Observable.PropertyChanged</a>
+  	</div>
+  	<div>
+  		<a class="xref" href="pbXNet.Observable.html#pbXNet_Observable_SetValue__1___0____0_System_String_">Observable.SetValue&lt;T&gt;(T, T, String)</a>
+  	</div>
+  	<div>
+  		<a class="xref" href="pbXNet.Observable.html#pbXNet_Observable_OnPropertyChanged_System_String_">Observable.OnPropertyChanged(String)</a>
+  	</div>
+  </div>
+  
+  
+  
+
+</article>
+          </div>
+          <div class="contribution-panel mobile-hide">
+              <a href="https://github.com/boguslawski-piotr/pbX/new/master/apiSpec/new?filename=Plugin_pbXSettings_Settings.md&amp;value=---%0Auid%3A%20Plugin.pbXSettings.Settings%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc" class="fab btn-warning pull-right"><i class="glyphicon glyphicon-pencil"></i></a>
+              <a href="https://github.com/boguslawski-piotr/pbX/blob/master/Plugin.pbXSettings/Plugin.pbXSettings.Shared/Settings.cs/#L25" title="View Source" class="fab btn-info pull-right"><i class="fa fa-code"></i></a>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+          </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

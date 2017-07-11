@@ -35,6 +35,9 @@
   <ItemGroup>
     <Compile Include="..\pbXNet\Droid\Log.cs" />
     <Compile Include="..\pbXNet\iOSmacOS\Log.cs" />
+    <Compile Include="..\Plugin.pbXSettings\Plugin.pbXSettings.Abstractions\ISettingsStorage.cs" />
+    <Compile Include="..\Plugin.pbXSettings\Plugin.pbXSettings.Shared\Settings.cs" />
+    <Compile Include="..\Plugin.pbXSettings\Plugin.pbXSettings.Shared\SettingsStorage.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">

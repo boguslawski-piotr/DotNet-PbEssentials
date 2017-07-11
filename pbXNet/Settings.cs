@@ -16,16 +16,14 @@ namespace pbXNet
 {
 	/// <summary>
 	/// <para>
-	///		Class that makes it easy to handle all sorts of settings, 
-	///		more precisely, values of any type that is accessed through a key.
-	/// </para>
-	/// <para>
-	///		The class is fully ready for use in binding systems because it inherits after <see cref="Observable"/>.
-	/// </para>
-	/// <para>
-	///		The class can also be used as a regular collection, that is, it can be enumerated :)
+	///	Class that makes it easy to handle all sorts of settings, 
+	///	more precisely, values of any type that is accessed through a key.
 	/// </para>
 	/// </summary>
+	/// <remarks>
+	/// <para>The class is fully ready for use in binding systems because it inherits after <see cref="Observable"/>.</para>
+	/// <para>The class can also be used as a regular collection, that is, it can be enumerated :)</para>
+	/// </remarks>
 	/// <example>
 	/// <code>
 	/// public class Main
@@ -269,7 +267,7 @@ namespace pbXNet
 		public void Save(string changedValueKey = null) => SaveAsync(changedValueKey).GetAwaiter().GetResult();
 
 		/// <summary>
-		/// Returns an enumerator <see cref="System.Collections.IDictionaryEnumerator"/> that iterates through the entire settings set.
+		/// Returns an enumerator IDictionaryEnumerator that iterates through the entire settings set.
 		/// </summary>
 		/// <remarks>
 		/// The enumerator is safe to use concurrently with reads and writes to the settings collection, 
@@ -284,7 +282,7 @@ namespace pbXNet
 		}
 
 		/// <summary>
-		/// Returns an enumerator <see cref="System.Collections.IDictionaryEnumerator"/> that iterates through the entire settings set.
+		/// Returns an enumerator IDictionaryEnumerator that iterates through the entire settings set.
 		/// </summary>
 		/// <remarks>
 		/// The enumerator is safe to use concurrently with reads and writes to the settings collection, 
