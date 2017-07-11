@@ -105,12 +105,12 @@ namespace pbXNet
 		/// </summary>
 		/// <example>
 		/// <code>
-		///		[Default(true)]
-		///		public bool BoolSetting
-		///		{
-		///			get => Get&lt;bool&gt;();
-		///			set => Set(value);
-		///		}
+		///	[Default(true)]
+		///	public bool BoolSetting
+		///	{
+		///		get => Get&lt;bool&gt;();
+		///		set => Set(value);
+		///	}
 		/// </code>
 		/// </example>
 		[AttributeUsage(AttributeTargets.Property)]
