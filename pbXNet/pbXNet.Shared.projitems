@@ -30,7 +30,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Cryptography\AesCryptographer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Cryptography\IAsymmetricCryptographer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Cryptography\ICryptographer.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Cryptography\ISimpleCryptographer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Cryptography\RsaCryptographer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Cryptography\RsaCryptographerHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Security\DOAuthentication.cs" />
