@@ -61,6 +61,8 @@ namespace pbXNet
 	{
 		string Name { get; }
 
+		Task OpenAsync();
+
 		// If table not exists then create, otherwise perform upgrade if needed.
 		Task<ITable<T>> CreateTableAsync<T>(string tableName);
 

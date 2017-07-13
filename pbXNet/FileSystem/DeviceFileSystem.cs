@@ -161,7 +161,7 @@ namespace pbXNet
 			if (!Directory.Exists(RootPath))
 			{
 				Directory.CreateDirectory(RootPath);
-				Log.I($"Directory '{RootPath}' has just been created.", this);
+				Log.D($"Directory '{RootPath}' has just been created.", this);
 			}
 
 			CurrentPath = RootPath;

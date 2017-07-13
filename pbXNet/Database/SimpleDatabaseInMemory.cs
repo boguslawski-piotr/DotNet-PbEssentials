@@ -230,6 +230,9 @@ namespace pbXNet
 
 		ConcurrentDictionary<string, object> _tables = new ConcurrentDictionary<string, object>();
 
+		public async Task OpenAsync()
+		{ }
+
 		public async Task<ITable<T>> CreateTableAsync<T>(string tableName)
 		{
 			if (_tables.TryGetValue(tableName, out object _t))
