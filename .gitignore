@@ -58,3 +58,5 @@ Tests/.vs/config/applicationhost.config
 Plugin.pbXSettings/Plugin.pbXSettings.UWP/project.lock.json
 Plugin.pbXSettings/Plugin.pbXSettings.UWP/Backup/Plugin.pbXSettings.UWP.csproj
 Plugin.pbXSettings/Plugin.pbXSettings.UWP/Backup/project.json
+
+.vs

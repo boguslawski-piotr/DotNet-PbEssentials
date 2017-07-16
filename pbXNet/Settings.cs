@@ -341,6 +341,8 @@ namespace pbXNet
 			if (value == null)
 				value = def;
 
+			// TODO: przeniesc do ConvertEx
+
 			Type valueType = value == null ? typeof(object) : value.GetType();
 			// valueType = Nullable.GetUnderlyingType(valueType) ?? valueType;
 			// valueType = valueType.GetTypeInfo().IsEnum ? Enum.GetUnderlyingType(valueType) : valueType;

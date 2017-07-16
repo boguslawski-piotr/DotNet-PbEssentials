@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using pbXNet.Database;
 
 namespace pbXNet
 {
@@ -26,12 +27,26 @@ namespace pbXNet
 
 		protected class Entry
 		{
+			[PrimaryKey]
+			[Length(2048)]
+			[Index("Path")]
 			public string Path { get; set; }
+
+			[PrimaryKey]
+			[Length(256)]
 			public string Name { get; set; }
+
+			[NotNull]
 			public bool IsDirectory { get; set; }
+
+			[Length(int.MaxValue)]
 			public string Data { get; set; }
-			public DateTime CreatedOn { get; set; }
-			public DateTime ModifiedOn { get; set; }
+
+			[NotNull]
+			public long CreatedOn { get; set; }
+
+			[NotNull]
+			public long ModifiedOn { get; set; }
 		}
 
 		protected IDatabase Db;
@@ -66,9 +81,6 @@ namespace pbXNet
 		public virtual async Task InitializeAsync()
 		{
 			Entries = await Db.CreateTableAsync<Entry>(Id).ConfigureAwait(false);
-
-			await Entries.CreatePrimaryKeyAsync(e => e.Path, e => e.Name).ConfigureAwait(false);
-			await Entries.CreateIndexAsync(false, e => e.Path).ConfigureAwait(false);
 		}
 
 		public virtual void Dispose()
@@ -165,8 +177,8 @@ namespace pbXNet
 						Path = CurrentPath,
 						Name = dirname,
 						IsDirectory = true,
-						CreatedOn = DateTime.UtcNow,
-						ModifiedOn = DateTime.UtcNow,
+						CreatedOn = DateTime.UtcNow.Ticks,
+						ModifiedOn = DateTime.UtcNow.Ticks,
 					})
 					.ConfigureAwait(false);
 			}
@@ -242,7 +254,7 @@ namespace pbXNet
 			if (e == null)
 				throw new FileNotFoundException(T.Localized("FS_FileNotFound", CurrentPath, filename));
 
-			e.ModifiedOn = modifiedOn.ToUniversalTime();
+			e.ModifiedOn = modifiedOn.ToUniversalTime().Ticks;
 			await Entries.UpdateAsync(e).ConfigureAwait(false);
 		}
 
@@ -255,7 +267,7 @@ namespace pbXNet
 			if (e == null)
 				throw new FileNotFoundException(T.Localized("FS_FileNotFound", CurrentPath, filename));
 
-			return e.ModifiedOn;
+			return new DateTime(e.ModifiedOn, DateTimeKind.Utc);
 		}
 
 		public virtual async Task WriteTextAsync(string filename, string text)
@@ -270,8 +282,8 @@ namespace pbXNet
 					Name = filename,
 					IsDirectory = false,
 					Data = text,
-					CreatedOn = DateTime.UtcNow,
-					ModifiedOn = DateTime.UtcNow,
+					CreatedOn = DateTime.UtcNow.Ticks,
+					ModifiedOn = DateTime.UtcNow.Ticks,
 				})
 				.ConfigureAwait(false);
 		}

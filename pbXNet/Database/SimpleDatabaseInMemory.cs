@@ -8,11 +8,13 @@ using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace pbXNet
+namespace pbXNet.Database
 {
 	public class SimpleDatabaseInMemory : IDatabase
 	{
 		public string Name { get; } = T.Localized("SDIM_Name");
+
+		public SqlBuilder SqlBuilder => throw new NotSupportedException();
 
 		public class Exception<T> : System.Exception
 		{
@@ -20,10 +22,7 @@ namespace pbXNet
 			{ }
 		}
 
-		[AttributeUsage(AttributeTargets.Property)]
-		public class PrimaryKeyAttribute : Attribute { }
-
-		class InternalTableRows<T> : IQueryResult<T>
+		class InternalTableRows<T> : IQueryEx<T>
 		{
 			IEnumerable<T> _rows;
 
@@ -32,11 +31,11 @@ namespace pbXNet
 				_rows = rows;
 			}
 
-			public IQueryResult<T> Where(Expression<Func<T, bool>> expr) => new InternalTableRows<T>(_rows.Where(expr.Compile()));
+			public IQueryEx<T> Where(Expression<Func<T, bool>> expr) => new InternalTableRows<T>(_rows.Where(expr.Compile()));
 
-			public IQueryResult<T> OrderBy<K>(Expression<Func<T, K>> expr) => new InternalTableRows<T>(_rows.OrderBy<T, K>(expr.Compile()));
+			public IQueryEx<T> OrderBy<K>(Expression<Func<T, K>> expr) => new InternalTableRows<T>(_rows.OrderBy<T, K>(expr.Compile()));
 
-			public IQueryResult<T> OrderByDescending<K>(Expression<Func<T, K>> expr) => new InternalTableRows<T>(_rows.OrderByDescending<T, K>(expr.Compile()));
+			public IQueryEx<T> OrderByDescending<K>(Expression<Func<T, K>> expr) => new InternalTableRows<T>(_rows.OrderByDescending<T, K>(expr.Compile()));
 
 			public async Task<IEnumerable<T>> PrepareAsync() => _rows;
 
@@ -45,6 +44,8 @@ namespace pbXNet
 			public IEnumerator<T> GetEnumerator() => _rows.GetEnumerator();
 
 			IEnumerator IEnumerable.GetEnumerator() => _rows.GetEnumerator();
+
+			public void Dispose() { }
 		}
 
 		interface IDumpable
@@ -58,6 +59,9 @@ namespace pbXNet
 
 			public Type Type;
 
+			public IQueryEx<T> Rows => new InternalTableRows<T>(_rows);
+
+#if DEBUG
 			public class PrimaryKeyInfoField
 			{
 				public string Name;
@@ -65,8 +69,7 @@ namespace pbXNet
 			}
 
 			public List<PrimaryKeyInfoField> PrimaryKeyInfo;
-
-			public IQueryResult<T> Rows => new InternalTableRows<T>(_rows);
+#endif
 
 			List<PropertyInfo> _primaryKey;
 
@@ -89,20 +92,12 @@ namespace pbXNet
 				);
 			}
 
-			public async Task CreatePrimaryKeyAsync(params Expression<Func<T, object>>[] columns)
+			public void Dispose()
 			{
-				_primaryKey.Clear();
-				foreach (var c in columns)
-				{
-					PropertyInfo p = c.AsPropertyInfo<T>();
-					if (p == null)
-						throw new ArgumentException(pbXNet.T.Localized("DB_NotPropertyExpression", Type.FullName), c.ToString());
-					_primaryKey.Add(p);
-				}
-			}
-
-			public async Task CreateIndexAsync(bool unique, params Expression<Func<T, object>>[] columns)
-			{
+				_primaryKey?.Clear();
+				_primaryKey = null;
+				_rows?.Clear();
+				_rows = null;
 			}
 
 			public async Task<T> FindAsync(T pk)
@@ -206,18 +201,19 @@ namespace pbXNet
 				}
 			}
 
-			public async Task LockAsync()
+			async Task LockAsync()
 			{
 				await _lock.WaitAsync();
 			}
 
-			public void Unlock()
+			void Unlock()
 			{
 				_lock.Release();
 			}
 
 			public void PrepareDump()
 			{
+#if DEBUG
 				PrimaryKeyInfo = new List<PrimaryKeyInfoField>(
 					_primaryKey.Select((p) => new PrimaryKeyInfoField()
 					{
@@ -225,13 +221,16 @@ namespace pbXNet
 						Name = p.Name,
 					})
 				);
+#endif
 			}
 		}
 
 		ConcurrentDictionary<string, object> _tables = new ConcurrentDictionary<string, object>();
 
-		public async Task OpenAsync()
-		{ }
+		public async Task<bool> TableExistsAsync(string tableName)
+		{
+			return _tables.ContainsKey(tableName);
+		}
 
 		public async Task<ITable<T>> CreateTableAsync<T>(string tableName)
 		{
@@ -244,16 +243,19 @@ namespace pbXNet
 			return t;
 		}
 
-		public async Task DropTableAsync<T>(string tableName)
+		public async Task DropTableAsync(string tableName)
 		{
 			_tables.TryRemove(tableName, out _);
 		}
 
-		public ITable<T> Table<T>(string tableName)
+		public async Task<ITable<T>> TableAsync<T>(string tableName)
 		{
 			return (InternalTable<T>)_tables[tableName];
 		}
 
+		public ITable<T> Table<T>(string tableName) => TableAsync<T>(tableName).GetAwaiter().GetResult();
+
+#if DEBUG
 		public async Task Dump(string filename, IFileSystem fs)
 		{
 			foreach (var t in _tables.Values)
@@ -263,5 +265,19 @@ namespace pbXNet
 
 			await fs.WriteTextAsync(filename, new NewtonsoftJsonSerializer().Serialize(_tables)).ConfigureAwait(false);
 		}
+#endif
+
+		public async Task OpenAsync() { }
+		public async Task CloseAsync() { }
+
+		public Task<int> StatementAsync(string sql, params (string name, object value)[] parameters) => throw new NotSupportedException();
+		public Task<int> StatementAsync(string sql, params object[] parameters) => throw new NotSupportedException();
+		public Task<int> StatementAsync(string sql) => throw new NotSupportedException();
+		public Task<T> ScalarAsync<T>(string sql, params (string name, object value)[] parameters) => throw new NotSupportedException();
+		public Task<T> ScalarAsync<T>(string sql, params object[] parameters) => throw new NotSupportedException();
+		public Task<T> ScalarAsync<T>(string sql) => throw new NotSupportedException();
+		public Task<IQuery<T>> QueryAsync<T>(string sql, params (string name, object value)[] parameters) => throw new NotSupportedException();
+		public Task<IQuery<T>> QueryAsync<T>(string sql, params object[] parameters) => throw new NotSupportedException();
+		public Task<IQuery<T>> QueryAsync<T>(string sql) => throw new NotSupportedException();
 	}
 }
