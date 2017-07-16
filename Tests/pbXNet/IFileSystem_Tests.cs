@@ -1,6 +1,8 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using pbXNet;
+using pbXNet.Database;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -123,6 +125,18 @@ namespace pbXNet
 			string d = await fs.ReadTextAsync("ftest2");
 
 			Assert.Equal("ala ma kota", d);
+
+			await fs.SetFileModifiedOnAsync("ftest2", new DateTime(2009, 11, 3, 12, 33, 55));
+
+			DateTime dt = await fs.GetFileModifiedOnAsync("ftest2");
+
+			Assert.Equal(dt.ToLocalTime(), new DateTime(2009, 11, 3, 12, 33, 55));
+
+			await fs.SetFileModifiedOnAsync("ftest2", new DateTime(2017, 1, 7, 15, 11, 22, DateTimeKind.Utc));
+
+			dt = await fs.GetFileModifiedOnAsync("ftest2");
+
+			Assert.Equal(dt, new DateTime(2017, 1, 7, 15, 11, 22, DateTimeKind.Utc));
 
 			l = await fs.GetFilesAsync("5$");
 
