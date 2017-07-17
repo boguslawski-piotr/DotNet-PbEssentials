@@ -10,22 +10,16 @@ namespace pbXNet.Database
 {
 	public interface IQueryResult<T> : IDisposable, IEnumerable<T>
 	{
-		void AddLocalWhere(Func<T, bool> where);
+		void AddFilter(Func<T, bool> where);
 	}
-
-	public enum QueryType
-	{
-		Query,
-		Table,
-	};
 
 	public interface IQuery<T> : IDisposable
 	{
 		IQuery<T> Where(Expression<Func<T, bool>> expr);
 
-		IQuery<T> OrderBy<K>(Expression<Func<T, K>> expr);
+		IQuery<T> OrderBy<TKey>(Expression<Func<T, TKey>> expr);
 
-		IQuery<T> OrderByDescending<K>(Expression<Func<T, K>> expr);
+		IQuery<T> OrderByDescending<TKey>(Expression<Func<T, TKey>> expr);
 
 		/// <summary>
 		/// Should prepare and send a query to the database (based on data received from Where, OrderBy calls),

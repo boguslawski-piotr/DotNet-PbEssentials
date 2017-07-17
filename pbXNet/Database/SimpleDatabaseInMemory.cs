@@ -31,7 +31,7 @@ namespace pbXNet.Database
 				_rows = rows;
 			}
 
-			public void AddLocalWhere(Func<T, bool> where)
+			public void AddFilter(Func<T, bool> where)
 			{
 				throw new NotImplementedException();
 			}
@@ -54,9 +54,9 @@ namespace pbXNet.Database
 
 			public IQuery<T> Where(Expression<Func<T, bool>> expr) => new InternalQuery<T>(_rows.Where(expr.Compile()));
 
-			public IQuery<T> OrderBy<K>(Expression<Func<T, K>> expr) => new InternalQuery<T>(_rows.OrderBy<T, K>(expr.Compile()));
+			public IQuery<T> OrderBy<TKey>(Expression<Func<T, TKey>> expr) => new InternalQuery<T>(_rows.OrderBy<T, TKey>(expr.Compile()));
 
-			public IQuery<T> OrderByDescending<K>(Expression<Func<T, K>> expr) => new InternalQuery<T>(_rows.OrderByDescending<T, K>(expr.Compile()));
+			public IQuery<T> OrderByDescending<TKey>(Expression<Func<T, TKey>> expr) => new InternalQuery<T>(_rows.OrderByDescending<T, TKey>(expr.Compile()));
 
 			public async Task<IQueryResult<T>> PrepareAsync() => new InternalQueryResult<T>(_rows);
 

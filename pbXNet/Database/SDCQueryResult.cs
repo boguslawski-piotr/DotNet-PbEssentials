@@ -11,14 +11,17 @@ namespace pbXNet.Database
 {
 	public class SDCQueryResult<T> : IQueryResult<T>
 	{
-		DbDataReader _rows;
-		DbCommand _cmd;
 		IDatabase _db;
-
-		List<Func<T, bool>> _localWheres;
+		DbCommand _cmd;
+		DbDataReader _rows;
+		List<Func<T, bool>> _filters;
 
 		public SDCQueryResult(IDatabase db, DbCommand cmd, DbDataReader rows)
 		{
+			Check.Null(db, nameof(db));
+			Check.Null(cmd, nameof(cmd));
+			Check.Null(rows, nameof(rows));
+
 			_rows = rows;
 			_cmd = cmd;
 			_db = db;
@@ -26,6 +29,8 @@ namespace pbXNet.Database
 
 		public void Dispose()
 		{
+			_filters?.Clear();
+			_filters = null;
 			_rows?.Close();
 			_rows?.Dispose();
 			_rows = null;
@@ -34,36 +39,32 @@ namespace pbXNet.Database
 			_db = null;
 		}
 
-		public void AddLocalWhere(Func<T, bool> where)
+		public void AddFilter(Func<T, bool> where)
 		{
-			if (_localWheres == null)
-				_localWheres = new List<Func<T, bool>>();
+			if (_filters == null)
+				_filters = new List<Func<T, bool>>();
 
-			_localWheres.Add(where);
+			_filters.Add(where);
 		}
 
-		public virtual IEnumerator GetEnumerator() => new Enumerator<T>(_db, _rows, _localWheres);
-		IEnumerator<T> IEnumerable<T>.GetEnumerator() => (IEnumerator<T>)this.GetEnumerator();
+		IEnumerator IEnumerable.GetEnumerator() => this.GetEnumerator();
+		public virtual IEnumerator<T> GetEnumerator() => new Enumerator<T>(this); 
 
 		public class Enumerator<T> : IEnumerator<T>
 		{
 			object IEnumerator.Current => Current;
 			public T Current => _current;
+
 			T _current = default(T);
 			T _temp = default(T);
 
 			IDictionary<string, PropertyInfo> _properties;
-
+			SDCQueryResult<T> _queryResult;
 			IEnumerator _enumerator;
-			IDatabase _db;
 
-			List<Func<T, bool>> _localWheres;
-
-			public Enumerator(IDatabase db, DbDataReader rows, List<Func<T, bool>> localWheres)
+			public Enumerator(SDCQueryResult<T> queryResult)
 			{
-				_db = db;
-				_enumerator = rows.GetEnumerator();
-				_localWheres = localWheres;
+				Check.Null(queryResult, nameof(queryResult));
 
 				Type t = typeof(T);
 				if (t.IsClass)
@@ -73,30 +74,39 @@ namespace pbXNet.Database
 				}
 
 				_properties = t.GetRuntimeProperties().ToDictionary(_p => _p.Name);
+
+				_queryResult = queryResult;
+				_enumerator = _queryResult._rows.GetEnumerator();
 			}
 
 			void IDisposable.Dispose()
-			{ }
+			{
+				_properties?.Clear();
+				_properties = null;
+				_queryResult = null;
+				_enumerator = null;
+				_current = _temp = default(T);
+			}
 
-			void PrepareCurrent(IDataRecord r, T v)
+			void GetTValue(IDataRecord r, ref T v)
 			{
 				for (int i = 0; i < r.FieldCount; i++)
 				{
 					var p = _properties[r.GetName(i)];
-					p.SetValue(v, _db.ConvertDbValueToPropertyValue(r.GetDataTypeName(i), r.IsDBNull(i) ? null : r.GetValue(i), p));
+					p.SetValue(v, _queryResult._db.ConvertDbValueToPropertyValue(r.GetDataTypeName(i), r.IsDBNull(i) ? null : r.GetValue(i), p));
 				}
 			}
 
 			public bool MoveNext()
 			{
-				if (_localWheres != null)
+				if (_queryResult._filters != null)
 				{
 					while (_enumerator.MoveNext())
 					{
-						PrepareCurrent((DbDataRecord)_enumerator.Current, _temp);
+						GetTValue((DbDataRecord)_enumerator.Current, ref _temp);
 
 						bool ok = false;
-						foreach (var where in _localWheres)
+						foreach (var where in _queryResult._filters)
 						{
 							ok = where(_temp);
 							if (!ok)
@@ -105,7 +115,7 @@ namespace pbXNet.Database
 
 						if (ok)
 						{
-							PrepareCurrent((DbDataRecord)_enumerator.Current, _current);
+							GetTValue((DbDataRecord)_enumerator.Current, ref _current);
 							return true;
 						}
 					}
@@ -114,7 +124,7 @@ namespace pbXNet.Database
 				{
 					if (_enumerator.MoveNext())
 					{
-						PrepareCurrent((DbDataRecord)_enumerator.Current, _current);
+						GetTValue((DbDataRecord)_enumerator.Current, ref _current);
 						return true;
 					}
 				}

@@ -43,36 +43,49 @@ namespace pbXNet
 
 		public async Task IDatabaseBasicTest(IDatabase db)
 		{
+			string sql1 = new SqlBuilder().Create().Table("name");
+			string sql2 = new SqlBuilder().Create().Index("name").On("tname");
+
+			string sql3 = new SqlBuilder().Drop().Table("name");
+			string sql4 = new SqlBuilder().Drop().Index("name").On("tname");
+
+
 			var t = await db.TableAsync<Row>("Tests");
 
-			for (int i = 0; i < 10000; i++)
+			//for (int i = 0; i < 10000; i++)
+			//{
+			//	await t.InsertOrUpdateAsync(new Row
+			//	{
+			//		Path = $"ftest{i}",
+			//		Name = $"dane{i.ToString().PadLeft(5, '0')}",
+			//		IsDirectory = i % 2 == 0
+			//	})
+			//	.ConfigureAwait(false);
+			//}
+
+			Assert.True(await t.Rows.AnyAsync());
+
+			var t2 = await db.TableAsync<Row>("Tests2");
+
+			Assert.False(await t2.Rows.AnyAsync());
+
+			using (var q = await
+				db.Table<Row>("Tests").Rows
+					.Where(r => Regex.IsMatch(r.Name, "35$"))
+					.OrderByDescending(r => r.Name)
+					.PrepareAsync().ConfigureAwait(false)
+				)
 			{
-				await t.InsertOrUpdateAsync(new Row
+				foreach (var r in q)
 				{
-					Path = $"ftest{i}",
-					Name = $"dane{i.ToString().PadLeft(5, '0')}",
-					IsDirectory = i % 2 == 0
-				})
-				.ConfigureAwait(false);
-			}
+					_output.WriteLine($"{r.Path}/{r.Name}");
+				}
 
-			var q = await
-				db.Table<Row>("Tests")
-					.Rows
-						.Where(r => Regex.IsMatch(r.Name, "35$"))
-						.OrderByDescending(r => r.Name)
-							.PrepareAsync()
-								.ConfigureAwait(false);
+				Assert.True(q.Count() == 10000 / 100);
 
-			Assert.True(q.Count() == 10000 / 100);
+				Assert.True(q.First().Name == "dane09935");
 
-			Assert.True(q.First().Name == "dane09935");
-
-			Assert.True(q.Last().Name == "dane00035");
-
-			foreach (var r in q)
-			{
-				_output.WriteLine($"{r.Path}/{r.Name}");
+				Assert.True(q.Last().Name == "dane00035");
 			}
 		}
 	}

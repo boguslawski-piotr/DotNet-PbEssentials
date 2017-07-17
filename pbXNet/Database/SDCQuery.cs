@@ -13,41 +13,34 @@ namespace pbXNet.Database
 	public class SDCQuery<T> : IQuery<T>
 	{
 		SqlBuilder Sql;
+
+		const string ScalarFuncPlaceholder = "_?";
 		SqlBuilder ScalarSql;
 
 		IDatabase _db;
-		QueryType _type;
 
-		List<Func<T, bool>> _localWheres;
+		List<(bool expr, string src)> _dbOrderBy;
+		List<Func<T, bool>> _localWhere;
 
-		public SDCQuery(IDatabase db, QueryType type, string source)
+		public SDCQuery(IDatabase db, string tableName)
 		{
 			Check.Null(db, nameof(db));
 
 			_db = db;
-			_type = type;
+
 			Sql = _db.Sql.New();
+			Sql.Select();
+			foreach (var p in typeof(T).GetRuntimeProperties()) Sql.C(p.Name);
+			Sql.From(tableName);
 
-			switch (type)
-			{
-				case QueryType.Table:
-					// TODO: all fields, not *
-					Sql.Select().M("*").From(source);
-					ScalarSql = _db.Sql.New().Select().E("?").From(source);
-					break;
-
-				case QueryType.Query:
-					// TODO: handle QueryType.Query
-					throw new NotImplementedException();
-			}
+			ScalarSql = _db.Sql.New().Select().M(ScalarFuncPlaceholder).From(tableName);
 		}
 
-		public SDCQuery(IDatabase db, QueryType type, SqlBuilder sql)
+		public SDCQuery(IDatabase db, SqlBuilder sql)
 		{
 			Check.Null(db, nameof(db));
 
 			_db = db;
-			_type = type;
 			Sql = sql;
 		}
 
@@ -55,31 +48,54 @@ namespace pbXNet.Database
 		{
 		}
 
+		void CreateLocalWhere()
+		{
+			if (_localWhere == null)
+				_localWhere = new List<Func<T, bool>>();
+		}
+
+		bool DbWhereDefined => false;
+		bool LocalWhereDefined => _localWhere != null && _localWhere.Count > 0;
+
 		public IQuery<T> Where(Expression<Func<T, bool>> expr)
 		{
 			// TODO: try translate expr to sql
 
-			if (_localWheres == null)
-				_localWheres = new List<Func<T, bool>>();
-			_localWheres.Add(expr.Compile());
+			CreateLocalWhere();
+			_localWhere.Add(expr.Compile());
+
 			return this;
 		}
 
-		bool OrderByWithOneProperty<K>(Expression<Func<T, K>> expr)
+		void CreateDbOrderBy()
+		{
+			if (_dbOrderBy == null)
+				_dbOrderBy = new List<(bool,string)>();
+		}
+
+		bool DbOrderByDefined => _dbOrderBy != null && _dbOrderBy.Count > 0;
+		bool LocalOrderByDefined => false;
+
+		bool OrderByWithOneProperty<TKey>(Expression<Func<T, TKey>> expr, bool desc)
 		{
 			PropertyInfo property = expr.AsPropertyInfo();
 			if (property != null)
 			{
-				Sql.OrderBy().C(property.Name);
+				SqlBuilder sql = Sql.Expr().C(property.Name);
+				if (desc) sql.Desc();
+
+				CreateDbOrderBy();
+				_dbOrderBy.Add((false, sql.Build()));
+
 				return true;
 			}
 
 			return false;
 		}
 
-		public IQuery<T> OrderBy<K>(Expression<Func<T, K>> expr)
+		public IQuery<T> OrderBy<TKey>(Expression<Func<T, TKey>> expr)
 		{
-			if (OrderByWithOneProperty<K>(expr))
+			if (OrderByWithOneProperty<TKey>(expr, false))
 				return this;
 
 			// try translate expr to sql
@@ -88,13 +104,10 @@ namespace pbXNet.Database
 			return this;
 		}
 
-		public IQuery<T> OrderByDescending<K>(Expression<Func<T, K>> expr)
+		public IQuery<T> OrderByDescending<TKey>(Expression<Func<T, TKey>> expr)
 		{
-			if(OrderByWithOneProperty<K>(expr))
-			{
-				Sql.Desc();
+			if (OrderByWithOneProperty<TKey>(expr, true))
 				return this;
-			}
 
 			// try translate expr to sql
 			// if it not possible then add to local orderbys
@@ -104,34 +117,60 @@ namespace pbXNet.Database
 
 		public async Task<IQueryResult<T>> PrepareAsync()
 		{
-			// build db where
+			SqlBuilder sql = Sql.Clone();
 
-			// build db order by
+			if (DbWhereDefined)
+			{
+				// build db where
+			}
 
-			string s = Sql.Build();
+			if (DbOrderByDefined)
+			{
+				sql.OrderBy();
+				foreach (var ob in _dbOrderBy)
+				{
+					if (ob.expr) sql.E(ob.src);
+					else sql.C(ob.src);
+				}
+			}
 
-			var q = await _db.QueryAsync<T>(Sql.Build());
+			//string s = sql.Build();
+			var q = await _db.QueryAsync<T>(sql.Build());
 
-			// apply local where
-			foreach (var lw in _localWheres)
-				q.AddLocalWhere(lw);
+			if (LocalWhereDefined)
+			{
+				foreach (var where in _localWhere)
+					q.AddFilter(where);
+			}
 
-			// apply local order by
+			if (LocalOrderByDefined)
+			{
+				// apply local order by
+			}
 
 			return q;
 		}
 
 		public async Task<bool> AnyAsync()
 		{
-			if (_localWheres != null && _localWheres.Count > 0)
+			if (ScalarSql == null || LocalWhereDefined)
 			{
 				using (var q = await PrepareAsync())
 					return q.Any();
 			}
 
-			// prepare scalar sql with defined db where
+			SqlBuilder sql = ScalarSql.Clone();
 
-			throw new NotImplementedException();
+			if (DbWhereDefined)
+			{
+				// build db where
+			}
+
+			string _sql = sql.Build();
+			_sql = _sql.Replace(ScalarFuncPlaceholder, sql.Expr("1"));
+
+			var rc = await _db.ScalarAsync<object>(_sql).ConfigureAwait(false);
+			return rc != null;
 		}
 	}
 }

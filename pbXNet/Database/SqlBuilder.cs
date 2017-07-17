@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
-using System.Text;
-using System.Text.RegularExpressions;
+﻿using System.Text;
 
 namespace pbXNet.Database
 {
@@ -79,9 +75,12 @@ namespace pbXNet.Database
 	public class SqlBuilder
 	{
 		public virtual SqlBuilder New() => new SqlBuilder();
-		public SqlBuilder Expr() => New()._wmOn();
+		public virtual SqlBuilder Clone() => new SqlBuilder(this);
 
-		public virtual bool DropIndexNeedsOnClause => false;
+		public SqlBuilder Expr() => New()._wmOn();
+		public SqlBuilder Expr(string expr) => New()._wmOn().E(expr);
+		
+		public virtual bool DropIndexStmtNeedsTableName => false;
 
 		public virtual string ParameterPrefix => "@";
 
@@ -102,92 +101,96 @@ namespace pbXNet.Database
 		public SqlBuilder NVarchar(int size) => T(NVarcharTypeName.Replace("?", size.ToString()));
 		public SqlBuilder Text() => T(TextTypeName);
 		public SqlBuilder NText() => T(NTextTypeName);
-		public virtual SqlBuilder T(string type) => delLastComma().add(type, true, true).add(",");
+		public virtual SqlBuilder T(string type) => DelLastComma().Add(type, true, true).Add(",");
 
 		public virtual SqlBuilder Create() => start("CREATE");
 		public virtual SqlBuilder Drop() => start("DROP")._dmOn();
-		public virtual SqlBuilder Update(string what) => start("UPDATE").add(what, false, true).add("SET", false, true)._umOn();
-		public virtual SqlBuilder InsertInto(string where) => start("INSERT INTO").add(where, false, true).openBracket()._imOn();
+		public virtual SqlBuilder Update(string what) => start("UPDATE").Add(what, false, true).Add("SET", false, true)._umOn();
+		public virtual SqlBuilder InsertInto(string where) => start("INSERT INTO").Add(where, false, true).OpenBracket()._imOn();
 		public virtual SqlBuilder Delete() => start("DELETE");
 		public virtual SqlBuilder Select() => start("SELECT");
 
-		public virtual SqlBuilder C(string column) => addIfTrue(_updateMode && _updateField++ > 0, ",").add(column).add(_whereMode || _updateMode ? "" : ",");
+		public virtual SqlBuilder C(string column) => AddIfTrue(_updateMode && _currentColumn++ > 0, ",").Add(column).Add(_whereMode || _updateMode ? "" : ",");
 		public SqlBuilder this[string column] => C(column);
-		public virtual SqlBuilder As => delLastComma().add("AS", true, true);
+		public virtual SqlBuilder As => DelLastComma().Add("AS", true, true);
 
-		public virtual SqlBuilder IfExists() => add("IF EXISTS", true, true);
-		public virtual SqlBuilder IfNotExists() => add("IF NOT EXISTS", true, true);
+		public virtual SqlBuilder IfExists() => Add("IF EXISTS", true, true);
+		public virtual SqlBuilder IfNotExists() => Add("IF NOT EXISTS", true, true);
 
-		public virtual SqlBuilder Table(string name) => add("TABLE").addIfTrue(_dropMode, () => _ = IfExists()).add(name, true, true).openBracketIfTrue(!_dropMode)._vmOn();
+		public virtual SqlBuilder Table(string name) => Add("TABLE").AddIfTrue(_dropMode, New().IfExists()).Add(name, true, true).OpenBracketIfTrue(!_dropMode)._vmOn();
 
 		// should be used only for column constraint(s)
 		public virtual SqlBuilder CConstraint(string name)
-			=> delLastComma().add("CONSTRAINT", true, true).add(name, false, true);
+			=> DelLastComma().Add("CONSTRAINT", true, true).Add(name, false, true);
 
 		// should be used only for table constraints
 		public virtual SqlBuilder Constraint(string name = null)
-			=> delLastComma().closeBracketIfTrue(_constraintElementMode)._cemOff().add(",").addIfTrue(name != null, "CONSTRAINT", true, true).addIfTrue(name != null, name, false, true)._tcmOn();
+			=> DelLastComma().CloseBracketIfTrue(_tableConstraintElementMode)._tcemOff().Add(",").AddIfTrue(name != null, "CONSTRAINT", true, true).AddIfTrue(name != null, name, false, true)._tcmOn();
 
 		public virtual SqlBuilder Null() => T("NULL");
 		public virtual SqlBuilder NotNull() => T("NOT NULL");
 
 		public virtual SqlBuilder PrimaryKey()
-			=> delLastCommaIfTrue(!_tableConstraintMode).add("PRIMARY KEY", true, true).addIfTrue(!_tableConstraintMode, ",").openBracketIfTrue(_tableConstraintMode)._cemOnIfTrue(_tableConstraintMode);
+			=> DelLastCommaIfTrue(!_tableConstraintMode).Add("PRIMARY KEY", true, true).AddIfTrue(!_tableConstraintMode, ",").OpenBracketIfTrue(_tableConstraintMode)._tcemOnIfTrue(_tableConstraintMode);
 		public virtual SqlBuilder Unique()
-			=> delLastCommaIfTrue(!_tableConstraintMode).add("UNIQUE", true, true).addIfTrue(!_tableConstraintMode, ",").openBracketIfTrue(_tableConstraintMode)._cemOnIfTrue(_tableConstraintMode);
+			=> DelLastCommaIfTrue(!_tableConstraintMode).Add("UNIQUE", true, true).AddIfTrue(!_tableConstraintMode, ",").OpenBracketIfTrue(_tableConstraintMode)._tcemOnIfTrue(_tableConstraintMode);
 		public virtual SqlBuilder Check(string expr)
-			=> delLastCommaIfTrue(!_tableConstraintMode).add("CHECK", true, true).openBracket().add(expr).closeBracket().add(",");
+			=> DelLastCommaIfTrue(!_tableConstraintMode).Add("CHECK", true, true).OpenBracket().Add(expr).CloseBracket().Add(",");
 		public virtual SqlBuilder Default(string expr)
-			=> delLastComma().add("DEFAULT", true, true).openBracket().add(expr).closeBracket().add(",");
+			=> DelLastComma().Add("DEFAULT", true, true).OpenBracket().Add(expr).CloseBracket().Add(",");
 
-		public virtual SqlBuilder Index(string name) => add("INDEX").addIfTrue(_dropMode, () => _ = IfExists()).add(name, true, true);
-		public virtual SqlBuilder On(string tableName) => (_dropMode && !DropIndexNeedsOnClause ? this : add("ON", true, true).add(tableName, true, true).openBracketIfTrue(!_dropMode)._vmOn());
-		public virtual SqlBuilder Asc() => delLastComma().add("ASC", true, false).add(",");
-		public virtual SqlBuilder Desc() => delLastComma().add("DESC", true, false).add(",");
+		public virtual SqlBuilder Index(string name) => Add("INDEX").AddIfTrue(_dropMode, New().IfExists()).Add(name, true, true);
+		public virtual SqlBuilder On(string tableName) => (_dropMode && !DropIndexStmtNeedsTableName ? this : Add("ON", true, true).Add(tableName, true, true).OpenBracketIfTrue(!_dropMode)._vmOn());
 
-		public virtual SqlBuilder Values() => delLastComma().closeBracket().add("VALUES", true, true).openBracket()._vmOn();
+		public virtual SqlBuilder Asc() => DelLastComma().Add("ASC", true, false).Add(",");
+		public virtual SqlBuilder Desc() => DelLastComma().Add("DESC", true, false).Add(",");
 
-		public virtual SqlBuilder From(string src) => delLastComma().add("FROM", true, true).add(src, false, true);
+		public virtual SqlBuilder Values() => DelLastComma().CloseBracket().Add("VALUES", true, true).OpenBracket()._vmOn();
 
-		public virtual SqlBuilder Where() => delLastComma()._wmOn().add("WHERE", true, true);
-		public virtual SqlBuilder OrderBy() => _wmOff().add("ORDER BY", true, true)._obmOn();
-		public virtual SqlBuilder GroupBy() => _wmOff().add("GROUP BY", true, true)._gbmOn();
+		public virtual SqlBuilder From(string src) => DelLastComma().Add("FROM", true, true).Add(src, false, true);
 
-		public virtual SqlBuilder M(string modifier) => add(modifier, true, true);
+		public virtual SqlBuilder Where() => DelLastComma()._wmOn().Add("WHERE", true, true);
+		public virtual SqlBuilder OrderBy() => _wmOff().Add("ORDER BY", true, true)._obmOn();
+		public virtual SqlBuilder GroupBy() => _wmOff().Add("GROUP BY", true, true)._gbmOn();
 
-		public virtual SqlBuilder Ob() => delLastComma().add("(");
-		public virtual SqlBuilder Cb() => delLastComma().add(")");
+		public virtual SqlBuilder M(string modifier) => Add(modifier, true, true);
 
-		public virtual SqlBuilder Eq => delLastComma().add("=");
-		public virtual SqlBuilder Neq => delLastComma().add("<>");
-		public virtual SqlBuilder Gt => delLastComma().add(">");
-		public virtual SqlBuilder GtEq => delLastComma().add(">=");
-		public virtual SqlBuilder Lt => delLastComma().add("<");
-		public virtual SqlBuilder LtEq => delLastComma().add("<=");
+		public virtual SqlBuilder Ob() => DelLastComma().Add("(");
+		public virtual SqlBuilder Cb() => DelLastComma().Add(")");
 
-		public virtual SqlBuilder Like => delLastComma().add("LIKE", true, true);
-		public virtual SqlBuilder In => delLastComma().add("IN", true, true);
-		public virtual SqlBuilder Is => delLastComma().add("IS", true, true);
+		public virtual SqlBuilder Eq => DelLastComma().Add("=");
+		public virtual SqlBuilder Neq => DelLastComma().Add("<>");
+		public virtual SqlBuilder Gt => DelLastComma().Add(">");
+		public virtual SqlBuilder GtEq => DelLastComma().Add(">=");
+		public virtual SqlBuilder Lt => DelLastComma().Add("<");
+		public virtual SqlBuilder LtEq => DelLastComma().Add("<=");
 
-		public virtual SqlBuilder And() => delLastComma().add("AND", true, true);
-		public virtual SqlBuilder Or() => delLastComma().add("OR", true, true);
-		public virtual SqlBuilder Not() => delLastComma().add("NOT", true, true);
+		public virtual SqlBuilder Like => DelLastComma().Add("LIKE", true, true);
+		public virtual SqlBuilder In => DelLastComma().Add("IN", true, true);
+		public virtual SqlBuilder Is => DelLastComma().Add("IS", true, true);
+
+		public virtual SqlBuilder And() => DelLastComma().Add("AND", true, true);
+		public virtual SqlBuilder Or() => DelLastComma().Add("OR", true, true);
+		public virtual SqlBuilder Not() => DelLastComma().Add("NOT", true, true);
 
 		public SqlBuilder P(int num) => P("_" + num.ToString());
-		public virtual SqlBuilder P(string name) => addIfTrue(_updateMode, "=").add(ParameterPrefix).add(name).addIfTrue(_valuesMode || _orderbyMode || _groupbyMode, ",");
-		public virtual SqlBuilder E(string expr) => addIfTrue(_updateMode, "=").openBracket().add(expr).closeBracket().addIfTrue(_valuesMode || _orderbyMode || _groupbyMode, ",");
+		public virtual SqlBuilder P(string name) => AddIfTrue(_updateMode, "=").Add(ParameterPrefix).Add(name).AddIfTrue(_valuesMode || _orderbyMode || _groupbyMode, ",");
+		public virtual SqlBuilder E(string expr) => AddIfTrue(_updateMode, "=").OpenBracket().Add(expr).CloseBracket().AddIfTrue(_valuesMode || _orderbyMode || _groupbyMode, ",");
 
-		public virtual string Build() => Prepare(delLastComma()._cbs()._sql.ToString());
+		public virtual string Build() => Prepare(DelLastComma().CloseBrackets()._sql.ToString());
 		public static implicit operator string(SqlBuilder builder) => builder.Build();
 
 		protected virtual string Prepare(string sql) => sql;
 
 		#region Fields
 
-		StringBuilder _sql = new StringBuilder(256);
+		StringBuilder _sql;
+
+		protected int _currentColumn;
+
+		protected bool _dropMode;
 
 		protected bool _updateMode;
-		protected int _updateField;
 
 		protected bool _insertMode;
 		protected bool _valuesMode;
@@ -197,22 +200,44 @@ namespace pbXNet.Database
 		protected bool _groupbyMode;
 
 		protected bool _tableConstraintMode;
-		protected bool _constraintElementMode;
+		protected bool _tableConstraintElementMode;
 
-		protected bool _dropMode;
-
-		protected int numOfOpenBrackets;
+		protected int _numOfOpenBrackets;
 
 		#endregion
 
 		#region Tools
 
+		public SqlBuilder()
+		{
+			_sql = new StringBuilder(256);
+		}
+
+		public SqlBuilder(SqlBuilder src)
+		{
+			_sql = new StringBuilder(src._sql.ToString());
+			_currentColumn = src._currentColumn;
+			_dropMode = src._dropMode;
+			_updateMode = src._updateMode;
+			_insertMode = src._insertMode;
+			_valuesMode = src._valuesMode;
+			_whereMode = src._whereMode;
+			_orderbyMode = src._orderbyMode;
+			_groupbyMode = src._groupbyMode;
+			_tableConstraintMode = src._tableConstraintMode;
+			_tableConstraintElementMode = src._tableConstraintElementMode;
+			_numOfOpenBrackets = src._numOfOpenBrackets;
+		}
+
 		protected SqlBuilder start(string arg)
 		{
 			_sql.Clear();
 
+			_currentColumn = 0;
+
+			_dropMode = false;
+
 			_updateMode = false;
-			_updateField = 0;
 
 			_insertMode = false;
 			_valuesMode = false;
@@ -222,16 +247,14 @@ namespace pbXNet.Database
 			_groupbyMode = false;
 
 			_tableConstraintMode = false;
-			_constraintElementMode = false;
+			_tableConstraintElementMode = false;
 
-			_dropMode = false;
+			_numOfOpenBrackets = 0;
 
-			numOfOpenBrackets = 0;
-
-			return add(arg, false, true);
+			return Add(arg, false, true);
 		}
 
-		protected SqlBuilder add(string arg, bool sb = false, bool sa = false)
+		protected SqlBuilder Add(string arg, bool sb = false, bool sa = false)
 		{
 			if (sb) _sql.Append(' ');
 			_sql.Append(arg);
@@ -239,124 +262,95 @@ namespace pbXNet.Database
 			return this;
 		}
 
-		protected SqlBuilder add(bool expr, Action action)
+		protected SqlBuilder AddIfTrue(bool expr, string arg, bool sb = false, bool sa = false)
 		{
-			action();
+			if (expr) Add(arg, sb, sa);
 			return this;
 		}
 
-		protected SqlBuilder addIfTrue(bool expr, string arg, bool sb = false, bool sa = false)
-		{
-			if (expr) add(arg, sb, sa);
-			return this;
-		}
-
-		protected SqlBuilder addIfTrue(bool expr, Action action)
-		{
-			if (expr) action();
-			return this;
-		}
-
-		protected SqlBuilder delLastComma()
+		protected SqlBuilder DelLastComma()
 		{
 			if (_sql.Length > 1)
 				_sql.Replace(',', ' ', _sql.Length - 2, 2);
 			return this;
 		}
 
-		protected SqlBuilder delLastCommaIfTrue(bool expr)
+		protected SqlBuilder DelLastCommaIfTrue(bool expr)
 		{
-			if (expr) delLastComma();
+			if (expr) DelLastComma();
 			return this;
 		}
 
-		protected SqlBuilder openBracket()
+		protected SqlBuilder OpenBracket()
 		{
-			numOfOpenBrackets++;
+			_numOfOpenBrackets++;
 			_sql.Append("(");
 			return this;
 		}
 
-		protected SqlBuilder openBracketIfTrue(bool expr)
+		protected SqlBuilder OpenBracketIfTrue(bool expr)
 		{
-			if (expr) openBracket();
+			if (expr) OpenBracket();
 			return this;
 		}
 
-		protected SqlBuilder closeBracket()
+		protected SqlBuilder CloseBracket()
 		{
-			numOfOpenBrackets--;
+			_numOfOpenBrackets--;
 			_sql.Append(")");
 			return this;
 		}
 
-		protected SqlBuilder closeBracketIfTrue(bool expr)
+		protected SqlBuilder CloseBracketIfTrue(bool expr)
 		{
-			if (expr) closeBracket();
+			if (expr) CloseBracket();
 			return this;
 		}
 
-		protected SqlBuilder _cbs()
+		protected SqlBuilder CloseBrackets()
 		{
-			while (numOfOpenBrackets > 0)
-				closeBracket();
+			while (_numOfOpenBrackets > 0)
+				CloseBracket();
 			return this;
 		}
 
-		protected SqlBuilder _dmOn()
+		protected SqlBuilder OnOff(ref bool what, bool on)
 		{
-			_dropMode = true;
+			what = on;
 			return this;
 		}
 
-		protected SqlBuilder _tcmOn()
+		protected SqlBuilder OnOffIfTrue(bool expr, ref bool what, bool on)
 		{
-			_tableConstraintMode = true;
+			if (expr) what = on;
 			return this;
 		}
 
-		protected SqlBuilder _cemOn()
-		{
-			_constraintElementMode = true;
-			return this;
-		}
+		protected SqlBuilder _dmOff() => OnOff(ref _dropMode, false);
+		protected SqlBuilder _dmOn() => OnOff(ref _dropMode, true);
 
-		protected SqlBuilder _cemOnIfTrue(bool expr)
-		{
-			if (expr) _cemOn();
-			return this;
-		}
+		protected SqlBuilder _tcmOff() => OnOff(ref _tableConstraintMode, false);
+		protected SqlBuilder _tcmOn() => OnOff(ref _tableConstraintMode, true);
 
-		protected SqlBuilder _cemOff()
-		{
-			_constraintElementMode = false;
-			return this;
-		}
+		protected SqlBuilder _tcemOff() => OnOff(ref _tableConstraintElementMode, false);
+		protected SqlBuilder _tcemOn() => OnOff(ref _tableConstraintElementMode, true);
+		protected SqlBuilder _tcemOnIfTrue(bool expr) => OnOffIfTrue(expr, ref _tableConstraintElementMode, true);
 
+		protected SqlBuilder _umOff() => OnOff(ref _updateMode, false);
 		protected SqlBuilder _umOn()
 		{
 			_updateMode = true;
+			_currentColumn = 0;
 			return this;
 		}
 
-		protected SqlBuilder _imOn()
-		{
-			_insertMode = true;
-			return this;
-		}
+		protected SqlBuilder _imOff() => OnOff(ref _insertMode, false);
+		protected SqlBuilder _imOn() => OnOff(ref _insertMode, true);
 
-		protected SqlBuilder _vmOn()
-		{
-			_valuesMode = true;
-			return this;
-		}
+		protected SqlBuilder _vmOff() => OnOff(ref _valuesMode, false);
+		protected SqlBuilder _vmOn() => OnOff(ref _valuesMode, true);
 
-		protected SqlBuilder _vmOff()
-		{
-			_valuesMode = false;
-			return this;
-		}
-
+		protected SqlBuilder _wmOff() => OnOff(ref _whereMode, false);
 		protected SqlBuilder _wmOn()
 		{
 			_whereMode = true;
@@ -364,23 +358,8 @@ namespace pbXNet.Database
 			return this;
 		}
 
-		protected SqlBuilder _wmOff()
-		{
-			_whereMode = false;
-			return this;
-		}
-
-		protected SqlBuilder _obmOn()
-		{
-			_orderbyMode = true;
-			return this;
-		}
-
-		protected SqlBuilder _gbmOn()
-		{
-			_groupbyMode = true;
-			return this;
-		}
+		protected SqlBuilder _obmOn() => OnOff(ref _orderbyMode, true);
+		protected SqlBuilder _gbmOn() => OnOff(ref _groupbyMode, true);
 
 		#endregion
 	}
