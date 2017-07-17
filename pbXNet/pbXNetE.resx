@@ -126,6 +126,9 @@
   <data name="DB_NotPropertyExpression" xml:space="preserve">
     <value>The expression did not return the correct '{0}' field/property.</value>
   </data>
+  <data name="DB_PrimaryKeyNotDefined" xml:space="preserve">
+    <value>The primary key for table '{0}' has not been defined.</value>
+  </data>
   <data name="FS_DirNotEmpty" xml:space="preserve">
     <value>Directory '{0}/{1}' is not empty.</value>
   </data>
@@ -152,9 +155,6 @@
   </data>
   <data name="SDIM_ObjectDoesntExist" xml:space="preserve">
     <value>Object doesn't exist.</value>
-  </data>
-  <data name="SDIM_PrimaryKeyNotDefined" xml:space="preserve">
-    <value>The primary key for table '{0}' has not been defined.</value>
   </data>
   <data name="SM_KeyNotFound" xml:space="preserve">
     <value>Object '{0}' doesn't exist.</value>

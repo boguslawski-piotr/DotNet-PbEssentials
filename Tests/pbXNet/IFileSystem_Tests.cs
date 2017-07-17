@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.Data.Sqlite;
 using pbXNet;
 using pbXNet.Database;
 using Xunit;
@@ -17,12 +18,39 @@ namespace pbXNet
 			_output = output;
 		}
 
+		async Task Prepare(IFileSystem fs)
+		{
+			await fs.CreateDirectoryAsync("pbXNet Tests");
+		}
+
+		async Task Cleanup(IFileSystem fs)
+		{
+			var l = await fs.GetFilesAsync("");
+			foreach (var f in l.ToArray())
+				await fs.DeleteFileAsync(f);
+			await fs.SetCurrentDirectoryAsync("..");
+			await fs.DeleteDirectoryAsync("pbXNet Tests");
+		}
+
 		[Fact]
-		public async Task FileSystemInDatabaseStressTest()
+		public async Task FileSystem_InSimpleDatabaseInMemory_StressTest()
 		{
 			SimpleDatabaseInMemory db = new SimpleDatabaseInMemory();
+			await FileSystem_InDatabase_StressTest(db);
+		}
 
-			IFileSystem fs = await FileSystemInDatabase.NewAsync("Tests", db);
+		[Fact]
+		public async Task FileSystem_InSqliteDatabase_StressTest()
+		{
+			IFileSystem fs = DeviceFileSystem.New();
+			string ds = $"Data Source={fs.RootPath}\\SqliteBasicTest.db";
+			IDatabase db = new SDCDatabase(new SqliteConnection(ds));
+			await FileSystem_InDatabase_StressTest(db);
+		}
+
+		public async Task FileSystem_InDatabase_StressTest(IDatabase db)
+		{
+			IFileSystem fs = await FileSystemInDatabase.NewAsync("FsStressTests", db);
 
 			await Prepare(fs);
 
@@ -41,42 +69,39 @@ namespace pbXNet
 
 			Assert.True(l.Count() == 10000 / 10);
 
-			await Cleanup(fs);
+			//await Cleanup(fs);
 		}
 
 		[Fact]
-		public async Task DeviceFileSystemDefaultBasicTest()
+		public async Task DeviceFileSystem_Default_BasicTest()
 		{
 			IFileSystem fs = DeviceFileSystem.New();
 			await IFileSystemBasicTest(fs);
 		}
 
 		[Fact]
-		public async Task DeviceFileSystemConfigBasicTest()
+		public async Task DeviceFileSystem_Config_BasicTest()
 		{
 			IFileSystem fs = DeviceFileSystem.New(DeviceFileSystem.RootType.LocalConfig);
 			await IFileSystemBasicTest(fs);
 		}
 
 		[Fact]
-		public async Task FileSystemInDatabaseBasicTest()
+		public async Task FileSystem_InSimpleDatabaseInMemory_BasicTest()
 		{
-			IFileSystem fs = await FileSystemInDatabase.NewAsync("Tests", new SimpleDatabaseInMemory());
+			IFileSystem fs = await FileSystemInDatabase.NewAsync("FsTests", new SimpleDatabaseInMemory());
 			await IFileSystemBasicTest(fs);
 		}
 
-		async Task Prepare(IFileSystem fs)
+		[Fact]
+		public async Task FileSystem_InSqliteDatabase_BasicTest()
 		{
-			await fs.CreateDirectoryAsync("pbXNet Tests");
-		}
+			IFileSystem fs = DeviceFileSystem.New();
+			string ds = $"Data Source={fs.RootPath}\\SqliteBasicTest.db";
+			IDatabase db = new SDCDatabase(new SqliteConnection(ds));
 
-		async Task Cleanup(IFileSystem fs)
-		{
-			var l = await fs.GetFilesAsync("");
-			foreach (var f in l.ToArray())
-				await fs.DeleteFileAsync(f);
-			await fs.SetCurrentDirectoryAsync("..");
-			await fs.DeleteDirectoryAsync("pbXNet Tests");
+			fs = await FileSystemInDatabase.NewAsync("FsTests", db);
+			await IFileSystemBasicTest(fs);
 		}
 
 		async Task IFileSystemBasicTest(IFileSystem fs)

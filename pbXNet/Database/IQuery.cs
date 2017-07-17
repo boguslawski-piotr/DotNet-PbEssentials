@@ -8,22 +8,30 @@ using System.Threading.Tasks;
 
 namespace pbXNet.Database
 {
-	public interface IQuery<T> : IDisposable, IEnumerable<T>
-	{}
-
-	public interface IQueryEx<T> : IQuery<T>
+	public interface IQueryResult<T> : IDisposable, IEnumerable<T>
 	{
-		IQueryEx<T> Where(Expression<Func<T, bool>> expr);
+		void AddLocalWhere(Func<T, bool> where);
+	}
 
-		IQueryEx<T> OrderBy<K>(Expression<Func<T, K>> expr);
+	public enum QueryType
+	{
+		Query,
+		Table,
+	};
 
-		IQueryEx<T> OrderByDescending<K>(Expression<Func<T, K>> expr);
+	public interface IQuery<T> : IDisposable
+	{
+		IQuery<T> Where(Expression<Func<T, bool>> expr);
+
+		IQuery<T> OrderBy<K>(Expression<Func<T, K>> expr);
+
+		IQuery<T> OrderByDescending<K>(Expression<Func<T, K>> expr);
 
 		/// <summary>
 		/// Should prepare and send a query to the database (based on data received from Where, OrderBy calls),
 		/// perhaps retrieve some rows (for example using some cache strategy) and then prepare the enumerator for normal (in Linq manner) use.
 		/// </summary>
-		Task<IEnumerable<T>> PrepareAsync();
+		Task<IQueryResult<T>> PrepareAsync();
 
 		Task<bool> AnyAsync();
 

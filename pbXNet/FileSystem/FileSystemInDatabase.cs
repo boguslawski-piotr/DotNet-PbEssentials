@@ -56,17 +56,15 @@ namespace pbXNet
 
 		protected FileSystemInDatabase(string id, IDatabase db)
 		{
-			Id = id ?? throw new ArgumentNullException(nameof(id));
-			Db = db ?? throw new ArgumentNullException(nameof(db));
+			Id = id;
+			Db = db;
 			RootPath = CurrentPath = "/";
 		}
 
 		public static async Task<IFileSystem> NewAsync(string id, IDatabase db)
 		{
-			if (id == null)
-				throw new ArgumentNullException(nameof(id));
-			if (db == null)
-				throw new ArgumentNullException(nameof(db));
+			Check.Null(id, nameof(id));
+			Check.Null(db, nameof(db));
 
 			var fs = new FileSystemInDatabase(id, db);
 			await fs.InitializeAsync();
@@ -80,7 +78,7 @@ namespace pbXNet
 
 		public virtual async Task InitializeAsync()
 		{
-			Entries = await Db.CreateTableAsync<Entry>(Id).ConfigureAwait(false);
+			Entries = await Db.TableAsync<Entry>(Id).ConfigureAwait(false);
 		}
 
 		public virtual void Dispose()
@@ -146,12 +144,17 @@ namespace pbXNet
 		public virtual async Task<IEnumerable<string>> GetDirectoriesAsync(string pattern = "")
 		{
 			bool emptyPattern = string.IsNullOrWhiteSpace(pattern);
-			return
-				(await Entries.Rows
-					.Where(e => e.Path == CurrentPath && e.IsDirectory)
-					.Where(e => emptyPattern || Regex.IsMatch(e.Name, pattern))
-					.PrepareAsync())
-					.Select((e) => e.Name);
+			using (var rows = Entries.Rows)
+			using (var q = await rows
+				.Where(e => e.Path == CurrentPath && e.IsDirectory)
+				.Where(e => emptyPattern || Regex.IsMatch(e.Name, pattern))
+				.PrepareAsync()
+			)
+			{
+				return q
+					.Select((e) => e.Name)
+					.ToList();
+			}
 		}
 
 		public virtual async Task<bool> DirectoryExistsAsync(string dirname)
@@ -166,12 +169,11 @@ namespace pbXNet
 
 		public virtual async Task CreateDirectoryAsync(string dirname)
 		{
-			if (string.IsNullOrEmpty(dirname))
-				throw new ArgumentNullException(nameof(dirname));
+			Check.Empty(dirname, nameof(dirname));
 
 			if (!await DirectoryExistsAsync(dirname).ConfigureAwait(false))
 			{
-				await Entries.InsertAsync(
+				await Entries.InsertOrUpdateAsync(
 					new Entry
 					{
 						Path = CurrentPath,
@@ -189,8 +191,7 @@ namespace pbXNet
 
 		public virtual async Task DeleteDirectoryAsync(string dirname)
 		{
-			if (string.IsNullOrEmpty(dirname))
-				throw new ArgumentNullException(nameof(dirname));
+			Check.Empty(dirname, nameof(dirname));
 
 			if (!await DirectoryExistsAsync(dirname).ConfigureAwait(false))
 				return;
@@ -209,12 +210,17 @@ namespace pbXNet
 		public virtual async Task<IEnumerable<string>> GetFilesAsync(string pattern = "")
 		{
 			bool emptyPattern = string.IsNullOrWhiteSpace(pattern);
-			return 
-				(await Entries.Rows
-					.Where(e => e.Path == CurrentPath && !e.IsDirectory)
-					.Where(e => emptyPattern || Regex.IsMatch(e.Name, pattern))
-					.PrepareAsync())
-					.Select((e) => e.Name);
+			using (var rows = Entries.Rows)
+			using (var q = await rows
+				.Where(e => e.Path == CurrentPath && !e.IsDirectory)
+				.Where(e => emptyPattern || Regex.IsMatch(e.Name, pattern))
+				.PrepareAsync()
+			)
+			{
+				return q
+					.Select((e) => e.Name)
+					.ToList();
+			}
 		}
 
 		protected virtual async Task<Entry> GetFsEntryAsync(string filename)
@@ -234,8 +240,7 @@ namespace pbXNet
 
 		public virtual async Task DeleteFileAsync(string filename)
 		{
-			if (string.IsNullOrEmpty(filename))
-				throw new ArgumentNullException(nameof(filename));
+			Check.Empty(filename, nameof(filename));
 
 			if (!await FileExistsAsync(filename).ConfigureAwait(false))
 				return;
@@ -247,21 +252,20 @@ namespace pbXNet
 
 		public virtual async Task SetFileModifiedOnAsync(string filename, DateTime modifiedOn)
 		{
-			if (string.IsNullOrEmpty(filename))
-				throw new ArgumentNullException(nameof(filename));
+			Check.Empty(filename, nameof(filename));
 
 			Entry e = await GetFsEntryAsync(filename).ConfigureAwait(false);
 			if (e == null)
 				throw new FileNotFoundException(T.Localized("FS_FileNotFound", CurrentPath, filename));
 
 			e.ModifiedOn = modifiedOn.ToUniversalTime().Ticks;
+
 			await Entries.UpdateAsync(e).ConfigureAwait(false);
 		}
 
 		public virtual async Task<DateTime> GetFileModifiedOnAsync(string filename)
 		{
-			if (string.IsNullOrEmpty(filename))
-				throw new ArgumentNullException(nameof(filename));
+			Check.Empty(filename, nameof(filename));
 
 			Entry e = await GetFsEntryAsync(filename).ConfigureAwait(false);
 			if (e == null)
@@ -272,10 +276,9 @@ namespace pbXNet
 
 		public virtual async Task WriteTextAsync(string filename, string text)
 		{
-			if (string.IsNullOrEmpty(filename))
-				throw new ArgumentNullException(nameof(filename));
+			Check.Empty(filename, nameof(filename));
 
-			await Entries.InsertAsync(
+			await Entries.InsertOrUpdateAsync(
 				new Entry
 				{
 					Path = CurrentPath,
@@ -290,8 +293,7 @@ namespace pbXNet
 
 		public virtual async Task<string> ReadTextAsync(string filename)
 		{
-			if (string.IsNullOrEmpty(filename))
-				throw new ArgumentNullException(nameof(filename));
+			Check.Empty(filename, nameof(filename));
 
 			Entry e = await GetFsEntryAsync(filename).ConfigureAwait(false);
 			if (e == null)

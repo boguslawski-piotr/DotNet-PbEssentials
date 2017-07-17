@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace pbXNet
@@ -75,6 +76,33 @@ namespace pbXNet
 					return id.ToString();
 				}
 			}
+		}
+	}
+
+	public static class Check
+	{
+		/// <summary>
+		/// 
+		/// </summary>
+		public static void Null(object o, string name, [CallerMemberName]string callerName = null)
+		{
+			if (o == null)
+				throw new ArgumentNullException(name);
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		public static void Empty(string s, string name, [CallerMemberName]string callerName = null)
+		{
+			if (string.IsNullOrWhiteSpace(s))
+				throw new ArgumentNullException(name);
+		}
+
+		public static void True(bool expr, string name, [CallerMemberName]string callerName = null)
+		{
+			if (!expr)
+				throw new ArgumentException(""); // TODO: Check.True message
 		}
 	}
 }

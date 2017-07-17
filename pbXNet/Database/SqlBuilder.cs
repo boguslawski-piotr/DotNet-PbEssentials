@@ -8,20 +8,20 @@ namespace pbXNet.Database
 {
 	/*
 	string s = _sql
-		.Select["StorageId"]["Id"]
+		.Select()["StorageId"]["Id"]
 		.From("Things")
-			.Where
+			.Where()
 				["StorageId"].Eq.P(1)
-				.And
+				.And()
 				["Id"].Eq.P(2)
 			.OrderBy
 				["Id"].E("sum(1)")["StorageId"];
 
 	s = _sql
-		.Select.E("count(*)").From(_sql.New.Select["ID"].As["_id"]["Date"].As["_date"].From("Tst"));
+		.Select().E("count(*)").From(_sql.New().Select()["ID"].As["_id"]["Date"].As["_date"].From("Tst"));
 
 	s = _sql
-		.Delete.From("Things").Where.E(_sql.Expr["StorageId"].Eq.P(1));
+		.Delete().From("Things").Where().E(_sql.Expr()["StorageId"].Eq.P(1));
 
 	// "UPDATE Things SET Data = @_3, ModifiedOn = @_4 WHERE StorageId = @_1 and Id = @_2;"
 
@@ -31,7 +31,7 @@ namespace pbXNet.Database
 			["ModifiedOn"].P(4)
 		.Where
 			["StorageId"].Eq.P(1)
-			.And
+			.And()
 			["Id"].Eq.P(2);
 
 	// INSERT INTO Things (StorageId, Id, Data, ModifiedOn) VALUES (@_1, @_2, @_3, @_4);
@@ -40,25 +40,25 @@ namespace pbXNet.Database
 		.InsertInto("Things")["StorageId"]["Id"]["Data"]["ModifiedOn"]
 		.Values.P(1).P(2).P(3).P(4);
 
-	s = _sql.Expr["ModifiedOn"].Neq.E("0");
+	s = _sql.Expr()["ModifiedOn"].Neq.E("0");
 
 	try
 	{
 		s = _sql
-		.Create.Table("Things2")
-			["StorageId"].NVarchar(512).NotNull.CConstraint("Unique_StorageId").Unique
-			["Id"].NVarchar(256).NotNull
-			["Data"].NText.Null
+		.Create().Table("Things2")
+			["StorageId"].NVarchar(512).NotNull().CConstraint("Unique_StorageId").Unique()
+			["Id"].NVarchar(256).NotNull()
+			["Data"].NText().Null()
 				.CConstraint("IX_Data")
-					.PrimaryKey
+					.PrimaryKey()
 				.CConstraint("DataNotNull")
-					.Check(_sql.Expr["Data"].Is.NotNull.And["Data"].Neq.E("func('a')"))
-			["ModifiedOn"].T("bigint").NotNull
+					.Check(_sql.Expr()["Data"].Is.NotNull().And()["Data"].Neq.E("func('a')"))
+			["ModifiedOn"].T("bigint").NotNull()
 				.Check(_sql.Expr["ModifiedOn"].Neq.E("0"))
 			.Constraint("PK_Things2")
-				.PrimaryKey["StorageId"]["Id"]
+				.PrimaryKey()["StorageId"]["Id"]
 			.Constraint()
-				.Unique["Id"]
+				.Unique()["Id"]
 			.Constraint()
 				.Check(_sql.Expr["Id"].Neq.E("0"));
 
@@ -78,8 +78,8 @@ namespace pbXNet.Database
 	/// </summary>
 	public class SqlBuilder
 	{
-		public virtual SqlBuilder New => new SqlBuilder();
-		public SqlBuilder Expr => New._wmOn();
+		public virtual SqlBuilder New() => new SqlBuilder();
+		public SqlBuilder Expr() => New()._wmOn();
 
 		public virtual bool DropIndexNeedsOnClause => false;
 
@@ -94,31 +94,31 @@ namespace pbXNet.Database
 		public virtual string TextTypeName => "text";
 		public virtual string NTextTypeName => "ntext";
 
-		public SqlBuilder Boolean => T(BooleanTypeName);
-		public SqlBuilder Smallint => T(SmallintTypeName);
-		public SqlBuilder Int => T(IntTypeName);
-		public SqlBuilder Bigint => T(BigintTypeName);
+		public SqlBuilder Boolean() => T(BooleanTypeName);
+		public SqlBuilder Smallint() => T(SmallintTypeName);
+		public SqlBuilder Int() => T(IntTypeName);
+		public SqlBuilder Bigint() => T(BigintTypeName);
 		public SqlBuilder Varchar(int size) => T(VarcharTypeName.Replace("?", size.ToString()));
 		public SqlBuilder NVarchar(int size) => T(NVarcharTypeName.Replace("?", size.ToString()));
-		public SqlBuilder Text => T(TextTypeName);
-		public SqlBuilder NText => T(NTextTypeName);
+		public SqlBuilder Text() => T(TextTypeName);
+		public SqlBuilder NText() => T(NTextTypeName);
 		public virtual SqlBuilder T(string type) => delLastComma().add(type, true, true).add(",");
 
-		public virtual SqlBuilder Create => start("CREATE");
-		public virtual SqlBuilder Drop => start("DROP")._dmOn();
+		public virtual SqlBuilder Create() => start("CREATE");
+		public virtual SqlBuilder Drop() => start("DROP")._dmOn();
 		public virtual SqlBuilder Update(string what) => start("UPDATE").add(what, false, true).add("SET", false, true)._umOn();
 		public virtual SqlBuilder InsertInto(string where) => start("INSERT INTO").add(where, false, true).openBracket()._imOn();
-		public virtual SqlBuilder Delete => start("DELETE");
-		public virtual SqlBuilder Select => start("SELECT");
+		public virtual SqlBuilder Delete() => start("DELETE");
+		public virtual SqlBuilder Select() => start("SELECT");
 
 		public virtual SqlBuilder C(string column) => addIfTrue(_updateMode && _updateField++ > 0, ",").add(column).add(_whereMode || _updateMode ? "" : ",");
 		public SqlBuilder this[string column] => C(column);
 		public virtual SqlBuilder As => delLastComma().add("AS", true, true);
 
-		public virtual SqlBuilder IfExists => add("IF EXISTS", true, true);
-		public virtual SqlBuilder IfNotExists => add("IF NOT EXISTS", true, true);
+		public virtual SqlBuilder IfExists() => add("IF EXISTS", true, true);
+		public virtual SqlBuilder IfNotExists() => add("IF NOT EXISTS", true, true);
 
-		public virtual SqlBuilder Table(string name) => add("TABLE").addIfTrue(_dropMode, () => _ = IfExists).add(name, true, true).openBracketIfTrue(!_dropMode)._vmOn();
+		public virtual SqlBuilder Table(string name) => add("TABLE").addIfTrue(_dropMode, () => _ = IfExists()).add(name, true, true).openBracketIfTrue(!_dropMode)._vmOn();
 
 		// should be used only for column constraint(s)
 		public virtual SqlBuilder CConstraint(string name)
@@ -128,35 +128,35 @@ namespace pbXNet.Database
 		public virtual SqlBuilder Constraint(string name = null)
 			=> delLastComma().closeBracketIfTrue(_constraintElementMode)._cemOff().add(",").addIfTrue(name != null, "CONSTRAINT", true, true).addIfTrue(name != null, name, false, true)._tcmOn();
 
-		public virtual SqlBuilder Null => T("NULL");
-		public virtual SqlBuilder NotNull => T("NOT NULL");
+		public virtual SqlBuilder Null() => T("NULL");
+		public virtual SqlBuilder NotNull() => T("NOT NULL");
 
-		public virtual SqlBuilder PrimaryKey
+		public virtual SqlBuilder PrimaryKey()
 			=> delLastCommaIfTrue(!_tableConstraintMode).add("PRIMARY KEY", true, true).addIfTrue(!_tableConstraintMode, ",").openBracketIfTrue(_tableConstraintMode)._cemOnIfTrue(_tableConstraintMode);
-		public virtual SqlBuilder Unique
+		public virtual SqlBuilder Unique()
 			=> delLastCommaIfTrue(!_tableConstraintMode).add("UNIQUE", true, true).addIfTrue(!_tableConstraintMode, ",").openBracketIfTrue(_tableConstraintMode)._cemOnIfTrue(_tableConstraintMode);
 		public virtual SqlBuilder Check(string expr)
 			=> delLastCommaIfTrue(!_tableConstraintMode).add("CHECK", true, true).openBracket().add(expr).closeBracket().add(",");
 		public virtual SqlBuilder Default(string expr)
 			=> delLastComma().add("DEFAULT", true, true).openBracket().add(expr).closeBracket().add(",");
 
-		public virtual SqlBuilder Index(string name) => add("INDEX").addIfTrue(_dropMode, () => _ = IfExists).add(name, true, true);
+		public virtual SqlBuilder Index(string name) => add("INDEX").addIfTrue(_dropMode, () => _ = IfExists()).add(name, true, true);
 		public virtual SqlBuilder On(string tableName) => (_dropMode && !DropIndexNeedsOnClause ? this : add("ON", true, true).add(tableName, true, true).openBracketIfTrue(!_dropMode)._vmOn());
-		public virtual SqlBuilder Asc => delLastComma().add("ASC", true, false).add(",");
-		public virtual SqlBuilder Desc => delLastComma().add("DESC", true, false).add(",");
+		public virtual SqlBuilder Asc() => delLastComma().add("ASC", true, false).add(",");
+		public virtual SqlBuilder Desc() => delLastComma().add("DESC", true, false).add(",");
 
-		public virtual SqlBuilder Values => delLastComma().closeBracket().add("VALUES", true, true).openBracket()._vmOn();
+		public virtual SqlBuilder Values() => delLastComma().closeBracket().add("VALUES", true, true).openBracket()._vmOn();
 
 		public virtual SqlBuilder From(string src) => delLastComma().add("FROM", true, true).add(src, false, true);
 
-		public virtual SqlBuilder Where => delLastComma()._wmOn().add("WHERE", true, true);
-		public virtual SqlBuilder OrderBy => _wmOff().add("ORDER BY", true, true)._obmOn();
-		public virtual SqlBuilder GroupBy => _wmOff().add("GROUP BY", true, true)._gbmOn();
+		public virtual SqlBuilder Where() => delLastComma()._wmOn().add("WHERE", true, true);
+		public virtual SqlBuilder OrderBy() => _wmOff().add("ORDER BY", true, true)._obmOn();
+		public virtual SqlBuilder GroupBy() => _wmOff().add("GROUP BY", true, true)._gbmOn();
 
 		public virtual SqlBuilder M(string modifier) => add(modifier, true, true);
 
-		public virtual SqlBuilder Ob => delLastComma().add("(");
-		public virtual SqlBuilder Cb => delLastComma().add(")");
+		public virtual SqlBuilder Ob() => delLastComma().add("(");
+		public virtual SqlBuilder Cb() => delLastComma().add(")");
 
 		public virtual SqlBuilder Eq => delLastComma().add("=");
 		public virtual SqlBuilder Neq => delLastComma().add("<>");
@@ -169,9 +169,9 @@ namespace pbXNet.Database
 		public virtual SqlBuilder In => delLastComma().add("IN", true, true);
 		public virtual SqlBuilder Is => delLastComma().add("IS", true, true);
 
-		public virtual SqlBuilder And => delLastComma().add("AND", true, true);
-		public virtual SqlBuilder Or => delLastComma().add("OR", true, true);
-		public virtual SqlBuilder Not => delLastComma().add("NOT", true, true);
+		public virtual SqlBuilder And() => delLastComma().add("AND", true, true);
+		public virtual SqlBuilder Or() => delLastComma().add("OR", true, true);
+		public virtual SqlBuilder Not() => delLastComma().add("NOT", true, true);
 
 		public SqlBuilder P(int num) => P("_" + num.ToString());
 		public virtual SqlBuilder P(string name) => addIfTrue(_updateMode, "=").add(ParameterPrefix).add(name).addIfTrue(_valuesMode || _orderbyMode || _groupbyMode, ",");

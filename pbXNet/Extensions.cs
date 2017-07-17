@@ -109,7 +109,7 @@ namespace pbXNet
 	/// </summary>
 	public static class ExpressionExtensions
 	{
-		public static PropertyInfo AsPropertyInfo<T>(this Expression<Func<T, object>> property)
+		public static PropertyInfo AsPropertyInfo<T, R>(this Expression<Func<T, R>> property)
 		{
 			Expression body = property.Body;
 			if ((body as UnaryExpression)?.Operand is MemberExpression operand)
