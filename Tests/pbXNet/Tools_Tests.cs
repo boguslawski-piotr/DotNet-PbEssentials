@@ -2,7 +2,7 @@
 using System.Text.RegularExpressions;
 using Xunit;
 
-namespace pbXNet.Tests
+namespace pbXNet
 {
 	public class Tools_Tests
 	{

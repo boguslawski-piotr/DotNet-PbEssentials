@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace pbXNet.Database
@@ -26,7 +23,7 @@ namespace pbXNet.Database
 		{ }
 	}
 
-	public interface ITable<T> : IDisposable
+	public interface ITable<T> : IDisposable where T : new()
 	{
 		string Name { get; }
 

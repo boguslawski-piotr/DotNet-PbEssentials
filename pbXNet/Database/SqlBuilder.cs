@@ -103,12 +103,12 @@ namespace pbXNet.Database
 		public SqlBuilder NText() => T(NTextTypeName);
 		public virtual SqlBuilder T(string type) => DelLastComma().Add(type, true, true).Add(",");
 
-		public virtual SqlBuilder Create() => start("CREATE");
-		public virtual SqlBuilder Drop() => start("DROP")._dmOn();
-		public virtual SqlBuilder Update(string what) => start("UPDATE").Add(what, false, true).Add("SET", false, true)._umOn();
-		public virtual SqlBuilder InsertInto(string where) => start("INSERT INTO").Add(where, false, true).OpenBracket()._imOn();
-		public virtual SqlBuilder Delete() => start("DELETE");
-		public virtual SqlBuilder Select() => start("SELECT");
+		public virtual SqlBuilder Create() => Start("CREATE");
+		public virtual SqlBuilder Drop() => Start("DROP")._dmOn();
+		public virtual SqlBuilder Update(string what) => Start("UPDATE").Add(what, false, true).Add("SET", false, true)._umOn();
+		public virtual SqlBuilder InsertInto(string where) => Start("INSERT INTO").Add(where, false, true).OpenBracket()._imOn();
+		public virtual SqlBuilder Delete() => Start("DELETE");
+		public virtual SqlBuilder Select() => Start("SELECT");
 
 		public virtual SqlBuilder C(string column) => AddIfTrue(_updateMode && _currentColumn++ > 0, ",").Add(column).Add(_whereMode || _updateMode ? "" : ",");
 		public SqlBuilder this[string column] => C(column);
@@ -229,7 +229,7 @@ namespace pbXNet.Database
 			_numOfOpenBrackets = src._numOfOpenBrackets;
 		}
 
-		protected SqlBuilder start(string arg)
+		protected SqlBuilder Start(string arg)
 		{
 			_sql.Clear();
 

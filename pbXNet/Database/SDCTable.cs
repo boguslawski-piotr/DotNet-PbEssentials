@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace pbXNet.Database
 {
-	public class SDCTable<T> : ITable<T>
+	public class SDCTable<T> : ITable<T> where T : new()
 	{
 		public string Name { get; private set; }
 
@@ -34,7 +33,7 @@ namespace pbXNet.Database
 		public static async Task<ITable<T>> OpenAsync(IDatabase db, string name)
 		{
 			SDCTable<T> table = new SDCTable<T>(db, name);
-			await table.OpenAsync();
+			await table.OpenAsync().ConfigureAwait(false);
 			return table;
 		}
 
@@ -46,7 +45,7 @@ namespace pbXNet.Database
 		public static async Task<ITable<T>> CreateAsync(IDatabase db, string name)
 		{
 			SDCTable<T> table = new SDCTable<T>(db, name);
-			await table.CreateAsync();
+			await table.CreateAsync().ConfigureAwait(false);
 			return table;
 		}
 
@@ -81,7 +80,7 @@ namespace pbXNet.Database
 
 			await _db.StatementAsync(_sql.Build()).ConfigureAwait(false);
 
-			await CreateIndexesAsync();
+			await CreateIndexesAsync().ConfigureAwait(false);
 		}
 
 		public async Task CreateIndexesAsync()
@@ -171,7 +170,7 @@ namespace pbXNet.Database
 			var parametres = new List<object>();
 			BuildWhereForPrimaryKey(pk, parametres);
 
-			using (IQueryResult<T> r = await _db.QueryAsync<T>(_sql.Build(), parametres.ToArray()))
+			using (IQueryResult<T> r = await _db.QueryAsync<T>(_sql.Build(), parametres.ToArray()).ConfigureAwait(false))
 			{
 				IEnumerator<T> e = r.GetEnumerator();
 				return e.MoveNext() ? e.Current : default(T);
@@ -194,7 +193,7 @@ namespace pbXNet.Database
 
 			BuildWhereForPrimaryKey(o, parametres);
 
-			if (await _db.StatementAsync(_sql.Build(), parametres.ToArray()) <= 0)
+			if (await _db.StatementAsync(_sql.Build(), parametres.ToArray()).ConfigureAwait(false) <= 0)
 				throw new Exception("Record not found!"); // TODO: localization and much better text!
 		}
 
@@ -202,7 +201,7 @@ namespace pbXNet.Database
 		{
 			Check.Null(o, nameof(o));
 
-			if (_primaryKey.Count <= 0 || !await ExistsAsync(o))
+			if (_primaryKey.Count <= 0 || !await ExistsAsync(o).ConfigureAwait(false))
 			{
 				var parametres = new List<object>();
 
@@ -217,17 +216,17 @@ namespace pbXNet.Database
 				for (int n = 1; n <= _properties.Count; n++)
 					_sql.P(n);
 
-				await _db.StatementAsync(_sql.Build(), parametres.ToArray());
+				await _db.StatementAsync(_sql.Build(), parametres.ToArray()).ConfigureAwait(false);
 			}
 			else
-				await UpdateAsync(o);
+				await UpdateAsync(o).ConfigureAwait(false);
 		}
 
 		public async Task DeleteAsync(T o)
 		{
 			Check.Null(o, nameof(o));
 
-			if (_primaryKey.Count <= 0 || !await ExistsAsync(o))
+			if (_primaryKey.Count <= 0 || !await ExistsAsync(o).ConfigureAwait(false))
 			{
 				// TODO: delete all rows that match T o
 			}
@@ -239,7 +238,7 @@ namespace pbXNet.Database
 
 				BuildWhereForPrimaryKey(o, parametres);
 
-				await _db.StatementAsync(_sql.Build(), parametres.ToArray());
+				await _db.StatementAsync(_sql.Build(), parametres.ToArray()).ConfigureAwait(false);
 			}
 		}
 	}

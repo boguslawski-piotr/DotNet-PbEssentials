@@ -40,11 +40,9 @@ namespace pbXNet
 		}
 
 		[Fact]
-		public async Task FileSystem_InSqliteDatabase_StressTest()
+		public async Task FileSystem_InSqlite_StressTest()
 		{
-			IFileSystem fs = DeviceFileSystem.New();
-			string ds = $"Data Source={fs.RootPath}\\SqliteBasicTest.db";
-			IDatabase db = new SDCDatabase(new SqliteConnection(ds));
+			IDatabase db = new SDCDatabase(SqliteTestDb.Connection);
 			await FileSystem_InDatabase_StressTest(db);
 		}
 
@@ -94,13 +92,10 @@ namespace pbXNet
 		}
 
 		[Fact]
-		public async Task FileSystem_InSqliteDatabase_BasicTest()
+		public async Task FileSystem_InSqlite_BasicTest()
 		{
-			IFileSystem fs = DeviceFileSystem.New();
-			string ds = $"Data Source={fs.RootPath}\\SqliteBasicTest.db";
-			IDatabase db = new SDCDatabase(new SqliteConnection(ds));
-
-			fs = await FileSystemInDatabase.NewAsync("FsTests", db);
+			IDatabase db = new SDCDatabase(SqliteTestDb.Connection);
+			IFileSystem fs = await FileSystemInDatabase.NewAsync("FsTests", db);
 			await IFileSystemBasicTest(fs);
 		}
 

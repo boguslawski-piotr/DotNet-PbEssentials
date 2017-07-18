@@ -1,24 +1,27 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Data.Common;
 using System.Linq.Expressions;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace pbXNet.Database
 {
-	public interface IQueryResult<T> : IDisposable, IEnumerable<T>
+	public interface IQueryResult<T> : IDisposable, IEnumerable<T> where T : new()
 	{
-		void AddFilter(Func<T, bool> where);
+		// should handle any number of calls combining expr with the AND operator
+		IQueryResult<T> Where(Func<T, bool> predicate);
+
+		// first call should use OrderBy, next calls should use ThenBy
+		IQueryResult<T> OrderBy(Func<T, object> keySelector);
+		IQueryResult<T> OrderByDescending(Func<T, object> keySelector);
 	}
 
-	public interface IQuery<T> : IDisposable
+	public interface IQuery<T> : IDisposable where T : new()
 	{
+		// should handle any number of calls combining expr with the AND operator
 		IQuery<T> Where(Expression<Func<T, bool>> expr);
 
+		// first call should use OrderBy, next calls should use ThenBy (or in SQL: ORDER BY (first), (second), ...)
 		IQuery<T> OrderBy<TKey>(Expression<Func<T, TKey>> expr);
-
 		IQuery<T> OrderByDescending<TKey>(Expression<Func<T, TKey>> expr);
 
 		/// <summary>
@@ -28,8 +31,8 @@ namespace pbXNet.Database
 		Task<IQueryResult<T>> PrepareAsync();
 
 		Task<bool> AnyAsync();
+		Task<int> CountAsync();
 
-		//CountAsync();
 		//SelectAsync();
 		//ToListAsync();
 		//ToArrayAsync();

@@ -22,7 +22,7 @@ namespace pbXNet.Database
 			{ }
 		}
 
-		class InternalQueryResult<T> : IQueryResult<T>
+		class InternalQueryResult<T> : IQueryResult<T> where T : new()
 		{
 			IEnumerable<T> _rows;
 
@@ -31,10 +31,13 @@ namespace pbXNet.Database
 				_rows = rows;
 			}
 
-			public void AddFilter(Func<T, bool> where)
-			{
-				throw new NotImplementedException();
-			}
+			public IQueryResult<T> Where(Func<T, bool> predicate) => new InternalQueryResult<T>(_rows.Where(predicate));
+
+			public IQueryResult<T> OrderBy(Func<T, object> keySelector) 
+				=> new InternalQueryResult<T>(_rows is IOrderedEnumerable<T> ? ((IOrderedEnumerable<T> )_rows).ThenBy(keySelector) : _rows.OrderBy(keySelector));
+
+			public IQueryResult<T> OrderByDescending(Func<T, object> keySelector)
+				=> new InternalQueryResult<T>(_rows is IOrderedEnumerable<T> ? ((IOrderedEnumerable<T>)_rows).ThenByDescending(keySelector) : _rows.OrderByDescending(keySelector));
 
 			public void Dispose()
 			{}
@@ -43,7 +46,7 @@ namespace pbXNet.Database
 			IEnumerator IEnumerable.GetEnumerator() => _rows.GetEnumerator();
 		}
 
-		class InternalQuery<T> : IQuery<T>
+		class InternalQuery<T> : IQuery<T> where T : new()
 		{
 			IEnumerable<T> _rows;
 
@@ -54,13 +57,17 @@ namespace pbXNet.Database
 
 			public IQuery<T> Where(Expression<Func<T, bool>> expr) => new InternalQuery<T>(_rows.Where(expr.Compile()));
 
-			public IQuery<T> OrderBy<TKey>(Expression<Func<T, TKey>> expr) => new InternalQuery<T>(_rows.OrderBy<T, TKey>(expr.Compile()));
+			public IQuery<T> OrderBy<TKey>(Expression<Func<T, TKey>> expr) 
+				=> new InternalQuery<T>(_rows is IOrderedEnumerable<T> ? ((IOrderedEnumerable<T>)_rows).ThenBy(expr.Compile()) : _rows.OrderBy(expr.Compile()));
 
-			public IQuery<T> OrderByDescending<TKey>(Expression<Func<T, TKey>> expr) => new InternalQuery<T>(_rows.OrderByDescending<T, TKey>(expr.Compile()));
+			public IQuery<T> OrderByDescending<TKey>(Expression<Func<T, TKey>> expr) 
+				=> new InternalQuery<T>(_rows is IOrderedEnumerable<T> ? ((IOrderedEnumerable<T>)_rows).ThenByDescending(expr.Compile()) : _rows.OrderByDescending(expr.Compile()));
 
 			public async Task<IQueryResult<T>> PrepareAsync() => new InternalQueryResult<T>(_rows);
 
 			public async Task<bool> AnyAsync() => _rows.Any();
+
+			public async Task<int> CountAsync() => _rows.Count();
 
 			public void Dispose() { }
 		}
@@ -70,7 +77,7 @@ namespace pbXNet.Database
 			void PrepareDump();
 		}
 
-		class InternalTable<T> : ITable<T>, IDumpable
+		class InternalTable<T> : ITable<T>, IDumpable where T : new()
 		{
 			public string Name { get; private set; }
 
@@ -264,9 +271,12 @@ namespace pbXNet.Database
 			_tables = null;
 		}
 
-		public ITable<T> Table<T>(string tableName) => TableAsync<T>(tableName).GetAwaiter().GetResult();
+		public IQuery<T> Query<T>(string tableName) where T : new() => Table<T>(tableName).Rows;
+		public IQuery<T> Query<T>(SqlBuilder sql) where T : new() => throw new NotSupportedException();
 
-		public async Task<ITable<T>> TableAsync<T>(string tableName)
+		public ITable<T> Table<T>(string tableName) where T : new() => TableAsync<T>(tableName).GetAwaiter().GetResult();
+
+		public async Task<ITable<T>> TableAsync<T>(string tableName) where T : new()
 		{
 			if (_tables.TryGetValue(tableName, out object _t))
 				return (InternalTable<T>)_t;
@@ -308,8 +318,8 @@ namespace pbXNet.Database
 		public Task<T> ScalarAsync<T>(string sql, params (string name, object value)[] parameters) => throw new NotSupportedException();
 		public Task<T> ScalarAsync<T>(string sql, params object[] parameters) => throw new NotSupportedException();
 		public Task<T> ScalarAsync<T>(string sql) => throw new NotSupportedException();
-		public Task<IQueryResult<T>> QueryAsync<T>(string sql, params (string name, object value)[] parameters) => throw new NotSupportedException();
-		public Task<IQueryResult<T>> QueryAsync<T>(string sql, params object[] parameters) => throw new NotSupportedException();
-		public Task<IQueryResult<T>> QueryAsync<T>(string sql) => throw new NotSupportedException();
+		public Task<IQueryResult<T>> QueryAsync<T>(string sql, params (string name, object value)[] parameters) where T : new() => throw new NotSupportedException();
+		public Task<IQueryResult<T>> QueryAsync<T>(string sql, params object[] parameters) where T : new() => throw new NotSupportedException();
+		public Task<IQueryResult<T>> QueryAsync<T>(string sql) where T : new() => throw new NotSupportedException();
 	}
 }

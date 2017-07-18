@@ -9,8 +9,20 @@ using Xunit.Abstractions;
 
 namespace pbXNet
 {
+	public static class SqliteTestDb
+	{
+		public static SqliteConnection Connection
+		{
+			get {
+				IFileSystem fs = DeviceFileSystem.New();
+				string cs = $"Data Source={fs.RootPath}\\SqliteBasicTest.db";
+				return new SqliteConnection(cs);
+			}
+		}
+	}
+
 	public class IDatabase_Tests
-    {
+	{
 		readonly ITestOutputHelper _output;
 
 		public IDatabase_Tests(ITestOutputHelper output)
@@ -23,51 +35,70 @@ namespace pbXNet
 			[PrimaryKey] public string Path { get; set; }
 			[PrimaryKey] public string Name { get; set; }
 			public bool IsDirectory { get; set; }
+
+			public override string ToString()
+			{
+				return $"{Path}/{Name}";
+			}
 		}
 
 		[Fact]
-		public async Task SimpleDatabaseInMemoryBasicTest()
+		public async Task SimpleDatabaseInMemory_BasicTest()
 		{
 			IDatabase db = new SimpleDatabaseInMemory();
 			await IDatabaseBasicTest(db);
 		}
 
 		[Fact]
-		public async Task SqliteBasicTest()
+		public async Task Sqlite_BasicTest()
 		{
-			IFileSystem fs = DeviceFileSystem.New();
-			string ds = $"Data Source={fs.RootPath}\\SqliteBasicTest.db";
-			IDatabase db = new SDCDatabase(new SqliteConnection(ds));
+			IDatabase db = new SDCDatabase(SqliteTestDb.Connection);
 			await IDatabaseBasicTest(db);
+		}
+
+		[Fact]
+		public async Task SimpleDatabaseInMemory_OrderByTest()
+		{
+			IDatabase db = new SimpleDatabaseInMemory();
+			await IDatabaseOrderByTest(db);
+		}
+
+		[Fact]
+		public async Task Sqlite_OrderByTest()
+		{
+			IDatabase db = new SDCDatabase(SqliteTestDb.Connection);
+			await IDatabaseOrderByTest(db);
 		}
 
 		public async Task IDatabaseBasicTest(IDatabase db)
 		{
-			string sql1 = new SqlBuilder().Create().Table("name");
-			string sql2 = new SqlBuilder().Create().Index("name").On("tname");
-
-			string sql3 = new SqlBuilder().Drop().Table("name");
-			string sql4 = new SqlBuilder().Drop().Index("name").On("tname");
-
-
+			//await db.DropTableAsync("Tests");
 			var t = await db.TableAsync<Row>("Tests");
 
-			//for (int i = 0; i < 10000; i++)
-			//{
-			//	await t.InsertOrUpdateAsync(new Row
-			//	{
-			//		Path = $"ftest{i}",
-			//		Name = $"dane{i.ToString().PadLeft(5, '0')}",
-			//		IsDirectory = i % 2 == 0
-			//	})
-			//	.ConfigureAwait(false);
-			//}
+			for (int i = 0; i < 10000; i++)
+			{
+				await t.InsertOrUpdateAsync(new Row
+				{
+					Path = $"ftest{i}",
+					Name = $"dane{i.ToString().PadLeft(5, '0')}",
+					IsDirectory = i % 2 == 0
+				})
+				.ConfigureAwait(false);
+			}
 
 			Assert.True(await t.Rows.AnyAsync());
+
+			Assert.True(await t.Rows.CountAsync() == 10000);
 
 			var t2 = await db.TableAsync<Row>("Tests2");
 
 			Assert.False(await t2.Rows.AnyAsync());
+
+			var q0 = t.Rows.Where(r => Regex.IsMatch(r.Name, "35$"));
+
+			Assert.True(await q0.AnyAsync());
+
+			Assert.True(await q0.CountAsync() == 100);
 
 			using (var q = await
 				db.Table<Row>("Tests").Rows
@@ -76,16 +107,61 @@ namespace pbXNet
 					.PrepareAsync().ConfigureAwait(false)
 				)
 			{
+
 				foreach (var r in q)
 				{
 					_output.WriteLine($"{r.Path}/{r.Name}");
 				}
 
-				Assert.True(q.Count() == 10000 / 100);
+				Assert.True(q.Count() == 100);
 
 				Assert.True(q.First().Name == "dane09935");
 
 				Assert.True(q.Last().Name == "dane00035");
+			}
+		}
+
+		public async Task IDatabaseOrderByTest(IDatabase db)
+		{
+			await db.DropTableAsync("OrderByTests");
+			var t = await db.TableAsync<Row>("OrderByTests");
+
+			for (int i = 0; i < 5; i++)
+			{
+				string path = $"path{i.ToString().PadLeft(5, '0')}";
+				for (int n = 0; n < 5; n++)
+				{
+					await t.InsertOrUpdateAsync(new Row
+					{
+						Path = path,
+						Name = $"name{n.ToString().PadLeft(5, '0')}",
+						IsDirectory = i % 2 == 0
+					})
+					.ConfigureAwait(false);
+				}
+			}
+
+			var q = await t.Rows
+					.OrderByDescending(r => r.Path)
+					.OrderByDescending(r => r.Name)
+					.PrepareAsync().ConfigureAwait(false);
+
+			using (q)
+			{
+				foreach (var r in q)
+				{
+					_output.WriteLine(r.ToString());
+				}
+
+				Assert.True(q.Count() == 25);
+
+				Assert.True(q.First().ToString() == "path00004/name00004");
+
+				Assert.True(q.Last().ToString() == "path00000/name00000");
+
+				Assert.True(q.Skip(3).First().ToString() == "path00004/name00001");
+
+				Assert.True(q.SkipLast(5).Last().ToString() == "path00001/name00000");
 			}
 		}
 	}

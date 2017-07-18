@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Data.Common;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
@@ -21,7 +18,7 @@ namespace pbXNet.Database
 
 		protected Options _options;
 		protected DbConnection _db;
-		protected bool _closeDb;
+		protected bool _dbOpenedHere;
 
 		public SDCDatabase(DbConnection db, SqlBuilder sqlBuilder = null, Options options = null)
 		{
@@ -34,11 +31,11 @@ namespace pbXNet.Database
 
 		public virtual void Dispose()
 		{
-			if (_closeDb)
+			if (_dbOpenedHere)
 				_db?.Close();
 
 			_db = null;
-			_closeDb = false;
+			_dbOpenedHere = false;
 		}
 
 		public virtual async Task OpenAsync()
@@ -48,7 +45,7 @@ namespace pbXNet.Database
 			if (_db.State == System.Data.ConnectionState.Closed)
 			{
 				await _db.OpenAsync().ConfigureAwait(false);
-				_closeDb = true;
+				_dbOpenedHere = true;
 
 				Log.I($"opened connection to database '{_db.DataSource}/{_db.Database}'.", this);
 			}
@@ -62,12 +59,12 @@ namespace pbXNet.Database
 
 		public virtual async Task CloseAsync()
 		{
-			if (_closeDb)
+			if (_dbOpenedHere)
 				_db.Close();
-			_closeDb = false;
+			_dbOpenedHere = false;
 		}
 
-		public virtual void ConvertPropertyTypeToDbType(PropertyInfo propertyInfo, SqlBuilder sqlBuilder)
+		public virtual void ConvertPropertyTypeToDbType(PropertyInfo propertyInfo, SqlBuilder sql)
 		{
 			switch (Type.GetTypeCode(propertyInfo.PropertyType))
 			{
@@ -75,28 +72,31 @@ namespace pbXNet.Database
 					var attrs = propertyInfo.CustomAttributes.ToList();
 					int width = (int)(attrs.Find(a => a.AttributeType.Name == nameof(LengthAttribute))?.ConstructorArguments[0].Value ?? int.MaxValue);
 					if (width == int.MaxValue)
-						sqlBuilder.NText();
+						sql.NText();
 					else
-						sqlBuilder.NVarchar(width);
+						sql.NVarchar(width);
 					break;
 
 				case TypeCode.Boolean:
-					sqlBuilder.Boolean();
+					sql.Boolean();
 					break;
 
 				case TypeCode.Int16:
-					sqlBuilder.Smallint();
+				case TypeCode.UInt16:
+					sql.Smallint();
 					break;
 
 				case TypeCode.Int32:
-				case TypeCode.UInt16:
-					sqlBuilder.Int();
+				case TypeCode.UInt32:
+					sql.Int();
 					break;
 
 				case TypeCode.Int64:
-				case TypeCode.UInt32:
-					sqlBuilder.Bigint();
+				case TypeCode.UInt64:
+					sql.Bigint();
 					break;
+
+				// TODO: handle more conversion from C# type to SQL type
 
 				default:
 					throw new Exception("Unsupported type {p.PropertyType}."); // TODO: localization and better text
@@ -222,7 +222,7 @@ namespace pbXNet.Database
 			}
 		}
 
-		protected virtual async Task<IQueryResult<T>> ExecuteReaderAsync<T>(DbCommand cmd, bool shouldDisposeCmd)
+		protected virtual async Task<IQueryResult<T>> ExecuteReaderAsync<T>(DbCommand cmd, bool shouldDisposeCmd) where T : new()
 		{
 			Check.Null(cmd, nameof(cmd));
 
@@ -239,15 +239,25 @@ namespace pbXNet.Database
 		public async Task<T> ScalarAsync<T>(string sql, params object[] parameters) => await ExecuteCommandAsync<T>(CommandType.Scalar, sql, parameters).ConfigureAwait(false);
 		public async Task<T> ScalarAsync<T>(string sql) => await ExecuteCommandAsync<T>(CommandType.Scalar, sql).ConfigureAwait(false);
 
-		public async Task<IQueryResult<T>> QueryAsync<T>(string sql, params (string name, object value)[] parameters) => await ExecuteReaderAsync<T>(CreateCommand(CommandType.Query, sql, parameters), true).ConfigureAwait(false);
-		public async Task<IQueryResult<T>> QueryAsync<T>(string sql, params object[] parameters) => await ExecuteReaderAsync<T>(CreateCommand(CommandType.Query, sql, parameters), true).ConfigureAwait(false);
-		public async Task<IQueryResult<T>> QueryAsync<T>(string sql) => await ExecuteReaderAsync<T>(CreateCommand(CommandType.Query, sql), true).ConfigureAwait(false);
+		public async Task<IQueryResult<T>> QueryAsync<T>(string sql, params (string name, object value)[] parameters) where T : new()
+			=> await ExecuteReaderAsync<T>(CreateCommand(CommandType.Query, sql, parameters), true).ConfigureAwait(false);
+		public async Task<IQueryResult<T>> QueryAsync<T>(string sql, params object[] parameters) where T : new()
+			=> await ExecuteReaderAsync<T>(CreateCommand(CommandType.Query, sql, parameters), true).ConfigureAwait(false);
+		public async Task<IQueryResult<T>> QueryAsync<T>(string sql) where T : new()
+			=> await ExecuteReaderAsync<T>(CreateCommand(CommandType.Query, sql), true).ConfigureAwait(false);
 
 		//
 
-		public ITable<T> Table<T>(string tableName) => TableAsync<T>(tableName).GetAwaiter().GetResult();
+		public IQuery<T> Query<T>(string tableName) where T : new()
+			=> new SDCQuery<T>(this, tableName);
 
-		public virtual async Task<ITable<T>> TableAsync<T>(string tableName)
+		public IQuery<T> Query<T>(SqlBuilder sql) where T : new()
+			=> new SDCQuery<T>(this, sql);
+
+		public ITable<T> Table<T>(string tableName) where T : new() 
+			=> TableAsync<T>(tableName).GetAwaiter().GetResult();
+
+		public virtual async Task<ITable<T>> TableAsync<T>(string tableName) where T : new()
 		{
 			Check.Empty(tableName, nameof(tableName));
 
