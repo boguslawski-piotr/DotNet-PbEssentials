@@ -25,21 +25,32 @@ namespace pbXNet
 	{
 		readonly ITestOutputHelper _output;
 
+		string www;
+		string pwww { get; set; }
+
 		public IDatabase_Tests(ITestOutputHelper output)
 		{
 			_output = output;
+			www = "qqq";
+			pwww = "pqqq";
 		}
 
 		class Row
 		{
 			[PrimaryKey] public string Path { get; set; }
 			[PrimaryKey] public string Name { get; set; }
-			public bool IsDirectory { get; set; }
+			public bool? IsDirectory { get; set; }
 
 			public override string ToString()
 			{
-				return $"{Path}/{Name}";
+				return $"{Path}/{Name}/{IsDirectory}";
 			}
+		}
+
+		class Row2
+		{
+			public string Path { get; set; }
+			public string Name { get; set; }
 		}
 
 		[Fact]
@@ -70,9 +81,40 @@ namespace pbXNet
 			await IDatabaseOrderByTest(db);
 		}
 
+		public void temp()
+		{
+			//int iii = 20 * 30;
+			//var q0 = t.Rows.Where(r => (iii & 20) == 0);
+			//int ccc = await q0.CountAsync();
+
+			//q0 = t.Rows.Where(r => r.Path.StartsWith("ftest10"));
+			//ccc = await q0.CountAsync();
+
+			//q0 = t.Rows.Where(r => r.Path.EndsWith("10"));
+			//ccc = await q0.CountAsync();
+
+			//q0 = t.Rows.Where(r => !r.IsDirectory).Where(r => r.Name != null).Where(r => null != r.Name);
+			//using (await q0.QueryAsync()) { }
+			//ccc = await q0.CountAsync();
+
+			//q0 = t.Rows.Where(r => r.Path == pwww);
+			//using (await q0.QueryAsync()) { }
+
+			//q0 = t.Rows.Where(r => r.Path == www);
+			//using (await q0.QueryAsync()) { }
+
+			//string xxx = "zzz";
+			//q0 = t.Rows.Where(r => r.Name == xxx);
+			//using (await q0.QueryAsync()) { }
+
+			//q0 = t.Rows.Where(r => (r.Path == "cos" || r.Name == xxx && (Regex.IsMatch(r.Name, "35$"))) && r.IsDirectory);
+			//using (await q0.QueryAsync()) { }
+
+		}
+
 		public async Task IDatabaseBasicTest(IDatabase db)
 		{
-			//await db.DropTableAsync("Tests");
+			await db.DropTableAsync("Tests");
 			var t = await db.TableAsync<Row>("Tests");
 
 			for (int i = 0; i < 10000; i++)
@@ -94,17 +136,17 @@ namespace pbXNet
 
 			Assert.False(await t2.Rows.AnyAsync());
 
-			var q0 = t.Rows.Where(r => Regex.IsMatch(r.Name, "35$"));
+			var q1 = t.Rows.Where(r => Regex.IsMatch(r.Name, "35$"));
 
-			Assert.True(await q0.AnyAsync());
+			Assert.True(await q1.AnyAsync());
 
-			Assert.True(await q0.CountAsync() == 100);
+			Assert.True(await q1.CountAsync() == 100);
 
 			using (var q = await
 				db.Table<Row>("Tests").Rows
 					.Where(r => Regex.IsMatch(r.Name, "35$"))
 					.OrderByDescending(r => r.Name)
-					.PrepareAsync().ConfigureAwait(false)
+					.QueryAsync().ConfigureAwait(false)
 				)
 			{
 
@@ -119,6 +161,10 @@ namespace pbXNet
 
 				Assert.True(q.Last().Name == "dane00035");
 			}
+
+			int dr = await t.DeleteAsync(r => r.Name.EndsWith("35"));
+
+			Assert.True(dr == 100);
 		}
 
 		public async Task IDatabaseOrderByTest(IDatabase db)
@@ -144,7 +190,7 @@ namespace pbXNet
 			var q = await t.Rows
 					.OrderByDescending(r => r.Path)
 					.OrderByDescending(r => r.Name)
-					.PrepareAsync().ConfigureAwait(false);
+					.QueryAsync().ConfigureAwait(false);
 
 			using (q)
 			{
@@ -155,13 +201,13 @@ namespace pbXNet
 
 				Assert.True(q.Count() == 25);
 
-				Assert.True(q.First().ToString() == "path00004/name00004");
+				Assert.True(q.First().ToString() == "path00004/name00004/True");
 
-				Assert.True(q.Last().ToString() == "path00000/name00000");
+				Assert.True(q.Last().ToString() == "path00000/name00000/True");
 
-				Assert.True(q.Skip(3).First().ToString() == "path00004/name00001");
+				Assert.True(q.Skip(3).First().ToString() == "path00004/name00001/True");
 
-				Assert.True(q.SkipLast(5).Last().ToString() == "path00001/name00000");
+				Assert.True(q.SkipLast(5).Last().ToString() == "path00001/name00000/False");
 			}
 		}
 	}

@@ -14,7 +14,9 @@ namespace pbXNet.Database
 	{
 		public string Name { get; } = T.Localized("SDIM_Name");
 
-		public SqlBuilder Sql => throw new NotSupportedException();
+		public SqlBuilder SqlBuilder => throw new NotSupportedException();
+
+		public IExpressionTranslator ExpressionTranslator => throw new NotSupportedException();
 
 		public class Exception<T> : System.Exception
 		{
@@ -33,14 +35,14 @@ namespace pbXNet.Database
 
 			public IQueryResult<T> Where(Func<T, bool> predicate) => new InternalQueryResult<T>(_rows.Where(predicate));
 
-			public IQueryResult<T> OrderBy(Func<T, object> keySelector) 
-				=> new InternalQueryResult<T>(_rows is IOrderedEnumerable<T> ? ((IOrderedEnumerable<T> )_rows).ThenBy(keySelector) : _rows.OrderBy(keySelector));
+			public IQueryResult<T> OrderBy(Func<T, object> keySelector)
+				=> new InternalQueryResult<T>(_rows is IOrderedEnumerable<T> ? ((IOrderedEnumerable<T>)_rows).ThenBy(keySelector) : _rows.OrderBy(keySelector));
 
 			public IQueryResult<T> OrderByDescending(Func<T, object> keySelector)
 				=> new InternalQueryResult<T>(_rows is IOrderedEnumerable<T> ? ((IOrderedEnumerable<T>)_rows).ThenByDescending(keySelector) : _rows.OrderByDescending(keySelector));
 
 			public void Dispose()
-			{}
+			{ }
 
 			public IEnumerator<T> GetEnumerator() => _rows.GetEnumerator();
 			IEnumerator IEnumerable.GetEnumerator() => _rows.GetEnumerator();
@@ -55,15 +57,15 @@ namespace pbXNet.Database
 				_rows = rows;
 			}
 
-			public IQuery<T> Where(Expression<Func<T, bool>> expr) => new InternalQuery<T>(_rows.Where(expr.Compile()));
+			public IQuery<T> Where(Expression<Func<T, bool>> predicate) => new InternalQuery<T>(_rows.Where(predicate.Compile()));
 
-			public IQuery<T> OrderBy<TKey>(Expression<Func<T, TKey>> expr) 
-				=> new InternalQuery<T>(_rows is IOrderedEnumerable<T> ? ((IOrderedEnumerable<T>)_rows).ThenBy(expr.Compile()) : _rows.OrderBy(expr.Compile()));
+			public IQuery<T> OrderBy<TKey>(Expression<Func<T, TKey>> keySelector)
+				=> new InternalQuery<T>(_rows is IOrderedEnumerable<T> ? ((IOrderedEnumerable<T>)_rows).ThenBy(keySelector.Compile()) : _rows.OrderBy(keySelector.Compile()));
 
-			public IQuery<T> OrderByDescending<TKey>(Expression<Func<T, TKey>> expr) 
-				=> new InternalQuery<T>(_rows is IOrderedEnumerable<T> ? ((IOrderedEnumerable<T>)_rows).ThenByDescending(expr.Compile()) : _rows.OrderByDescending(expr.Compile()));
+			public IQuery<T> OrderByDescending<TKey>(Expression<Func<T, TKey>> keySelector)
+				=> new InternalQuery<T>(_rows is IOrderedEnumerable<T> ? ((IOrderedEnumerable<T>)_rows).ThenByDescending(keySelector.Compile()) : _rows.OrderByDescending(keySelector.Compile()));
 
-			public async Task<IQueryResult<T>> PrepareAsync() => new InternalQueryResult<T>(_rows);
+			public async Task<IQueryResult<T>> QueryAsync() => new InternalQueryResult<T>(_rows);
 
 			public async Task<bool> AnyAsync() => _rows.Any();
 
@@ -206,18 +208,24 @@ namespace pbXNet.Database
 				}
 			}
 
-			public async Task DeleteAsync(T o)
+			public async Task<int> UpdateAsync<TA>(TA o, Expression<Func<TA, bool>> predicate)
+			{
+				throw new NotImplementedException();
+			}
+
+			public async Task<int> DeleteAsync(T o)
 			{
 				if (_primaryKey.Count <= 0)
 				{
 					// TODO: delete all that match T o
-					return;
+					throw new NotImplementedException();
 				}
 
 				T obj = await FindAsync(o).ConfigureAwait(false);
 				if (obj == null || obj.Equals(default(T)))
 				{
 					// do nothing
+					return 0;
 				}
 				else
 				{
@@ -225,12 +233,37 @@ namespace pbXNet.Database
 					try
 					{
 						_rows.Remove(obj);
+						return 1;
 					}
 					finally
 					{
 						Unlock();
 					}
 				}
+			}
+
+			public async Task<int> DeleteAsync(Expression<Func<T, bool>> predicate)
+			{
+				var rowsToDelete = _rows.Where(predicate.Compile()).ToList();
+				if (rowsToDelete != null)
+				{
+					await LockAsync();
+					try
+					{
+						foreach (var obj in rowsToDelete)
+						{
+							_rows.Remove(obj);
+						}
+
+						return rowsToDelete.Count();
+					}
+					finally
+					{
+						Unlock();
+					}
+				}
+
+				return 0;
 			}
 
 			async Task LockAsync()

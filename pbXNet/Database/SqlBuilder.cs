@@ -153,10 +153,24 @@ namespace pbXNet.Database
 		public virtual SqlBuilder OrderBy() => _wmOff().Add("ORDER BY", true, true)._obmOn();
 		public virtual SqlBuilder GroupBy() => _wmOff().Add("GROUP BY", true, true)._gbmOn();
 
-		public virtual SqlBuilder M(string modifier) => Add(modifier, true, true);
+		public virtual SqlBuilder Text(string freeText) => Add(freeText, true, true);
+
+		public SqlBuilder P(int num) => P("_" + num.ToString());
+		public virtual SqlBuilder P(string name) => AddIfTrue(_updateMode, "=").Add(ParameterPrefix).Add(name).AddIfTrue(_valuesMode || _orderbyMode || _groupbyMode, ",");
+
+		public virtual SqlBuilder E(string expr) => AddIfTrue(_updateMode, "=").OpenBracket().Add(expr).CloseBracket().AddIfTrue(_valuesMode || _orderbyMode || _groupbyMode, ",");
 
 		public virtual SqlBuilder Ob() => DelLastComma().Add("(");
 		public virtual SqlBuilder Cb() => DelLastComma().Add(")");
+
+		public virtual SqlBuilder Concat => DelLastComma().Add("||");
+		public virtual SqlBuilder Plus => DelLastComma().Add("+");
+		public virtual SqlBuilder Minus => DelLastComma().Add("-");
+		public virtual SqlBuilder Multiply => DelLastComma().Add("*");
+		public virtual SqlBuilder Divide => DelLastComma().Add("/");
+
+		public virtual SqlBuilder BitwiseAnd => DelLastComma().Add("&");
+		public virtual SqlBuilder BitwiseOr => DelLastComma().Add("|");
 
 		public virtual SqlBuilder Eq => DelLastComma().Add("=");
 		public virtual SqlBuilder Neq => DelLastComma().Add("<>");
@@ -168,14 +182,10 @@ namespace pbXNet.Database
 		public virtual SqlBuilder Like => DelLastComma().Add("LIKE", true, true);
 		public virtual SqlBuilder In => DelLastComma().Add("IN", true, true);
 		public virtual SqlBuilder Is => DelLastComma().Add("IS", true, true);
+		public virtual SqlBuilder Not => DelLastComma().Add("NOT", true, true);
 
 		public virtual SqlBuilder And() => DelLastComma().Add("AND", true, true);
 		public virtual SqlBuilder Or() => DelLastComma().Add("OR", true, true);
-		public virtual SqlBuilder Not() => DelLastComma().Add("NOT", true, true);
-
-		public SqlBuilder P(int num) => P("_" + num.ToString());
-		public virtual SqlBuilder P(string name) => AddIfTrue(_updateMode, "=").Add(ParameterPrefix).Add(name).AddIfTrue(_valuesMode || _orderbyMode || _groupbyMode, ",");
-		public virtual SqlBuilder E(string expr) => AddIfTrue(_updateMode, "=").OpenBracket().Add(expr).CloseBracket().AddIfTrue(_valuesMode || _orderbyMode || _groupbyMode, ",");
 
 		public virtual string Build() => Prepare(DelLastComma().CloseBrackets()._sql.ToString());
 		public static implicit operator string(SqlBuilder builder) => builder.Build();
@@ -184,7 +194,7 @@ namespace pbXNet.Database
 
 		#region Fields
 
-		StringBuilder _sql;
+		protected StringBuilder _sql;
 
 		protected int _currentColumn;
 
@@ -232,23 +242,16 @@ namespace pbXNet.Database
 		protected SqlBuilder Start(string arg)
 		{
 			_sql.Clear();
-
 			_currentColumn = 0;
-
 			_dropMode = false;
-
 			_updateMode = false;
-
 			_insertMode = false;
 			_valuesMode = false;
-
 			_whereMode = false;
 			_orderbyMode = false;
 			_groupbyMode = false;
-
 			_tableConstraintMode = false;
 			_tableConstraintElementMode = false;
-
 			_numOfOpenBrackets = 0;
 
 			return Add(arg, false, true);

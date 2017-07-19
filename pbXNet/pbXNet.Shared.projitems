@@ -9,13 +9,17 @@
     <Import_RootNamespace>pbXNet</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Database\Expression2SqlTranslator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Database\IExpressionTranslator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Database\IQuery.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Database\IQueryResult.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Database\ITable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Database\SDCDatabase.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Database\SDCQuery.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Database\SqlQuery.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Database\SDCQueryResult.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Database\SDCTable.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Database\SqlTable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Database\SqlBuilder.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Database\TableColumnAttributes.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ObservableCollectionEx.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Settings.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SettingsInStorage.cs" />

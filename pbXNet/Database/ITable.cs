@@ -1,28 +1,9 @@
 ﻿using System;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace pbXNet.Database
 {
-	[AttributeUsage(AttributeTargets.Property)]
-	public class PrimaryKeyAttribute : Attribute { }
-
-	[AttributeUsage(AttributeTargets.Property)]
-	public class IndexAttribute : Attribute
-	{
-		public IndexAttribute(string name, bool desc = false)
-		{ }
-	}
-
-	[AttributeUsage(AttributeTargets.Property)]
-	public class NotNullAttribute : Attribute { }
-
-	[AttributeUsage(AttributeTargets.Property)]
-	public class LengthAttribute : Attribute
-	{
-		public LengthAttribute(int width)
-		{ }
-	}
-
 	public interface ITable<T> : IDisposable where T : new()
 	{
 		string Name { get; }
@@ -44,6 +25,8 @@ namespace pbXNet.Database
 		// If the element with primary key not exists should throw an exception.
 		Task UpdateAsync(T o);
 
+		Task<int> UpdateAsync<TA>(TA o, Expression<Func<TA, bool>> predicate);
+
 		// If primary key is defined then:
 		// if the row with primary key exists should update, otherwise insert new.
 		// If table don't have primary key then:
@@ -53,7 +36,10 @@ namespace pbXNet.Database
 		// If primary key is defined then:
 		// if the row with primary key exists should delete it, otherwise do nothing.
 		// If table don't have primary key then:
-		// should delete all rows that matching o.
-		Task DeleteAsync(T o);
+		// should delete all rows that exactly matching o.
+		Task<int> DeleteAsync(T o);
+
+		// If predicate cannot be compiled/transalted/etc. should throw an exception.
+		Task<int> DeleteAsync(Expression<Func<T, bool>> predicate);
 	}
 }

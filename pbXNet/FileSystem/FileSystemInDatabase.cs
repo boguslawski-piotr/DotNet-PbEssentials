@@ -148,7 +148,7 @@ namespace pbXNet
 			using (var q = await rows
 				.Where(e => e.Path == CurrentPath && e.IsDirectory)
 				.Where(e => emptyPattern || Regex.IsMatch(e.Name, pattern))
-				.PrepareAsync()
+				.QueryAsync()
 			)
 			{
 				return q
@@ -214,7 +214,7 @@ namespace pbXNet
 			using (var q = await rows
 				.Where(e => e.Path == CurrentPath && !e.IsDirectory)
 				.Where(e => emptyPattern || Regex.IsMatch(e.Name, pattern))
-				.PrepareAsync()
+				.QueryAsync()
 			)
 			{
 				return q

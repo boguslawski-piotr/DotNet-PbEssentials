@@ -12,21 +12,33 @@ namespace pbXNet.Database
 	{
 		public string Name => $"{_db.DataSource}/{_db.Database}";
 
-		public SqlBuilder Sql { get; private set; }
+		public SqlBuilder SqlBuilder => _options.SqlBuilder;
 
-		public class Options { }
+		public IExpressionTranslator ExpressionTranslator => _options.ExpressionTranslator;
+
+		public class Options
+		{
+			public SqlBuilder SqlBuilder;
+			public IExpressionTranslator ExpressionTranslator;
+		}
 
 		protected Options _options;
-		protected DbConnection _db;
-		protected bool _dbOpenedHere;
 
-		public SDCDatabase(DbConnection db, SqlBuilder sqlBuilder = null, Options options = null)
+		protected DbConnection _db;
+
+		bool _dbOpenedHere;
+
+		public SDCDatabase(DbConnection db, Options options = null)
 		{
 			Check.Null(db, nameof(db));
 
-			Sql = sqlBuilder ?? new SqlBuilder();
-			_options = options ?? new Options();
 			_db = db;
+			_options = options ?? new Options();
+
+			if (_options.SqlBuilder == null)
+				_options.SqlBuilder = new SqlBuilder();
+			if (_options.ExpressionTranslator == null)
+				_options.ExpressionTranslator = new Expression2SqlTranslator(_options.SqlBuilder.New(), null);
 		}
 
 		public virtual void Dispose()
@@ -66,7 +78,9 @@ namespace pbXNet.Database
 
 		public virtual void ConvertPropertyTypeToDbType(PropertyInfo propertyInfo, SqlBuilder sql)
 		{
-			switch (Type.GetTypeCode(propertyInfo.PropertyType))
+			Type type = Nullable.GetUnderlyingType(propertyInfo.PropertyType) ?? propertyInfo.PropertyType;
+			TypeCode typeCode = Type.GetTypeCode(type);
+			switch (typeCode)
 			{
 				case TypeCode.String:
 					var attrs = propertyInfo.CustomAttributes.ToList();
@@ -99,19 +113,33 @@ namespace pbXNet.Database
 				// TODO: handle more conversion from C# type to SQL type
 
 				default:
-					throw new Exception("Unsupported type {p.PropertyType}."); // TODO: localization and better text
+					throw new Exception($"Unsupported type '{propertyInfo.PropertyType}'."); // TODO: localization and better text
 			}
+		}
+
+		protected virtual object ConvertDbValueToValue(string dbType, object dbValue, Type type)
+		{
+			Check.Null(type, nameof(type));
+
+			type = Nullable.GetUnderlyingType(type) ?? type;
+
+			// dbType CAN BE null -> caller don't know this information
+			// TODO: handle null, but how?
+			var v = Convert.ChangeType(dbValue, type);
+			return v;
 		}
 
 		public virtual object ConvertDbValueToPropertyValue(string dbType, object dbValue, PropertyInfo propertyInfo)
 		{
-			// TODO: handle null, but how?
-			var v = Convert.ChangeType(dbValue, propertyInfo.PropertyType);
-			return v;
+			Check.Null(propertyInfo, nameof(propertyInfo));
+
+			return ConvertDbValueToValue(dbType, dbValue, propertyInfo.PropertyType);
 		}
 
 		public virtual object ConvertPropertyValueToDbValue(object propertyValue, PropertyInfo propertyInfo)
 		{
+			Check.Null(propertyInfo, nameof(propertyInfo));
+
 			if (propertyValue == null)
 				return DBNull.Value;
 
@@ -141,11 +169,16 @@ namespace pbXNet.Database
 
 		protected virtual void CreateParameters(DbCommand cmd, params (string name, object value)[] parameters)
 		{
+			Check.Null(cmd, nameof(cmd));
+
+			if (parameters == null)
+				return;
+
 			foreach (var _p in parameters)
 			{
 				DbParameter p = cmd.CreateParameter();
 				p.ParameterName = _p.name;
-				p.Value = _p.value;
+				p.Value = _p.value ?? DBNull.Value;
 				cmd.Parameters.Add(p);
 			}
 #if DEBUG
@@ -162,6 +195,9 @@ namespace pbXNet.Database
 
 		protected DbCommand CreateCommand(CommandType type, string sql, params object[] parameters)
 		{
+			if (parameters == null)
+				return CreateCommand(type, sql);
+
 			(string name, object value)[] _parameters = new(string name, object value)[parameters.Length];
 
 			for (int i = 0; i < parameters.Length; i++)
@@ -172,29 +208,33 @@ namespace pbXNet.Database
 
 		protected virtual DbCommand CreateCommand(CommandType type, string sql)
 		{
+			Check.Empty(sql, nameof(sql));
+
 			DbCommand cmd = _db.CreateCommand();
 
-			cmd.CommandText = sql + ";";
+			cmd.CommandText = sql;
 
 			if (type == CommandType.Table)
+			{
 				cmd.CommandType = System.Data.CommandType.TableDirect;
+			}
 			else
+			{
 				cmd.CommandType = System.Data.CommandType.Text;
+				cmd.CommandText += ";";
+			}
 
-#if DEBUG
-			sql = Regex.Replace(sql, "\\s+", " ");
-			sql = Regex.Replace(sql, "\\s+\\)", ")");
-			sql = Regex.Replace(sql, "[\\s\\(\\)]+,", ",");
-			sql = Regex.Replace(sql, ",[\\s\\(\\)]+", ",");
-#endif
 			Log.D($"{type}: {sql}", this);
 
 			return cmd;
 		}
 
 		protected async Task<T> ExecuteCommandAsync<T>(CommandType type, string sql, params (string name, object value)[] parameters) => await ExecuteCommandAsync<T>(type, CreateCommand(type, sql, parameters), true).ConfigureAwait(false);
+
 		protected async Task<T> ExecuteCommandAsync<T>(CommandType type, string sql, params object[] parameters) => await ExecuteCommandAsync<T>(type, CreateCommand(type, sql, parameters), true).ConfigureAwait(false);
+
 		protected async Task<T> ExecuteCommandAsync<T>(CommandType type, string sql) => await ExecuteCommandAsync<T>(type, CreateCommand(type, sql), true).ConfigureAwait(false);
+
 		protected async Task<T> ExecuteCommandAsync<T>(CommandType type, DbCommand cmd) => await ExecuteCommandAsync<T>(type, cmd, false).ConfigureAwait(false);
 
 		protected virtual async Task<T> ExecuteCommandAsync<T>(CommandType type, DbCommand cmd, bool shouldDisposeCmd)
@@ -213,7 +253,8 @@ namespace pbXNet.Database
 				else if (type == CommandType.Scalar)
 					v = await cmd.ExecuteScalarAsync().ConfigureAwait(false);
 
-				return (T)Convert.ChangeType(v, typeof(T));
+				return (T)ConvertDbValueToValue(null, v, typeof(T));
+				//return (T)Convert.ChangeType(v, typeof(T));
 			}
 			finally
 			{
@@ -232,30 +273,33 @@ namespace pbXNet.Database
 		}
 
 		public async Task<int> StatementAsync(string sql, params (string name, object value)[] parameters) => await ExecuteCommandAsync<int>(CommandType.Statement, sql, parameters).ConfigureAwait(false);
+
 		public async Task<int> StatementAsync(string sql, params object[] parameters) => await ExecuteCommandAsync<int>(CommandType.Statement, sql, parameters).ConfigureAwait(false);
+
 		public async Task<int> StatementAsync(string sql) => await ExecuteCommandAsync<int>(CommandType.Statement, sql).ConfigureAwait(false);
 
 		public async Task<T> ScalarAsync<T>(string sql, params (string name, object value)[] parameters) => await ExecuteCommandAsync<T>(CommandType.Scalar, sql, parameters).ConfigureAwait(false);
+
 		public async Task<T> ScalarAsync<T>(string sql, params object[] parameters) => await ExecuteCommandAsync<T>(CommandType.Scalar, sql, parameters).ConfigureAwait(false);
+
 		public async Task<T> ScalarAsync<T>(string sql) => await ExecuteCommandAsync<T>(CommandType.Scalar, sql).ConfigureAwait(false);
 
 		public async Task<IQueryResult<T>> QueryAsync<T>(string sql, params (string name, object value)[] parameters) where T : new()
 			=> await ExecuteReaderAsync<T>(CreateCommand(CommandType.Query, sql, parameters), true).ConfigureAwait(false);
+
 		public async Task<IQueryResult<T>> QueryAsync<T>(string sql, params object[] parameters) where T : new()
 			=> await ExecuteReaderAsync<T>(CreateCommand(CommandType.Query, sql, parameters), true).ConfigureAwait(false);
+
 		public async Task<IQueryResult<T>> QueryAsync<T>(string sql) where T : new()
 			=> await ExecuteReaderAsync<T>(CreateCommand(CommandType.Query, sql), true).ConfigureAwait(false);
 
 		//
 
-		public IQuery<T> Query<T>(string tableName) where T : new()
-			=> new SDCQuery<T>(this, tableName);
+		public virtual IQuery<T> Query<T>(string tableName) where T : new() => new SqlQuery<T>(this, tableName);
 
-		public IQuery<T> Query<T>(SqlBuilder sql) where T : new()
-			=> new SDCQuery<T>(this, sql);
+		public virtual IQuery<T> Query<T>(SqlBuilder sqlBuilder) where T : new() => new SqlQuery<T>(this, sqlBuilder);
 
-		public ITable<T> Table<T>(string tableName) where T : new() 
-			=> TableAsync<T>(tableName).GetAwaiter().GetResult();
+		public ITable<T> Table<T>(string tableName) where T : new() => TableAsync<T>(tableName).GetAwaiter().GetResult();
 
 		public virtual async Task<ITable<T>> TableAsync<T>(string tableName) where T : new()
 		{
@@ -266,21 +310,21 @@ namespace pbXNet.Database
 			// TODO: better method to find if table exists?
 			try
 			{
-				await ScalarAsync<object>(Sql.Select().E("1").From(tableName)).ConfigureAwait(false);
+				await ScalarAsync<object>(SqlBuilder.Select().E("1").From(tableName)).ConfigureAwait(false);
 			}
 			catch (Exception ex)
 			{
-				return await SDCTable<T>.CreateAsync(this, tableName);
+				return await SqlTable<T>.CreateAsync(this, tableName);
 			}
 
-			return await SDCTable<T>.OpenAsync(this, tableName);
+			return await SqlTable<T>.OpenAsync(this, tableName);
 		}
 
 		public virtual async Task DropTableAsync(string tableName)
 		{
 			Check.Empty(tableName, nameof(tableName));
 
-			await StatementAsync(Sql.Drop().Table(tableName)).ConfigureAwait(false);
+			await StatementAsync(SqlBuilder.Drop().Table(tableName)).ConfigureAwait(false);
 		}
 	}
 }
