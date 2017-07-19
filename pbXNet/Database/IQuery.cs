@@ -18,7 +18,7 @@ namespace pbXNet.Database
 		/// Should prepare and send a query to the database (based on data received from Where, OrderBy calls),
 		/// perhaps retrieve some rows (for example using some cache strategy) and then prepare the enumerator for normal (in Linq manner) use.
 		/// </summary>
-		Task<IQueryResult<T>> QueryAsync();
+		Task<IQueryResult<T>> ResultAsync();
 
 		Task<bool> AnyAsync();
 

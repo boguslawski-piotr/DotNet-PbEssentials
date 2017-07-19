@@ -12,6 +12,7 @@ namespace pbXNet.Database
 	{
 		public string Name => $"{_db.DataSource}/{_db.Database}";
 
+		// TODO: dostep do SqlBuilder w lock
 		public SqlBuilder SqlBuilder => _options.SqlBuilder;
 
 		public IExpressionTranslator ExpressionTranslator => _options.ExpressionTranslator;
@@ -76,76 +77,82 @@ namespace pbXNet.Database
 			_dbOpenedHere = false;
 		}
 
-		public virtual void ConvertPropertyTypeToDbType(PropertyInfo propertyInfo, SqlBuilder sql)
+		public virtual string ConvertTypeToDbType(Type type, int width = int.MaxValue)
 		{
-			Type type = Nullable.GetUnderlyingType(propertyInfo.PropertyType) ?? propertyInfo.PropertyType;
+			Type underlyingType = Nullable.GetUnderlyingType(type);
+			bool typeIsNullable = underlyingType != null || !type.IsValueType;
+			type = underlyingType ?? type;
+
 			TypeCode typeCode = Type.GetTypeCode(type);
 			switch (typeCode)
 			{
 				case TypeCode.String:
-					var attrs = propertyInfo.CustomAttributes.ToList();
-					int width = (int)(attrs.Find(a => a.AttributeType.Name == nameof(LengthAttribute))?.ConstructorArguments[0].Value ?? int.MaxValue);
 					if (width == int.MaxValue)
-						sql.NText();
+						SqlBuilder.Expr().NText();
 					else
-						sql.NVarchar(width);
+						SqlBuilder.Expr().NVarchar(width);
 					break;
 
 				case TypeCode.Boolean:
-					sql.Boolean();
+					SqlBuilder.Expr().Boolean();
 					break;
 
 				case TypeCode.Int16:
 				case TypeCode.UInt16:
-					sql.Smallint();
+					SqlBuilder.Expr().Smallint();
 					break;
 
 				case TypeCode.Int32:
 				case TypeCode.UInt32:
-					sql.Int();
+					SqlBuilder.Expr().Int();
 					break;
 
 				case TypeCode.Int64:
 				case TypeCode.UInt64:
-					sql.Bigint();
+					SqlBuilder.Expr().Bigint();
 					break;
 
 				// TODO: handle more conversion from C# type to SQL type
 
 				default:
-					throw new Exception($"Unsupported type '{propertyInfo.PropertyType}'."); // TODO: localization and better text
+					throw new Exception($"Unsupported type '{type.ToString()}'."); // TODO: localization and better text
 			}
+
+			return SqlBuilder.Build();
 		}
 
-		protected virtual object ConvertDbValueToValue(string dbType, object dbValue, Type type)
+		public virtual object ConvertDbValueToValue(string dbType, object dbValue, Type valueType)
 		{
-			Check.Null(type, nameof(type));
+			Check.Null(valueType, nameof(valueType));
 
-			type = Nullable.GetUnderlyingType(type) ?? type;
+			Type underlyingType = Nullable.GetUnderlyingType(valueType);
+			bool valueTypeIsNullable = underlyingType != null || !valueType.IsValueType;
+			valueType = underlyingType ?? valueType;
+
+			if (dbValue == null || dbValue.GetType() == typeof(DBNull))
+			{
+				if (valueTypeIsNullable)
+					return null;
+				else
+					throw new InvalidCastException($"Can not convert NULL to type {valueType.Name}."); // TODO: translation
+			}
 
 			// dbType CAN BE null -> caller don't know this information
-			// TODO: handle null, but how?
-			var v = Convert.ChangeType(dbValue, type);
+			var v = Convert.ChangeType(dbValue, valueType);
 			return v;
 		}
 
-		public virtual object ConvertDbValueToPropertyValue(string dbType, object dbValue, PropertyInfo propertyInfo)
+		public virtual object ConvertValueToDbValue(Type type, object value, string dbType)
 		{
-			Check.Null(propertyInfo, nameof(propertyInfo));
+			Check.Null(type, nameof(type));
 
-			return ConvertDbValueToValue(dbType, dbValue, propertyInfo.PropertyType);
-		}
-
-		public virtual object ConvertPropertyValueToDbValue(object propertyValue, PropertyInfo propertyInfo)
-		{
-			Check.Null(propertyInfo, nameof(propertyInfo));
-
-			if (propertyValue == null)
+			if (value == null)
 				return DBNull.Value;
 
 			// TODO: handle conversions
+			// dbType CAN BE null -> caller don't know this information
 
-			return propertyValue;
+			return value;
 		}
 
 		protected enum CommandType
@@ -162,7 +169,7 @@ namespace pbXNet.Database
 			string s = "";
 			foreach (DbParameter p in cmd.Parameters)
 				s += (s == "" ? "" : ", ") +
-					$"@{p.ParameterName} = {{{p.Value.ToString()}}}";
+					$"{SqlBuilder.ParameterPrefix}{p.ParameterName} = {{{p.Value.GetType().Name}: {p.Value.ToString()}}}";
 			Log.D(s, this, callerName);
 		}
 #endif
@@ -174,12 +181,13 @@ namespace pbXNet.Database
 			if (parameters == null)
 				return;
 
-			foreach (var _p in parameters)
+			foreach (var param in parameters)
 			{
-				DbParameter p = cmd.CreateParameter();
-				p.ParameterName = _p.name;
-				p.Value = _p.value ?? DBNull.Value;
-				cmd.Parameters.Add(p);
+				DbParameter dbParam = cmd.CreateParameter();
+				dbParam.Value = ConvertValueToDbValue(param.GetType(), param.value, null);
+				dbParam.ParameterName = param.name;
+
+				cmd.Parameters.Add(dbParam);
 			}
 #if DEBUG
 			DumpParameters(cmd);
@@ -201,7 +209,7 @@ namespace pbXNet.Database
 			(string name, object value)[] _parameters = new(string name, object value)[parameters.Length];
 
 			for (int i = 0; i < parameters.Length; i++)
-				_parameters[i] = ($"_{i + 1}", parameters[i]);
+				_parameters[i] = ($"{SqlBuilder.AutoGeneratedParameterPrefix}{i + 1}", parameters[i]);
 
 			return CreateCommand(type, sql, _parameters);
 		}
@@ -254,7 +262,6 @@ namespace pbXNet.Database
 					v = await cmd.ExecuteScalarAsync().ConfigureAwait(false);
 
 				return (T)ConvertDbValueToValue(null, v, typeof(T));
-				//return (T)Convert.ChangeType(v, typeof(T));
 			}
 			finally
 			{
@@ -293,11 +300,12 @@ namespace pbXNet.Database
 		public async Task<IQueryResult<T>> QueryAsync<T>(string sql) where T : new()
 			=> await ExecuteReaderAsync<T>(CreateCommand(CommandType.Query, sql), true).ConfigureAwait(false);
 
-		//
-
-		public virtual IQuery<T> Query<T>(string tableName) where T : new() => new SqlQuery<T>(this, tableName);
-
-		public virtual IQuery<T> Query<T>(SqlBuilder sqlBuilder) where T : new() => new SqlQuery<T>(this, sqlBuilder);
+		public virtual IQuery<T> Query<T>(string sql) where T : new()
+		{
+			SqlBuilder sqlBuilder = SqlBuilder.New();
+			sqlBuilder.Text(sql);
+			return new SqlQuery<T>(this, sqlBuilder);
+		}
 
 		public ITable<T> Table<T>(string tableName) where T : new() => TableAsync<T>(tableName).GetAwaiter().GetResult();
 
@@ -305,7 +313,7 @@ namespace pbXNet.Database
 		{
 			Check.Empty(tableName, nameof(tableName));
 
-			// TODO: dictionary...
+			// TODO: dictionary...???
 
 			// TODO: better method to find if table exists?
 			try

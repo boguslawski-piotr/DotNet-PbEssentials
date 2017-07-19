@@ -13,13 +13,20 @@ namespace pbXNet.Database
 		protected SDCQueryResult<T> _parent;
 
 		protected IDatabase _db;
+
 		protected DbCommand _cmd;
+
 		protected DbDataReader _rows;
 
-		protected IDictionary<string, PropertyInfo> _properties;
+		protected IOrderedEnumerable<T> _orderedRows;
+
+		protected Lazy<List<T>> _cachedRows = new Lazy<List<T>>(() => new List<T>(), true);
+
+		protected volatile bool _useCachedRows;
 
 		protected List<Func<T, bool>> _filters;
-		protected IOrderedEnumerable<T> _orderedRows;
+
+		protected IDictionary<string, PropertyInfo> _properties;
 
 		public SDCQueryResult(IDatabase db, DbCommand cmd, DbDataReader rows)
 		{
@@ -43,9 +50,13 @@ namespace pbXNet.Database
 		{
 			_parent?.Dispose();
 			_parent = null;
-			_orderedRows = null;
+			_properties?.Clear();
+			_properties = null;
 			_filters?.Clear();
 			_filters = null;
+			_orderedRows = null;
+			_cachedRows?.Value?.Clear();
+			_cachedRows = null;
 			_rows?.Close();
 			_rows?.Dispose();
 			_rows = null;
@@ -64,6 +75,22 @@ namespace pbXNet.Database
 			return this;
 		}
 
+		protected virtual bool ApplyFilters(T v)
+		{
+			bool ok = _filters == null;
+			if (!ok)
+			{
+				foreach (var predicate in _filters)
+				{
+					ok = predicate(v);
+					if (!ok)
+						break;
+				}
+			}
+
+			return ok;
+		}
+
 		public virtual IQueryResult<T> OrderBy(Func<T, object> keySelector)
 		{
 			return new SDCQueryResult<T>(this, _orderedRows == null ? Enumerable.OrderBy(this, keySelector) : _orderedRows.ThenBy(keySelector));
@@ -79,7 +106,7 @@ namespace pbXNet.Database
 			for (int i = 0; i < r.FieldCount; i++)
 			{
 				if (_properties.TryGetValue(r.GetName(i), out PropertyInfo p))
-					p.SetValue(v, _db.ConvertDbValueToPropertyValue(r.GetDataTypeName(i), r.IsDBNull(i) ? null : r.GetValue(i), p));
+					p.SetValue(v, _db.ConvertDbValueToValue(r.GetDataTypeName(i), r.IsDBNull(i) ? null : r.GetValue(i), p.PropertyType));
 			}
 		}
 
@@ -95,26 +122,29 @@ namespace pbXNet.Database
 			}
 			else
 			{
-				while (_rows.Read())
+				if (_useCachedRows)
 				{
-					T v = new T();
-					GetRowData(_rows, ref v);
-
-					bool ok = _filters == null;
-					if (!ok)
+					foreach (var v in _cachedRows.Value)
 					{
-						foreach (var predicate in _filters)
+						if (ApplyFilters(v))
+							yield return v;
+					}
+				}
+				else
+				{
+					while (_rows.Read())
+					{
+						T v = new T();
+						GetRowData(_rows, ref v);
+
+						if (ApplyFilters(v))
 						{
-							ok = predicate(v);
-							if (!ok)
-								break;
+							_cachedRows.Value.Add(v);
+							yield return v;
 						}
 					}
 
-					if (ok)
-					{
-						yield return v;
-					}
+					_useCachedRows = true;
 				}
 			}
 		}

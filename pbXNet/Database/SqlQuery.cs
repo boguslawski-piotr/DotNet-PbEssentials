@@ -40,7 +40,8 @@ namespace pbXNet.Database
 			_sqlBuilder = _db.SqlBuilder.New();
 
 			_sqlBuilder.Select();
-			foreach (var p in typeof(T).GetRuntimeProperties()) _sqlBuilder.C(p.Name);
+			foreach (var p in typeof(T).GetRuntimeProperties())
+				_sqlBuilder.C(p.Name);
 			_sqlBuilder.From(tableName);
 
 			_scalarSqlBuilder = _db.SqlBuilder.New().Select().Text(_scalarExprPlaceholder).From(tableName);
@@ -58,7 +59,10 @@ namespace pbXNet.Database
 
 			if (_scalarSqlBuilder == null)
 			{
-				// TODO: try to build ScalarSql based on Sql
+				_scalarSqlBuilder = _sqlBuilder.Clone();
+
+				if (!_scalarSqlBuilder.ReplaceSelectColumnsWith(_scalarExprPlaceholder))
+					_scalarSqlBuilder = null;
 			}
 		}
 
@@ -88,7 +92,7 @@ namespace pbXNet.Database
 			return sexpr;
 		}
 
-		void CreateDbWhere()
+		protected void CreateDbWhere()
 		{
 			lock (_lock)
 			{
@@ -97,9 +101,9 @@ namespace pbXNet.Database
 			}
 		}
 
-		bool DbWhereDefined => _dbWhere != null && _dbWhere.Count > 0;
+		protected bool DbWhereDefined => _dbWhere != null && _dbWhere.Count > 0;
 
-		void CreateLocalWhere()
+		protected void CreateLocalWhere()
 		{
 			lock (_lock)
 			{
@@ -108,7 +112,7 @@ namespace pbXNet.Database
 			}
 		}
 
-		bool LocalWhereDefined => _localWhere != null && _localWhere.Count > 0;
+		protected bool LocalWhereDefined => _localWhere != null && _localWhere.Count > 0;
 
 		public virtual IQuery<T> Where(Expression<Func<T, bool>> predicate)
 		{
@@ -129,7 +133,7 @@ namespace pbXNet.Database
 			return this;
 		}
 
-		void CreateDbOrderBy()
+		protected void CreateDbOrderBy()
 		{
 			lock (_lock)
 			{
@@ -138,9 +142,9 @@ namespace pbXNet.Database
 			}
 		}
 
-		bool DbOrderByDefined => _dbOrderBy != null && _dbOrderBy.Count > 0;
+		protected bool DbOrderByDefined => _dbOrderBy != null && _dbOrderBy.Count > 0;
 
-		void CreateLocalOrderBy()
+		protected void CreateLocalOrderBy()
 		{
 			lock (_lock)
 			{
@@ -149,7 +153,7 @@ namespace pbXNet.Database
 			}
 		}
 
-		bool LocalOrderByDefined => _localOrderBy != null && _localOrderBy.Count > 0;
+		protected bool LocalOrderByDefined => _localOrderBy != null && _localOrderBy.Count > 0;
 
 		protected virtual bool OrderBy<TKey>(Expression<Func<T, TKey>> keySelector, bool desc)
 		{
@@ -214,7 +218,7 @@ namespace pbXNet.Database
 			return false;
 		}
 
-		public virtual async Task<IQueryResult<T>> QueryAsync()
+		public virtual async Task<IQueryResult<T>> ResultAsync()
 		{
 			SqlBuilder sqlBuilder = _sqlBuilder.Clone();
 
@@ -262,7 +266,7 @@ namespace pbXNet.Database
 
 			if (_scalarSqlBuilder == null || LocalWhereDefined)
 			{
-				using (var q = await QueryAsync().ConfigureAwait(false))
+				using (var q = await ResultAsync().ConfigureAwait(false))
 					return localScalarFunc(q);
 			}
 
@@ -278,13 +282,13 @@ namespace pbXNet.Database
 
 		public async Task<bool> AnyAsync()
 		{
-			var result = await ScalarAsync(q => q.Any(), _sqlBuilder.Expr("1")).ConfigureAwait(false);
+			var result = await ScalarAsync(q => q.Any(), _sqlBuilder.New().Expr("1")).ConfigureAwait(false);
 			return result == null ? false : Convert.ToBoolean(result);
 		}
 
 		public async Task<int> CountAsync()
 		{
-			var result = await ScalarAsync(q => q.Count(), _sqlBuilder.Expr("count(*)")).ConfigureAwait(false); // TODO: to SqlBuilder
+			var result = await ScalarAsync(q => q.Count(), _sqlBuilder.New().Count()).ConfigureAwait(false);
 			return result == null ? 0 : Convert.ToInt32(result);
 		}
 	}

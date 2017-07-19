@@ -17,6 +17,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Database\SDCDatabase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Database\SqlQuery.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Database\SDCQueryResult.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Database\SqlServerSqlBuilder.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Database\SqlTable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Database\SqlBuilder.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Database\TableColumnAttributes.cs" />

@@ -65,7 +65,7 @@ namespace pbXNet.Database
 			public IQuery<T> OrderByDescending<TKey>(Expression<Func<T, TKey>> keySelector)
 				=> new InternalQuery<T>(_rows is IOrderedEnumerable<T> ? ((IOrderedEnumerable<T>)_rows).ThenByDescending(keySelector.Compile()) : _rows.OrderByDescending(keySelector.Compile()));
 
-			public async Task<IQueryResult<T>> QueryAsync() => new InternalQueryResult<T>(_rows);
+			public async Task<IQueryResult<T>> ResultAsync() => new InternalQueryResult<T>(_rows);
 
 			public async Task<bool> AnyAsync() => _rows.Any();
 
@@ -304,8 +304,7 @@ namespace pbXNet.Database
 			_tables = null;
 		}
 
-		public IQuery<T> Query<T>(string tableName) where T : new() => Table<T>(tableName).Rows;
-		public IQuery<T> Query<T>(SqlBuilder sql) where T : new() => throw new NotSupportedException();
+		public IQuery<T> Query<T>(string sql) where T : new() => throw new NotSupportedException();
 
 		public ITable<T> Table<T>(string tableName) where T : new() => TableAsync<T>(tableName).GetAwaiter().GetResult();
 
@@ -338,9 +337,9 @@ namespace pbXNet.Database
 		}
 #endif
 
-		public void ConvertPropertyTypeToDbType(PropertyInfo propertyInfo, SqlBuilder sqlBuilder) => throw new NotSupportedException();
-		public object ConvertDbValueToPropertyValue(string dbType, object dbValue, PropertyInfo propertyInfo) => throw new NotSupportedException();
-		public object ConvertPropertyValueToDbValue(object propertyValue, PropertyInfo propertyInfo) => throw new NotSupportedException();
+		public string ConvertTypeToDbType(Type type, int width = int.MaxValue) => throw new NotSupportedException();
+		public object ConvertDbValueToValue(string dbType, object dbValue, Type valueType) => throw new NotSupportedException();
+		public object ConvertValueToDbValue(Type type, object value, string dbType) => throw new NotSupportedException();
 
 		public async Task OpenAsync() { }
 		public async Task CloseAsync() { }

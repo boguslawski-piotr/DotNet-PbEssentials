@@ -15,9 +15,13 @@ namespace pbXNet.Database
 		Task OpenAsync();
 		Task CloseAsync();
 
-		void ConvertPropertyTypeToDbType(PropertyInfo propertyInfo, SqlBuilder sql);
-		object ConvertDbValueToPropertyValue(string dbType, object dbValue, PropertyInfo propertyInfo);
-		object ConvertPropertyValueToDbValue(object propertyValue, PropertyInfo propertyInfo);
+		string ConvertTypeToDbType(Type type, int width = int.MaxValue);
+		
+		// dbType CAN BE null -> caller don't know this information
+		object ConvertDbValueToValue(string dbType, object dbValue, Type valueType);
+
+		// dbType CAN BE null -> caller don't know this information
+		object ConvertValueToDbValue(Type type, object value, string dbType);
 
 		Task<int> StatementAsync(string sql, params (string name, object value)[] parameters);
 		Task<int> StatementAsync(string sql, params object[] parameters);
@@ -31,8 +35,7 @@ namespace pbXNet.Database
 		Task<IQueryResult<T>> QueryAsync<T>(string sql, params object[] parameters) where T : new();
 		Task<IQueryResult<T>> QueryAsync<T>(string sql) where T : new();
 
-		IQuery<T> Query<T>(string tableName) where T : new();
-		IQuery<T> Query<T>(SqlBuilder sqlBuilder) where T : new();
+		IQuery<T> Query<T>(string sql) where T : new();
 
 		// If table not exists then create, otherwise perform upgrade if needed.
 		ITable<T> Table<T>(string tableName) where T : new();

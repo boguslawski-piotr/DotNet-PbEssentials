@@ -46,6 +46,13 @@ namespace pbXNet
 			await FileSystem_InDatabase_StressTest(db);
 		}
 
+		[Fact]
+		public async Task FileSystem_InSqlServer_StressTest()
+		{
+			IDatabase db = SqlServerTestDb.Db;
+			await FileSystem_InDatabase_StressTest(db);
+		}
+
 		public async Task FileSystem_InDatabase_StressTest(IDatabase db)
 		{
 			IFileSystem fs = await FileSystemInDatabase.NewAsync("FsStressTests", db);
@@ -96,6 +103,13 @@ namespace pbXNet
 		{
 			IDatabase db = new SDCDatabase(SqliteTestDb.Connection);
 			IFileSystem fs = await FileSystemInDatabase.NewAsync("FsTests", db);
+			await IFileSystemBasicTest(fs);
+		}
+
+		[Fact]
+		public async Task FileSystem_InSqlServer_BasicTest()
+		{
+			IFileSystem fs = await FileSystemInDatabase.NewAsync("FsTests", SqlServerTestDb.Db);
 			await IFileSystemBasicTest(fs);
 		}
 
@@ -158,6 +172,10 @@ namespace pbXNet
 
 			Assert.Equal(dt, new DateTime(2017, 1, 7, 15, 11, 22, DateTimeKind.Utc));
 
+			await fs.CreateDirectoryAsync("test5");
+
+			await fs.SetCurrentDirectoryAsync("..");
+
 			l = await fs.GetFilesAsync("5$");
 
 			Assert.NotEmpty(l);
@@ -169,6 +187,8 @@ namespace pbXNet
 			l = await fs.GetFilesAsync("15$");
 
 			Assert.Empty(l);
+
+			await fs.DeleteDirectoryAsync("test5");
 
 			await Cleanup(fs);
 		}

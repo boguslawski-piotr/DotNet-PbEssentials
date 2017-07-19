@@ -146,9 +146,9 @@ namespace pbXNet
 			bool emptyPattern = string.IsNullOrWhiteSpace(pattern);
 			using (var rows = Entries.Rows)
 			using (var q = await rows
-				.Where(e => e.Path == CurrentPath && e.IsDirectory)
+				.Where(e => e.Path == CurrentPath && e.IsDirectory == true)
 				.Where(e => emptyPattern || Regex.IsMatch(e.Name, pattern))
-				.QueryAsync()
+				.ResultAsync()
 			)
 			{
 				return q
@@ -212,9 +212,9 @@ namespace pbXNet
 			bool emptyPattern = string.IsNullOrWhiteSpace(pattern);
 			using (var rows = Entries.Rows)
 			using (var q = await rows
-				.Where(e => e.Path == CurrentPath && !e.IsDirectory)
+				.Where(e => e.Path == CurrentPath && e.IsDirectory == false)
 				.Where(e => emptyPattern || Regex.IsMatch(e.Name, pattern))
-				.QueryAsync()
+				.ResultAsync()
 			)
 			{
 				return q

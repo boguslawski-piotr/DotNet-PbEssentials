@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Data.SqlClient;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Microsoft.Data.Sqlite;
@@ -21,6 +22,27 @@ namespace pbXNet
 		}
 	}
 
+	public static class SqlServerTestDb
+	{
+		public static SqlConnection Connection
+		{
+			get {
+				string cs = "Server=(localdb)\\mssqllocaldb;Database=Test;Trusted_Connection=True;MultipleActiveResultSets=True";
+				return new SqlConnection(cs);
+			}
+		}
+
+		public static IDatabase Db
+		{
+			get {
+				return new SDCDatabase(SqlServerTestDb.Connection, new SDCDatabase.Options
+				{
+					SqlBuilder = new SqlServerSqlBuilder()
+				});
+			}
+		}
+	}
+
 	public class IDatabase_Tests
 	{
 		readonly ITestOutputHelper _output;
@@ -37,8 +59,8 @@ namespace pbXNet
 
 		class Row
 		{
-			[PrimaryKey] public string Path { get; set; }
-			[PrimaryKey] public string Name { get; set; }
+			[PrimaryKey] [Length(256)] public string Path { get; set; }
+			[PrimaryKey] [Length(256)] public string Name { get; set; }
 			public bool? IsDirectory { get; set; }
 
 			public override string ToString()
@@ -68,6 +90,13 @@ namespace pbXNet
 		}
 
 		[Fact]
+		public async Task SqlServer_BasicTest()
+		{
+			IDatabase db = SqlServerTestDb.Db;
+			await IDatabaseBasicTest(db);
+		}
+
+		[Fact]
 		public async Task SimpleDatabaseInMemory_OrderByTest()
 		{
 			IDatabase db = new SimpleDatabaseInMemory();
@@ -78,6 +107,13 @@ namespace pbXNet
 		public async Task Sqlite_OrderByTest()
 		{
 			IDatabase db = new SDCDatabase(SqliteTestDb.Connection);
+			await IDatabaseOrderByTest(db);
+		}
+
+		[Fact]
+		public async Task SqlServer_OrderByTest()
+		{
+			IDatabase db = SqlServerTestDb.Db;
 			await IDatabaseOrderByTest(db);
 		}
 
@@ -136,7 +172,7 @@ namespace pbXNet
 
 			Assert.False(await t2.Rows.AnyAsync());
 
-			var q1 = t.Rows.Where(r => Regex.IsMatch(r.Name, "35$"));
+			var q1 = t.Rows.Where(r => r.Name.EndsWith("35"));
 
 			Assert.True(await q1.AnyAsync());
 
@@ -146,7 +182,7 @@ namespace pbXNet
 				db.Table<Row>("Tests").Rows
 					.Where(r => Regex.IsMatch(r.Name, "35$"))
 					.OrderByDescending(r => r.Name)
-					.QueryAsync().ConfigureAwait(false)
+					.ResultAsync().ConfigureAwait(false)
 				)
 			{
 
@@ -155,6 +191,7 @@ namespace pbXNet
 					_output.WriteLine($"{r.Path}/{r.Name}");
 				}
 
+				int ccc = q.Count();
 				Assert.True(q.Count() == 100);
 
 				Assert.True(q.First().Name == "dane09935");
@@ -190,7 +227,7 @@ namespace pbXNet
 			var q = await t.Rows
 					.OrderByDescending(r => r.Path)
 					.OrderByDescending(r => r.Name)
-					.QueryAsync().ConfigureAwait(false);
+					.ResultAsync().ConfigureAwait(false);
 
 			using (q)
 			{
