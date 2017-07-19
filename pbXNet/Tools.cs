@@ -36,6 +36,16 @@ namespace pbXNet
 		}
 
 		/// <summary>
+		/// 
+		/// </summary>
+		public static void Swap<T>(ref T a, ref T b)
+		{
+			T temp = a;
+			a = b;
+			b = temp;
+		}
+
+		/// <summary>
 		/// Creates the GUID (Global Unique IDentifier) in the most compact form.
 		/// </summary>
 		public static string CreateGuid()
@@ -44,7 +54,7 @@ namespace pbXNet
 		}
 
 		/// <summary>
-		/// Creates the GUIDex (Global Unique IDentifier extended) in the most compact form.
+		/// Creates the GUIDex (Global Unique IDentifier EXtended) in the most compact form.
 		/// </summary>
 		public static string CreateGuidEx()
 		{
