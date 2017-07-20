@@ -8,6 +8,14 @@ using System.Reflection;
 
 namespace pbXNet.Database
 {
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <remarks>
+	/// This class is not thread safe. The behavior of the same instance 
+	/// used in different threads is undefined and can generate random data 
+	/// or references to undefined data.
+	/// </remarks>
 	public class SDCQueryResult<T> : IQueryResult<T> where T : new()
 	{
 		protected SDCQueryResult<T> _parent;

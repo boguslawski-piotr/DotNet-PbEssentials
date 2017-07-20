@@ -16,9 +16,9 @@ namespace pbXNet.Database
 
 		public string Name { get; } = T.Localized("SDIM_Name");
 
-		public SqlBuilder SqlBuilder => throw new NotSupportedException();
+		public SqlBuilder GetSqlBuilder() => throw new NotSupportedException();
 
-		public IExpressionTranslator ExpressionTranslator => throw new NotSupportedException();
+		public IExpressionTranslator GetExpressionTranslator(Type typeForWhichMemberNamesWillBeEmitted = null) => throw new NotSupportedException();
 
 		public class Exception<T> : System.Exception
 		{

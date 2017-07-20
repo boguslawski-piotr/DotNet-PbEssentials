@@ -7,31 +7,44 @@ using System.Threading.Tasks;
 
 namespace pbXNet.Database
 {
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <remarks>
+	/// This class is not thread safe. The behavior of the same instance 
+	/// used in different threads is undefined and can generate random data 
+	/// or references to undefined data.
+	/// </remarks>
 	public class SqlTable<T> : ITable<T> where T : new()
 	{
 		public string Name { get; private set; }
 
-		protected IDatabase _db;
+		protected readonly IDatabase _db;
 
-		protected SqlBuilder _sqlBuilder;
+		protected readonly SqlBuilder _sqlBuilder;
 
-		protected List<PropertyInfo> _columns;
+		protected readonly List<PropertyInfo> _columns;
 
-		protected List<PropertyInfo> _pkColumns;
+		protected readonly List<PropertyInfo> _pkColumns;
 
 		public SqlTable(IDatabase db, string name)
 		{
 			Check.Null(db, nameof(db));
 			Check.Empty(name, nameof(name));
 
-			_db = db;
-			_sqlBuilder = _db.SqlBuilder.New();
-
 			Name = name;
 
+			_db = db;
+
+			_sqlBuilder = _db.GetSqlBuilder();
+
 			_columns = typeof(T).GetRuntimeProperties().ToList();
+
 			_pkColumns = _columns.Where(p => p.CustomAttributes.Any(a => a.AttributeType.Name == nameof(PrimaryKeyAttribute))).ToList();
 		}
+
+		public virtual void Dispose()
+		{ }
 
 		public static async Task<ITable<T>> OpenAsync(IDatabase db, string name)
 		{
@@ -124,9 +137,6 @@ namespace pbXNet.Database
 			}
 		}
 
-		public virtual void Dispose()
-		{ }
-
 		public virtual IQuery<T> Rows
 		{
 			get {
@@ -211,7 +221,7 @@ namespace pbXNet.Database
 			Check.Null(o, nameof(o));
 			Check.Null(predicate, nameof(predicate));
 
-			IExpressionTranslator translator = _db.ExpressionTranslator.New(typeof(TA));
+			IExpressionTranslator translator = _db.GetExpressionTranslator(typeof(TA));
 			string sexpr = translator.Translate(predicate.Body);
 			if (sexpr != null)
 			{
@@ -291,7 +301,7 @@ namespace pbXNet.Database
 		{
 			Check.Null(predicate, nameof(predicate));
 
-			IExpressionTranslator translator = _db.ExpressionTranslator.New(typeof(T));
+			IExpressionTranslator translator = _db.GetExpressionTranslator(typeof(T));
 			string sexpr = translator.Translate(predicate.Body);
 			if (sexpr != null)
 			{

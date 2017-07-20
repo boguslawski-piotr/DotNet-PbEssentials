@@ -5,18 +5,21 @@ using System.Reflection;
 
 namespace pbXNet.Database
 {
+	/// <remarks>
+	/// This class is not thread safe. The behavior of the same instance 
+	/// used in different threads is undefined and can generate random data 
+	/// or references to undefined data.
+	/// </remarks>
 	public class Expression2SqlTranslator : IExpressionTranslator
 	{
 		protected static readonly MethodInfo _methodStartsWith = typeof(string).GetRuntimeMethod(nameof(string.StartsWith), new[] { typeof(string) });
 		protected static readonly MethodInfo _methodEndsWith = typeof(string).GetRuntimeMethod(nameof(string.EndsWith), new[] { typeof(string) });
 
-		public List<(string name, object value)> Parameters => _parameters.Value;
+		public List<(string name, object value)> Parameters { get; private set; }
 
-		Lazy<List<(string name, object value)>> _parameters = new Lazy<List<(string, object)>>(() => new List<(string, object)>(), true);
+		protected readonly Type _typeForWhichMemberNamesWillBeEmitted;
 
-		protected Type _typeForWhichMemberNamesWillBeEmitted;
-
-		protected SqlBuilder _sqlBuilder;
+		protected readonly SqlBuilder _sqlBuilder;
 
 		protected class Result
 		{
@@ -36,13 +39,16 @@ namespace pbXNet.Database
 		{
 			Check.Null(sqlBuilder, nameof(sqlBuilder));
 
-			_sqlBuilder = sqlBuilder;
+			_sqlBuilder = sqlBuilder.New();
+
 			_typeForWhichMemberNamesWillBeEmitted = typeForWhichMemberNamesWillBeEmitted;
+
+			Parameters = new List<(string, object)>();
 		}
 
-		public IExpressionTranslator New(Type typeForWhichMemberNamesWillBeEmitted = null)
+		public virtual IExpressionTranslator New(Type typeForWhichMemberNamesWillBeEmitted = null)
 		{
-			return new Expression2SqlTranslator(_sqlBuilder.New(), typeForWhichMemberNamesWillBeEmitted);
+			return new Expression2SqlTranslator(_sqlBuilder, typeForWhichMemberNamesWillBeEmitted);
 		}
 
 		protected virtual Result TranslateExpr(ConstantExpression expr)

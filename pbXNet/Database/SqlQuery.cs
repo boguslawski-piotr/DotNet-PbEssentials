@@ -8,15 +8,23 @@ using System.Threading.Tasks;
 
 namespace pbXNet.Database
 {
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <remarks>
+	/// This class is not thread safe. The behavior of the same instance 
+	/// used in different threads is undefined and can generate random data 
+	/// or references to undefined data.
+	/// </remarks>
 	public class SqlQuery<T> : IQuery<T> where T : new()
 	{
 		protected static readonly string _scalarExprPlaceholder = "_?";
 
-		protected IDatabase _db;
+		protected readonly IDatabase _db;
 
-		protected SqlBuilder _sqlBuilder;
+		protected readonly SqlBuilder _sqlBuilder;
 
-		protected SqlBuilder _scalarSqlBuilder;
+		protected readonly SqlBuilder _scalarSqlBuilder;
 
 		protected IExpressionTranslator _expressionTranslator;
 
@@ -28,8 +36,6 @@ namespace pbXNet.Database
 
 		protected List<(bool desc, Delegate keySelector)> _localOrderBy;
 
-		readonly Object _lock = new Object();
-
 		public SqlQuery(IDatabase db, string tableName)
 		{
 			Check.Null(db, nameof(db));
@@ -37,25 +43,26 @@ namespace pbXNet.Database
 
 			_db = db;
 
-			_sqlBuilder = _db.SqlBuilder.New();
+			_sqlBuilder = _db.GetSqlBuilder();
 
 			_sqlBuilder.Select();
 			foreach (var p in typeof(T).GetRuntimeProperties())
 				_sqlBuilder.C(p.Name);
 			_sqlBuilder.From(tableName);
 
-			_scalarSqlBuilder = _db.SqlBuilder.New().Select().Text(_scalarExprPlaceholder).From(tableName);
+			_scalarSqlBuilder = _db.GetSqlBuilder().Select().Text(_scalarExprPlaceholder).From(tableName);
 		}
 
-		public SqlQuery(IDatabase db, SqlBuilder sqlBuilder, SqlBuilder scalarSqlBuilder = null)
+		public SqlQuery(IDatabase db, string sql, string scalarSql)
 		{
 			Check.Null(db, nameof(db));
-			Check.Null(sqlBuilder, nameof(sqlBuilder));
+			Check.Empty(sql, nameof(sql));
 
 			_db = db;
 
-			_sqlBuilder = sqlBuilder;
-			_scalarSqlBuilder = scalarSqlBuilder;
+			_sqlBuilder = _db.GetSqlBuilder().Start(sql);
+
+			_scalarSqlBuilder = string.IsNullOrWhiteSpace(scalarSql) ? null : _db.GetSqlBuilder().Start(scalarSql);
 
 			if (_scalarSqlBuilder == null)
 			{
@@ -76,11 +83,8 @@ namespace pbXNet.Database
 
 		protected virtual string TranslateExpression(Expression expr, [CallerMemberName]string callerName = null)
 		{
-			lock (_lock)
-			{
-				if (_expressionTranslator == null)
-					_expressionTranslator = _db.ExpressionTranslator.New(typeof(T));
-			}
+			if (_expressionTranslator == null)
+				_expressionTranslator = _db.GetExpressionTranslator(typeof(T));
 
 			string sexpr = _expressionTranslator.Translate(expr);
 
@@ -94,22 +98,16 @@ namespace pbXNet.Database
 
 		protected void CreateDbWhere()
 		{
-			lock (_lock)
-			{
-				if (_dbWhere == null)
-					_dbWhere = new List<string>();
-			}
+			if (_dbWhere == null)
+				_dbWhere = new List<string>();
 		}
 
 		protected bool DbWhereDefined => _dbWhere != null && _dbWhere.Count > 0;
 
 		protected void CreateLocalWhere()
 		{
-			lock (_lock)
-			{
-				if (_localWhere == null)
-					_localWhere = new List<Func<T, bool>>();
-			}
+			if (_localWhere == null)
+				_localWhere = new List<Func<T, bool>>();
 		}
 
 		protected bool LocalWhereDefined => _localWhere != null && _localWhere.Count > 0;
@@ -135,22 +133,16 @@ namespace pbXNet.Database
 
 		protected void CreateDbOrderBy()
 		{
-			lock (_lock)
-			{
-				if (_dbOrderBy == null)
-					_dbOrderBy = new List<(bool, string)>();
-			}
+			if (_dbOrderBy == null)
+				_dbOrderBy = new List<(bool, string)>();
 		}
 
 		protected bool DbOrderByDefined => _dbOrderBy != null && _dbOrderBy.Count > 0;
 
 		protected void CreateLocalOrderBy()
 		{
-			lock (_lock)
-			{
-				if (_localOrderBy == null)
-					_localOrderBy = new List<(bool, Delegate)>();
-			}
+			if (_localOrderBy == null)
+				_localOrderBy = new List<(bool, Delegate)>();
 		}
 
 		protected bool LocalOrderByDefined => _localOrderBy != null && _localOrderBy.Count > 0;

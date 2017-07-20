@@ -16,9 +16,9 @@ namespace pbXNet.Database
 
 		ConnectionType ConnectionType { get; }
 
-		SqlBuilder SqlBuilder { get; }
+		SqlBuilder GetSqlBuilder();
 
-		IExpressionTranslator ExpressionTranslator { get; }
+		IExpressionTranslator GetExpressionTranslator(Type typeForWhichMemberNamesWillBeEmitted = null);
 
 		Task OpenAsync();
 
