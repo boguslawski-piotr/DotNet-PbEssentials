@@ -47,14 +47,9 @@ namespace pbXNet
 	{
 		readonly ITestOutputHelper _output;
 
-		string www;
-		string pwww { get; set; }
-
 		public IDatabase_Tests(ITestOutputHelper output)
 		{
 			_output = output;
-			www = "qqq";
-			pwww = "pqqq";
 		}
 
 		class Row
@@ -117,8 +112,24 @@ namespace pbXNet
 			await IDatabaseOrderByTest(db);
 		}
 
-		public void temp()
+		string www;
+		string pwww { get; set; }
+
+		static string swww = "sqqq";
+		static string spwww { get; set; } = "spqqq";
+
+		const string cwww = "cwww";
+
+		public async Task temp()
 		{
+			IDatabase db = new SDCDatabase(SqliteTestDb.Connection);
+			var t = await db.TableAsync<Row>("Tests");
+
+			db.Query<Row>("select * from Tests");
+
+			www = "qqq";
+			pwww = "pqqq";
+
 			//int iii = 20 * 30;
 			//var q0 = t.Rows.Where(r => (iii & 20) == 0);
 			//int ccc = await q0.CountAsync();
@@ -133,11 +144,17 @@ namespace pbXNet
 			//using (await q0.QueryAsync()) { }
 			//ccc = await q0.CountAsync();
 
-			//q0 = t.Rows.Where(r => r.Path == pwww);
+			var q0 = t.Rows.Where(r => r.Path == cwww);
+
+			q0 = t.Rows.Where(r => r.Path == pwww);
 			//using (await q0.QueryAsync()) { }
 
-			//q0 = t.Rows.Where(r => r.Path == www);
+			q0 = t.Rows.Where(r => r.Path == www);
 			//using (await q0.QueryAsync()) { }
+
+			q0 = t.Rows.Where(r => r.Path == swww);
+
+			q0 = t.Rows.Where(r => r.Path == spwww);
 
 			//string xxx = "zzz";
 			//q0 = t.Rows.Where(r => r.Name == xxx);
@@ -188,7 +205,7 @@ namespace pbXNet
 
 				foreach (var r in q)
 				{
-					_output.WriteLine($"{r.Path}/{r.Name}");
+					_output?.WriteLine($"{r.Path}/{r.Name}");
 				}
 
 				int ccc = q.Count();
@@ -233,7 +250,7 @@ namespace pbXNet
 			{
 				foreach (var r in q)
 				{
-					_output.WriteLine(r.ToString());
+					_output?.WriteLine(r.ToString());
 				}
 
 				Assert.True(q.Count() == 25);
