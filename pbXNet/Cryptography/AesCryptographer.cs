@@ -47,10 +47,8 @@ namespace pbXNet
 
 		public IByteBuffer GenerateKey(IPassword pwd, IByteBuffer salt)
 		{
-			if (pwd == null)
-				throw new ArgumentNullException(nameof(pwd));
-			if (salt == null)
-				throw new ArgumentNullException(nameof(salt));
+			Check.Null(pwd, nameof(pwd));
+			Check.Null(salt, nameof(salt));
 
 			Aes alg = _algImpl;
 			Rfc2898DeriveBytes pdb = new Rfc2898DeriveBytes(pwd.GetBytes(), salt.GetBytes(), 10000);
@@ -69,12 +67,9 @@ namespace pbXNet
 
 		public ByteBuffer Encrypt(IByteBuffer msg, IByteBuffer key, IByteBuffer iv)
 		{
-			if (msg == null)
-				throw new ArgumentNullException(nameof(msg));
-			if (key == null)
-				throw new ArgumentNullException(nameof(key));
-			if (iv == null)
-				throw new ArgumentNullException(nameof(iv));
+			Check.Null(msg, nameof(msg));
+			Check.Null(key, nameof(key));
+			Check.Null(iv, nameof(iv));
 
 			Aes alg = _algImpl;
 			ByteBuffer emsg = Transform(msg.GetBytes(), msg.Length, key, iv, alg, true);
@@ -93,14 +88,10 @@ namespace pbXNet
 
 		public ByteBuffer Decrypt(IByteBuffer msg, IByteBuffer key, IByteBuffer iv)
 		{
-			if (msg == null)
-				throw new ArgumentNullException(nameof(msg));
-			if (msg.Length <= _signatureSize)
-				throw new ArgumentException(T.Localized("AES_IncrorrectFormat"), nameof(msg));
-			if (key == null)
-				throw new ArgumentNullException(nameof(key));
-			if (iv == null)
-				throw new ArgumentNullException(nameof(iv));
+			Check.Null(msg, nameof(msg));
+			Check.Null(key, nameof(key));
+			Check.Null(iv, nameof(iv));
+			Check.True(msg.Length > _signatureSize, T.Localized("AES_IncrorrectFormat"), nameof(msg));
 
 			try
 			{

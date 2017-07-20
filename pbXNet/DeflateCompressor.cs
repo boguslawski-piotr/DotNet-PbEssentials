@@ -1,21 +1,18 @@
 ﻿using System;
 using System.IO;
 using System.IO.Compression;
-using System.Threading.Tasks;
 
 #if PLUGIN_PBXSETTINGS
 namespace Plugin.pbXSettings.pbXNet
 #else
 namespace pbXNet
 #endif
-
 {
 	public class DeflateCompressor : ICompressor
 	{
 		public T Compress<T>(Stream from) where T : Stream, new()
 		{
-			if (from == null)
-				throw new ArgumentNullException(nameof(from));
+			Check.Null(from, nameof(from));
 
 			T to = new T();
 			using (DeflateStream via = new DeflateStream(to, CompressionMode.Compress, true))
@@ -28,8 +25,7 @@ namespace pbXNet
 
 		public T Decompress<T>(Stream from) where T : Stream, new()
 		{
-			if (from == null)
-				throw new ArgumentNullException(nameof(from));
+			Check.Null(from, nameof(from));
 
 			T to = new T();
 			using (DeflateStream via = new DeflateStream(from, CompressionMode.Decompress, true))
@@ -42,8 +38,7 @@ namespace pbXNet
 
 		public string Compress(string d, bool returnAsBase64 = false)
 		{
-			if (d == null)
-				throw new ArgumentNullException(nameof(d));
+			Check.Null(d, nameof(d));
 
 			MemoryStream dcs = Compress<MemoryStream>(ConvertEx.ToMemoryStream(d));
 			dcs.Position = 0;
@@ -59,8 +54,7 @@ namespace pbXNet
 
 		public string Decompress(string d, bool fromBase64 = false)
 		{
-			if (d == null)
-				throw new ArgumentNullException(nameof(d));
+			Check.Null(d, nameof(d));
 
 			MemoryStream dms = new MemoryStream(!fromBase64 ? ConvertEx.FromHexString(d) : Convert.FromBase64String(d));
 			MemoryStream dcs = Decompress<MemoryStream>(dms);

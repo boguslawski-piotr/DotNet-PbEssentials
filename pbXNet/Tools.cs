@@ -109,10 +109,16 @@ namespace pbXNet
 				throw new ArgumentNullException(name);
 		}
 
-		public static void True(bool expr, string name, [CallerMemberName]string callerName = null)
+		public static void True(bool expr, string message, string name, [CallerMemberName]string callerName = null)
 		{
 			if (!expr)
-				throw new ArgumentException(""); // TODO: Check.True message
+				throw new ArgumentException(message, name); // TODO: Check.True message
+		}
+
+		public static void False(bool expr, string message, string name, [CallerMemberName]string callerName = null)
+		{
+			if (expr)
+				throw new ArgumentException(message, name); // TODO: Check.True message
 		}
 	}
 }

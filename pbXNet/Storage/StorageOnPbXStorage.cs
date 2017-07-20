@@ -60,6 +60,9 @@ namespace pbXNet
 
 		public static async Task<string> ExecuteCommandAsync(HttpClient httpClient, string cmd, Uri uri, HttpContent content = null)
 		{
+			Check.Null(httpClient, nameof(httpClient));
+			Check.Null(uri, nameof(uri));
+
 			try
 			{
 				Log.D($"REQUEST: {cmd}: {uri}");

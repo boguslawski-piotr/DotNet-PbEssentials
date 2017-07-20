@@ -9,24 +9,30 @@ namespace pbXNet
 	{
 		public string Id { get; }
 
-		ICryptographer _cryptographer = new AesCryptographer();
+		readonly ICryptographer _cryptographer = new AesCryptographer();
 
-		ISerializer _serializer;
+		readonly ISerializer _serializer;
 
-		IStorage<string> _storage;
+		readonly IStorage<string> _storage;
 
 		/// IMPORTANT NOTE: 
 		/// Passed passwd is completely cleaned (zeros) as soon as possible.
 		/// You should not use this data anymore after it was passed to the EncryptedFileSystem class constructor.
 		public SecretsManager(string id, ISerializer serializer = null, IStorage<string> storage = null, IPassword passwd = null)
 		{
-			if (id == null)
-				throw new ArgumentNullException(nameof(id));
-
-			Id = id;
+			Id = id ?? throw new ArgumentNullException(nameof(id));
 			_serializer = new StringOptimizedSerializer(serializer ?? new NewtonsoftJsonSerializer());
 			_storage = storage;
 			_CreateCKey(passwd);
+		}
+
+		public void Dispose()
+		{
+			_secretsDataCKey?.Dispose();
+			_secretsDataIV.Dispose();
+
+			_temporarySecrets.Clear();
+			_secrets.Clear();
 		}
 
 		// Common code for passwords, ckeys and other secrets
@@ -42,11 +48,11 @@ namespace pbXNet
 
 		IDictionary<string, string> _secrets = new Dictionary<string, string>();
 
-		IDictionary<string, TemporarySecret> _temporarySecrets = new Dictionary<string, TemporarySecret>();
+		readonly IDictionary<string, TemporarySecret> _temporarySecrets = new Dictionary<string, TemporarySecret>();
 
 		const string _secretsDataId = ".d46ee950276f4665aefa06cb2ee6b35e";
 
-		SecureBuffer _secretsDataIV = SecureBuffer.NewFromHexString("F36A0B7F6D95F16089EBB4A3EC196F0D960300");
+		readonly SecureBuffer _secretsDataIV = SecureBuffer.NewFromHexString("F36A0B7F6D95F16089EBB4A3EC196F0D960300");
 
 		IByteBuffer _secretsDataCKey;
 
@@ -64,14 +70,12 @@ namespace pbXNet
 			if (_secrets.Count > 0 || _storage == null)
 				return;
 
-			// TODO: async as sync -> sprawdzic wyjatki i czy na pewno jest to ok rozwiazanie
 			string d = null;
 			try
 			{
 				d = Task.Run(async () => await _storage.GetACopyAsync(_secretsDataId)).GetAwaiter().GetResult();
 			}
 			catch (StorageThingNotFoundException) { }
-			//string d = await _storage.GetACopyAsync(_ckeysDataId);
 
 			if (!string.IsNullOrEmpty(d))
 			{
@@ -101,6 +105,8 @@ namespace pbXNet
 
 		void _AddOrUpdateSecret(string id, SecretLifeTime lifeTime, string s)
 		{
+			Check.Empty(id, nameof(id));
+
 			s = Obfuscator.Obfuscate(s);
 
 			if (lifeTime == SecretLifeTime.Infinite)
@@ -124,6 +130,8 @@ namespace pbXNet
 
 		bool _SecretExists(string id)
 		{
+			Check.Empty(id, nameof(id));
+
 			if (_temporarySecrets.ContainsKey(id))
 				return true;
 
@@ -133,6 +141,8 @@ namespace pbXNet
 
 		string _GetSecret(string id)
 		{
+			Check.Empty(id, nameof(id));
+
 			string __GetSecret()
 			{
 				if (_temporarySecrets.TryGetValue(id, out TemporarySecret s))
@@ -152,6 +162,8 @@ namespace pbXNet
 
 		void _DeleteSecret(string id)
 		{
+			Check.Empty(id, nameof(id));
+
 			if (_temporarySecrets.ContainsKey(id))
 				_temporarySecrets.Remove(id);
 
@@ -179,8 +191,8 @@ namespace pbXNet
 
 		public void AddOrUpdatePassword(string id, SecretLifeTime lifeTime, IPassword passwd)
 		{
-			if (id == null)
-				return;
+			Check.Empty(id, nameof(id));
+			Check.Null(passwd, nameof(passwd));
 
 			EncryptedPassword epasswd = null;
 			try
@@ -202,12 +214,25 @@ namespace pbXNet
 			_AddOrUpdateSecret(_passwordIdPrefix + id, lifeTime, _serializer.Serialize<EncryptedPassword>(epasswd));
 		}
 
-		public bool PasswordExists(string id) => _SecretExists(_passwordIdPrefix + id);
+		public bool PasswordExists(string id)
+		{
+			Check.Empty(id, nameof(id));
 
-		public void DeletePassword(string id) => _DeleteSecret(_passwordIdPrefix + id);
+			return _SecretExists(_passwordIdPrefix + id);
+		}
+
+		public void DeletePassword(string id)
+		{
+			Check.Empty(id, nameof(id));
+
+			_DeleteSecret(_passwordIdPrefix + id);
+		}
 
 		public bool ComparePassword(string id, IPassword passwd)
 		{
+			Check.Empty(id, nameof(id));
+			Check.Null(passwd, nameof(passwd));
+
 			EncryptedPassword epasswd = null;
 			try
 			{
@@ -228,8 +253,8 @@ namespace pbXNet
 
 		public void CreateCKey(string id, SecretLifeTime lifeTime, IPassword passwd)
 		{
-			if (id == null)
-				return;
+			Check.Empty(id, nameof(id));
+			Check.Null(passwd, nameof(passwd));
 
 			IByteBuffer ckeyb = new SecureBuffer(_cryptographer.GenerateKey(passwd, new ByteBuffer(_salt)), true);
 			string ckey = ckeyb.ToHexString();
@@ -238,16 +263,32 @@ namespace pbXNet
 			_AddOrUpdateSecret(id, lifeTime, ckey);
 		}
 
-		public bool CKeyExists(string id) => _SecretExists(id);
+		public bool CKeyExists(string id)
+		{
+			return _SecretExists(id);
+		}
 
-		public void DeleteCKey(string id) => _DeleteSecret(id);
+		public void DeleteCKey(string id)
+		{
+			_DeleteSecret(id);
+		}
 
-		IByteBuffer GetCKey(string id) => SecureBuffer.NewFromHexString(_GetSecret(id));
+		IByteBuffer GetCKey(string id)
+		{
+			return SecureBuffer.NewFromHexString(_GetSecret(id));
+		}
 
-		public IByteBuffer GenerateIV() => _cryptographer.GenerateIV();
+		public IByteBuffer GenerateIV()
+		{
+			return _cryptographer.GenerateIV();
+		}
 
 		public string Encrypt(string data, string id, IByteBuffer iv)
 		{
+			Check.Null(data, nameof(data));
+			Check.Empty(id, nameof(id));
+			Check.Null(iv, nameof(iv));
+
 			IByteBuffer ckey = GetCKey(id);
 			ByteBuffer edata = _cryptographer.Encrypt(new ByteBuffer(data, Encoding.UTF8), ckey, iv);
 			ckey.Dispose();
@@ -256,6 +297,10 @@ namespace pbXNet
 
 		public string Decrypt(string data, string id, IByteBuffer iv)
 		{
+			Check.Empty(data, nameof(data));
+			Check.Empty(id, nameof(id));
+			Check.Null(iv, nameof(iv));
+
 			IByteBuffer ckey = GetCKey(id);
 			ByteBuffer ddata = _cryptographer.Decrypt(ByteBuffer.NewFromHexString(data), ckey, iv);
 			ckey.Dispose();
@@ -268,35 +313,32 @@ namespace pbXNet
 
 		public void AddOrUpdateSecret<T>(string id, SecretLifeTime lifeTime, T data)
 		{
-			if (id == null)
-				return;
+			Check.Empty(id, nameof(id));
 
 			string serializedData = _serializer.Serialize<T>(data);
 
 			_AddOrUpdateSecret(_secretIdPrefix + id, lifeTime, serializedData);
 		}
 
-		public bool SecretExists(string id) => _SecretExists(_secretIdPrefix + id);
-
-		public T GetSecret<T>(string id) => _serializer.Deserialize<T>(_GetSecret(_secretIdPrefix + id));
-
-		public void DeleteSecret(string id) => _DeleteSecret(_secretIdPrefix + id);
-
-		//
-
-		public void Dispose()
+		public bool SecretExists(string id)
 		{
-			_cryptographer = null;
-			_serializer = null;
-			_storage = null;
+			Check.Empty(id, nameof(id));
 
-			_secretsDataCKey?.Dispose();
-			_secretsDataIV.Dispose();
+			return _SecretExists(_secretIdPrefix + id);
+		}
 
-			_temporarySecrets.Clear();
-			_temporarySecrets = null;
-			_secrets.Clear();
-			_secrets = null;
+		public T GetSecret<T>(string id)
+		{
+			Check.Empty(id, nameof(id));
+
+			return _serializer.Deserialize<T>(_GetSecret(_secretIdPrefix + id));
+		}
+
+		public void DeleteSecret(string id)
+		{
+			Check.Empty(id, nameof(id));
+
+			_DeleteSecret(_secretIdPrefix + id);
 		}
 	}
 }

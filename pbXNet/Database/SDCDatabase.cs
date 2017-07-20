@@ -263,7 +263,7 @@ namespace pbXNet.Database
 		protected virtual async Task<T> ExecuteCommandAsync<T>(CommandType type, DbCommand cmd, bool shouldDisposeCmd)
 		{
 			Check.Null(cmd, nameof(cmd));
-			Check.True(type == CommandType.Statement || type == CommandType.Scalar, nameof(type));
+			Check.True(type == CommandType.Statement || type == CommandType.Scalar, $"Incorrect value '{type}'.", nameof(type)); // TODO: translation
 
 			await OpenAsync().ConfigureAwait(false);
 

@@ -65,6 +65,8 @@ namespace pbXNet
 
 		public static RSAParameters Unpack(string rsap)
 		{
+			Check.Empty(rsap, nameof(rsap));
+
 			rsap = Obfuscator.DeObfuscate(rsap);
 			RSAParameters key = new RSAParameters();
 			string[] c = rsap.Split('-');
@@ -151,12 +153,10 @@ namespace pbXNet
 
 		public ByteBuffer Encrypt(IByteBuffer msg, IAsymmetricCryptographerKeyPair pblKey)
 		{
-			if (pblKey == null || pblKey.Public == null)
-				throw new ArgumentNullException(nameof(pblKey));
-			if (pblKey.Algoritm != AsymmetricCryptographerAlgoritm.Rsa)
-				throw new ArgumentException(T.Localized("RSA_BadKey"), nameof(pblKey));
-			if (msg == null)
-				throw new ArgumentNullException(nameof(msg));
+			Check.Null(msg, nameof(msg));
+			Check.Null(pblKey, nameof(pblKey));
+			Check.Null(pblKey.Public, nameof(pblKey.Public));
+			Check.True(pblKey.Algoritm == AsymmetricCryptographerAlgoritm.Rsa, T.Localized("RSA_BadKey"), nameof(pblKey));
 
 			try
 			{
@@ -205,12 +205,10 @@ namespace pbXNet
 
 		public ByteBuffer Decrypt(IByteBuffer msg, IAsymmetricCryptographerKeyPair prvKey)
 		{
-			if (prvKey == null || prvKey.Private == null)
-				throw new ArgumentNullException(nameof(prvKey));
-			if (prvKey.Algoritm != AsymmetricCryptographerAlgoritm.Rsa)
-				throw new ArgumentException(T.Localized("RSA_BadKey"), nameof(prvKey));
-			if (msg == null)
-				throw new ArgumentNullException(nameof(msg));
+			Check.Null(msg, nameof(msg));
+			Check.Null(prvKey, nameof(prvKey));
+			Check.Null(prvKey.Private, nameof(prvKey.Private));
+			Check.True(prvKey.Algoritm == AsymmetricCryptographerAlgoritm.Rsa, T.Localized("RSA_BadKey"), nameof(prvKey));
 
 			try
 			{
@@ -262,12 +260,10 @@ namespace pbXNet
 
 		public ByteBuffer Sign(IByteBuffer msg, IAsymmetricCryptographerKeyPair prvKey)
 		{
-			if (prvKey == null || prvKey.Private == null)
-				throw new ArgumentNullException(nameof(prvKey));
-			if (prvKey.Algoritm != AsymmetricCryptographerAlgoritm.Rsa)
-				throw new ArgumentException(T.Localized("RSA_BadKey"), nameof(prvKey));
-			if (msg == null)
-				throw new ArgumentNullException(nameof(msg));
+			Check.Null(msg, nameof(msg));
+			Check.Null(prvKey, nameof(prvKey));
+			Check.Null(prvKey.Private, nameof(prvKey.Private));
+			Check.True(prvKey.Algoritm == AsymmetricCryptographerAlgoritm.Rsa, T.Localized("RSA_BadKey"), nameof(prvKey));
 
 			try
 			{
@@ -291,14 +287,11 @@ namespace pbXNet
 
 		public bool Verify(IByteBuffer msg, IByteBuffer signature, IAsymmetricCryptographerKeyPair pblKey)
 		{
-			if (pblKey == null || pblKey.Public == null)
-				throw new ArgumentNullException(nameof(pblKey));
-			if (pblKey.Algoritm != AsymmetricCryptographerAlgoritm.Rsa)
-				throw new ArgumentException(T.Localized("RSA_BadKey"), nameof(pblKey));
-			if (msg == null)
-				throw new ArgumentNullException(nameof(msg));
-			if (signature == null)
-				throw new ArgumentNullException(nameof(signature));
+			Check.Null(msg, nameof(msg));
+			Check.Null(signature, nameof(signature));
+			Check.Null(pblKey, nameof(pblKey));
+			Check.Null(pblKey.Public, nameof(pblKey.Public));
+			Check.True(pblKey.Algoritm == AsymmetricCryptographerAlgoritm.Rsa, T.Localized("RSA_BadKey"), nameof(pblKey));
 
 			try
 			{

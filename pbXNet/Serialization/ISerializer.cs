@@ -5,7 +5,6 @@ namespace Plugin.pbXSettings.pbXNet
 #else
 namespace pbXNet
 #endif
-
 {
 	public interface ISerializer
 	{

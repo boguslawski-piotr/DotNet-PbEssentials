@@ -29,20 +29,25 @@ namespace pbXNet
 
 		public override string Name => Id;
 
-		protected AzureStorageSettings Settings;
-		protected CloudStorageAccount Account;
-		protected CloudBlobClient Client;
-		protected CloudBlobContainer Container;
+		protected readonly AzureStorageSettings _settings;
+
+		protected CloudStorageAccount _account;
+
+		protected CloudBlobClient _client;
+
+		protected CloudBlobContainer _container;
 
 		/// Id will be used as container name in Azure Blob Storage
 		/// See here: https://azure.microsoft.com/en-us/services/storage/blobs/
 		public StorageOnAzureStorage(string id, AzureStorageSettings settings, ISerializer serializer = null)
 			: base(id, serializer)
 		{
-			if (settings.Type != AzureStorageSettings.StorageType.BlockBlob && settings.Type != AzureStorageSettings.StorageType.PageBlob)
-				throw new ArgumentOutOfRangeException(nameof(Settings.Type));
+			Check.Null(settings, nameof(settings));
 
-			Settings = settings;
+			if (settings.Type != AzureStorageSettings.StorageType.BlockBlob && settings.Type != AzureStorageSettings.StorageType.PageBlob)
+				throw new ArgumentOutOfRangeException(nameof(_settings.Type));
+
+			_settings = settings;
 		}
 
 		public static async Task<StorageOnAzureStorage<T>> NewAsync(string id, AzureStorageSettings settings, ISerializer serializer = null)
@@ -57,190 +62,141 @@ namespace pbXNet
 
 		public override async Task InitializeAsync()
 		{
-			try
-			{
-				Account = CloudStorageAccount.Parse(Settings.ConnectionString);
-				Client = Account.CreateCloudBlobClient();
+			_account = CloudStorageAccount.Parse(_settings.ConnectionString);
+			_client = _account.CreateCloudBlobClient();
 
-				/*
-					A container name must be a valid DNS name, conforming to the following naming rules:
-					  - Container names must start with a letter or number, and can contain only 
-					    letters, numbers, and the dash (-) character.
-					  - Every dash (-) character must be immediately preceded and followed 
-					    by a letter or number; consecutive dashes are not permitted in container names.
-					  - All letters in a container name must be lowercase.
-					  - Container names must be from 3 through 63 characters long.
-				*/
-				string containerId = Regex.Replace(Id.ToLower(), "[^a-z0-9-]", "-");
-				containerId = Regex.Replace(containerId, "^-", "x");
-				containerId = Regex.Replace(containerId, "-$", "x");
-				containerId = Regex.Replace(containerId, "-{2,}", "-");
-				if (containerId.Length < 3)
-					containerId = containerId.PadLeft(3, 'x');
-				if (containerId.Length > 63)
-					containerId = containerId.Remove(63);
+			/*
+				A container name must be a valid DNS name, conforming to the following naming rules:
+				  - Container names must start with a letter or number, and can contain only 
+					letters, numbers, and the dash (-) character.
+				  - Every dash (-) character must be immediately preceded and followed 
+					by a letter or number; consecutive dashes are not permitted in container names.
+				  - All letters in a container name must be lowercase.
+				  - Container names must be from 3 through 63 characters long.
+			*/
+			string containerId = Regex.Replace(Id.ToLower(), "[^a-z0-9-]", "-");
+			containerId = Regex.Replace(containerId, "^-", "x");
+			containerId = Regex.Replace(containerId, "-$", "x");
+			containerId = Regex.Replace(containerId, "-{2,}", "-");
+			if (containerId.Length < 3)
+				containerId = containerId.PadLeft(3, 'x');
+			if (containerId.Length > 63)
+				containerId = containerId.Remove(63);
 
-				Container = Client.GetContainerReference(containerId);
+			_container = _client.GetContainerReference(containerId);
 
-				await Container.CreateIfNotExistsAsync();
-			}
-			catch (Exception ex)
-			{
-				Log.E(ex, this);
-				throw ex;
-			}
+			await _container.CreateIfNotExistsAsync();
 		}
 
 		public override async Task StoreAsync(string thingId, T data, DateTime modifiedOn)
 		{
-			try
+			Check.Empty(thingId, nameof(thingId));
+			Check.Null(data, nameof(data));
+
+			byte[] bdata = Encoding.UTF8.GetBytes(Serializer.Serialize<T>(data));
+			int dataSize = bdata.Length;
+
+			CloudBlob blob;
+			if (_settings.Type == AzureStorageSettings.StorageType.BlockBlob)
 			{
-				byte[] bdata = Encoding.UTF8.GetBytes(Serializer.Serialize<T>(data));
-				int dataSize = bdata.Length;
+				blob = _container.GetBlockBlobReference(thingId);
+				CloudBlockBlob blockBlob = blob as CloudBlockBlob;
 
-				CloudBlob blob;
-				if (Settings.Type == AzureStorageSettings.StorageType.BlockBlob)
-				{
-					blob = Container.GetBlockBlobReference(thingId);
-					CloudBlockBlob blockBlob = blob as CloudBlockBlob;
-
-					await blockBlob.UploadFromByteArrayAsync(bdata, 0, dataSize).ConfigureAwait(false);
-				}
-				else if (Settings.Type == AzureStorageSettings.StorageType.PageBlob)
-				{
-					blob = Container.GetPageBlobReference(thingId);
-					CloudPageBlob pageBlob = blob as CloudPageBlob;
-
-					int blobSize = 512 * (dataSize / 512 + 1);
-					Array.Resize(ref bdata, blobSize);
-
-					await pageBlob.CreateAsync(blobSize).ConfigureAwait(false);
-					await pageBlob.UploadFromByteArrayAsync(bdata, 0, blobSize).ConfigureAwait(false);
-
-					blob.Metadata[_dataSizeAttribute] = dataSize.ToString();
-				}
-				else
-					throw new ArgumentOutOfRangeException(nameof(Settings.Type));
-
-				blob.Metadata[_modifiedOnAttribute] = Serializer.Serialize<DateTime>(modifiedOn.ToUniversalTime());
-				await blob.SetMetadataAsync().ConfigureAwait(false);
+				await blockBlob.UploadFromByteArrayAsync(bdata, 0, dataSize).ConfigureAwait(false);
 			}
-			catch (Exception ex)
+			else
 			{
-				Log.E(ex, this);
-				throw ex;
+				blob = _container.GetPageBlobReference(thingId);
+				CloudPageBlob pageBlob = blob as CloudPageBlob;
+
+				int blobSize = 512 * (dataSize / 512 + 1);
+				Array.Resize(ref bdata, blobSize);
+
+				await pageBlob.CreateAsync(blobSize).ConfigureAwait(false);
+				await pageBlob.UploadFromByteArrayAsync(bdata, 0, blobSize).ConfigureAwait(false);
+
+				blob.Metadata[_dataSizeAttribute] = dataSize.ToString();
 			}
+
+			blob.Metadata[_modifiedOnAttribute] = Serializer.Serialize<DateTime>(modifiedOn.ToUniversalTime());
+			await blob.SetMetadataAsync().ConfigureAwait(false);
 		}
 
 		public override async Task<bool> ExistsAsync(string thingId)
 		{
-			try
-			{
-				var blob = Container.GetBlobReference(thingId);
-				return await blob.ExistsAsync().ConfigureAwait(false);
-			}
-			catch (Exception ex)
-			{
-				Log.E(ex, this);
-				throw ex;
-			}
+			Check.Empty(thingId, nameof(thingId));
+
+			var blob = _container.GetBlobReference(thingId);
+			return await blob.ExistsAsync().ConfigureAwait(false);
 		}
 
 		public override async Task<DateTime> GetModifiedOnAsync(string thingId)
 		{
-			try
-			{
-				var blob = Container.GetBlobReference(thingId);
+			Check.Empty(thingId, nameof(thingId));
 
-				if (!await blob.ExistsAsync().ConfigureAwait(false))
-					throw new StorageThingNotFoundException(thingId);
+			var blob = _container.GetBlobReference(thingId);
 
-				await blob.FetchAttributesAsync().ConfigureAwait(false);
+			if (!await blob.ExistsAsync().ConfigureAwait(false))
+				throw new StorageThingNotFoundException(thingId);
 
-				return Serializer.Deserialize<DateTime>(blob.Metadata[_modifiedOnAttribute]);
-			}
-			catch (Exception ex)
-			{
-				Log.E(ex, this);
-				throw ex;
-			}
+			await blob.FetchAttributesAsync().ConfigureAwait(false);
+
+			return Serializer.Deserialize<DateTime>(blob.Metadata[_modifiedOnAttribute]);
 		}
 
 		public override async Task<T> GetACopyAsync(string thingId)
 		{
-			try
-			{
-				var blob = Container.GetBlobReference(thingId);
+			Check.Empty(thingId, nameof(thingId));
 
-				if (!await blob.ExistsAsync().ConfigureAwait(false))
-					throw new StorageThingNotFoundException(thingId);
+			var blob = _container.GetBlobReference(thingId);
 
-				await blob.FetchAttributesAsync().ConfigureAwait(false);
+			if (!await blob.ExistsAsync().ConfigureAwait(false))
+				throw new StorageThingNotFoundException(thingId);
 
-				byte[] blobBytes = new byte[blob.Properties.Length];
-				await blob.DownloadToByteArrayAsync(blobBytes, 0).ConfigureAwait(false);
+			await blob.FetchAttributesAsync().ConfigureAwait(false);
 
-				int dataSize = 0;
-				if (Settings.Type == AzureStorageSettings.StorageType.BlockBlob)
-					dataSize = blobBytes.Length;
-				else if (Settings.Type == AzureStorageSettings.StorageType.PageBlob)
-					dataSize = int.Parse(blob.Metadata[_dataSizeAttribute]);
-				else
-					throw new ArgumentOutOfRangeException(nameof(Settings.Type));
+			byte[] blobBytes = new byte[blob.Properties.Length];
+			await blob.DownloadToByteArrayAsync(blobBytes, 0).ConfigureAwait(false);
 
-				return Serializer.Deserialize<T>(Encoding.UTF8.GetString(blobBytes, 0, dataSize));
-			}
-			catch (Exception ex)
-			{
-				Log.E(ex, this);
-				throw ex;
-			}
+			int dataSize = 0;
+			if (_settings.Type == AzureStorageSettings.StorageType.BlockBlob)
+				dataSize = blobBytes.Length;
+			else
+				dataSize = int.Parse(blob.Metadata[_dataSizeAttribute]);
+
+			return Serializer.Deserialize<T>(Encoding.UTF8.GetString(blobBytes, 0, dataSize));
 		}
 
 		public override async Task DiscardAsync(string thingId)
 		{
-			try
-			{
-				var blob = Container.GetBlobReference(thingId);
-				await blob.DeleteIfExistsAsync().ConfigureAwait(false);
-			}
-			catch (Exception ex)
-			{
-				Log.E(ex, this);
-				throw ex;
-			}
+			Check.Empty(thingId, nameof(thingId));
+
+			var blob = _container.GetBlobReference(thingId);
+			await blob.DeleteIfExistsAsync().ConfigureAwait(false);
 		}
 
 		public virtual async Task<IEnumerable<string>> FindIdsAsync(string pattern)
 		{
-			try
-			{
-				List<string> ids = new List<string>();
-				BlobContinuationToken token = null;
+			List<string> ids = new List<string>();
+			BlobContinuationToken token = null;
 
-				do
+			do
+			{
+				var segment = await _container.ListBlobsSegmentedAsync(token);
+				if (segment?.Results.Count() > 0)
 				{
-					var segment = await Container.ListBlobsSegmentedAsync(token);
-					if (segment?.Results.Count() > 0)
+					var idsSegment = segment.Results.Cast<CloudBlob>().Where(b => Regex.IsMatch(b.Name, pattern)).Select(b => b.Name);
+					if (idsSegment?.Count() > 0)
 					{
-						var idsSegment = segment.Results.Cast<CloudBlob>().Where(b => Regex.IsMatch(b.Name, pattern)).Select(b => b.Name);
-						if (idsSegment?.Count() > 0)
-						{
-							ids.AddRange(idsSegment);
-						}
+						ids.AddRange(idsSegment);
 					}
+				}
 
-					token = segment?.ContinuationToken;
+				token = segment?.ContinuationToken;
 
-				} while (token != null);
+			} while (token != null);
 
-				return ids;
-			}
-			catch (Exception ex)
-			{
-				Log.E(ex, this);
-				throw ex;
-			}
+			return ids;
 		}
 	}
 }

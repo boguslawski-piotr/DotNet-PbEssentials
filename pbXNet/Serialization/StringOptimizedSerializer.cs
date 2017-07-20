@@ -8,10 +8,7 @@ namespace pbXNet
 
 		public StringOptimizedSerializer(ISerializer serializer)
 		{
-			if (serializer == null)
-				throw new ArgumentNullException(nameof(serializer));
-
-			_serializer = serializer;
+			_serializer = serializer ?? throw new ArgumentNullException(nameof(serializer));
 		}
 
 		public virtual string Serialize<T>(T o, string id = null)

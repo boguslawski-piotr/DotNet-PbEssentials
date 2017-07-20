@@ -26,13 +26,15 @@ namespace pbXNet
 
 		public string CurrentPath => _fs.CurrentPath;
 
-		ICryptographer _cryptographer;
+		protected readonly ICryptographer _cryptographer;
 
-		IFileSystem _fs;
+		protected readonly IFileSystem _fs;
 
-		IPassword _passwd;
-		IByteBuffer _ckey;
-		IByteBuffer _iv;
+		protected IPassword _passwd;
+
+		protected IByteBuffer _ckey;
+
+		protected IByteBuffer _iv;
 
 		protected EncryptedFileSystem(string id, IFileSystem fs, ICryptographer cryptographer = null)
 		{
@@ -118,10 +120,6 @@ namespace pbXNet
 			_passwd?.Dispose();
 			_ckey?.Dispose();
 			_iv?.Dispose();
-			_passwd = null;
-			_ckey = _iv = null;
-			_fs = null;
-			_cryptographer = null;
 		}
 
 		public async Task SaveStateAsync() => await _fs.SaveStateAsync().ConfigureAwait(false);

@@ -18,6 +18,8 @@ namespace pbXNet
 
 		public Password(Password p)
 		{
+			Check.Null(p, nameof(p));
+
 			_passwd = (char[])p._passwd.Clone();
 		}
 

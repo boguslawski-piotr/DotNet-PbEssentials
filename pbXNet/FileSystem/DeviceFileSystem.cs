@@ -65,9 +65,9 @@ namespace pbXNet
 
 		public string CurrentPath { get; protected set; }
 
-		protected Stack<string> VisitedPaths = new Stack<string>();
+		protected Stack<string> _visitedPaths = new Stack<string>();
 
-		string _userDefinedRootPath;
+		protected string _userDefinedRootPath;
 
 		protected DeviceFileSystem(RootType root = RootType.Local, string userDefinedRootPath = null)
 		{
@@ -165,12 +165,12 @@ namespace pbXNet
 			}
 
 			CurrentPath = RootPath;
-			VisitedPaths.Clear();
+			_visitedPaths.Clear();
 		}
 
 		public virtual void Dispose()
 		{
-			VisitedPaths.Clear();
+			_visitedPaths.Clear();
 			RootPath = CurrentPath = null;
 		}
 
@@ -180,7 +180,7 @@ namespace pbXNet
 			{
 				RootPath = this.RootPath,
 				CurrentPath = this.CurrentPath,
-				VisitedPaths = new Stack<string>(VisitedPaths.AsEnumerable()),
+				_visitedPaths = new Stack<string>(_visitedPaths.AsEnumerable()),
 			};
 			return Task.FromResult<IFileSystem>(fs);
 		}
@@ -224,13 +224,13 @@ namespace pbXNet
 
 		public virtual async Task SaveStateAsync()
 		{
-			States.Save(RootPath, CurrentPath, VisitedPaths);
+			States.Save(RootPath, CurrentPath, _visitedPaths);
 		}
 
 		public virtual async Task RestoreStateAsync()
 		{
 			string rootPath = "", currentPath = "";
-			if (States.Restore(ref rootPath, ref currentPath, ref VisitedPaths))
+			if (States.Restore(ref rootPath, ref currentPath, ref _visitedPaths))
 			{
 				RootPath = rootPath;
 				CurrentPath = currentPath;
@@ -242,11 +242,11 @@ namespace pbXNet
 			if (string.IsNullOrEmpty(dirname))
 			{
 				CurrentPath = RootPath;
-				VisitedPaths.Clear();
+				_visitedPaths.Clear();
 			}
 			else if (dirname == "..")
 			{
-				CurrentPath = VisitedPaths.Count > 0 ? VisitedPaths.Pop() : RootPath;
+				CurrentPath = _visitedPaths.Count > 0 ? _visitedPaths.Pop() : RootPath;
 			}
 			else
 			{
@@ -254,7 +254,7 @@ namespace pbXNet
 				if (!Directory.Exists(dirpath))
 					throw new DirectoryNotFoundException(T.Localized("FS_DirNotFound", CurrentPath, dirname));
 
-				VisitedPaths.Push(CurrentPath);
+				_visitedPaths.Push(CurrentPath);
 				CurrentPath = dirpath;
 			}
 		}
@@ -288,21 +288,19 @@ namespace pbXNet
 
 		public virtual async Task CreateDirectoryAsync(string dirname)
 		{
-			if (string.IsNullOrEmpty(dirname))
-				throw new ArgumentNullException(nameof(dirname));
+			Check.Empty(dirname, nameof(dirname));
 
 			string dirpath = GetFilePath(dirname);
 			if(!Directory.Exists(dirpath))
 				Directory.CreateDirectory(dirpath);
 
-			VisitedPaths.Push(CurrentPath);
+			_visitedPaths.Push(CurrentPath);
 			CurrentPath = dirpath;
 		}
 
 		public virtual async Task DeleteDirectoryAsync(string dirname)
 		{
-			if (string.IsNullOrEmpty(dirname))
-				throw new ArgumentNullException(nameof(dirname));
+			Check.Empty(dirname, nameof(dirname));
 
 			string dirpath = GetFilePath(dirname);
 			if (Directory.Exists(dirpath))
@@ -338,8 +336,7 @@ namespace pbXNet
 
 		public virtual async Task DeleteFileAsync(string filename)
 		{
-			if (string.IsNullOrEmpty(filename))
-				throw new ArgumentNullException(nameof(filename));
+			Check.Empty(filename, nameof(filename));
 
 			string filepath = GetFilePath(filename);
 			if (File.Exists(filepath))
@@ -348,16 +345,14 @@ namespace pbXNet
 
 		public virtual async Task SetFileModifiedOnAsync(string filename, DateTime modifiedOn)
 		{
-			if (string.IsNullOrEmpty(filename))
-				throw new ArgumentNullException(nameof(filename));
+			Check.Empty(filename, nameof(filename));
 
 			File.SetLastWriteTimeUtc(GetFilePath(filename), modifiedOn.ToUniversalTime());
 		}
 
 		public virtual async Task<DateTime> GetFileModifiedOnAsync(string filename)
 		{
-			if (string.IsNullOrEmpty(filename))
-				throw new ArgumentNullException(nameof(filename));
+			Check.Empty(filename, nameof(filename));
 
 			DateTime modifiedOn = File.GetLastWriteTimeUtc(GetFilePath(filename));
 			return modifiedOn;
@@ -365,8 +360,7 @@ namespace pbXNet
 
 		public virtual async Task WriteTextAsync(string filename, string text)
 		{
-			if (string.IsNullOrEmpty(filename))
-				throw new ArgumentNullException(nameof(filename));
+			Check.Empty(filename, nameof(filename));
 
 			string filepath = GetFilePath(filename);
 			using (StreamWriter writer = File.CreateText(filepath))
@@ -377,8 +371,7 @@ namespace pbXNet
 
 		public virtual async Task<string> ReadTextAsync(string filename)
 		{
-			if (string.IsNullOrEmpty(filename))
-				throw new ArgumentNullException(nameof(filename));
+			Check.Empty(filename, nameof(filename));
 
 			string filepath = GetFilePath(filename);
 			using (StreamReader reader = File.OpenText(filepath))
