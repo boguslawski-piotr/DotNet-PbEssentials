@@ -238,6 +238,7 @@ namespace pbXNet
 		public virtual void Dispose()
 		{
 			_b?.FillWith<byte>(0);
+			_b = null;
 		}
 	}
 }

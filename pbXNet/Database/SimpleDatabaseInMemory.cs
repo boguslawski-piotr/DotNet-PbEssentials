@@ -12,6 +12,8 @@ namespace pbXNet.Database
 {
 	public class SimpleDatabaseInMemory : IDatabase
 	{
+		public ConnectionType ConnectionType { get; } = ConnectionType.Local;
+
 		public string Name { get; } = T.Localized("SDIM_Name");
 
 		public SqlBuilder SqlBuilder => throw new NotSupportedException();
@@ -126,8 +128,8 @@ namespace pbXNet.Database
 				_rows = null;
 			}
 
-			public Task CreateAsync() => throw new NotSupportedException();
-			public Task OpenAsync() => throw new NotSupportedException();
+			public async Task CreateAsync() { }
+			public async Task OpenAsync() { }
 
 			public async Task<bool> ExistsAsync(T pk)
 			{
@@ -306,9 +308,9 @@ namespace pbXNet.Database
 
 		public IQuery<T> Query<T>(string sql) where T : new() => throw new NotSupportedException();
 
-		public ITable<T> Table<T>(string tableName) where T : new() => TableAsync<T>(tableName).GetAwaiter().GetResult();
+		public ITable<T> Table<T>(string tableName, bool createIfNotExists = true) where T : new() => TableAsync<T>(tableName, createIfNotExists).GetAwaiter().GetResult();
 
-		public async Task<ITable<T>> TableAsync<T>(string tableName) where T : new()
+		public async Task<ITable<T>> TableAsync<T>(string tableName, bool createIfNotExists = true) where T : new()
 		{
 			if (_tables.TryGetValue(tableName, out object _t))
 				return (InternalTable<T>)_t;
@@ -338,8 +340,9 @@ namespace pbXNet.Database
 #endif
 
 		public string ConvertTypeToDbType(Type type, int width = int.MaxValue) => throw new NotSupportedException();
-		public object ConvertDbValueToValue(string dbType, object dbValue, Type valueType) => throw new NotSupportedException();
-		public object ConvertValueToDbValue(Type type, object value, string dbType) => throw new NotSupportedException();
+
+		public object ConvertDbValueToValue(string dbType, object dbValue, Type valueType) => dbValue;
+		public object ConvertValueToDbValue(Type type, object value, string dbType) => value;
 
 		public async Task OpenAsync() { }
 		public async Task CloseAsync() { }
@@ -347,9 +350,11 @@ namespace pbXNet.Database
 		public Task<int> StatementAsync(string sql, params (string name, object value)[] parameters) => throw new NotSupportedException();
 		public Task<int> StatementAsync(string sql, params object[] parameters) => throw new NotSupportedException();
 		public Task<int> StatementAsync(string sql) => throw new NotSupportedException();
+
 		public Task<T> ScalarAsync<T>(string sql, params (string name, object value)[] parameters) => throw new NotSupportedException();
 		public Task<T> ScalarAsync<T>(string sql, params object[] parameters) => throw new NotSupportedException();
 		public Task<T> ScalarAsync<T>(string sql) => throw new NotSupportedException();
+
 		public Task<IQueryResult<T>> QueryAsync<T>(string sql, params (string name, object value)[] parameters) where T : new() => throw new NotSupportedException();
 		public Task<IQueryResult<T>> QueryAsync<T>(string sql, params object[] parameters) where T : new() => throw new NotSupportedException();
 		public Task<IQueryResult<T>> QueryAsync<T>(string sql) where T : new() => throw new NotSupportedException();

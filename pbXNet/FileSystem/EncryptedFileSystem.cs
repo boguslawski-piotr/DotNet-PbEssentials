@@ -36,13 +36,8 @@ namespace pbXNet
 
 		protected EncryptedFileSystem(string id, IFileSystem fs, ICryptographer cryptographer = null)
 		{
-			if (fs == null)
-				throw new ArgumentNullException(nameof(fs));
-			if (id == null)
-				throw new ArgumentNullException(nameof(id));
-
-			Id = id;
-			_fs = fs;
+			Id = id ?? throw new ArgumentNullException(nameof(id));
+			_fs = fs ?? throw new ArgumentNullException(nameof(fs));
 			_cryptographer = cryptographer ?? new AesCryptographer();
 		}
 
@@ -54,10 +49,7 @@ namespace pbXNet
 		public EncryptedFileSystem(string id, IFileSystem fs, IByteBuffer ckey, ICryptographer cryptographer = null)
 			: this(id, fs, cryptographer)
 		{
-			if (ckey == null)
-				throw new ArgumentNullException(nameof(ckey));
-
-			_ckey = ckey;
+			_ckey = ckey ?? throw new ArgumentNullException(nameof(ckey));
 		}
 
 		/// <summary>
@@ -68,10 +60,7 @@ namespace pbXNet
 		public EncryptedFileSystem(string id, IFileSystem fs, IPassword passwd, ICryptographer cryptographer = null)
 			: this(id, fs, cryptographer)
 		{
-			if (passwd == null)
-				throw new ArgumentNullException(nameof(passwd));
-
-			_passwd = passwd;
+			_passwd = passwd ?? throw new ArgumentNullException(nameof(passwd));
 		}
 
 		public void Initialize()
@@ -111,6 +100,19 @@ namespace pbXNet
 			await _fs.RestoreStateAsync().ConfigureAwait(false);
 		}
 
+		public async Task<IFileSystem> CloneAsync()
+		{
+			if (_ckey == null || _iv == null)
+				await InitializeAsync();
+
+			return new EncryptedFileSystem(Id, await _fs.CloneAsync(), _cryptographer)
+			{
+				_passwd = this._passwd,
+				_ckey = this._ckey,
+				_iv = this._iv,
+			};
+		}
+
 		public void Dispose()
 		{
 			_passwd?.Dispose();
@@ -120,11 +122,6 @@ namespace pbXNet
 			_ckey = _iv = null;
 			_fs = null;
 			_cryptographer = null;
-		}
-
-		public Task<IFileSystem> CloneAsync()
-		{
-			throw new NotSupportedException();
 		}
 
 		public async Task SaveStateAsync() => await _fs.SaveStateAsync().ConfigureAwait(false);

@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿using System;
 using System.Data.Common;
 using System.Linq;
 using System.Reflection;
@@ -10,9 +10,22 @@ namespace pbXNet.Database
 {
 	public class SDCDatabase : IDatabase
 	{
-		public string Name => $"{_db.DataSource}/{_db.Database}";
+		public ConnectionType ConnectionType { get; set; } = ConnectionType.Local;
 
-		// TODO: dostep do SqlBuilder w lock
+		string _name;
+		public string Name
+		{
+			get {
+				if (_name == null)
+					return $"{_db.DataSource}/{_db.Database}";
+				return _name;
+			}
+			set {
+				_name = value;
+			}
+		}
+
+		// TODO: dostep do SqlBuilder w lock lub jakos inaczej aby byc thread safe
 		public SqlBuilder SqlBuilder => _options.SqlBuilder;
 
 		public IExpressionTranslator ExpressionTranslator => _options.ExpressionTranslator;
@@ -27,7 +40,7 @@ namespace pbXNet.Database
 
 		protected DbConnection _db;
 
-		bool _dbOpenedHere;
+		bool _closeDb;
 
 		public SDCDatabase(DbConnection db, Options options = null)
 		{
@@ -44,11 +57,11 @@ namespace pbXNet.Database
 
 		public virtual void Dispose()
 		{
-			if (_dbOpenedHere)
+			if (_closeDb)
 				_db?.Close();
 
 			_db = null;
-			_dbOpenedHere = false;
+			_closeDb = false;
 		}
 
 		public virtual async Task OpenAsync()
@@ -58,64 +71,59 @@ namespace pbXNet.Database
 			if (_db.State == System.Data.ConnectionState.Closed)
 			{
 				await _db.OpenAsync().ConfigureAwait(false);
-				_dbOpenedHere = true;
+				_closeDb = true;
 
 				Log.I($"opened connection to database '{_db.DataSource}/{_db.Database}'.", this);
 			}
 			if (_db.State != System.Data.ConnectionState.Open)
 			{
 				await Task.Delay(1000).ConfigureAwait(false);
+
 				if (_db.State != System.Data.ConnectionState.Open)
-					throw new Exception($"Unable to connect to database '{_db.DataSource}/{_db.Database}'.");
+					throw new Exception($"Unable to connect to database '{_db.DataSource}/{_db.Database}'."); // TODO: translation
 			}
 		}
 
 		public virtual async Task CloseAsync()
 		{
-			if (_dbOpenedHere)
+			if (_closeDb)
 				_db.Close();
-			_dbOpenedHere = false;
+			_closeDb = false;
 		}
 
 		public virtual string ConvertTypeToDbType(Type type, int width = int.MaxValue)
 		{
 			Type underlyingType = Nullable.GetUnderlyingType(type);
-			bool typeIsNullable = underlyingType != null || !type.IsValueType;
+			bool typeIsNullable = underlyingType != null || !type.GetTypeInfo().IsValueType;
 			type = underlyingType ?? type;
 
-			TypeCode typeCode = Type.GetTypeCode(type);
-			switch (typeCode)
+			if (type == typeof(string))
 			{
-				case TypeCode.String:
-					if (width == int.MaxValue)
-						SqlBuilder.Expr().NText();
-					else
-						SqlBuilder.Expr().NVarchar(width);
-					break;
-
-				case TypeCode.Boolean:
-					SqlBuilder.Expr().Boolean();
-					break;
-
-				case TypeCode.Int16:
-				case TypeCode.UInt16:
-					SqlBuilder.Expr().Smallint();
-					break;
-
-				case TypeCode.Int32:
-				case TypeCode.UInt32:
-					SqlBuilder.Expr().Int();
-					break;
-
-				case TypeCode.Int64:
-				case TypeCode.UInt64:
-					SqlBuilder.Expr().Bigint();
-					break;
-
-				// TODO: handle more conversion from C# type to SQL type
-
-				default:
-					throw new Exception($"Unsupported type '{type.ToString()}'."); // TODO: localization and better text
+				if (width == int.MaxValue)
+					SqlBuilder.Expr().NText();
+				else
+					SqlBuilder.Expr().NVarchar(width);
+			}
+			else if (type == typeof(bool))
+			{
+				SqlBuilder.Expr().Boolean();
+			}
+			else if (type == typeof(Int16) || type == typeof(UInt16))
+			{
+				SqlBuilder.Expr().Smallint();
+			}
+			else if (type == typeof(Int32) || type == typeof(UInt32))
+			{
+				SqlBuilder.Expr().Int();
+			}
+			else if (type == typeof(Int64) || type == typeof(UInt64))
+			{
+				SqlBuilder.Expr().Bigint();
+			}
+			// TODO: handle more conversion from C# type to SQL type
+			else
+			{
+				throw new InvalidCastException($"Unsupported type '{type.ToString()}'."); // TODO: localization and better text
 			}
 
 			return SqlBuilder.Build();
@@ -126,7 +134,7 @@ namespace pbXNet.Database
 			Check.Null(valueType, nameof(valueType));
 
 			Type underlyingType = Nullable.GetUnderlyingType(valueType);
-			bool valueTypeIsNullable = underlyingType != null || !valueType.IsValueType;
+			bool valueTypeIsNullable = underlyingType != null || !valueType.GetTypeInfo().IsValueType;
 			valueType = underlyingType ?? valueType;
 
 			if (dbValue == null || dbValue.GetType() == typeof(DBNull))
@@ -134,7 +142,7 @@ namespace pbXNet.Database
 				if (valueTypeIsNullable)
 					return null;
 				else
-					throw new InvalidCastException($"Can not convert NULL to type {valueType.Name}."); // TODO: translation
+					throw new InvalidCastException($"Can not convert NULL to value type '{valueType.Name}'."); // TODO: translation
 			}
 
 			// dbType CAN BE null -> caller don't know this information
@@ -184,6 +192,7 @@ namespace pbXNet.Database
 			foreach (var param in parameters)
 			{
 				DbParameter dbParam = cmd.CreateParameter();
+
 				dbParam.Value = ConvertValueToDbValue(param.GetType(), param.value, null);
 				dbParam.ParameterName = param.name;
 
@@ -307,22 +316,25 @@ namespace pbXNet.Database
 			return new SqlQuery<T>(this, sqlBuilder);
 		}
 
-		public ITable<T> Table<T>(string tableName) where T : new() => TableAsync<T>(tableName).GetAwaiter().GetResult();
+		public ITable<T> Table<T>(string tableName, bool createIfNotExists = true) where T : new() => TableAsync<T>(tableName, createIfNotExists).GetAwaiter().GetResult();
 
-		public virtual async Task<ITable<T>> TableAsync<T>(string tableName) where T : new()
+		public virtual async Task<ITable<T>> TableAsync<T>(string tableName, bool createIfNotExists = true) where T : new()
 		{
 			Check.Empty(tableName, nameof(tableName));
 
 			// TODO: dictionary...???
 
-			// TODO: better method to find if table exists?
-			try
+			if (createIfNotExists)
 			{
-				await ScalarAsync<object>(SqlBuilder.Select().E("1").From(tableName)).ConfigureAwait(false);
-			}
-			catch (Exception ex)
-			{
-				return await SqlTable<T>.CreateAsync(this, tableName);
+				// TODO: better method to find if table exists?
+				try
+				{
+					await ScalarAsync<object>(SqlBuilder.Select().E("1").From(tableName)).ConfigureAwait(false);
+				}
+				catch (Exception ex)
+				{
+					return await SqlTable<T>.CreateAsync(this, tableName);
+				}
 			}
 
 			return await SqlTable<T>.OpenAsync(this, tableName);

@@ -6,10 +6,10 @@ namespace pbXNet.Database
 {
 	public interface IExpressionTranslator
 	{
+		IExpressionTranslator New(Type typeForWhichMemberNamesWillBeEmitted = null);
+
 		List<(string name, object value)> Parameters { get; }
 
 		string Translate(Expression expr);
-
-		IExpressionTranslator New(Type typeForWhichMemberNamesWillBeEmitted = null);
 	}
 }

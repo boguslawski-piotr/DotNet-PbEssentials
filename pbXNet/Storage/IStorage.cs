@@ -15,16 +15,13 @@ namespace pbXNet
 		public StorageThingNotFoundException(string message, string thingId) : base(string.Format(message, thingId)) { }
 	}
 
-	[Flags]
 	public enum StorageType
 	{
-		Memory = 0x0000,
-		LocalIO = 0x0001,
-		LocalService = 0x0002,
-		Quick = Memory | LocalIO | LocalService,
-		RemoteIO = 0x0010,
-		RemoteService = 0x0020,
-		Slow = RemoteIO | RemoteService,
+		Memory,
+		LocalIO,
+		LocalService,
+		RemoteIO,
+		RemoteService,
 	}
 
 	public interface IStorage<T>

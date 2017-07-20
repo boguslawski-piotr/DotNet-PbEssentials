@@ -57,7 +57,9 @@ namespace pbXNet.Database
 			_orderedRows = null;
 			_cachedRows?.Value?.Clear();
 			_cachedRows = null;
+#if !WINDOWS_UWP
 			_rows?.Close();
+#endif
 			_rows?.Dispose();
 			_rows = null;
 			_cmd?.Dispose();

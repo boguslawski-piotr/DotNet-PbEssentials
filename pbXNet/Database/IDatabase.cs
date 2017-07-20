@@ -4,15 +4,24 @@ using System.Threading.Tasks;
 
 namespace pbXNet.Database
 {
+	public enum ConnectionType
+	{
+		Local,
+		Remote,
+	}
+
 	public interface IDatabase : IDisposable
 	{
 		string Name { get; }
+
+		ConnectionType ConnectionType { get; }
 
 		SqlBuilder SqlBuilder { get; }
 
 		IExpressionTranslator ExpressionTranslator { get; }
 
 		Task OpenAsync();
+
 		Task CloseAsync();
 
 		string ConvertTypeToDbType(Type type, int width = int.MaxValue);
@@ -38,8 +47,8 @@ namespace pbXNet.Database
 		IQuery<T> Query<T>(string sql) where T : new();
 
 		// If table not exists then create, otherwise perform upgrade if needed.
-		ITable<T> Table<T>(string tableName) where T : new();
-		Task<ITable<T>> TableAsync<T>(string tableName) where T : new();
+		ITable<T> Table<T>(string tableName, bool createIfNotExists = true) where T : new();
+		Task<ITable<T>> TableAsync<T>(string tableName, bool createIfNotExists = true) where T : new();
 
 		Task DropTableAsync(string tableName);
 	}
