@@ -21,7 +21,7 @@ namespace pbXNet
 			}
 			catch (Exception ex)
 			{
-				Log.E("failed: " + ex.ToString());
+				Log.E("failed: " + ex.ToString(), typeof(DOAuthentication));
 			}
 
 			return DOAuthenticationType.NotAvailable;
@@ -47,7 +47,7 @@ namespace pbXNet
 				switch (consentResult)
 				{
 					case UserConsentVerificationResult.Verified:
-						Log.I("success");
+						Log.I("success", typeof(DOAuthentication));
 						Succes();
 						break;
 					case UserConsentVerificationResult.DeviceBusy:
@@ -80,7 +80,7 @@ namespace pbXNet
 
 			if(errorMessage != null)
 			{
-				Log.E(errorMessage);
+				Log.E(errorMessage, typeof(DOAuthentication));
 				ErrorOrHint(errorMessage, false);
 			}
 		}

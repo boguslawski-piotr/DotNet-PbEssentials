@@ -65,7 +65,7 @@ namespace pbXNet
 
 			try
 			{
-				Log.D($"REQUEST: {cmd}: {uri}");
+				Log.D($"REQUEST: {cmd}: {uri}", typeof(StorageOnPbXStorage));
 
 				HttpResponseMessage response = null;
 				switch (cmd)
@@ -91,7 +91,7 @@ namespace pbXNet
 					var responseContent = await response.Content.ReadAsStringAsync();
 					responseContent = Obfuscator.DeObfuscate(responseContent);
 
-					Log.D($"RESPONSE: {responseContent}");
+					Log.D($"RESPONSE: {responseContent}", typeof(StorageOnPbXStorage));
 
 					string[] contentData = responseContent.Split(commaAsArray, 2);
 					if (contentData[0] == "ERROR" && contentData.Length > 1)
@@ -111,7 +111,7 @@ namespace pbXNet
 			}
 			catch (StorageOnPbXStorageException ex)
 			{
-				Log.E(ex);
+				Log.E(ex, typeof(StorageOnPbXStorage));
 				if (ex.Erorr == (int)PbXStorageErrorCode.ThingNotFound)
 					throw new StorageThingNotFoundException(ex.Message, null);
 				else
@@ -119,7 +119,7 @@ namespace pbXNet
 			}
 			catch (Exception ex)
 			{
-				string message = Log.E(ex);
+				string message = Log.E(ex, typeof(StorageOnPbXStorage));
 				throw new StorageOnPbXStorageException(PbXStorageErrorCode.SystemException, message);
 			}
 		}

@@ -57,13 +57,9 @@ namespace pbXNet
 
 	public static class Log
 	{
-		public static bool UseFullCallerTypeName = false;
+		public static bool UseFullCallerTypeName { get; set; } = false;
 
-		static Lazy<IList<ILogger>> _loggers = new Lazy<IList<ILogger>>(() =>
-		{
-			List<ILogger> l = new List<ILogger>();
-			return l;
-		});
+		static Lazy<IList<ILogger>> _loggers = new Lazy<IList<ILogger>>(() => new List<ILogger>());
 
 		public static void AddLogger(ILogger logger)
 		{
@@ -76,7 +72,13 @@ namespace pbXNet
 
 			string callerInfo = null;
 			if (caller != null)
-				callerInfo = !UseFullCallerTypeName ? caller.GetType().Name : caller.GetType().FullName;
+			{
+				if(caller is Type callerType)
+					callerInfo = !UseFullCallerTypeName ? callerType.Name : callerType.FullName;
+				else
+					callerInfo = !UseFullCallerTypeName ? caller.GetType().Name : caller.GetType().FullName;
+			}
+
 			callerInfo = (callerInfo != null ? (callerInfo + ": ") : ("")) + callerName;
 
 			msg = $"{callerInfo}: {msg}";
@@ -85,6 +87,7 @@ namespace pbXNet
 			if (_loggers.Value.Count <= 0)
 				AddLogger(new SystemDiagnosticsDebugLogger());
 #endif
+
 			foreach (var l in _loggers.Value)
 			{
 				l.L(dt, type, msg);

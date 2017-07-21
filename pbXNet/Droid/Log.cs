@@ -5,11 +5,11 @@ namespace pbXNet
 {
 	public class AndroidUtilLogLogger : ILogger
 	{
-		string _tag;
+		readonly string _tag;
 
 		public AndroidUtilLogLogger(string tag = null)
 		{
-			_tag = tag;
+			_tag = tag ?? "pbX";
 		}
 
 		public void L(DateTime dt, LogType type, string msg)
