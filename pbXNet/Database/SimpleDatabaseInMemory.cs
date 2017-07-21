@@ -14,7 +14,7 @@ namespace pbXNet.Database
 	{
 		public ConnectionType ConnectionType { get; } = ConnectionType.Local;
 
-		public string Name { get; } = T.Localized("SDIM_Name");
+		public string Name { get; } = Localized.T("SDIM_Name");
 
 		public SqlBuilder GetSqlBuilder() => throw new NotSupportedException();
 
@@ -139,7 +139,7 @@ namespace pbXNet.Database
 			public async Task<T> FindAsync(T pk)
 			{
 				if (_primaryKey.Count <= 0)
-					throw new Exception<T>(pbXNet.T.Localized("DB_PrimaryKeyNotDefined", Name));
+					throw new Exception<T>(pbXNet.Localized.T("DB_PrimaryKeyNotDefined", Name));
 
 				// These simple optimizations speed up the whole search twice.
 
@@ -194,7 +194,7 @@ namespace pbXNet.Database
 			{
 				T obj = await FindAsync(o).ConfigureAwait(false);
 				if (obj == null || obj.Equals(default(T)))
-					throw new Exception<T>(pbXNet.T.Localized("SDIM_ObjectDoesntExist"));
+					throw new Exception<T>(pbXNet.Localized.T("SDIM_ObjectDoesntExist"));
 
 				if (!object.ReferenceEquals(obj, o))
 				{

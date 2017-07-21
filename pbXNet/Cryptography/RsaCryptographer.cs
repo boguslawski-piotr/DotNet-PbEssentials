@@ -134,7 +134,7 @@ namespace pbXNet
 				rsa.KeySize = 1024;
 
 				if (rsa.KeySize != 1024)
-					throw new CryptographicException(T.Localized("RSA_UnsupportedKeySize"));
+					throw new CryptographicException(Localized.T("RSA_UnsupportedKeySize"));
 
 				return rsa;
 			}
@@ -156,7 +156,7 @@ namespace pbXNet
 			Check.Null(msg, nameof(msg));
 			Check.Null(pblKey, nameof(pblKey));
 			Check.Null(pblKey.Public, nameof(pblKey.Public));
-			Check.True(pblKey.Algoritm == AsymmetricCryptographerAlgoritm.Rsa, T.Localized("RSA_BadKey"), nameof(pblKey));
+			Check.True(pblKey.Algoritm == AsymmetricCryptographerAlgoritm.Rsa, Localized.T("RSA_BadKey"), nameof(pblKey));
 
 			try
 			{
@@ -208,13 +208,13 @@ namespace pbXNet
 			Check.Null(msg, nameof(msg));
 			Check.Null(prvKey, nameof(prvKey));
 			Check.Null(prvKey.Private, nameof(prvKey.Private));
-			Check.True(prvKey.Algoritm == AsymmetricCryptographerAlgoritm.Rsa, T.Localized("RSA_BadKey"), nameof(prvKey));
+			Check.True(prvKey.Algoritm == AsymmetricCryptographerAlgoritm.Rsa, Localized.T("RSA_BadKey"), nameof(prvKey));
 
 			try
 			{
 				byte[] amsg = msg.GetBytes();
 				if (!amsg.Take(4).SequenceEqual(_magic) || amsg[4] != _pkcs1 || amsg[5] != _key1024)
-					throw new ArgumentException(T.Localized("RSA_IncrorrectFormat"), nameof(msg));
+					throw new ArgumentException(Localized.T("RSA_IncrorrectFormat"), nameof(msg));
 
 				using (RSA rsa = _algImpl)
 				{
@@ -263,7 +263,7 @@ namespace pbXNet
 			Check.Null(msg, nameof(msg));
 			Check.Null(prvKey, nameof(prvKey));
 			Check.Null(prvKey.Private, nameof(prvKey.Private));
-			Check.True(prvKey.Algoritm == AsymmetricCryptographerAlgoritm.Rsa, T.Localized("RSA_BadKey"), nameof(prvKey));
+			Check.True(prvKey.Algoritm == AsymmetricCryptographerAlgoritm.Rsa, Localized.T("RSA_BadKey"), nameof(prvKey));
 
 			try
 			{
@@ -291,7 +291,7 @@ namespace pbXNet
 			Check.Null(signature, nameof(signature));
 			Check.Null(pblKey, nameof(pblKey));
 			Check.Null(pblKey.Public, nameof(pblKey.Public));
-			Check.True(pblKey.Algoritm == AsymmetricCryptographerAlgoritm.Rsa, T.Localized("RSA_BadKey"), nameof(pblKey));
+			Check.True(pblKey.Algoritm == AsymmetricCryptographerAlgoritm.Rsa, Localized.T("RSA_BadKey"), nameof(pblKey));
 
 			try
 			{

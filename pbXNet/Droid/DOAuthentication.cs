@@ -143,7 +143,7 @@ namespace pbXNet
 					// See: https://developer.android.com/training/permissions/requesting.html
 
 					MainActivity.RequestPermissions(new string[] { Manifest.Permission.UseFingerprint }, 0);
-					ErrorOrHint(T.Localized("FingerprintRequestPermissions"), false);
+					ErrorOrHint(Localized.T("FingerprintRequestPermissions"), false);
 
 					return true;
 				}
@@ -215,7 +215,7 @@ namespace pbXNet
 			}
 			else
 			{
-				OnAuthenticationError(100, T.Localized("AuthenticationFailed"));
+				OnAuthenticationError(100, Localized.T("AuthenticationFailed"));
 			}
 		}
 
@@ -268,7 +268,7 @@ namespace pbXNet
 		{
 			Log.E("", this);
 
-			_ErrorOrHint(T.Localized("FingerprintAuthenticationFailed"), true);
+			_ErrorOrHint(Localized.T("FingerprintAuthenticationFailed"), true);
 		}
 
 		public override void OnAuthenticationError(int errMsgId, ICharSequence errString)

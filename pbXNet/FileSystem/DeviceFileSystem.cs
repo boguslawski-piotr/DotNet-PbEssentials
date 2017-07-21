@@ -42,16 +42,16 @@ namespace pbXNet
 				switch (Root)
 				{
 					case RootType.Local:
-						return T.Localized("DeviceFileSystem.Root.Local");
+						return Localized.T("DeviceFileSystem.Root.Local");
 
 					case RootType.LocalConfig:
-						return T.Localized("DeviceFileSystem.Root.LocalConfig");
+						return Localized.T("DeviceFileSystem.Root.LocalConfig");
 
 					case RootType.Roaming:
-						return T.Localized("DeviceFileSystem.Root.Roaming");
+						return Localized.T("DeviceFileSystem.Root.Roaming");
 
 					case RootType.RoamingConfig:
-						return T.Localized("DeviceFileSystem.Root.RoamingConfig");
+						return Localized.T("DeviceFileSystem.Root.RoamingConfig");
 
 					default:
 						return RootPath;
@@ -252,7 +252,7 @@ namespace pbXNet
 			{
 				string dirpath = GetFilePath(dirname);
 				if (!Directory.Exists(dirpath))
-					throw new DirectoryNotFoundException(T.Localized("FS_DirNotFound", CurrentPath, dirname));
+					throw new DirectoryNotFoundException(Localized.T("FS_DirNotFound", CurrentPath, dirname));
 
 				_visitedPaths.Push(CurrentPath);
 				CurrentPath = dirpath;

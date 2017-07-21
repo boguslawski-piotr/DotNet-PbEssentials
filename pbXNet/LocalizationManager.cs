@@ -56,7 +56,7 @@ namespace pbXNet
 		}
 
 		static readonly Lazy<ConcurrentBag<Resource>> _resources = new Lazy<ConcurrentBag<Resource>>(() => new ConcurrentBag<Resource>(), true);
-		static int _numberOfInstalledDefaultResources = 0;
+		static volatile int _numberOfInstalledDefaultResources = 0;
 
 		public static void AddResource(string baseName, Assembly assembly)
 		{
@@ -114,15 +114,14 @@ namespace pbXNet
 	}
 
 	/// <summary>
-	/// An auxiliary class used to the intuitive use of localized text in the code.
-	/// <para>Example:</para>
+	/// An auxiliary class used to the intuitive use of localized texts in the code.
 	/// <example>
-	/// <code>string s = T.Localized("text id");</code>
+	/// <code>string s = Localized.T("text id");</code>
 	/// </example>
 	/// </summary>
-	public static class T
+	public static class Localized
 	{
-		public static string Localized(string name, params string[] args)
+		public static string T(string name, params string[] args)
 		{
 			return LocalizationManager.Localized(name, args);
 		}

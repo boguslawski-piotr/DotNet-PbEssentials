@@ -147,7 +147,7 @@ namespace pbXNet.Database
 		protected virtual void BuildWhereForPrimaryKey(T pk, List<object> parameters)
 		{
 			if (_pkColumns.Count <= 0)
-				throw new Exception(pbXNet.T.Localized("DB_PrimaryKeyNotDefined", Name));
+				throw new Exception(pbXNet.Localized.T("DB_PrimaryKeyNotDefined", Name));
 
 			_sqlBuilder.Where();
 

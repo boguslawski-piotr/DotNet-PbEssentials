@@ -11,7 +11,7 @@ namespace pbXNet
 
 	public class StorageThingNotFoundException : StorageException
 	{
-		public StorageThingNotFoundException(string thingId) : base(pbXNet.T.Localized("S_ThingNotFound", thingId)) { }
+		public StorageThingNotFoundException(string thingId) : base(pbXNet.Localized.T("S_ThingNotFound", thingId)) { }
 		public StorageThingNotFoundException(string message, string thingId) : base(string.Format(message, thingId)) { }
 	}
 

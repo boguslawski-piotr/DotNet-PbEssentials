@@ -145,7 +145,7 @@ namespace pbXNet
 			else
 			{
 				if (!await DirectoryExistsAsync(dirname).ConfigureAwait(false))
-					throw new DirectoryNotFoundException(T.Localized("FS_DirNotFound", CurrentPath, dirname));
+					throw new DirectoryNotFoundException(Localized.T("FS_DirNotFound", CurrentPath, dirname));
 
 				_visitedPaths.Push(CurrentPath);
 				CurrentPath = GetFilePath(dirname);
@@ -211,7 +211,7 @@ namespace pbXNet
 			var q = _table.Rows
 				.Where(e => e.Path == dirpath);
 			if (await q.AnyAsync().ConfigureAwait(false))
-				throw new IOException(T.Localized("FS_DirNotEmpty", CurrentPath, dirname));
+				throw new IOException(Localized.T("FS_DirNotEmpty", CurrentPath, dirname));
 
 			_pk.Path = CurrentPath;
 			_pk.Name = dirname;
@@ -267,7 +267,7 @@ namespace pbXNet
 
 			Entry e = await GetFsEntryAsync(filename).ConfigureAwait(false);
 			if (e == null)
-				throw new FileNotFoundException(T.Localized("FS_FileNotFound", CurrentPath, filename));
+				throw new FileNotFoundException(Localized.T("FS_FileNotFound", CurrentPath, filename));
 
 			e.ModifiedOn = modifiedOn.ToUniversalTime().ToBinary();
 
@@ -280,7 +280,7 @@ namespace pbXNet
 
 			Entry e = await GetFsEntryAsync(filename).ConfigureAwait(false);
 			if (e == null)
-				throw new FileNotFoundException(T.Localized("FS_FileNotFound", CurrentPath, filename));
+				throw new FileNotFoundException(Localized.T("FS_FileNotFound", CurrentPath, filename));
 
 			return DateTime.FromBinary(e.ModifiedOn);
 		}
@@ -308,7 +308,7 @@ namespace pbXNet
 
 			Entry e = await GetFsEntryAsync(filename).ConfigureAwait(false);
 			if (e == null)
-				throw new FileNotFoundException(T.Localized("FS_FileNotFound", CurrentPath, filename));
+				throw new FileNotFoundException(Localized.T("FS_FileNotFound", CurrentPath, filename));
 
 			return e.Data;
 		}

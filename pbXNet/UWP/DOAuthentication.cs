@@ -51,31 +51,31 @@ namespace pbXNet
 						Succes();
 						break;
 					case UserConsentVerificationResult.DeviceBusy:
-						errorMessage = T.Localized("BDBusy");
+						errorMessage = Localized.T("BDBusy");
 						break;
 					case UserConsentVerificationResult.DeviceNotPresent:
-						errorMessage = T.Localized("BDNotFound");
+						errorMessage = Localized.T("BDNotFound");
 						break;
 					case UserConsentVerificationResult.DisabledByPolicy:
-						errorMessage = T.Localized("BVDisabledByPolicy");
+						errorMessage = Localized.T("BVDisabledByPolicy");
 						break;
 					case UserConsentVerificationResult.NotConfiguredForUser:
-						errorMessage = T.Localized("BVNotConfigured");
+						errorMessage = Localized.T("BVNotConfigured");
 						break;
 					case UserConsentVerificationResult.RetriesExhausted:
-						errorMessage = T.Localized("BVTooManyAttemts");
+						errorMessage = Localized.T("BVTooManyAttemts");
 						break;
 					case UserConsentVerificationResult.Canceled:
-						errorMessage = T.Localized("BVCanceled");
+						errorMessage = Localized.T("BVCanceled");
 						break;
 					default:
-						errorMessage = T.Localized("BVUnavailable");
+						errorMessage = Localized.T("BVUnavailable");
 						break;
 				}
 			}
 			catch (Exception ex)
 			{
-				errorMessage = T.Localized("BVError") + ex.ToString();
+				errorMessage = Localized.T("BVError") + ex.ToString();
 			}
 
 			if(errorMessage != null)

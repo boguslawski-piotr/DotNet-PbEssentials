@@ -112,7 +112,7 @@ namespace pbXNet
 			if (lifeTime == SecretLifeTime.Infinite)
 			{
 				if (_storage == null)
-					throw new ArgumentException(T.Localized("SM_StorageNotProvided"));
+					throw new ArgumentException(Localized.T("SM_StorageNotProvided"));
 
 				_LoadSecrets();
 				_secrets[id] = s;
@@ -154,7 +154,7 @@ namespace pbXNet
 				if (_secrets.TryGetValue(id, out s.secret))
 					return s.secret;
 
-				throw new KeyNotFoundException(T.Localized("SM_KeyNotFound", id));
+				throw new KeyNotFoundException(Localized.T("SM_KeyNotFound", id));
 			}
 
 			return Obfuscator.DeObfuscate(__GetSecret());
