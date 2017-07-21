@@ -2,7 +2,7 @@
 
 namespace pbXNet
 {
-	public interface ICryptographer : IDisposable
+	public interface ICryptographer
 	{
 		IByteBuffer GenerateKey(IPassword pwd, IByteBuffer salt);
 		

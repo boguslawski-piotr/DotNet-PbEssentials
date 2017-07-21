@@ -15,7 +15,7 @@ namespace pbXNet
 		string Private { get; }
 	};
 
-	public interface IAsymmetricCryptographer : IDisposable
+	public interface IAsymmetricCryptographer
 	{
 		IAsymmetricCryptographerKeyPair GenerateKeyPair();
 

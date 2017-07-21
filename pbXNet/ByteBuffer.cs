@@ -93,6 +93,12 @@ namespace pbXNet
 			}
 		}
 
+		public virtual void Dispose()
+		{
+			_b?.FillWith<byte>(0);
+			_b = null;
+		}
+
 		public ByteBuffer Append(byte[] b, bool clearSource = false)
 		{
 			if (b == null)
@@ -233,12 +239,6 @@ namespace pbXNet
 
 		public virtual void DisposeBytes()
 		{
-		}
-
-		public virtual void Dispose()
-		{
-			_b?.FillWith<byte>(0);
-			_b = null;
 		}
 	}
 }

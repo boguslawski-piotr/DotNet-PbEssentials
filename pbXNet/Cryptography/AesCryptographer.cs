@@ -146,9 +146,5 @@ namespace pbXNet
 				iv.DisposeBytes();
 			}
 		}
-
-		public void Dispose()
-		{
-		}
 	}
 }

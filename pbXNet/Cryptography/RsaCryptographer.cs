@@ -313,9 +313,5 @@ namespace pbXNet
 				signature.DisposeBytes();
 			}
 		}
-
-		public void Dispose()
-		{
-		}
 	}
 }
