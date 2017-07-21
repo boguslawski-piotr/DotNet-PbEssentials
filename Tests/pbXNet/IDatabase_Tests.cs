@@ -55,8 +55,8 @@ namespace pbXNet
 		class Row
 		{
 			[PrimaryKey] [Length(256)] public string Path { get; set; }
-			[PrimaryKey] [Length(256)] public string Name { get; set; }
-			public bool? IsDirectory { get; set; }
+			[PrimaryKey] [Length(256)] public string Name;
+			public bool? IsDirectory;
 
 			public override string ToString()
 			{

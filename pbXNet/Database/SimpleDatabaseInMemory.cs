@@ -73,7 +73,8 @@ namespace pbXNet.Database
 
 			public async Task<int> CountAsync() => _rows.Count();
 
-			public void Dispose() { }
+			public void Dispose()
+			{ }
 		}
 
 		interface IDumpable
@@ -99,7 +100,7 @@ namespace pbXNet.Database
 			public List<PrimaryKeyInfoField> PrimaryKeyInfo;
 #endif
 
-			List<PropertyInfo> _primaryKey;
+			List<MemberInfo> _primaryKey;
 
 			List<T> _rows;
 
@@ -110,12 +111,12 @@ namespace pbXNet.Database
 				Name = name;
 				Type = typeof(T);
 				_rows = new List<T>(1024);
-				_primaryKey = new List<PropertyInfo>();
+				_primaryKey = new List<MemberInfo>();
 				_lock = new SemaphoreSlim(1);
 
 				// Create primary key based on [PrimaryKey] attribute.
 				_primaryKey.AddRange(
-					typeof(T).GetRuntimeProperties()
+					typeof(T).GetRuntimePropertiesAndFields()
 						.Where((p) => p.CustomAttributes.Any((a) => a.AttributeType.Name == nameof(PrimaryKeyAttribute)))
 				);
 			}
@@ -145,15 +146,15 @@ namespace pbXNet.Database
 
 				if (_primaryKey.Count == 1)
 				{
-					PropertyInfo p1 = _primaryKey[0];
+					MemberInfo p1 = _primaryKey[0];
 					object pk1 = p1.GetValue(pk);
 					return _rows.Find((o) => pk1.Equals(p1.GetValue(o)));
 				}
 
 				if (_primaryKey.Count == 2)
 				{
-					PropertyInfo p1 = _primaryKey[0];
-					PropertyInfo p2 = _primaryKey[1];
+					MemberInfo p1 = _primaryKey[0];
+					MemberInfo p2 = _primaryKey[1];
 					object pk1 = p1.GetValue(pk);
 					object pk2 = p2.GetValue(pk);
 					return _rows.Find((o) => pk1.Equals(p1.GetValue(o)) && pk2.Equals(p2.GetValue(o)));
@@ -284,7 +285,7 @@ namespace pbXNet.Database
 				PrimaryKeyInfo = new List<PrimaryKeyInfoField>(
 					_primaryKey.Select((p) => new PrimaryKeyInfoField()
 					{
-						Type = p.PropertyType,
+						Type = p.GetPropertyOrFieldType(),
 						Name = p.Name,
 					})
 				);

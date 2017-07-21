@@ -34,7 +34,7 @@ namespace pbXNet.Database
 
 		protected List<Func<T, bool>> _filters;
 
-		protected IDictionary<string, PropertyInfo> _properties;
+		protected IDictionary<string, MemberInfo> _columns;
 
 		public SDCQueryResult(IDatabase db, DbCommand cmd, DbDataReader rows)
 		{
@@ -45,7 +45,7 @@ namespace pbXNet.Database
 			_cmd = cmd;
 			_db = db;
 
-			_properties = typeof(T).GetRuntimeProperties().ToDictionary(_p => _p.Name);
+			_columns = typeof(T).GetRuntimePropertiesAndFields().ToDictionary(_p => _p.Name);
 		}
 
 		public SDCQueryResult(SDCQueryResult<T> parent, IOrderedEnumerable<T> orderedRows)
@@ -58,8 +58,8 @@ namespace pbXNet.Database
 		{
 			_parent?.Dispose();
 			_parent = null;
-			_properties?.Clear();
-			_properties = null;
+			_columns?.Clear();
+			_columns = null;
 			_filters?.Clear();
 			_filters = null;
 			_orderedRows = null;
@@ -115,8 +115,8 @@ namespace pbXNet.Database
 		{
 			for (int i = 0; i < r.FieldCount; i++)
 			{
-				if (_properties.TryGetValue(r.GetName(i), out PropertyInfo p))
-					p.SetValue(v, _db.ConvertDbValueToValue(r.GetDataTypeName(i), r.IsDBNull(i) ? null : r.GetValue(i), p.PropertyType));
+				if (_columns.TryGetValue(r.GetName(i), out MemberInfo c))
+					c.SetValue(v, _db.ConvertDbValueToValue(r.GetDataTypeName(i), r.IsDBNull(i) ? null : r.GetValue(i), c.GetPropertyOrFieldType()));
 			}
 		}
 

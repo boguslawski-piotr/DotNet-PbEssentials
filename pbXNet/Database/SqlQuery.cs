@@ -46,8 +46,8 @@ namespace pbXNet.Database
 			_sqlBuilder = _db.GetSqlBuilder();
 
 			_sqlBuilder.Select();
-			foreach (var p in typeof(T).GetRuntimeProperties())
-				_sqlBuilder.C(p.Name);
+			foreach (var c in typeof(T).GetRuntimePropertiesAndFields())
+				_sqlBuilder.C(c.Name);
 			_sqlBuilder.From(tableName);
 
 			_scalarSqlBuilder = _db.GetSqlBuilder().Select().Text(_scalarExprPlaceholder).From(tableName);

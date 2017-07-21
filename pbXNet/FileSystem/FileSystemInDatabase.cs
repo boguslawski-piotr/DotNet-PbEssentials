@@ -30,23 +30,23 @@ namespace pbXNet
 			[PrimaryKey]
 			[Length(2048)]
 			[Index("Path")]
-			public string Path { get; set; }
+			public string Path;
 
 			[PrimaryKey]
 			[Length(256)]
-			public string Name { get; set; }
+			public string Name;
 
 			[NotNull]
-			public bool IsDirectory { get; set; }
+			public bool IsDirectory;
 
 			[Length(int.MaxValue)]
-			public string Data { get; set; }
+			public string Data;
 
 			[NotNull]
-			public long CreatedOn { get; set; }
+			public long CreatedOn;
 
 			[NotNull]
-			public long ModifiedOn { get; set; }
+			public long ModifiedOn;
 		}
 
 		protected IDatabase _db;
