@@ -1,4 +1,4 @@
-# pbX license
+# DotNet-PbEssentials license
 
 The MIT License (MIT)
 

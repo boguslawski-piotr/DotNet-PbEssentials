@@ -2,6 +2,5 @@
 
 cd $HOME/Projects/pbX
 ../Tools/Versions/Versions pbXNetVersions.json 
-../Tools/Versions/Versions pbXFormsVersions.json
 
 git commit -am "Next: Revision"

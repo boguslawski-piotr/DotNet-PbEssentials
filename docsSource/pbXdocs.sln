@@ -6,8 +6,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pbXdocs", "pbXdocs.csproj",
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "pbXNet.Shared", "..\pbXNet\pbXNet.Shared.shproj", "{0F24CC4F-7A9B-4835-8F00-4DC291773539}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "pbXForms.Shared", "..\pbXForms\pbXForms.Shared.shproj", "{2EC89D71-92C3-4121-801C-2975C54C7135}"
-EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		pbXNet\pbXNet.Shared.projitems*{0f24cc4f-7a9b-4835-8f00-4dc291773539}*SharedItemsImports = 13

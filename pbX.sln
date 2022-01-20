@@ -10,10 +10,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pbXNet.iOS", "pbXNet.iOS\pb
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pbXNet.macOS", "pbXNet.macOS\pbXNet.macOS.csproj", "{038B20C3-4EDD-4619-B83A-EC3471335477}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "pbXForms.Shared", "pbXForms\pbXForms.Shared.shproj", "{2EC89D71-92C3-4121-801C-2975C54C7135}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pbXForms.iOS", "pbXForms.iOS\pbXForms.iOS.csproj", "{1E8F6F65-6007-4717-B210-C3554873F37A}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{763C96D2-39EA-4DF7-8F87-0D0F6ECDC200}"
 	ProjectSection(SolutionItems) = preProject
 		LICENSE = LICENSE
@@ -21,13 +17,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pbXForms.macOS", "pbXForms.macOS\pbXForms.macOS.csproj", "{6FE2DB7D-4FB5-4A33-AC48-41C22DEA02A5}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pbXForms.Droid", "pbXForms.Droid\pbXForms.Droid.csproj", "{D4DEE17B-27B9-4BF3-8868-76197F53EB6D}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pbXNet.UWP", "pbXNet.UWP\pbXNet.UWP.csproj", "{2BCD8750-CA4E-4E5A-BBC3-29A4FDC8E680}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pbXForms.UWP", "pbXForms.UWP\pbXForms.UWP.csproj", "{55400609-5FB0-4825-9104-4D8C586688D5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pbXNet.NET", "pbXNet.NET\pbXNet.NET.csproj", "{BA60D111-A7E1-4455-B192-450846976D49}"
 EndProject
